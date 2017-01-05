@@ -4,8 +4,8 @@
     "prod": "gulp --production",
     "dev": "gulp watch"
   },
-  "devDependencies": {
-    "bootstrap-sass": "^3.3.7",
+  "dependencies": {
+    "foundation-sites": "^6.3.0",
     "gulp": "^3.9.1",
     "jquery": "^3.1.0",
     "laravel-elixir": "^6.0.0-9",
