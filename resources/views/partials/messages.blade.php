@@ -1,4 +1,4 @@
-<section id="messages">
+<section id="partialsMessages">
 	@if (isset($errors))
 		@foreach ($errors->get('messages') as $error)
 			<div class="row">

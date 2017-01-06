@@ -1,4 +1,4 @@
-<section id="modalsSignIn" class="reveal-modal" data-reveal>
+<section id="modalsSignIn" class="reveal" data-reveal>
 	<div class="row">
 		<div class="small-12 columns text-center">
 			<h1>
