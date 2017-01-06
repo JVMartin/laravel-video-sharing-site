@@ -5,6 +5,7 @@ window.Vue = require('vue');
 
 // External packages - order matters.
 require('vue-resource');
+require('foundation-sites');
 
 /**
  * We'll register a HTTP interceptor to attach the "CSRF" header to each of
