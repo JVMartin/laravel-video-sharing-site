@@ -6,12 +6,12 @@
 			</h1>
 			<div class="row socialWrap">
 				<div class="small-12 medium-6 columns">
-					<a class="facebook button" href="{{ url('sign-in/facebook') }}">
+					<a class="facebook button" href="{{ route('sign-in.social.facebook') }}">
 						Sign in with Facebook
 					</a>
 				</div>
 				<div class="small-12 medium-6 columns">
-					<a class="google button" href="{{ url('sign-in/google') }}">
+					<a class="google button" href="{{ route('sign-in.social.google') }}">
 						Sign in with Google
 					</a>
 				</div>
