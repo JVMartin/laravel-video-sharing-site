@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use Socialite;
 use Google_Client;
+use Google_Service_Oauth2;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class SocialController extends Controller
@@ -25,9 +27,13 @@ class SocialController extends Controller
 		dd($user);
 	}
 
-	public function getCallbackGoogle()
+	public function getCallbackGoogle(Request $request)
 	{
+		$this->googleClient()->authenticate($request->code);
+		$googleAuth = new Google_Service_Oauth2($this->googleClient());
+		$user = $googleAuth->userinfo->get();
 
+		dd($user);
 	}
 
 	/**
