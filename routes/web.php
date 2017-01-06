@@ -3,7 +3,6 @@
 Route::get('/', 'PageController@getHome');
 
 Route::group(['namespace' => 'Auth'], function() {
-
 	Route::get('sign-in/facebook', [
 		'as' => 'sign-in.social.facebook',
 		'uses' => 'SocialController@getSignInFacebook'
@@ -12,11 +11,16 @@ Route::group(['namespace' => 'Auth'], function() {
 		'as' => 'sign-in.social.google',
 		'uses' => 'SocialController@getSignInGoogle'
 	]);
+	Route::get('sign-in/callback/facebook', [
+		'as' => 'sign-in.social.facebook.callback',
+		'uses' => 'SocialController@getCallbackFacebook'
+	]);
+	Route::get('sign-in/callback/google', [
+		'as' => 'sign-in.social.google.callback',
+		'uses' => 'SocialController@getCallbackGoogle'
+	]);
 
 	Route::group(['namespace' => 'Auth'], function() {
-		Route::get('/sign-out', 'LoginController@logout');
+		Route::get('sign-out', 'SignInController@getSignOut');
 	});
-
-	// MUST be the last route defined, as it has a base-level, catch-all variable.
-	Route::get('{slug}', 'PageController@getPage');
 });
