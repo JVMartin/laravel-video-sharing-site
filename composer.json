@@ -9,7 +9,8 @@
         "laravel/framework": "5.3.*",
         "laravel/socialite": "^2.0",
         "google/apiclient": "^2.0",
-        "barryvdh/laravel-debugbar": "^2.3"
+        "barryvdh/laravel-debugbar": "^2.3",
+        "hashids/hashids": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
