@@ -18,6 +18,7 @@
 	@include('partials.header')
 	@include('partials.messages')
 	@yield('content')
+	@include('modals.sign-in')
 	<script src="{{ elixir("js/app.js") }}"></script>
 	@yield('js')
 </body>

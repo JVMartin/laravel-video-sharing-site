@@ -6,16 +6,16 @@
 <div class="top-bar" id="realEstateMenu">
 	<div class="top-bar-left">
 		<ul class="menu" data-responsive-menu="accordion">
-			<li class="menu-text">Interplanetary</li>
-			<li><a href="#">One</a></li>
-			<li><a href="#">Two</a></li>
-			<li><a href="#">Three</a></li>
+			<li class="menu-text">Videos</li>
 		</ul>
 	</div>
 	<div class="top-bar-right">
 		<ul class="menu">
-			<li><a href="#">My Account</a></li>
-			<li><a class="button">Login</a></li>
+			<li>
+				<a class="button" data-reveal-id="modalsSignIn">
+					Sign In
+				</a>
+			</li>
 		</ul>
 	</div>
 </div>
