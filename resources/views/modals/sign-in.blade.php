@@ -4,12 +4,6 @@
 			<h1>
 				Sign In
 			</h1>
-			<p>
-				Not a member?
-				<a href="#modalsRegister" id="registerButton">
-					Join now.
-				</a>
-			</p>
 			<div class="row socialWrap">
 				<div class="small-12 medium-6 columns">
 					<a class="facebook button" href="{{ url('login/facebook') }}">
@@ -34,23 +28,23 @@
 				<div>
 					<input type="password" class="custom" name="password" id="password" placeholder="password">
 				</div>
-				<div class="text-left show-for-medium-up">
-					<label>
-						<input type="checkbox" name="remember">
+				<div class="text-left">
+					<input id="rememberMeCheckbox" type="checkbox" name="remember">
+					<label for="rememberMeCheckbox">
 						Remember Me
 					</label>
 				</div>
 				<div class="row signInWrap">
 					<div class="small-6 column">
-						<button type="submit" class="alert">
+						<button type="submit" class="button">
 							Sign In
 						</button>
 					</div>
 					<div class="small-6 column text-right">
 						<p>
 							<a href="#modalsPassword" id="passwordButton">
-							forgot password?
-						</a>
+								forgot password?
+							</a>
 						</p>
 					</div>
 				</div>
