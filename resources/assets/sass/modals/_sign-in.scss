@@ -1,0 +1,32 @@
+#modalsSignIn {
+	.viaEmail {
+		margin: 10px 0;
+	}
+	.socialWrap {
+		a {
+			&.facebook {
+				padding-left:34px;
+				background: #3b5999 url('/img/facebook-for-login.png') no-repeat 10px center;
+				background-size: 12px 23.5px;
+			}
+			&.google {
+				padding-left:54px;
+				background: #dc4e41 url('/img/googleplus-for-login.png') no-repeat 10px center;
+				background-size: 34px 22.5px;
+			}
+		}
+	}
+	.signInWrap {
+		button {
+			width: 100%;
+			padding: .75rem .5rem .75rem .5rem;
+			font-size: .875rem;
+			margin: 0 0 .625rem;
+			//font-weight: $font-weight-normal;
+		}
+		a {
+			display: inline-block;
+			padding-top: 12px;
+		}
+	}
+}

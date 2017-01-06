@@ -12,12 +12,12 @@
 			</p>
 			<div class="row socialWrap">
 				<div class="small-12 medium-6 columns">
-					<a class="facebook button radius" href="{{ url('login/facebook') }}">
+					<a class="facebook button" href="{{ url('login/facebook') }}">
 						Sign in with Facebook
 					</a>
 				</div>
 				<div class="small-12 medium-6 columns">
-					<a class="google button radius" href="{{ url('login/google') }}">
+					<a class="google button" href="{{ url('login/google') }}">
 						Sign in with Google
 					</a>
 				</div>
@@ -42,7 +42,7 @@
 				</div>
 				<div class="row signInWrap">
 					<div class="small-6 column">
-						<button type="submit" class="alert radius">
+						<button type="submit" class="alert">
 							Sign In
 						</button>
 					</div>
