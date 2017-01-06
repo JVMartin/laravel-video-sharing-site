@@ -166,6 +166,7 @@ return [
 		/*
 		 * Package Service Providers...
 		 */
+		Barryvdh\Debugbar\ServiceProvider::class,
 		Laravel\Socialite\SocialiteServiceProvider::class,
 
 		/*
@@ -226,6 +227,7 @@ return [
 		'View' => Illuminate\Support\Facades\View::class,
 
 		// Added:
+		'Debugbar' => Barryvdh\Debugbar\Facade::class,
 		'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
 	],
