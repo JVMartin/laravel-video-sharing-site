@@ -14,7 +14,8 @@ abstract class BaseRepository
 	/**
 	 * @param Repository $cache
 	 */
-	public function __construct(Repository $cache) {
+	public function __construct(Repository $cache)
+	{
 		$this->cache = $cache;
 	}
 }
