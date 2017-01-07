@@ -50,4 +50,13 @@ abstract class ModelRepository extends BaseRepository
 	{
 		$this->cache->forget($this->resourceName . '.' . $model->getKeyName() . '.' . $model->getKey());
 	}
+
+	/**
+	 * @param array $attributes
+	 * @return MyModel
+	 */
+	public function create(array $attributes = [])
+	{
+		return $this->model->create($attributes);
+	}
 }

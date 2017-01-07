@@ -2,10 +2,14 @@
 
 namespace App\Services;
 
+use Imagick;
+use Exception;
 use Socialite;
 use Google_Client;
+use App\Models\User;
 use Google_Service_Oauth2;
 use App\Repositories\UserRepository;
+use Google_Service_Oauth2_Userinfoplus;
 
 class AuthManager
 {
@@ -38,6 +42,7 @@ class AuthManager
 
 	/**
 	 * @param $code string The authorization code.
+	 * @throws Exception When Google doesn't give us an email.
 	 */
 	public function callbackGoogle($code)
 	{
@@ -45,9 +50,59 @@ class AuthManager
 		$googleAuth = new Google_Service_Oauth2($this->googleClient());
 		$googleUser = $googleAuth->userinfo->get();
 
+		if ( ! strlen($googleUser->email)) {
+			throw new Exception('Google authorization did not return an email.');
+		}
+
 		$user = $this->userRepository->getByEmail($googleUser->email);
 		if ( ! $user) {
+			$this->userRepository->create();
 		}
+		$this->fillGoogleUser($user, $googleUser);
+	}
+
+	/**
+	 * @param User $user
+	 * @param Google_Service_Oauth2_Userinfoplus $googleUser
+	 */
+	private function fillGoogleUser(User $user, Google_Service_Oauth2_Userinfoplus $googleUser)
+	{
+		if ( ! strlen($user->email)) $user->email           = $googleUser->email;
+		if ( ! strlen($user->first_name)) $user->first_name = $googleUser->givenName;
+		if ( ! strlen($user->last_name)) $user->last_name   = $googleUser->familyName;
+		$user->save();
+
+		// Have to have an ID first.
+		$this->saveAvatar
+		if ($user->avatar == '') $user->avatar = $this->saveAvatar($user, $googleUser->picture);
+		$user->save();
+	}
+
+	/**
+	 * @param User $user
+	 * @param string $url
+	 */
+	private function saveAvatar(User $user, $url)
+	{
+		if ( ! strlen($url)) {
+			return;
+		}
+
+		$destPath = 'img/u/' . $user->hash;
+		$destFile = $destPath . 'avatar.jpg';
+		do {
+			$destPath    = 'img/avatar';
+			$destFile    = $user->id . '-' . uniqid() . '.jpg';
+			$avatar      = $destPath . '/' . $destFile;
+			$destination = public_path($avatar);
+		} while(file_exists($destination));
+
+		copy($url, $destination);
+
+		// Turn it into a 167 x 167 square.
+		$image = new Imagick($destination);
+		$image->cropThumbnailImage(167, 167);
+		$image->writeImage($destination);
 	}
 
 	/**
