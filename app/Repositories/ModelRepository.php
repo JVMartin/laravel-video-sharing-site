@@ -31,9 +31,9 @@ abstract class ModelRepository extends BaseRepository
 
 	/**
 	 * @param mixed $keyValue
-	 * @return MyModel
+	 * @return MyModel|null
 	 */
-	public function retrieveByKey($keyValue)
+	public function getByKey($keyValue)
 	{
 		$key = $this->resourceName . '.' . $this->model->getKeyName() . '.' . $keyValue;
 		$query = $this->model;
@@ -41,5 +41,13 @@ abstract class ModelRepository extends BaseRepository
 		return $this->cache->remember($key, 10, function() use ($query, $keyValue) {
 			return $query->find($keyValue);
 		});
+	}
+
+	/**
+	 * @param MyModel $model
+	 */
+	public function flush(MyModel $model)
+	{
+		$this->cache->forget($this->resourceName . '.' . $model->getKeyName() . '.' . $model->getKey());
 	}
 }

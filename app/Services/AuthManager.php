@@ -5,9 +5,20 @@ namespace App\Services;
 use Socialite;
 use Google_Client;
 use Google_Service_Oauth2;
+use App\Repositories\UserRepository;
 
 class AuthManager
 {
+	/**
+	 * @var UserRepository
+	 */
+	protected $userRepository;
+
+	public function __construct(UserRepository $userRepository)
+	{
+		$this->userRepository = $userRepository;
+	}
+
 	public function redirectFacebook()
 	{
 		return Socialite::driver('facebook')->redirect();
@@ -32,9 +43,11 @@ class AuthManager
 	{
 		$this->googleClient()->authenticate($code);
 		$googleAuth = new Google_Service_Oauth2($this->googleClient());
-		$user = $googleAuth->userinfo->get();
+		$googleUser = $googleAuth->userinfo->get();
 
-		dd($user);
+		$user = $this->userRepository->getByEmail($googleUser->email);
+		if ( ! $user) {
+		}
 	}
 
 	/**
