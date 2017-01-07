@@ -13,6 +13,11 @@ abstract class ModelRepository extends BaseRepository
 	protected $model;
 
 	/**
+	 * @var string
+	 */
+	protected $resourceName;
+
+	/**
 	 * @param Repository $cache
 	 * @param MyModel $model
 	 */
@@ -21,5 +26,20 @@ abstract class ModelRepository extends BaseRepository
 		parent::__construct($cache);
 
 		$this->model = $model;
+		$this->resourceName = $this->model->getTable();
+	}
+
+	/**
+	 * @param mixed $keyValue
+	 * @return MyModel
+	 */
+	public function retrieveByKey($keyValue)
+	{
+		$key = $this->resourceName . '.' . $this->model->getKeyName() . '.' . $keyValue;
+		$query = $this->model;
+
+		return $this->cache->remember($key, 10, function() use ($query, $keyValue) {
+			return $query->find($keyValue);
+		});
 	}
 }
