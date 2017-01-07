@@ -14,7 +14,7 @@ class UserRepository extends ModelRepository
 	public function getByEmail($email)
 	{
 		$key = $this->resourceName . '.email.' . $email;
-		$query = $this->model;
+		$query = $this->model->newQuery();
 
 		return $this->cache->remember($key, 10, function() use ($query, $email) {
 			return $query->where('email', $email)->first();

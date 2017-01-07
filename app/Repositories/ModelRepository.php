@@ -36,7 +36,7 @@ abstract class ModelRepository extends BaseRepository
 	public function getByKey($keyValue)
 	{
 		$key = $this->resourceName . '.' . $this->model->getKeyName() . '.' . $keyValue;
-		$query = $this->model;
+		$query = $this->model->newQuery();
 
 		return $this->cache->remember($key, 10, function() use ($query, $keyValue) {
 			return $query->find($keyValue);
