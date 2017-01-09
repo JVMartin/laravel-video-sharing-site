@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
-use App\Jobs\DownloadAvatar;
 use DB;
 use Exception;
 use Socialite;
 use Google_Client;
 use App\Models\User;
 use Google_Service_Oauth2;
+use App\Jobs\DownloadAvatar;
 use App\Repositories\UserRepository;
 use Google_Service_Oauth2_Userinfoplus;
 
