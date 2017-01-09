@@ -21,8 +21,14 @@ $('.form-ajax').submit(function(e) {
 		console.log(data);
 	}).fail(function(data) {
 		// Too many requests
+		console.log(data);
 		if (data.status == 429) {
-			$form.prepend('<div class="callout alert">You have tried too many times.  You must wait a while before trying again.</div>');
+			const seconds = data.getResponseHeader('Retry-After');
+			let error = 'You have tried too many times.';
+			if (seconds) {
+				error += ' You may try again in ' + seconds + ' seconds.';
+			}
+			$form.prepend('<div class="callout alert">' + error + '</div>');
 		}
 		else {
 			const errors = data.responseJSON;

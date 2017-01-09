@@ -45,5 +45,6 @@ class ResetApplication extends Command
     	$this->call('db:seed');
     	exec(base_path('fix.sh'));
     	exec('git clean -fxd ' . public_path('img/u'));
+		exec('git clean -fxd ' . storage_path('framework/sessions'));
     }
 }
