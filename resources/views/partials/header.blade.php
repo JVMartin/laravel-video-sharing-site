@@ -13,9 +13,15 @@
 		<div class="top-bar-right">
 			<ul class="menu">
 				<li>
-					<a class="button" data-open="modalsSignIn">
-						Sign In
-					</a>
+					@if (Auth::check())
+						<a class="button" href="{{ route('sign-out') }}">
+							Sign Out
+						</a>
+					@else
+						<a class="button" data-open="modalsSignIn">
+							Sign In
+						</a>
+					@endif
 				</li>
 			</ul>
 		</div>

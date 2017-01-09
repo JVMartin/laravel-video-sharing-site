@@ -27,7 +27,8 @@ Route::group(['namespace' => 'Auth'], function() {
 		'uses' => 'SocialController@getCallbackGoogle'
 	]);
 
-	Route::group(['namespace' => 'Auth'], function() {
-		Route::get('sign-out', 'SignInController@getSignOut');
-	});
+	Route::get('sign-out', [
+		'as' => 'sign-out',
+		'uses' => 'SignInController@getSignOut'
+	]);
 });
