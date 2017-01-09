@@ -5,21 +5,21 @@ namespace App\Console\Commands;
 use Schema;
 use Illuminate\Console\Command;
 
-class ResetDatabase extends Command
+class ResetApplication extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'db:reset';
+    protected $signature = 'app:reset';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Reset the database.';
+    protected $description = 'Reset the application (database, files, etc).';
 
     /**
      * Create a new command instance.
@@ -43,5 +43,7 @@ class ResetDatabase extends Command
 		}
         $this->call('migrate');
     	$this->call('db:seed');
+    	exec(base_path('fix.sh'));
+    	exec('git clean -fxd ' . public_path('img/u'));
     }
 }
