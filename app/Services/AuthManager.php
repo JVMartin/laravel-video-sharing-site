@@ -43,6 +43,7 @@ class AuthManager
 
 	/**
 	 * @param $code string The authorization code.
+	 * @return $user User The Google authenticated user.
 	 * @throws Exception When Google doesn't give us an email.
 	 */
 	public function callbackGoogle($code)
@@ -66,6 +67,8 @@ class AuthManager
 			});
 		}
 		$this->fillGoogleUser($user, $googleUser);
+
+		return $user;
 	}
 
 	/**

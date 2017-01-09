@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Services\AuthManager;
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class SocialController extends Controller
 {
+	use AuthenticatesUsers;
+
 	/**
 	 * @var AuthManager
 	 */
@@ -35,7 +38,12 @@ class SocialController extends Controller
 
 	public function getCallbackGoogle(Request $request)
 	{
-		$this->authManager->callbackGoogle($request->code);
+		$user = $this->authManager->callbackGoogle($request->code);
+
+		$this->guard()->login($user);
+		return redirect()
+			->intended(route('home'))
+			->with('successes', new MessageBag(['You have signed in successfully.']));
 	}
 
 }

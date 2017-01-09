@@ -1,6 +1,9 @@
 <?php
 
-Route::get('/', 'PageController@getHome');
+Route::get('/', [
+	'as' => 'home',
+	'uses' => 'PageController@getHome'
+]);
 
 Route::group(['namespace' => 'Auth'], function() {
 	Route::get('sign-in/facebook', [
