@@ -1,5 +1,5 @@
 <section id="partialsMessages">
-	@foreach ($errors->getBag('default')->all() as $message)
+	@foreach ($errors->getBag('default')->get('messages') as $message)
 		<div class="row">
 			<div class="columns small-12">
 				<div class="callout alert">

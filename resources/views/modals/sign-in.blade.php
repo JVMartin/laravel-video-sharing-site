@@ -19,15 +19,17 @@
 			<p class="viaEmail">
 				or via email
 			</p>
-			<form method="POST" action="/auth/login">
+			<form method="POST" action="{{ route('sign-in.email') }}" class="form-ajax">
 				{!! csrf_field() !!}
 				<input type="hidden" name="continue" value="{!! urlencode(Request::path()) !!}" />
-				<div>
+				<label for="email">
+					email address
 					<input type="email" id="loginEmail" class="custom" name="email" value="{{ old('email') }}" placeholder="email address" />
-				</div>
-				<div>
+				</label>
+				<label for="">
+					password
 					<input type="password" class="custom" name="password" id="password" placeholder="password">
-				</div>
+				</label>
 				<div class="text-left">
 					<input id="rememberMeCheckbox" type="checkbox" name="remember">
 					<label for="rememberMeCheckbox">
@@ -36,7 +38,7 @@
 				</div>
 				<div class="row signInWrap">
 					<div class="small-6 column">
-						<button type="submit" class="button">
+						<button type="submit" class="button" data-ajax="Signing In...">
 							Sign In
 						</button>
 					</div>

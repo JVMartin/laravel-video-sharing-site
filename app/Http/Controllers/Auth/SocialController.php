@@ -40,8 +40,8 @@ class SocialController extends Controller
 	public function getCallbackGoogle(Request $request)
 	{
 		$user = $this->authManager->callbackGoogle($request->code);
-
 		$this->guard()->login($user);
+
 		return redirect()
 			->intended(route('home'))
 			->with('successes', new MessageBag(['You have signed in successfully.']));

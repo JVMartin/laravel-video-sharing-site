@@ -12,9 +12,22 @@ class SignInController extends Controller
 	use AuthenticatesUsers;
 
 	/**
+	 * @param Request $request
+	 */
+	public function postSignIn(Request $request)
+	{
+		$this->validate($request, [
+			'email' => 'required',
+			'password' => 'required'
+		]);
+
+
+	}
+
+	/**
      * Sign the user out of the application.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
 	public function getSignOut(Request $request)
