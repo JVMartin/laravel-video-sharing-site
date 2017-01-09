@@ -4,6 +4,8 @@
 
 $('.form-ajax').submit(function(e) {
 	e.preventDefault();
+
+	// Gather initial state.
 	const $form = $(this);
 	const $submitButton = $form.find(':submit');
 	const origText = $submitButton.text().trim();
@@ -16,23 +18,26 @@ $('.form-ajax').submit(function(e) {
 	$form.find('.form-error').remove();
 	$form.find('.callout.alert').remove();
 
+	function addError(error) {
+		$form.prepend('<div class="callout alert">' + error + '</div>');
+	}
+
 	$.post($form.attr('action'), $form.serialize(), function(data) {
 		console.log('success');
 		console.log(data);
 	}).fail(function(data) {
-		// Too many requests
-		console.log(data);
-		if (data.status == 429) {
+		// Throttle lockout
+		if (data.status === 429) {
 			const seconds = data.getResponseHeader('Retry-After');
 			let error = 'You have tried too many times.';
 			if (seconds) {
 				error += ' You may try again in ' + seconds + ' seconds.';
 			}
-			$form.prepend('<div class="callout alert">' + error + '</div>');
+			addError(error);
 		}
-		else {
+		// Form validation errors
+		else if (data.status === 422) {
 			const errors = data.responseJSON;
-			console.log(errors);
 			_.each(errors, function(errors, column) {
 				const $label = $form.find('label[for="' + column + '"]');
 				const $input = $label.children().first();
@@ -42,6 +47,11 @@ $('.form-ajax').submit(function(e) {
 					$input.after('<span class="form-error is-visible">' + error + '</span>');
 				});
 			});
+		}
+		// Other errors
+		else {
+			addError('There was an error connecting to the server.');
+			console.log(data);
 		}
 
 		$submitButton.text(origText);
