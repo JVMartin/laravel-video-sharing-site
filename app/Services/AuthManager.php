@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use DB;
 use Imagick;
 use Exception;
 use Socialite;
@@ -56,7 +57,13 @@ class AuthManager
 
 		$user = $this->userRepository->getByEmail($googleUser->email);
 		if ( ! $user) {
-			$this->userRepository->create();
+			DB::transaction(function() use (&$user, $googleUser) {
+				$id = DB::table('users')->max('id') + 1;
+				$user = $this->userRepository->create([
+					'email'    => $googleUser->email,
+					'username' => 'Anonymous' . encodeHash($id)
+				]);
+			});
 		}
 		$this->fillGoogleUser($user, $googleUser);
 	}
@@ -67,15 +74,13 @@ class AuthManager
 	 */
 	private function fillGoogleUser(User $user, Google_Service_Oauth2_Userinfoplus $googleUser)
 	{
-		if ( ! strlen($user->email)) $user->email           = $googleUser->email;
+//		if ( ! strlen($user->email)) $user->email           = $googleUser->email;
 		if ( ! strlen($user->first_name)) $user->first_name = $googleUser->givenName;
 		if ( ! strlen($user->last_name)) $user->last_name   = $googleUser->familyName;
 		$user->save();
 
-		// Have to have an ID first.
-		$this->saveAvatar
-		if ($user->avatar == '') $user->avatar = $this->saveAvatar($user, $googleUser->picture);
-		$user->save();
+		// Save their avatar.
+		$this->saveAvatar($user, $googleUser->picture);
 	}
 
 	/**
@@ -88,21 +93,21 @@ class AuthManager
 			return;
 		}
 
-		$destPath = 'img/u/' . $user->hash;
-		$destFile = $destPath . 'avatar.jpg';
-		do {
-			$destPath    = 'img/avatar';
-			$destFile    = $user->id . '-' . uniqid() . '.jpg';
-			$avatar      = $destPath . '/' . $destFile;
-			$destination = public_path($avatar);
-		} while(file_exists($destination));
+		$destFile = public_path('img/u/' . $user->hash . '/avatar-o.jpg');
+		$resized = public_path('img/u/' . $user->hash . '/avatar.jpg');
 
-		copy($url, $destination);
+		// It's already been saved, no need to do so again.
+		if (file_exists($destFile)) {
+			return;
+		}
 
-		// Turn it into a 167 x 167 square.
-		$image = new Imagick($destination);
-		$image->cropThumbnailImage(167, 167);
-		$image->writeImage($destination);
+		// Download the image.
+		copy($url, $destFile);
+
+		// Turn it into a 200 x 200 square.
+		$image = new Imagick($destFile);
+		$image->cropThumbnailImage(200, 200);
+		$image->writeImage($resized);
 	}
 
 	/**

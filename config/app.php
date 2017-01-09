@@ -168,6 +168,7 @@ return [
 		 */
 		Barryvdh\Debugbar\ServiceProvider::class,
 		Laravel\Socialite\SocialiteServiceProvider::class,
+		Vinkla\Hashids\HashidsServiceProvider::class,
 
 		/*
 		 * Application Service Providers...
@@ -230,6 +231,7 @@ return [
 
 		// Added:
 		'Debugbar' => Barryvdh\Debugbar\Facade::class,
+		'Hashids' => Vinkla\Hashids\Facades\Hashids::class,
 		'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
 	],

@@ -1,7 +1,5 @@
 <?php
 
-use Hashids\Hashids;
-
 /**
  * A helper function for encoding Hashids.
  *

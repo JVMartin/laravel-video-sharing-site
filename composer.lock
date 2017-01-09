@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0320ecd494d2ba00ce8f2d3c7590ea8d",
-    "content-hash": "aeb4ef4c3389f64205348baaeda249f3",
+    "hash": "0fa3e926ef330ebe68ea61838230805e",
+    "content-hash": "f6e8c7efebc61dedd075cb9dadc2008e",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -398,6 +398,65 @@
                 "oauth2"
             ],
             "time": "2016-11-02 14:59:14"
+        },
+        {
+            "name": "graham-campbell/manager",
+            "version": "v2.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GrahamCampbell/Laravel-Manager.git",
+                "reference": "e6ab47a8971da6fd18bc7ced546f0d24cb7ebe3a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GrahamCampbell/Laravel-Manager/zipball/e6ab47a8971da6fd18bc7ced546f0d24cb7ebe3a",
+                "reference": "e6ab47a8971da6fd18bc7ced546f0d24cb7ebe3a",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "5.1.*|5.2.*|5.3.*|5.4.*",
+                "illuminate/support": "5.1.*|5.2.*|5.3.*|5.4.*",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "graham-campbell/testbench-core": "^1.1",
+                "mockery/mockery": "^0.9.4",
+                "phpunit/phpunit": "^4.8|^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GrahamCampbell\\Manager\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Graham Campbell",
+                    "email": "graham@alt-three.com"
+                }
+            ],
+            "description": "Manager Provides Some Manager Functionality For Laravel 5",
+            "keywords": [
+                "Graham Campbell",
+                "GrahamCampbell",
+                "Laravel Manager",
+                "Laravel-Manager",
+                "connector",
+                "framework",
+                "interface",
+                "laravel",
+                "manager"
+            ],
+            "time": "2017-01-01 13:08:54"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -2658,6 +2717,69 @@
                 "dump"
             ],
             "time": "2016-12-08 14:58:14"
+        },
+        {
+            "name": "vinkla/hashids",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vinkla/laravel-hashids.git",
+                "reference": "e3a4beb6b59b64a622c7818e69028c46741b4c01"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vinkla/laravel-hashids/zipball/e3a4beb6b59b64a622c7818e69028c46741b4c01",
+                "reference": "e3a4beb6b59b64a622c7818e69028c46741b4c01",
+                "shasum": ""
+            },
+            "require": {
+                "graham-campbell/manager": "^2.5",
+                "hashids/hashids": "^2.0",
+                "illuminate/contracts": "5.3.* || 5.4.*",
+                "illuminate/support": "5.3.* || 5.4.*",
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "graham-campbell/testbench": "^3.3",
+                "mockery/mockery": "^0.9.5",
+                "phpunit/phpunit": "^5.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Vinkla\\Hashids\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vincent Klaiber",
+                    "email": "hello@vinkla.com",
+                    "homepage": "https://vinkla.com"
+                }
+            ],
+            "description": "A Hashids bridge for Laravel",
+            "keywords": [
+                "bitly",
+                "decrypt",
+                "encrypt",
+                "hash",
+                "hashid",
+                "hashids",
+                "ids",
+                "laravel",
+                "obfuscate",
+                "youtube"
+            ],
+            "time": "2017-01-01 13:46:29"
         },
         {
             "name": "vlucas/phpdotenv",
