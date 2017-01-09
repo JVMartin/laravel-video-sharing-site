@@ -11,6 +11,13 @@ class SignInController extends Controller
 {
 	use AuthenticatesUsers;
 
+	public function __construct()
+	{
+		$this->middleware('throttle:2,1', [
+			'only' => ['postSignIn']
+		]);
+	}
+
 	/**
 	 * @param Request $request
 	 */
@@ -20,8 +27,6 @@ class SignInController extends Controller
 			'email' => 'required',
 			'password' => 'required'
 		]);
-
-
 	}
 
 	/**
