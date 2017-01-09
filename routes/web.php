@@ -5,6 +5,10 @@ Route::get('/', [
 	'uses' => 'PageController@getHome'
 ]);
 
+Route::get('t', function() {
+	return redirect()->route('home')->withErrors('test');
+});
+
 Route::group(['namespace' => 'Auth'], function() {
 	Route::get('sign-in/facebook', [
 		'as' => 'sign-in.social.facebook',
