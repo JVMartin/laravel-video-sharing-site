@@ -22,6 +22,7 @@ find . -type d -exec chmod 755 {} +
 
 allowWrite "storage"
 allowWrite "bootstrap/cache"
+allowWrite "public/img/u"
 
 chmod +x fix.sh
 chmod +x artisan

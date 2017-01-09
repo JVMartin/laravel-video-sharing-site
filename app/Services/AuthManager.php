@@ -61,7 +61,7 @@ class AuthManager
 				$id = DB::table('users')->max('id') + 1;
 				$user = $this->userRepository->create([
 					'email'    => $googleUser->email,
-					'username' => 'Anonymous' . encodeHash($id)
+					'username' => 'Anonymous-' . encodeHash($id)
 				]);
 			});
 		}
@@ -93,12 +93,18 @@ class AuthManager
 			return;
 		}
 
-		$destFile = public_path('img/u/' . $user->hash . '/avatar-o.jpg');
-		$resized = public_path('img/u/' . $user->hash . '/avatar.jpg');
+		$userImgPath = public_path('img/u/' . $user->hash);
+
+		$destFile = $userImgPath . '/avatar-o.jpg';
+		$resized = $userImgPath . '/avatar.jpg';
 
 		// It's already been saved, no need to do so again.
 		if (file_exists($destFile)) {
 			return;
+		}
+
+		if ( ! file_exists($userImgPath)) {
+			mkdir($userImgPath, 0775);
 		}
 
 		// Download the image.
