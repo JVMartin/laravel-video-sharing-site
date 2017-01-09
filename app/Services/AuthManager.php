@@ -81,7 +81,6 @@ class AuthManager
 
 		// Save their avatar.
 		dispatch(new DownloadAvatar($user, $googleUser->picture));
-		$this->saveAvatar($user, $googleUser->picture);
 	}
 
 	/**
