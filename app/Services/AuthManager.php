@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
+use App\Jobs\DownloadAvatar;
 use DB;
-use Imagick;
 use Exception;
 use Socialite;
 use Google_Client;
@@ -80,40 +80,8 @@ class AuthManager
 		$user->save();
 
 		// Save their avatar.
+		dispatch(new DownloadAvatar($user, $googleUser->picture));
 		$this->saveAvatar($user, $googleUser->picture);
-	}
-
-	/**
-	 * @param User $user
-	 * @param string $url
-	 */
-	private function saveAvatar(User $user, $url)
-	{
-		if ( ! strlen($url)) {
-			return;
-		}
-
-		$userImgPath = public_path('img/u/' . $user->hash);
-
-		$destFile = $userImgPath . '/avatar-o.jpg';
-		$resized = $userImgPath . '/avatar.jpg';
-
-		// It's already been saved, no need to do so again.
-		if (file_exists($destFile)) {
-			return;
-		}
-
-		if ( ! file_exists($userImgPath)) {
-			mkdir($userImgPath, 0775);
-		}
-
-		// Download the image.
-		copy($url, $destFile);
-
-		// Turn it into a 200 x 200 square.
-		$image = new Imagick($destFile);
-		$image->cropThumbnailImage(200, 200);
-		$image->writeImage($resized);
 	}
 
 	/**
