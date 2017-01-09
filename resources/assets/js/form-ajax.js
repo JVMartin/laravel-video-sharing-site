@@ -10,7 +10,7 @@ $('.form-ajax').submit(function(e) {
 	const $submitButton = $form.find(':submit');
 	const origText = $submitButton.text().trim();
 	const ajaxText = $submitButton.data('ajax');
-	$submitButton.text(ajaxText);
+	$submitButton.text(ajaxText).prop('disabled', true);
 
 	// Reset/remove the old errors.
 	$form.find('.is-invalid-label').removeClass('is-invalid-label');
@@ -54,6 +54,6 @@ $('.form-ajax').submit(function(e) {
 			console.log(data);
 		}
 
-		$submitButton.text(origText);
+		$submitButton.text(origText).prop('disabled', false);
 	});
 });
