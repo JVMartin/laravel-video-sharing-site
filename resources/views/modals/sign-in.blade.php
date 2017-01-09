@@ -26,7 +26,7 @@
 					email address
 					<input type="email" id="loginEmail" class="custom" name="email" value="{{ old('email') }}" placeholder="email address" />
 				</label>
-				<label for="">
+				<label for="password">
 					password
 					<input type="password" class="custom" name="password" id="password" placeholder="password">
 				</label>
