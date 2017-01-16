@@ -13,7 +13,7 @@ class SignInController extends Controller
 
 	public function __construct()
 	{
-		$this->middleware('throttle:5,10', [
+		$this->middleware('throttle:10,10', [
 			'only' => ['postSignIn']
 		]);
 	}
