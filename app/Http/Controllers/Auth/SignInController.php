@@ -42,11 +42,11 @@ class SignInController extends Controller
 		]), $request->has('remember'));
 
 		if ($success) {
-			session()->flash('successes', new MessageBag([Lang::get('auth.sign-in.success')]));
+			session()->flash('successes', new MessageBag([trans('auth.sign-in.success')]));
 			return new JsonResponse(true);
 		}
 		else {
-			return new JsonResponse([Lang::get('auth.sign-in.failure')], 422);
+			return new JsonResponse([trans('auth.sign-in.failure')], 422);
 		}
 	}
 
@@ -60,6 +60,6 @@ class SignInController extends Controller
 		$this->authManager->signOut();
 
 		return redirect('/')
-			->with('successes', new MessageBag([Lang::get('auth.sign-out')]));
+			->with('successes', new MessageBag([trans('auth.sign-out')]));
 	}
 }

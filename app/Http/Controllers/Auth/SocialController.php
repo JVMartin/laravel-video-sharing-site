@@ -58,7 +58,7 @@ class SocialController extends Controller
 
 		return redirect()
 			->intended(route('home'))
-			->with('successes', new MessageBag([Lang::get('auth.sign-in.success')]));
+			->with('successes', new MessageBag([trans('auth.sign-in.success')]));
 	}
 
 }
