@@ -23,15 +23,10 @@ $('.form-ajax').submit(function(e) {
 	}
 
 	$.post($form.attr('action'), $form.serialize(), function(data) {
-		console.log('success');
-		console.log(data);
+		window.location.reload();
 	}).fail(function(data) {
-		// Success
-		if (data.status === 200) {
-			window.location.reload();
-		}
 		// Throttle lockout
-		else if (data.status === 429) {
+		if (data.status === 429) {
 			const seconds = data.getResponseHeader('Retry-After');
 			let error = 'You have tried too many times.';
 			if (seconds) {
