@@ -27,7 +27,7 @@ class SignInController extends Controller
 
 	/**
 	 * @param Request $request
-	 * @return
+	 * @return JsonResponse
 	 */
 	public function postSignIn(Request $request)
 	{
