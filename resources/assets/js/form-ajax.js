@@ -26,8 +26,12 @@ $('.form-ajax').submit(function(e) {
 		console.log('success');
 		console.log(data);
 	}).fail(function(data) {
+		// Success
+		if (data.status === 200) {
+			window.location.reload();
+		}
 		// Throttle lockout
-		if (data.status === 429) {
+		else if (data.status === 429) {
 			const seconds = data.getResponseHeader('Retry-After');
 			let error = 'You have tried too many times.';
 			if (seconds) {

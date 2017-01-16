@@ -23,7 +23,7 @@ class SocialController extends Controller
 	}
 
 	/**
-	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 * @return \Illuminate\Http\RedirectResponse
 	 */
 	public function getSignInFacebook()
 	{
@@ -31,14 +31,18 @@ class SocialController extends Controller
 	}
 
 	/**
-	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 * @return \Illuminate\Http\RedirectResponse
 	 */
 	public function getSignInGoogle()
 	{
 		return $this->authManager->redirectGoogle();
 	}
 
-	public function getCallbackFacebook()
+	/**
+	 * @param Request $request
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
+	public function getCallbackFacebook(Request $request)
 	{
 		$this->authManager->callbackFacebook();
 	}

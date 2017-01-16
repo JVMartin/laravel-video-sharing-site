@@ -42,6 +42,7 @@ class SignInController extends Controller
 		]), $request->has('remember'));
 
 		if ($success) {
+			session()->flash('successes', new MessageBag([Lang::get('auth.sign-in.success')]));
 			return new JsonResponse(true);
 		}
 		else {
