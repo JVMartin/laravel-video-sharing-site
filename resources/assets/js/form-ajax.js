@@ -38,15 +38,25 @@ $('.form-ajax').submit(function(e) {
 		// Form validation errors
 		else if (data.status === 422) {
 			const errors = data.responseJSON;
-			_.each(errors, function(errors, column) {
-				const $label = $form.find('label[for="' + column + '"]');
-				const $input = $label.children().first();
-				$label.addClass('is-invalid-label');
-				$input.addClass('is-invalid-input');
+
+			// If it's an array, these are errors to be put at the top of the screen.
+			if (errors.constructor === Array) {
 				_.each(errors, function(error) {
-					$input.after('<span class="form-error is-visible">' + error + '</span>');
+					addError(error);
 				});
-			});
+			}
+			// Otherwise, they are column-specific errors.
+			else {
+				_.each(errors, function(errors, column) {
+					const $label = $form.find('label[for="' + column + '"]');
+					const $input = $label.children().first();
+					$label.addClass('is-invalid-label');
+					$input.addClass('is-invalid-input');
+					_.each(errors, function(error) {
+						$input.after('<span class="form-error is-visible">' + error + '</span>');
+					});
+				});
+			}
 		}
 		// Other errors
 		else {

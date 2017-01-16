@@ -15,8 +15,6 @@ class AuthManager
 {
     use AuthenticatesUsers;
 
-    const SIGN_IN_SUCCESS = 'You have signed in successfully.';
-
 	/**
 	 * @var UserRepository
 	 */
@@ -48,7 +46,7 @@ class AuthManager
     }
 
     /**
-     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
 	public function redirectFacebook()
 	{
@@ -56,7 +54,7 @@ class AuthManager
 	}
 
 	/**
-     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
 	public function redirectGoogle()
 	{

@@ -22,11 +22,17 @@ class SocialController extends Controller
 		$this->authManager = $authManager;
 	}
 
+	/**
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 */
 	public function getSignInFacebook()
 	{
 		return $this->authManager->redirectFacebook();
 	}
 
+	/**
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 */
 	public function getSignInGoogle()
 	{
 		return $this->authManager->redirectGoogle();
@@ -37,6 +43,10 @@ class SocialController extends Controller
 		$this->authManager->callbackFacebook();
 	}
 
+	/**
+	 * @param Request $request
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function getCallbackGoogle(Request $request)
 	{
 		$user = $this->authManager->callbackGoogle($request->code);
@@ -44,7 +54,7 @@ class SocialController extends Controller
 
 		return redirect()
 			->intended(route('home'))
-			->with('successes', new MessageBag([AuthManager::SIGN_IN_SUCCESS]));
+			->with('successes', new MessageBag([Lang::get('auth.sign-in.success')]));
 	}
 
 }
