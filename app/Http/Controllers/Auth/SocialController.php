@@ -44,7 +44,7 @@ class SocialController extends Controller
 
 		return redirect()
 			->intended(route('home'))
-			->with('successes', new MessageBag(['You have signed in successfully.']));
+			->with('successes', new MessageBag([AuthManager::SIGN_IN_SUCCESS]));
 	}
 
 }

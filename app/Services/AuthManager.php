@@ -2,18 +2,21 @@
 
 namespace App\Services;
 
-use DB;
 use Exception;
-use Socialite;
 use Google_Client;
 use App\Models\User;
 use Google_Service_Oauth2;
 use App\Jobs\DownloadAvatar;
 use App\Repositories\UserRepository;
 use Google_Service_Oauth2_Userinfoplus;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class AuthManager
 {
+    use AuthenticatesUsers;
+
+    const SIGN_IN_SUCCESS = 'You have signed in successfully.';
+
 	/**
 	 * @var UserRepository
 	 */
@@ -24,11 +27,37 @@ class AuthManager
 		$this->userRepository = $userRepository;
 	}
 
+    /**
+     * @param array $credentials
+     * @param bool $remember
+     * @return bool
+     */
+	public function signIn($credentials, $remember = false)
+    {
+        return $this->guard()->attempt($credentials, $remember);
+    }
+
+    /**
+     * Sign out the currently signed-in user.
+     */
+	public function signOut()
+    {
+        $this->guard()->logout();
+        session()->flush();
+        session()->regenerate();
+    }
+
+    /**
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
 	public function redirectFacebook()
 	{
 		return Socialite::driver('facebook')->redirect();
 	}
 
+	/**
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
 	public function redirectGoogle()
 	{
 		return redirect($this->googleClient()->createAuthUrl());
@@ -43,7 +72,7 @@ class AuthManager
 
 	/**
 	 * @param $code string The authorization code.
-	 * @return $user User The Google authenticated user.
+	 * @return User $user The Google authenticated user.
 	 * @throws Exception When Google doesn't give us an email.
 	 */
 	public function callbackGoogle($code)
@@ -77,7 +106,6 @@ class AuthManager
 	 */
 	private function fillGoogleUser(User $user, Google_Service_Oauth2_Userinfoplus $googleUser)
 	{
-//		if ( ! strlen($user->email)) $user->email           = $googleUser->email;
 		if ( ! strlen($user->first_name)) $user->first_name = $googleUser->givenName;
 		if ( ! strlen($user->last_name)) $user->last_name   = $googleUser->familyName;
 		$user->save();
