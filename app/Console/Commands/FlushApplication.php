@@ -28,13 +28,14 @@ class FlushApplication extends Command
 	 */
 	public function handle()
 	{
+		exec(base_path('fix.sh'));
+		exec('git clean -fxd ' . public_path('img/u'));
+		exec('git clean -fxd ' . storage_path());
+
 		if (Schema::hasTable('migrations')) {
 			$this->call('migrate:rollback');
 		}
 		$this->call('migrate');
 		$this->call('db:seed');
-		exec(base_path('fix.sh'));
-		exec('git clean -fxd ' . public_path('img/u'));
-		exec('git clean -fxd ' . storage_path());
 	}
 }

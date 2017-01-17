@@ -75,7 +75,6 @@ class FlushTestingDatabase extends Command
 	 * Remove the existing database file and create a new one
 	 *
 	 * @param  array $connection
-	 *
 	 * @return void
 	 */
 	public function prepareSQLiteFile($connection)
