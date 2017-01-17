@@ -30,4 +30,16 @@ class SignInTest extends TestCase
 				trans('auth.sign-in.failure')
 			]);
 	}
+
+	public function testSignInValidCredentials()
+	{
+		$this->postJson(route('sign-in.email'), [
+				'email' => 'user@test.com',
+				'password' => 'test12'
+			])
+			->assertResponseStatus(200)
+			->seeJson([
+				'refresh'
+			]);
+	}
 }

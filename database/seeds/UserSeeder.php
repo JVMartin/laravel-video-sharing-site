@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
 	public function run()
 	{
 		$this->userRepository->create([
-			'email' => 'user@test.com3',
+			'email' => 'user@test.com',
 			'password' => bcrypt('test12')
 		]);
 	}
