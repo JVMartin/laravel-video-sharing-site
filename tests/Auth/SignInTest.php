@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class SignInTest extends TestCase
 {
-	public function testLoginMissingFields()
+	public function testSignInMissingFields()
 	{
 		$this->postJson(route('sign-in.email'), [
 			'email' => '',
@@ -19,7 +19,7 @@ class SignInTest extends TestCase
 		]);
 	}
 
-	public function testLoginInvalidCredentials()
+	public function testSignInInvalidCredentials()
 	{
 		$this->postJson(route('sign-in.email'), [
 			'email' => 'xxxx@xxx.com',
