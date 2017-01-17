@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Services\AuthManager;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\MessageBag;
 use App\Http\Controllers\Controller;
 
@@ -43,7 +42,7 @@ class SignInController extends Controller
 
 		if ($success) {
 			session()->flash('successes', new MessageBag([trans('auth.sign-in.success')]));
-			return new JsonResponse(true);
+			return new JsonResponse('refresh');
 		}
 		else {
 			return new JsonResponse([trans('auth.sign-in.failure')], 422);

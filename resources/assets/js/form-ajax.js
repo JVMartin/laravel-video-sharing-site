@@ -23,7 +23,9 @@ $('.form-ajax').submit(function(e) {
 	}
 
 	$.post($form.attr('action'), $form.serialize(), function(data) {
-		window.location.reload();
+		if (data === 'refresh') {
+			window.location.reload();
+		}
 	}).fail(function(data) {
 		// Throttle lockout
 		if (data.status === 429) {
@@ -38,7 +40,7 @@ $('.form-ajax').submit(function(e) {
 		else if (data.status === 422) {
 			const errors = data.responseJSON;
 
-			// If it's an array, these are errors to be put at the top of the screen.
+			// If it's an array, these are errors to be put at the top of the form.
 			if (errors.constructor === Array) {
 				_.each(errors, function(error) {
 					addError(error);
