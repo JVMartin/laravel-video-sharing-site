@@ -40,7 +40,7 @@ class FlushTestingDatabase extends Command
 		$this->call('db:seed', ['--database' => 'testing']);
 
 		// Overwrite the "prepared" file with the newly seeded database.
-//		copy(database_path('database.sqlite'), database_path('prepared.sqlite'));
+		copy(database_path('database.sqlite'), database_path('prepared.sqlite'));
 
 		// Send a completion message to the user
 		$this->info($connection['database'] . ' has been refreshed.');
