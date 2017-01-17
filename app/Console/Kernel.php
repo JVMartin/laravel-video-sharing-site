@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
 	 * @var array
 	 */
 	protected $commands = [
-		\App\Console\Commands\FlushApplication::class
+		\App\Console\Commands\FlushApplication::class,
+		\App\Console\Commands\FlushTestingDatabase::class,
 	];
 
 	/**
