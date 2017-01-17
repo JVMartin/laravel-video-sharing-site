@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 
-class MyModel extends Model
+class Model extends EloquentModel
 {
 	protected $guarded = ['id'];
 

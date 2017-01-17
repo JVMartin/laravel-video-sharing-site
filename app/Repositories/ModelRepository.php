@@ -2,13 +2,13 @@
 
 namespace App\Repositories;
 
-use App\Models\MyModel;
+use App\Models\Model;
 use Illuminate\Cache\Repository;
 
 abstract class ModelRepository extends BaseRepository
 {
 	/**
-	 * @var MyModel
+	 * @var Model
 	 */
 	protected $model;
 
@@ -19,9 +19,9 @@ abstract class ModelRepository extends BaseRepository
 
 	/**
 	 * @param Repository $cache
-	 * @param MyModel $model
+	 * @param Model $model
 	 */
-	public function __construct(Repository $cache, MyModel $model)
+	public function __construct(Repository $cache, Model $model)
 	{
 		parent::__construct($cache);
 
@@ -31,7 +31,7 @@ abstract class ModelRepository extends BaseRepository
 
 	/**
 	 * @param mixed $keyValue
-	 * @return MyModel|null
+	 * @return Model|null
 	 */
 	public function getByKey($keyValue)
 	{
@@ -44,16 +44,16 @@ abstract class ModelRepository extends BaseRepository
 	}
 
 	/**
-	 * @param MyModel $model
+	 * @param Model $model
 	 */
-	public function flush(MyModel $model)
+	public function flush(Model $model)
 	{
 		$this->cache->forget($this->resourceName . '.' . $model->getKeyName() . '.' . $model->getKey());
 	}
 
 	/**
 	 * @param array $attributes
-	 * @return MyModel
+	 * @return Model
 	 */
 	public function create(array $attributes = [])
 	{

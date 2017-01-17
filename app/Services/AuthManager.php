@@ -85,13 +85,9 @@ class AuthManager
 
 		$user = $this->userRepository->getByEmail($googleUser->email);
 		if ( ! $user) {
-			DB::transaction(function() use (&$user, $googleUser) {
-				$id = DB::table('users')->max('id') + 1;
-				$user = $this->userRepository->create([
-					'email'    => $googleUser->email,
-					'username' => 'Anonymous-' . encodeHash($id)
-				]);
-			});
+			$this->userRepository->create([
+				'email' => $googleUser->email
+			]);
 		}
 		$this->fillGoogleUser($user, $googleUser);
 

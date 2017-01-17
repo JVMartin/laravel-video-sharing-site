@@ -58,7 +58,7 @@ class SignInController extends Controller
 	{
 		$this->authManager->signOut();
 
-		return redirect('/')
+		return redirect(route('home'))
 			->with('successes', new MessageBag([trans('auth.sign-out')]));
 	}
 }
