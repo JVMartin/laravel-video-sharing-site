@@ -8,7 +8,7 @@
 			</div>
 		</div>
 	@endforeach
-	@foreach ($successes->all() as $message)
+	@foreach ($successes->get('messages') as $message)
 		<div class="row">
 			<div class="columns small-12">
 				<div class="callout success">

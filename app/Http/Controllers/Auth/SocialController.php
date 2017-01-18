@@ -56,9 +56,9 @@ class SocialController extends Controller
 		$user = $this->authManager->callbackGoogle($request->code);
 		$this->guard()->login($user);
 
+		successMessage(trans('auth.sign-in.success'));
 		return redirect()
-			->intended(route('home'))
-			->with('successes', new MessageBag([trans('auth.sign-in.success')]));
+			->intended(route('home'));
 	}
 
 }

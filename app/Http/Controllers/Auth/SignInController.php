@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Services\AuthManager;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\MessageBag;
 use App\Http\Controllers\Controller;
 
 class SignInController extends Controller
@@ -41,7 +40,7 @@ class SignInController extends Controller
 		]), $request->has('remember'));
 
 		if ($success) {
-			session()->flash('successes', new MessageBag([trans('auth.sign-in.success')]));
+			successMessage(trans('auth.sign-in.success'));
 			return new JsonResponse('refresh');
 		}
 		else {
@@ -58,7 +57,7 @@ class SignInController extends Controller
 	{
 		$this->authManager->signOut();
 
-		return redirect(route('home'))
-			->with('successes', new MessageBag([trans('auth.sign-out')]));
+		successMessage(trans('auth.sign-out'));
+		return redirect(route('home'));
 	}
 }
