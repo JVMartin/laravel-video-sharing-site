@@ -31,7 +31,6 @@ class SendVerificationEmail
 	{
 		// Create the verification.
 		$verification = $this->verificationRepository->create($event->user->id);
-		dd($verification);
 		$token = $verification->token;
 
 		Mail::to($event->user->email)
