@@ -36,4 +36,9 @@ Route::group(['namespace' => 'Auth'], function() {
 		'as' => 'sign-out',
 		'uses' => 'SignInController@getSignOut'
 	]);
+
+	Route::post('register', [
+		'as' => 'register',
+		'uses' => 'RegisterController@postRegister'
+	]);
 });

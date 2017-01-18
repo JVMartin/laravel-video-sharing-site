@@ -1,9 +1,9 @@
 <section id="modalsSignIn" class="reveal" data-reveal>
 	<div class="row">
 		<div class="small-12 columns text-center">
-			<h1>
+			<h2>
 				Sign In
-			</h1>
+			</h2>
 			<div class="row socialWrap">
 				<div class="small-12 medium-6 columns">
 					<a class="facebook button" href="{{ route('sign-in.social.facebook') }}">
@@ -21,22 +21,21 @@
 			</p>
 			<form method="POST" action="{{ route('sign-in.email') }}" class="form-ajax">
 				{!! csrf_field() !!}
-				<input type="hidden" name="continue" value="{!! urlencode(Request::path()) !!}" />
-				<label for="email">
+				<label>
 					email address
-					<input type="email" id="loginEmail" class="custom" name="email" value="{{ old('email') }}" placeholder="email address" />
+					<input type="email" name="email" placeholder="email address" />
 				</label>
-				<label for="password">
+				<label>
 					password
-					<input type="password" class="custom" name="password" id="password" placeholder="password">
+					<input type="password" name="password" placeholder="password" />
 				</label>
 				<div class="text-left">
-					<input id="rememberMeCheckbox" type="checkbox" name="remember">
+					<input id="rememberMeCheckbox" type="checkbox" name="remember" />
 					<label for="rememberMeCheckbox">
 						Remember Me
 					</label>
 				</div>
-				<div class="row signInWrap">
+				<div class="row submitWrap">
 					<div class="small-6 column">
 						<button type="submit" class="button" data-ajax="Signing In...">
 							Sign In
@@ -48,6 +47,32 @@
 								forgot password?
 							</a>
 						</p>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="row">
+		<div class="small-12 columns text-center">
+			<hr />
+			<h2>
+				Register
+			</h2>
+			<form method="POST" action="{{ route('sign-in.email') }}" class="form-ajax">
+				{!! csrf_field() !!}
+				<label>
+					email address
+					<input type="email" name="email" placeholder="email address" />
+				</label>
+				<label>
+					password
+					<input type="password" name="password" placeholder="password" />
+				</label>
+				<div class="row submitWrap">
+					<div class="small-6 column">
+						<button type="submit" class="button" data-ajax="Registering...">
+							Register
+						</button>
 					</div>
 				</div>
 			</form>
