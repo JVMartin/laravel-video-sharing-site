@@ -7,12 +7,9 @@ use App\Services\AuthManager;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\MessageBag;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
-	use RegistersUsers;
-
 	/**
 	 * @var AuthManager
 	 */

@@ -54,6 +54,7 @@ class AuthManager
 	{
 		$user = $this->userRepository->create($data);
 		event(new Registered($user));
+		$this->guard()->login($user);
 		return $user;
 	}
 
