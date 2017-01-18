@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class AuthManager
 {
-    use AuthenticatesUsers;
+	use AuthenticatesUsers;
 
 	/**
 	 * @var UserRepository
@@ -25,37 +25,45 @@ class AuthManager
 		$this->userRepository = $userRepository;
 	}
 
-    /**
-     * @param array $credentials
-     * @param bool $remember
-     * @return bool
-     */
+	/**
+	 * @param array $credentials
+	 * @param bool $remember
+	 * @return bool
+	 */
 	public function signIn($credentials, $remember = false)
-    {
-        return $this->guard()->attempt($credentials, $remember);
-    }
+	{
+		return $this->guard()->attempt($credentials, $remember);
+	}
 
-    /**
-     * Sign out the currently signed-in user.
-     */
+	/**
+	 * Sign out the currently signed-in user.
+	 */
 	public function signOut()
-    {
-        $this->guard()->logout();
-        session()->flush();
-        session()->regenerate();
-    }
+	{
+		$this->guard()->logout();
+		session()->flush();
+		session()->regenerate();
+	}
 
-    /**
-     * @return \Illuminate\Http\RedirectResponse
-     */
+	/**
+	 * @param array $data
+	 */
+	public function register($data)
+	{
+
+	}
+
+	/**
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function redirectFacebook()
 	{
 		return Socialite::driver('facebook')->redirect();
 	}
 
 	/**
-     * @return \Illuminate\Http\RedirectResponse
-     */
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function redirectGoogle()
 	{
 		return redirect($this->googleClient()->createAuthUrl());
