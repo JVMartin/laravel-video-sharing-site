@@ -24,7 +24,7 @@ class UserRepository extends ModelRepository
 
 	/**
 	 * @param array $attributes
-	 * @return Model
+	 * @return Model|User
 	 */
 	public function create(array $attributes = [])
 	{
@@ -50,7 +50,7 @@ class UserRepository extends ModelRepository
 	}
 
 	/**
-	 * @param Model $model
+	 * @param Model|User $model
 	 */
 	public function flush(Model $model)
 	{

@@ -13,6 +13,7 @@ return [
 	|
 	*/
 
+	'register' => 'Your account has been created.  You have been signed in.',
 	'sign-in' => [
 		'success' => 'You have signed in successfully.',
 		'failure' => 'These credentials do not match our records.'

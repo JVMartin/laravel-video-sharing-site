@@ -8,6 +8,7 @@ use App\Models\User;
 use Google_Service_Oauth2;
 use App\Jobs\DownloadAvatar;
 use App\Repositories\UserRepository;
+use Illuminate\Auth\Events\Registered;
 use Google_Service_Oauth2_Userinfoplus;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -47,10 +48,13 @@ class AuthManager
 
 	/**
 	 * @param array $data
+	 * @return User
 	 */
 	public function register($data)
 	{
-
+		$user = $this->userRepository->create($data);
+		event(new Registered($user));
+		return $user;
 	}
 
 	/**

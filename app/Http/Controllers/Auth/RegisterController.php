@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
-use App\Repositories\UserRepository;
+use App\Services\AuthManager;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\MessageBag;
 use App\Http\Controllers\Controller;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -13,15 +14,15 @@ class RegisterController extends Controller
 	use RegistersUsers;
 
 	/**
-	 * @var UserRepository
+	 * @var AuthManager
 	 */
-	protected $userRepository;
+	protected $authManager;
 
-	public function __construct(UserRepository $userRepository)
+	public function __construct(AuthManager $authManager)
 	{
 		$this->middleware('guest');
 
-		$this->userRepository = $userRepository;
+		$this->authManager = $authManager;
 	}
 
 	public function postRegister(Request $request)
@@ -31,7 +32,9 @@ class RegisterController extends Controller
 			'password' => 'required|min:6'
 		]);
 
-		$user = $this->userRepository->create($request->only('email', 'password'));
-		event(new Registered($user));
+		$this->authManager->register($request->only('email', 'password'));
+
+		session()->flash('successes', new MessageBag([trans('auth.register')]));
+		return new JsonResponse('refresh');
 	}
 }
