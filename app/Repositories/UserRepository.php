@@ -28,6 +28,11 @@ class UserRepository extends ModelRepository
 	 */
 	public function create(array $attributes = [])
 	{
+		// Hash their password.
+		if (array_key_exists('password', $attributes)) {
+			$attributes['password'] = bcrypt($attributes['password']);
+		}
+
 		DB::transaction(function() use (&$user, $attributes) {
 			// Ensure that the username is unique.
 			$username = null;

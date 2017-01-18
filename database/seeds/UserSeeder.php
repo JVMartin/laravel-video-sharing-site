@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
 	{
 		$this->userRepository->create([
 			'email' => 'user@test.com',
-			'password' => bcrypt('test12')
+			'password' => 'test12'
 		]);
 	}
 }
