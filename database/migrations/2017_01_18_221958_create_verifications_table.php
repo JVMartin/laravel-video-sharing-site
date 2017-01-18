@@ -15,7 +15,7 @@ class CreateVerificationsTable extends Migration
 	{
 		Schema::create('verifications', function (Blueprint $table) {
 			$table->integer('user_id')->unsigned()->index();
-			$table->string('code')->index();
+			$table->string('token')->index();
 			$table->timestamp('created_at');
 
 			$table->foreign('user_id')

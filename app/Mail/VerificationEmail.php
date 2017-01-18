@@ -11,7 +11,7 @@ class VerificationEmail extends Mailable implements ShouldQueue
 {
 	use Queueable, SerializesModels;
 
-	public function __construct(User $user)
+	public function __construct(User $user, $token)
 	{
 		//
 	}
