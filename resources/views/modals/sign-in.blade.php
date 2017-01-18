@@ -21,11 +21,11 @@
 			</p>
 			<form method="POST" action="{{ route('sign-in.email') }}" class="form-ajax">
 				{!! csrf_field() !!}
-				<label>
+				<label for="email">
 					email address
 					<input type="email" name="email" placeholder="email address" />
 				</label>
-				<label>
+				<label for="password">
 					password
 					<input type="password" name="password" placeholder="password" />
 				</label>
@@ -58,13 +58,13 @@
 			<h2>
 				Register
 			</h2>
-			<form method="POST" action="{{ route('sign-in.email') }}" class="form-ajax">
+			<form method="POST" action="{{ route('register') }}" class="form-ajax">
 				{!! csrf_field() !!}
-				<label>
+				<label for="email">
 					email address
 					<input type="email" name="email" placeholder="email address" />
 				</label>
-				<label>
+				<label for="password">
 					password
 					<input type="password" name="password" placeholder="password" />
 				</label>
