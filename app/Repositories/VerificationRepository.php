@@ -10,11 +10,18 @@ class VerificationRepository extends BaseRepository
 {
 	public function create($userId)
 	{
-		return DB::table('verifications')->insert([
+		DB::table('verifications')->insert([
 			'user_id' => $userId,
 			'token' => $this->generateToken(),
 			'created_at' => Carbon::now()
 		]);
+
+		return $this->get($userId);
+	}
+
+	public function get($userId)
+	{
+		return DB::table('verifications')->where('user_id', $userId)->first();
 	}
 
 	private function generateToken()
