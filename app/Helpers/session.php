@@ -3,6 +3,8 @@
 use Illuminate\Support\MessageBag;
 
 /**
+ * Add a success message (or messages) to the session flash data.
+ *
  * @param string|array $messages
  */
 function successMessage($messages)

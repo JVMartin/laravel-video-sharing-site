@@ -6,7 +6,9 @@ Route::get('/', [
 ]);
 
 Route::get('t', function() {
-	return redirect()->route('home')->withErrors('test');
+	successMessage('heyo');
+	successMessage(['a', 'b', 'c']);
+	return redirect()->route('home');
 });
 
 Route::group(['namespace' => 'Auth'], function() {
