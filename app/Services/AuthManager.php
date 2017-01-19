@@ -98,7 +98,7 @@ class AuthManager
 
 		$user = $this->userRepository->getByEmail($googleUser->email);
 		if ( ! $user) {
-			$this->userRepository->create([
+			$user = $this->userRepository->create([
 				'email' => $googleUser->email
 			]);
 		}
