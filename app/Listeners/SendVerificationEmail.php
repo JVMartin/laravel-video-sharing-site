@@ -31,9 +31,8 @@ class SendVerificationEmail
 	{
 		// Create the verification.
 		$verification = $this->verificationRepository->create($event->user->id);
-		$token = $verification->token;
 
 		Mail::to($event->user->email)
-			->send(new VerificationEmail($event->user, $token));
+			->send(new VerificationEmail($event->user, $verification->token));
 	}
 }
