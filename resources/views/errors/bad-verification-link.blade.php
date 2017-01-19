@@ -1,7 +1,6 @@
 @extends('template')
 
-@section('title', 'Videos')
-
+@section('title', 'Verify Your Email')
 
 @section('content')
 	<section id="errorsBadVerificationLink">
