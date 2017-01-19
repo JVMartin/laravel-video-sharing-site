@@ -169,6 +169,7 @@ return [
 		Barryvdh\Debugbar\ServiceProvider::class,
 		Laravel\Socialite\SocialiteServiceProvider::class,
 		Vinkla\Hashids\HashidsServiceProvider::class,
+		Fedeisas\LaravelMailCssInliner\LaravelMailCssInlinerServiceProvider::class,
 
 		/*
 		 * Application Service Providers...
