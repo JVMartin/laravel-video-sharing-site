@@ -22,10 +22,17 @@ class VerificationEmail extends Mailable implements ShouldQueue
 	 */
 	public $token;
 
+	/**
+	 * @var string
+	 */
+	public $link;
+
 	public function __construct(User $user, $token)
 	{
 		$this->user = $user;
 		$this->token = $token;
+
+		$this->link = route('verify', ['token' => $token]);
 	}
 
 	/**
@@ -35,6 +42,6 @@ class VerificationEmail extends Mailable implements ShouldQueue
 	 */
 	public function build()
 	{
-		return $this->view('view.name');
+		return $this->view('emails.verify');
 	}
 }

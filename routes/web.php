@@ -43,4 +43,9 @@ Route::group(['namespace' => 'Auth'], function() {
 		'as' => 'register',
 		'uses' => 'RegisterController@postRegister'
 	]);
+
+	Route::get('verify/{token}', [
+		'as' => 'verify',
+		'uses' => 'VerificationController@getVerify'
+	]);
 });
