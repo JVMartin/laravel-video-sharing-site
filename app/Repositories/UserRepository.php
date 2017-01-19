@@ -33,6 +33,9 @@ class UserRepository extends ModelRepository
 			$attributes['password'] = bcrypt($attributes['password']);
 		}
 
+		// Ensure their email is lowercase.
+		$attributes['email'] = strtolower($attributes['email']);
+
 		DB::transaction(function() use (&$user, $attributes) {
 			// Ensure that the username is unique.
 			$username = null;
