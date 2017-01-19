@@ -310,9 +310,8 @@
 									</table>
 								</td>
 							</tr>
-
-							<!-- END MAIN CONTENT AREA -->
-							</table>
+						<!-- END MAIN CONTENT AREA -->
+						</table>
 
 						<!-- START FOOTER -->
 						<div class="footer">
@@ -323,17 +322,11 @@
 										<br> Don't like these emails? <a href="http://i.imgur.com/CScmqnj.gif">Unsubscribe</a>.
 									</td>
 								</tr>
-								<tr>
-									<td class="content-block powered-by">
-										Powered by <a href="http://htmlemail.io">HTMLemail</a>.
-									</td>
-								</tr>
 							</table>
 						</div>
-
 						<!-- END FOOTER -->
-
-<!-- END CENTERED WHITE CONTAINER --></div>
+					<!-- END CENTERED WHITE CONTAINER -->
+					</div>
 				</td>
 				<td>&nbsp;</td>
 			</tr>
