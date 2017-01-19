@@ -30,7 +30,7 @@ class SendVerificationEmail
 	public function handle(Registered $event)
 	{
 		// Create the verification.
-		$verification = $this->verificationRepository->create($event->user->id);
+		$verification = $this->verificationRepository->createOrRegenerate($event->user->id);
 
 		Mail::to($event->user->email)
 			->send(new VerificationEmail($event->user, $verification->token));

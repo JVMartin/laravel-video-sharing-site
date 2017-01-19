@@ -20,13 +20,24 @@ class VerificationRepository extends BaseRepository
 		$this->db = $db;
 	}
 
-	public function create($userId)
+	public function createOrRegenerate($userId)
 	{
-		$this->db->table('verifications')->insert([
-			'user_id' => $userId,
-			'token' => $this->generateToken(),
-			'created_at' => Carbon::now()
-		]);
+		$verification = $this->get($userId);
+
+		if ($verification) {
+			$this->db->table('verifications')->where('user_id', $userId)
+				->update([
+					'token' => $this->generateToken(),
+					'created_at' => Carbon::now()
+				]);
+		}
+		else {
+			$this->db->table('verifications')->insert([
+				'user_id' => $userId,
+				'token' => $this->generateToken(),
+				'created_at' => Carbon::now()
+			]);
+		}
 
 		return $this->get($userId);
 	}

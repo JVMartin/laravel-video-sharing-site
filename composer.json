@@ -10,7 +10,8 @@
         "laravel/socialite": "^2.0",
         "google/apiclient": "^2.0",
         "barryvdh/laravel-debugbar": "^2.3",
-        "vinkla/hashids": "^3.1"
+        "vinkla/hashids": "^3.1",
+        "fedeisas/laravel-mail-css-inliner": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
