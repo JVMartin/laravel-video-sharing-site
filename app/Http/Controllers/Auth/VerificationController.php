@@ -27,8 +27,7 @@ class VerificationController extends Controller
 		$success = $this->authManager->verify($request->token);
 
 		if ( ! $success) {
-			return redirect()->route('home')
-				->withErrors(trans('auth.verify.failure'));
+			return view('errors.bad-verification-link');
 		}
 
 		successMessage(trans('auth.verify.success'));
