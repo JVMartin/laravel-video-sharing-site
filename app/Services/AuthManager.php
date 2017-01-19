@@ -10,6 +10,7 @@ use App\Jobs\DownloadAvatar;
 use App\Repositories\UserRepository;
 use Illuminate\Auth\Events\Registered;
 use Google_Service_Oauth2_Userinfoplus;
+use App\Repositories\VerificationRepository;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class AuthManager
@@ -21,12 +22,20 @@ class AuthManager
 	 */
 	protected $userRepository;
 
-	public function __construct(UserRepository $userRepository)
+	/**
+	 * @var VerificationRepository
+	 */
+	protected $verificationRepository;
+
+	public function __construct(UserRepository $userRepository, VerificationRepository $verificationRepository)
 	{
 		$this->userRepository = $userRepository;
+		$this->verificationRepository = $verificationRepository;
 	}
 
 	/**
+	 * Attempt to sign in.
+	 *
 	 * @param array $credentials
 	 * @param bool $remember
 	 * @return bool
@@ -47,6 +56,8 @@ class AuthManager
 	}
 
 	/**
+	 * Register for an account.
+	 *
 	 * @param array $data
 	 * @return User
 	 */
@@ -56,6 +67,24 @@ class AuthManager
 		event(new Registered($user));
 		$this->guard()->login($user);
 		return $user;
+	}
+
+	/**
+	 * Verify an email.  All we have to do is delete the verification row.
+	 *
+	 * @param string $token
+	 * @return bool
+	 */
+	public function verify($token)
+	{
+		$verification = $this->verificationRepository->getByToken($token);
+
+		if ( ! $verification) {
+			return false;
+		}
+
+		$this->verificationRepository->deleteByToken($token);
+		return true;
 	}
 
 	/**

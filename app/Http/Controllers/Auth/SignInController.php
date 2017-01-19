@@ -39,13 +39,12 @@ class SignInController extends Controller
 			'password'
 		]), $request->has('remember'));
 
-		if ($success) {
-			successMessage(trans('auth.sign-in.success'));
-			return new JsonResponse('refresh');
-		}
-		else {
+		if ( ! $success) {
 			return new JsonResponse([trans('auth.sign-in.failure')], 422);
 		}
+
+		successMessage(trans('auth.sign-in.success'));
+		return new JsonResponse('refresh');
 	}
 
 	/**

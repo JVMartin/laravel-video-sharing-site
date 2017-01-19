@@ -20,6 +20,10 @@ class VerificationRepository extends BaseRepository
 		$this->db = $db;
 	}
 
+	/**
+	 * @param int $userId The user's id.
+	 * @return array|null|\stdClass The verification object.
+	 */
 	public function createOrRegenerate($userId)
 	{
 		$verification = $this->get($userId);
@@ -42,9 +46,30 @@ class VerificationRepository extends BaseRepository
 		return $this->get($userId);
 	}
 
+	/**
+	 * @param int $userId The user's id.
+	 * @return array|null|\stdClass The verification object.
+	 */
 	public function get($userId)
 	{
 		return $this->db->table('verifications')->where('user_id', $userId)->first();
+	}
+
+	/**
+	 * @param string $token The token.
+	 * @return array|null|\stdClass The verification object.
+	 */
+	public function getByToken($token)
+	{
+		return $this->db->table('verifications')->where('token', $token)->first();
+	}
+
+	/**
+	 * @param $token
+	 */
+	public function deleteByToken($token)
+	{
+		$this->db->table('verifications')->where('token', $token)->delete();
 	}
 
 	private function generateToken()

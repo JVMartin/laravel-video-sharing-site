@@ -14,6 +14,10 @@ return [
 	*/
 
 	'register' => 'Your account has been created.  You have been signed in.',
+	'verify' => [
+		'success' => 'Thank you!  Your email address has been verified.',
+		'failure' => 'The verification link you used is expired or malformed.'
+	],
 	'sign-in' => [
 		'success' => 'You have signed in successfully.',
 		'failure' => 'These credentials do not match our records.'

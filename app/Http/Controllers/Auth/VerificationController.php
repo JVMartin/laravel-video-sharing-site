@@ -18,8 +18,20 @@ class VerificationController extends Controller
 		$this->authManager = $authManager;
 	}
 
+	/**
+	 * @param Request $request
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function getVerify(Request $request)
 	{
-		return $request->token;
+		$success = $this->authManager->verify($request->token);
+
+		if ( ! $success) {
+			return redirect()->route('home')
+				->withErrors(trans('auth.verify.failure'));
+		}
+
+		successMessage(trans('auth.verify.success'));
+		return redirect()->route('home');
 	}
 }
