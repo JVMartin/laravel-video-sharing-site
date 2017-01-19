@@ -8,7 +8,8 @@ Route::get('/', [
 Route::get('t', function() {
 	successMessage('heyo');
 	successMessage(['a', 'b', 'c']);
-	return redirect()->route('home');
+	return redirect()->route('home')
+		->withErrors('test');
 });
 
 Route::group(['namespace' => 'Auth'], function() {
