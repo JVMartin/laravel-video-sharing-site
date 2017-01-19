@@ -19,7 +19,7 @@
 			<p class="viaEmail">
 				or via email
 			</p>
-			<form method="POST" action="{{ route('sign-in.email') }}" class="form-ajax">
+			<form method="POST" action="{{ route('sign-in.email') }}" class="form-ajax" autocomplete="off">
 				{!! csrf_field() !!}
 				<label for="email">
 					email address
@@ -58,7 +58,7 @@
 			<h2>
 				Register
 			</h2>
-			<form method="POST" action="{{ route('register') }}" class="form-ajax">
+			<form method="POST" action="{{ route('register') }}" class="form-ajax" autocomplete="off">
 				{!! csrf_field() !!}
 				<label for="email">
 					email address
