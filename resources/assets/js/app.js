@@ -6,6 +6,10 @@ import './bootstrap';
 
 $(document).foundation();
 
+$('#modalsForgotPassword').bind('open.zf.reveal', function() {
+	$(this).find('input[name="email"]').focus();
+});
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the body of the page. From here, you may begin adding components to
