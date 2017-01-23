@@ -18,13 +18,21 @@ $('.form-ajax').submit(function(e) {
 	$form.find('.form-error').remove();
 	$form.find('.callout.alert').remove();
 
-	function addError(error) {
-		$form.prepend('<div class="callout alert">' + error + '</div>');
+	function addError(message) {
+		$form.prepend('<div class="callout alert">' + message + '</div>');
+	}
+
+	function addSuccess(message) {
+		$form.prepend('<div class="callout success">' + message + '</div>');
 	}
 
 	$.post($form.attr('action'), $form.serialize(), function(data) {
 		if (data === 'refresh') {
 			window.location.reload();
+		}
+		else {
+			$form.find('.hideOnSuccess').hide();
+			addSuccess(data);
 		}
 	}).fail(function(data) {
 		// Throttle lockout

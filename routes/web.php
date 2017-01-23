@@ -49,4 +49,9 @@ Route::group(['namespace' => 'Auth'], function() {
 		'as' => 'verify',
 		'uses' => 'VerificationController@getVerify'
 	]);
+
+	Route::post('forgot-password', [
+		'as' => 'forgot-password',
+		'uses' => 'ForgotPasswordController@postForgotPassword'
+	]);
 });

@@ -23,6 +23,7 @@ return [
 		'failure' => 'These credentials do not match our records.'
 	],
 	'sign-out' => 'You have signed out.  Come back soon!',
+	'forgot-pass' => 'A password reset link should arrive in your email shortly.'
 //	'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
 ];
