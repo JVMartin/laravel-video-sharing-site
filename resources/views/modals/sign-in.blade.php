@@ -43,7 +43,7 @@
 					</div>
 					<div class="small-6 column text-right">
 						<p>
-							<a href="#modalsPassword" id="passwordButton">
+							<a data-open="modalsForgotPassword">
 								forgot password?
 							</a>
 						</p>
