@@ -16,7 +16,7 @@
 					</label>
 					<div class="row submitWrap">
 						<div class="small-6 column">
-							<button type="submit" class="button" data-ajax="Signing In...">
+							<button type="submit" class="button" data-ajax="One moment...">
 								Email Me
 							</button>
 						</div>
