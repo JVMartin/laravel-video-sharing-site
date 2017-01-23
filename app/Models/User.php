@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Mail\ResetPasswordLink;
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\Access\Authorizable;
@@ -11,9 +13,9 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class User extends Model implements
-    AuthenticatableContract,
-    AuthorizableContract,
-    CanResetPasswordContract
+	AuthenticatableContract,
+	AuthorizableContract,
+	CanResetPasswordContract
 {
 	use Authenticatable, Authorizable, CanResetPassword, Notifiable;
 
@@ -23,4 +25,15 @@ class User extends Model implements
 	 * @var array
 	 */
 	protected $hidden = ['password', 'remember_token'];
+
+	/**
+	 * Send the password reset notification.
+	 *
+	 * @param  string  $token
+	 * @return void
+	 */
+	public function sendPasswordResetNotification($token)
+	{
+		Mail::to($this->email)->send(new ResetPasswordLink($token));
+	}
 }
