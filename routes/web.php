@@ -17,6 +17,10 @@ Route::group(['prefix' => 'account'], function() {
 		'as' => 'account.basics',
 		'uses' => 'AccountController@getBasics'
 	]);
+	Route::post('basics', [
+		'as' => 'account.basics.process',
+		'uses' => 'AccountController@postBasics'
+	]);
 	Route::get('password', [
 		'as' => 'account.password',
 		'uses' => 'AccountController@getPassword'
