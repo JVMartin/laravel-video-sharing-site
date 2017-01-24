@@ -2,7 +2,6 @@
 
 @section('title', 'Videos')
 
-
 @section('content')
 	<section id="pagesHome">
 		@if (Auth::check())

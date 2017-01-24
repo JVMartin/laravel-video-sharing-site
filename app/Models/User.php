@@ -36,4 +36,14 @@ class User extends Model implements
 	{
 		Mail::to($this->email)->send(new ResetPasswordLink($token));
 	}
+
+	/**
+	 * Determine whether this user uses social authentication instead of a password.
+	 *
+	 * @return bool
+	 */
+	public function usesSocialAuthentication()
+	{
+		return (strlen($this->password) === 0);
+	}
 }

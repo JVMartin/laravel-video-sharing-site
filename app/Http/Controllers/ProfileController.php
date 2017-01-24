@@ -11,6 +11,6 @@ class ProfileController extends Controller
 
 	public function getProfile()
 	{
-		return 'heyo';
+		return view('pages.profile');
 	}
 }
