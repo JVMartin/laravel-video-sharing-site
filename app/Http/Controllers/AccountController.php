@@ -13,4 +13,9 @@ class AccountController extends Controller
 	{
 		return view('account.basics');
 	}
+
+	public function getPassword()
+	{
+		return view('account.password');
+	}
 }

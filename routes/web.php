@@ -17,6 +17,10 @@ Route::group(['prefix' => 'account'], function() {
 		'as' => 'account.basics',
 		'uses' => 'AccountController@getBasics'
 	]);
+	Route::get('password', [
+		'as' => 'account.password',
+		'uses' => 'AccountController@getPassword'
+	]);
 });
 
 Route::group(['namespace' => 'Auth'], function() {
