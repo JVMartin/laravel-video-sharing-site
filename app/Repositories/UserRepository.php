@@ -29,6 +29,7 @@ class UserRepository extends ModelRepository
 		}
 
 		$user->update($attributes);
+		$this->flush($user);
 	}
 
 	/**
