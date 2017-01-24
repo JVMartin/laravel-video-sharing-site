@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
@@ -19,7 +20,7 @@ class AccountController extends Controller
 	public function postBasics(Request $request)
 	{
 		$this->validate($request, [
-			'username' => 'required|unique:users'
+			'username' => 'required|min:3|alpha_dash|unique:users,username,' . Auth::user()->id
 		]);
 
 		successMessage('Your account has been updated.');
