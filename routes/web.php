@@ -12,6 +12,11 @@ Route::get('t', function() {
 		->withErrors('test');
 });
 
+Route::get('profile', [
+	'as' => 'profile',
+	'uses' => 'ProfileController@getProfile'
+]);
+
 Route::group(['namespace' => 'Auth'], function() {
 	Route::get('sign-in/facebook', [
 		'as' => 'sign-in.social.facebook',

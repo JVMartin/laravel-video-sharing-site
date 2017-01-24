@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class RedirectIfAuthenticated
+class RedirectIfUnauthenticated
 {
 	/**
 	 * Handle an incoming request.
@@ -17,8 +17,9 @@ class RedirectIfAuthenticated
 	 */
 	public function handle($request, Closure $next, $guard = null)
 	{
-		if (Auth::guard($guard)->check()) {
-			return redirect()->route('home');
+		if ( ! Auth::guard($guard)->check()) {
+			return redirect()->route('home')
+				->withErrors('You must be signed in to view that page.');
 		}
 
 		return $next($request);
