@@ -32,6 +32,11 @@ class FlushApplication extends Command
 		exec('git clean -fxd ' . public_path('img/u'));
 		exec('git clean -fxd ' . storage_path());
 
+		// IDE helper
+		$this->call('clear-compiled');
+		$this->call('ide-helper:generate');
+		$this->call('optimize');
+
 		if (Schema::hasTable('migrations')) {
 			$this->call('migrate:rollback');
 		}
