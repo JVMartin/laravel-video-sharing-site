@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-class ProfileController extends Controller
+class AccountController extends Controller
 {
 	public function __construct()
 	{
 		$this->middleware('auth');
 	}
 
-	public function getProfile()
+	public function getBasics()
 	{
-		return view('pages.profile');
+		return view('account.basics');
 	}
 }

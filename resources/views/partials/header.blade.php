@@ -11,12 +11,22 @@
 			</ul>
 		</div>
 		<div class="top-bar-right">
-			<ul class="menu">
+			<ul class="dropdown menu" data-dropdown-menu>
 				<li>
 					@if (Auth::check())
-						<a class="button" href="{{ route('sign-out') }}">
-							Sign Out
-						</a>
+						<a>Account</a>
+						<ul class="menu">
+							<li>
+								<a href="{{ route('account.basics') }}">
+									Settings
+								</a>
+							</li>
+							<li>
+								<a href="{{ route('sign-out') }}">
+									Sign Out
+								</a>
+							</li>
+						</ul>
 					@else
 						<a class="button" data-open="modalsSignIn">
 							Sign In

@@ -12,10 +12,12 @@ Route::get('t', function() {
 		->withErrors('test');
 });
 
-Route::get('profile', [
-	'as' => 'profile',
-	'uses' => 'ProfileController@getProfile'
-]);
+Route::group(['prefix' => 'account'], function() {
+	Route::get('basics', [
+		'as' => 'account.basics',
+		'uses' => 'AccountController@getBasics'
+	]);
+});
 
 Route::group(['namespace' => 'Auth'], function() {
 	Route::get('sign-in/facebook', [
