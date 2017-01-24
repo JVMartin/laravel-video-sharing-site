@@ -3,23 +3,19 @@
 @section('title', 'Password')
 
 @section('section')
+	<h3>
+		Change Password
+	</h3>
 	<div class="row">
-		<div class="column small-12">
-			<h3>
-				Change Password
-			</h3>
-			<div class="row">
-				<div class="columns medium-6">
-					<label for="password">
-						<input type="password" name="password">
-					</label>
-				</div>
-				<div class="columns medium-6">
-					<label for="password_confirmation">
-						<input type="password" name="password_confirmation">
-					</label>
-				</div>
-			</div>
+		<div class="columns medium-6 end">
+			<label for="password">
+				Password
+				<input type="password" name="password" placeholder="Password" autofocus>
+			</label>
+			<label for="password_confirmation">
+				Confirm Password
+				<input type="password" name="password_confirmation" placeholder="Confirm Password">
+			</label>
 		</div>
 	</div>
 @endsection

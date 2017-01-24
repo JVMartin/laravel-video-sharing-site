@@ -3,11 +3,10 @@
 @section('content')
 <section id="accountTemplate">
 	<div class="row">
-		<div class="columns small-4">
-			<h1>Test</h1>
+		<div class="columns medium-4 large-2">
 			@include('account.partials.navigation')
 		</div>
-		<div class="columns small-8">
+		<div class="columns medium-8 large-10">
 			@yield('section')
 		</div>
 	</div>
