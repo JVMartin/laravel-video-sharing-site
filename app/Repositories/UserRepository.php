@@ -22,6 +22,15 @@ class UserRepository extends ModelRepository
 		});
 	}
 
+	public function update(User $user, array $attributes = [])
+	{
+		if (array_key_exists('email', $attributes)) {
+			$attributes['email'] = strtolower($attributes['email']);
+		}
+
+		$user->update($attributes);
+	}
+
 	/**
 	 * @param array $attributes
 	 * @return Model|User
