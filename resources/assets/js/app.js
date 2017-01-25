@@ -6,6 +6,9 @@ import './bootstrap';
 
 $(document).foundation();
 
+$('#modalsSignIn').bind('open.zf.reveal', function() {
+	$(this).find('input[name="email"]:first').focus();
+});
 $('#modalsForgotPassword').bind('open.zf.reveal', function() {
 	$(this).find('input[name="email"]').focus();
 });
