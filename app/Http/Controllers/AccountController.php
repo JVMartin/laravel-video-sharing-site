@@ -6,6 +6,7 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Services\AuthManager;
 use App\Repositories\UserRepository;
+use App\Events\EmailRequiresVerification;
 use App\Repositories\VerificationRepository;
 
 class AccountController extends Controller
@@ -61,7 +62,7 @@ class AccountController extends Controller
 	 */
 	public function getResendVerification()
 	{
-		$this->authManager->sendVerificationEmail(Auth::user());
+		event(new EmailRequiresVerification(Auth::user()));
 		successMessage('Verification email resent.');
 		return redirect()->route('account.basics');
 	}
@@ -79,14 +80,16 @@ class AccountController extends Controller
 			'first_name' => 'max:255',
 			'last_name' => 'max:255'
 		];
-
 		if ( ! $user->usesSocialAuthentication()) {
 			$rules['email'] = 'required|email|max:255|unique:users,email,' . $user->id;
 		}
-
 		$this->validate($request, $rules);
 
-		$this->userRepository->update($user, $request->only('username', 'email', 'first_name', 'last_name'));
+		$inputs = ['username', 'first_name', 'last_name'];
+		if ( ! $user->usesSocialAuthentication()) {
+			$inputs []= 'email';
+		}
+		$this->userRepository->update($user, $request->only($inputs));
 
 		successMessage('Your account has been updated.');
 		return redirect()->route('account.basics');

@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Events\EmailRequiresVerification;
+use DB;
 use App\Models\User;
 use App\Models\Model;
 use Illuminate\Cache\Repository;
-use Illuminate\Support\Facades\DB;
+use App\Events\EmailRequiresVerification;
 
 class UserRepository extends ModelRepository
 {
