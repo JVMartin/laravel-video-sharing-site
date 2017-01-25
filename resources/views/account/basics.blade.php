@@ -5,17 +5,13 @@
 @section('section')
 	<form action="{{ route('account.basics.process') }}" method="POST">
 		{!! csrf_field() !!}
-		<h3>
-			Username
-		</h3>
-		<p>
-			Must contain only letters, numbers, and dashes.
-		</p>
+		<h3>Username</h3>
+		<p>Must contain only letters, numbers, and dashes.</p>
 		<div class="row">
 			<div class="columns medium-6 end">
 				<label for="username" class="{{ ($errors->has('username')) ? 'is-invalid-label' : '' }}">
 					Username
-					<input type="text" placeholder="Username" name="username" value="{{ old('username', Auth::user()->username) }}" class="{{ ($errors->has('username')) ? 'is-invalid-input' : '' }}">
+					<input type="text" placeholder="Username" name="username" value="{{ old('username', Auth::user()->username) }}" class="{{ ($errors->has('username')) ? 'is-invalid-input' : '' }}" required>
 					@foreach ($errors->get('username') as $error)
 		        <span class="form-error is-visible">
 			        {!! $error !!}
@@ -25,9 +21,28 @@
 			</div>
 		</div>
 		<hr />
-		<h3>
-			Name
-		</h3>
+		@if ( ! Auth::user()->usesSocialAuthentication())
+			<h3>Email</h3>
+			@if (Auth::user())
+				<div class="callout alert">
+					Your email has not yet been verified.
+				</div>
+			@endif
+			<div class="row">
+				<div class="columns medium-6 end">
+					<label for="email" class="{{ ($errors->has('email')) ? 'is-invalid-label' : '' }}">
+						Email
+						<input type="email" placeholder="Username" name="username" value="{{ old('username', Auth::user()->email) }}" class="{{ ($errors->has('email')) ? 'is-invalid-input' : '' }}" required>
+						@foreach ($errors->get('email') as $error)
+			        <span class="form-error is-visible">
+				        {!! $error !!}
+			        </span>
+			      @endforeach
+					</label>
+				</div>
+			</div>
+		@endif
+		<h3>Name</h3>
 		<p>Your name will never appear on the site - it is used only to address you in emails.</p>
 		<div class="row">
 			<div class="columns medium-6">

@@ -22,10 +22,18 @@ class UserRepository extends ModelRepository
 		});
 	}
 
-	public function update(User $user, array $attributes = [])
+	/**
+	 * @param User $user
+	 * @param array $attributes
+	 * @return void
+	 */
+	public function update(User $user, array $attributes)
 	{
 		if (array_key_exists('email', $attributes)) {
 			$attributes['email'] = strtolower($attributes['email']);
+		}
+		if (array_key_exists('password', $attributes)) {
+			$attributes['password'] = bcrypt($attributes['password']);
 		}
 
 		$user->update($attributes);
