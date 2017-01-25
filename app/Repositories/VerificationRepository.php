@@ -76,4 +76,12 @@ class VerificationRepository extends BaseRepository
 	{
 		return hash_hmac('sha256', str_random(40), config('app.key'));
 	}
+
+	/**
+	 * @param \stdClass $verification The verification object.
+	 */
+	public function timeUntilDeletion($verification)
+	{
+		dd($verification->created_at);
+	}
 }

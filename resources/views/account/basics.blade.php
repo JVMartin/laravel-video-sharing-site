@@ -23,7 +23,11 @@
 		<hr />
 		@if ( ! Auth::user()->usesSocialAuthentication())
 			<h3>Email</h3>
-			@if (Auth::user())
+			@if ($verified)
+				<div class="callout success">
+					Your email has been verified.
+				</div>
+			@else
 				<div class="callout alert">
 					Your email has not yet been verified.<br />
 					If you do not verify your email, your account will be deleted in

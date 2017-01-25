@@ -29,7 +29,17 @@ class AccountController extends Controller
 
 	public function getBasics()
 	{
-		return view('account.basics');
+		$data = [];
+
+		if ( ! Auth::user()->usesSocialAuthentication()) {
+			$verification = $this->verificationRepository->get(Auth::user()->id);
+			$data['verified'] = ($verification) ? false : true;
+			if ($verification) {
+				$data['timeUntilDeletion'] = $this->verificationRepository->timeUntilDeletion($verification);
+			}
+		}
+
+		return view('account.basics', $data);
 	}
 
 	public function postBasics(Request $request)
