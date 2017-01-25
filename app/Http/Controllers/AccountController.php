@@ -38,6 +38,9 @@ class AccountController extends Controller
 		$this->authManager = $authManager;
 	}
 
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function getBasics()
 	{
 		$data = [];
@@ -53,6 +56,9 @@ class AccountController extends Controller
 		return view('account.basics', $data);
 	}
 
+	/**
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function getResendVerification()
 	{
 		$this->authManager->sendVerificationEmail(Auth::user());
@@ -60,6 +66,10 @@ class AccountController extends Controller
 		return redirect()->route('account.basics');
 	}
 
+	/**
+	 * @param Request $request
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
 	public function postBasics(Request $request)
 	{
 		$user = Auth::user();
@@ -73,6 +83,9 @@ class AccountController extends Controller
 		return redirect()->route('account.basics');
 	}
 
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function getPassword()
 	{
 		return view('account.password');

@@ -2,9 +2,6 @@
 
 @section('content')
 	<p>
-		Welcome to Site!
-	</p>
-	<p>
 		Please verify your email.
 	</p>
 	<p>
