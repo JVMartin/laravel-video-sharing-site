@@ -18,8 +18,10 @@
 	@include('partials.header')
 	@include('partials.messages')
 	@yield('content')
-	@include('modals.sign-in')
-	@include('modals.forgot-password')
+	@if (Auth::guest())
+		@include('modals.sign-in')
+		@include('modals.forgot-password')
+	@endif
 	<script src="{{ elixir("js/app.js") }}"></script>
 	@yield('js')
 </body>

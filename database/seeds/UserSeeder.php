@@ -26,5 +26,9 @@ class UserSeeder extends Seeder
 			'email' => 'user@test.com',
 			'password' => 'test12'
 		]);
+
+		$this->userRepository->create([
+			'email' => 'social@test.com'
+		]);
 	}
 }
