@@ -25,7 +25,8 @@
 			<h3>Email</h3>
 			@if (Auth::user())
 				<div class="callout alert">
-					Your email has not yet been verified.
+					Your email has not yet been verified.<br />
+					If you do not verify your email, your account will be deleted in
 				</div>
 			@endif
 			<div class="row">
@@ -41,6 +42,7 @@
 					</label>
 				</div>
 			</div>
+			<hr />
 		@endif
 		<h3>Name</h3>
 		<p>Your name will never appear on the site - it is used only to address you in emails.</p>

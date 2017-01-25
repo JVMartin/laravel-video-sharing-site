@@ -99,4 +99,10 @@ return [
 		],
 	],
 
+	// How long (in days) before a user can no longer verify their email and their account will
+	// be deleted.
+	'verifications' => [
+		'expire' => 3
+	]
+
 ];

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
+use App\Repositories\VerificationRepository;
 
 class AccountController extends Controller
 {
@@ -13,11 +14,17 @@ class AccountController extends Controller
 	 */
 	protected $userRepository;
 
-	public function __construct(UserRepository $userRepository)
+	/**
+	 * @var VerificationRepository
+	 */
+	protected $verificationRepository;
+
+	public function __construct(UserRepository $userRepository, VerificationRepository $verificationRepository)
 	{
 		$this->middleware('auth');
 
 		$this->userRepository = $userRepository;
+		$this->verificationRepository = $verificationRepository;
 	}
 
 	public function getBasics()

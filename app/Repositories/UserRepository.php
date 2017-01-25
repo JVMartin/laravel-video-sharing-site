@@ -4,10 +4,16 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Models\Model;
+use Illuminate\Cache\Repository;
 use Illuminate\Support\Facades\DB;
 
 class UserRepository extends ModelRepository
 {
+	public function __construct(Repository $cache)
+	{
+		parent::__construct($cache, new User);
+	}
+
 	/**
 	 * @param string $email
 	 * @return User|null
