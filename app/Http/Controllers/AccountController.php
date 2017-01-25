@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Illuminate\Http\Request;
+use App\Services\AuthManager;
 use App\Repositories\UserRepository;
 use App\Repositories\VerificationRepository;
 
@@ -19,12 +20,22 @@ class AccountController extends Controller
 	 */
 	protected $verificationRepository;
 
-	public function __construct(UserRepository $userRepository, VerificationRepository $verificationRepository)
+	/**
+	 * @var AuthManager
+	 */
+	protected $authManager;
+
+	public function __construct(
+		UserRepository $userRepository,
+		VerificationRepository $verificationRepository,
+		AuthManager $authManager
+	)
 	{
 		$this->middleware('auth');
 
 		$this->userRepository = $userRepository;
 		$this->verificationRepository = $verificationRepository;
+		$this->authManager = $authManager;
 	}
 
 	public function getBasics()
@@ -44,6 +55,7 @@ class AccountController extends Controller
 
 	public function getResendVerification()
 	{
+		$this->authManager->sendVerificationEmail(Auth::user());
 		successMessage('Verification email resent.');
 		return redirect()->route('account.basics');
 	}

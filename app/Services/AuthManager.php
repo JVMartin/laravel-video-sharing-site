@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Mail\VerificationEmail;
+use Mail;
 use Exception;
 use Google_Client;
 use App\Models\User;
@@ -64,9 +66,22 @@ class AuthManager
 	public function register($data)
 	{
 		$user = $this->userRepository->create($data);
-		event(new Registered($user));
+		$this->sendVerificationEmail($user);
 		$this->guard()->login($user);
 		return $user;
+	}
+
+	/**
+	 * Send the user a verification email.
+	 *
+	 * @param User $user
+	 * @return void
+	 */
+	public function sendVerificationEmail($user)
+	{
+		$verification = $this->verificationRepository->createOrRegenerate($user->id);
+		Mail::to($user->email)
+			->send(new VerificationEmail($user, $verification->token));
 	}
 
 	/**
