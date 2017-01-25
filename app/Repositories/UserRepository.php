@@ -4,14 +4,22 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Models\Model;
+use App\Services\AuthManager;
 use Illuminate\Cache\Repository;
 use Illuminate\Support\Facades\DB;
 
 class UserRepository extends ModelRepository
 {
-	public function __construct(Repository $cache)
+	/**
+	 * @var AuthManager
+	 */
+	protected $authManager;
+
+	public function __construct(Repository $cache, AuthManager $authManager)
 	{
 		parent::__construct($cache, new User);
+
+		$this->authManager = $authManager;
 	}
 
 	/**
@@ -35,8 +43,14 @@ class UserRepository extends ModelRepository
 	 */
 	public function update(User $user, array $attributes)
 	{
+		$sendVerificationEmail = false;
 		if (array_key_exists('email', $attributes)) {
 			$attributes['email'] = strtolower($attributes['email']);
+
+			// If the user is updating their email, we will want to send them a verification email.
+			if ($user->email !== $attributes['email']) {
+				$sendVerificationEmail = true;
+			}
 		}
 		if (array_key_exists('password', $attributes)) {
 			$attributes['password'] = bcrypt($attributes['password']);
@@ -44,6 +58,10 @@ class UserRepository extends ModelRepository
 
 		$user->update($attributes);
 		$this->flush($user);
+
+		if ($sendVerificationEmail) {
+			$this->authManager->sendVerificationEmail($user);
+		}
 	}
 
 	/**
