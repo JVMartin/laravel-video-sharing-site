@@ -2,15 +2,14 @@
 
 namespace App\Services;
 
-use Mail;
 use Exception;
 use Google_Client;
 use App\Models\User;
 use Google_Service_Oauth2;
 use App\Jobs\DownloadAvatar;
-use App\Mail\VerificationEmail;
 use App\Repositories\UserRepository;
 use Google_Service_Oauth2_Userinfoplus;
+use App\Events\EmailRequiresVerification;
 use App\Repositories\VerificationRepository;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -65,22 +64,9 @@ class AuthManager
 	public function register($data)
 	{
 		$user = $this->userRepository->create($data);
-		$this->sendVerificationEmail($user);
+		event(new EmailRequiresVerification($user));
 		$this->guard()->login($user);
 		return $user;
-	}
-
-	/**
-	 * Send the user a verification email.
-	 *
-	 * @param User $user
-	 * @return void
-	 */
-	public function sendVerificationEmail($user)
-	{
-		$verification = $this->verificationRepository->createOrRegenerate($user->id);
-		Mail::to($user->email)
-			->send(new VerificationEmail($user, $verification->token));
 	}
 
 	/**
