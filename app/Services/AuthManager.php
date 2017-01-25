@@ -2,15 +2,14 @@
 
 namespace App\Services;
 
-use App\Mail\VerificationEmail;
 use Mail;
 use Exception;
 use Google_Client;
 use App\Models\User;
 use Google_Service_Oauth2;
 use App\Jobs\DownloadAvatar;
+use App\Mail\VerificationEmail;
 use App\Repositories\UserRepository;
-use Illuminate\Auth\Events\Registered;
 use Google_Service_Oauth2_Userinfoplus;
 use App\Repositories\VerificationRepository;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;

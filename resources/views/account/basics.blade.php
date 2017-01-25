@@ -42,7 +42,7 @@
 				<div class="columns medium-6 end">
 					<label for="email" class="{{ ($errors->has('email')) ? 'is-invalid-label' : '' }}">
 						Email
-						<input type="email" placeholder="Username" name="username" value="{{ old('username', Auth::user()->email) }}" class="{{ ($errors->has('email')) ? 'is-invalid-input' : '' }}" required>
+						<input type="email" placeholder="Email" name="email" value="{{ old('email', Auth::user()->email) }}" class="{{ ($errors->has('email')) ? 'is-invalid-input' : '' }}" required>
 						@foreach ($errors->get('email') as $error)
 			        <span class="form-error is-visible">
 				        {!! $error !!}

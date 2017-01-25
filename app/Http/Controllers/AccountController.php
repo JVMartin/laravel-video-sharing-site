@@ -73,9 +73,18 @@ class AccountController extends Controller
 	public function postBasics(Request $request)
 	{
 		$user = Auth::user();
-		$this->validate($request, [
-			'username' => 'required|min:3|alpha_dash|unique:users,username,' . $user->id
-		]);
+
+		$rules = [
+			'username' => 'required|alpha_dash|min:3|max:40|unique:users,username,' . $user->id,
+			'first_name' => 'max:255',
+			'last_name' => 'max:255'
+		];
+
+		if ( ! $user->usesSocialAuthentication()) {
+			$rules['email'] = 'required|email|max:255|unique:users,email,' . $user->id;
+		}
+
+		$this->validate($request, $rules);
 
 		$this->userRepository->update($user, $request->only('username', 'first_name', 'last_name'));
 
