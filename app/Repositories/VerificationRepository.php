@@ -78,10 +78,16 @@ class VerificationRepository extends BaseRepository
 	}
 
 	/**
+	 * How many days until the account is deleted?
+	 *
 	 * @param \stdClass $verification The verification object.
+	 * @return int The number of days until the user account will be deleted.
 	 */
-	public function timeUntilDeletion($verification)
+	public function daysUntilDeletion($verification)
 	{
-		dd($verification->created_at);
+		$created = new Carbon($verification->created_at);
+		$diff = Carbon::now()->diffInDays($created);
+		$daysLeft = config('auth.verifications.expire') - $diff;
+		return ($daysLeft > 0) ? $daysLeft : 0;
 	}
 }

@@ -35,11 +35,17 @@ class AccountController extends Controller
 			$verification = $this->verificationRepository->get(Auth::user()->id);
 			$data['verified'] = ($verification) ? false : true;
 			if ($verification) {
-				$data['timeUntilDeletion'] = $this->verificationRepository->timeUntilDeletion($verification);
+				$data['daysUntilDeletion'] = $this->verificationRepository->daysUntilDeletion($verification);
 			}
 		}
 
 		return view('account.basics', $data);
+	}
+
+	public function getResendVerification()
+	{
+		successMessage('Verification email resent.');
+		return redirect()->route('account.basics');
 	}
 
 	public function postBasics(Request $request)

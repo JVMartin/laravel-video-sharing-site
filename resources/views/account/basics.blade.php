@@ -30,7 +30,12 @@
 			@else
 				<div class="callout alert">
 					Your email has not yet been verified.<br />
-					If you do not verify your email, your account will be deleted in
+					If you do not verify your email, your account will be deleted
+					@if ($daysUntilDeletion > 0)
+						in {{ $daysUntilDeletion }} days!
+					@else
+						later today!
+					@endif
 				</div>
 			@endif
 			<div class="row">
@@ -46,6 +51,13 @@
 					</label>
 				</div>
 			</div>
+			@if ( ! $verified)
+				<p>
+					<a href="{!! route('account.resend-verification') !!}" class="button">
+						Resend Verification Email
+					</a>
+				</p>
+			@endif
 			<hr />
 		@endif
 		<h3>Name</h3>

@@ -21,6 +21,10 @@ Route::group(['prefix' => 'account'], function() {
 		'as' => 'account.basics.process',
 		'uses' => 'AccountController@postBasics'
 	]);
+	Route::get('resend-verification', [
+		'as' => 'account.resend-verification',
+		'uses' => 'AccountController@getResendVerification'
+	]);
 	Route::get('password', [
 		'as' => 'account.password',
 		'uses' => 'AccountController@getPassword'
