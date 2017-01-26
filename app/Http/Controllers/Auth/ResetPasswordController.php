@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth;
 use App\Services\AuthManager;
 use Illuminate\Database\Connection;
 use App\Repositories\UserRepository;
@@ -33,8 +34,6 @@ class ResetPasswordController extends Controller
 		AuthManager $authManager
 	)
 	{
-		$this->middleware('guest');
-
 		$this->db = $db;
 		$this->userRepository = $userRepository;
 		$this->authManager = $authManager;
@@ -48,6 +47,12 @@ class ResetPasswordController extends Controller
 	 */
 	public function getReset($token = null)
 	{
+		if (Auth::check()) {
+			// Only weirdos should ever see this.
+			errorMessage('You must first sign out before using a password reset link.');
+			return redirect()->route('home');
+		}
+
 		// First, delete expired tokens.
 		$this->broker()->getRepository()->deleteExpired();
 
@@ -81,9 +86,10 @@ class ResetPasswordController extends Controller
 	/**
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
-	public function failedResponse()
+	private function failedResponse()
 	{
 		errorMessage('The link you used is expired or malformed.');
+		dd('wtf');
 		return redirect()->route('home');
 	}
 }
