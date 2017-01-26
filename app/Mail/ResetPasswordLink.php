@@ -16,9 +16,15 @@ class ResetPasswordLink extends Mailable implements ShouldQueue
 	 */
 	public $token;
 
+	/**
+	 * @var string
+	 */
+	public $link;
+
 	public function __construct($token)
 	{
 		$this->token = $token;
+		$this->link = route('forgot-password.link', ['token' => $token]);
 	}
 
 	/**
@@ -28,6 +34,7 @@ class ResetPasswordLink extends Mailable implements ShouldQueue
 	 */
 	public function build()
 	{
-		return $this->view('view.name');
+		return $this->subject('Password Reset Instructions')
+			->view('emails.password-reset');
 	}
 }
