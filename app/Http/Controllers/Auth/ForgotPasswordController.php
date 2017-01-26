@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Mail;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use App\Mail\ResetPasswordSocial;
+use App\Mail\ResetPasswordSocialEmail;
 use App\Repositories\UserRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
@@ -38,7 +38,7 @@ class ForgotPasswordController extends Controller
 		if ($user) {
 			if ($user->usesSocialAuthentication()) {
 				Mail::to($user->email)
-					->send(new ResetPasswordSocial);
+					->send(new ResetPasswordSocialEmail);
 			}
 			else {
 				$this->broker()->sendResetLink($request->only('email'));

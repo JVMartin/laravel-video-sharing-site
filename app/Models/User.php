@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Mail\ResetPasswordLink;
+use App\Mail\ResetPasswordLinkEmail;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Notifications\Notifiable;
@@ -34,7 +34,7 @@ class User extends Model implements
 	 */
 	public function sendPasswordResetNotification($token)
 	{
-		Mail::to($this->email)->send(new ResetPasswordLink($token));
+		Mail::to($this->email)->send(new ResetPasswordLinkEmail($token));
 	}
 
 	/**
