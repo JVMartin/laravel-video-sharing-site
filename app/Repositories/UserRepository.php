@@ -48,6 +48,7 @@ class UserRepository extends ModelRepository
 		}
 		if (array_key_exists('password', $attributes)) {
 			$attributes['password'] = bcrypt($attributes['password']);
+			$attributes['remember_token'] = str_random(60);
 		}
 
 		$user->update($attributes);
