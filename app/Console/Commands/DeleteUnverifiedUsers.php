@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Database\Connection;
-use Symfony\Component\Console\Output\OutputInterface;
 
 class DeleteUnverifiedUsers extends Command
 {
@@ -39,7 +38,7 @@ class DeleteUnverifiedUsers extends Command
 	/**
 	 * Execute the console command.
 	 *
-	 * @return mixed
+	 * @return void
 	 */
 	public function handle()
 	{
