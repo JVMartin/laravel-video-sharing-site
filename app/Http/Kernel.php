@@ -32,7 +32,7 @@ class Kernel extends HttpKernel
 			\Illuminate\Routing\Middleware\SubstituteBindings::class,
 
 			// Added:
-			\App\Http\Middleware\ShareMessagesFromSession::class
+			\App\Http\Middleware\ShareMessagesFromSession::class,
 		],
 
 		'api' => [
@@ -51,6 +51,7 @@ class Kernel extends HttpKernel
 	protected $routeMiddleware = [
 		'auth' => \App\Http\Middleware\RedirectIfUnauthenticated::class,
 		'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+		'non-social' => \App\Http\Middleware\RedirectIfSocialUser::class,
 		'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
 		'can' => \Illuminate\Auth\Middleware\Authorize::class,
 		'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,

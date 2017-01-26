@@ -33,6 +33,9 @@ class AccountController extends Controller
 	)
 	{
 		$this->middleware('auth');
+		$this->middleware('non-social', [
+			'only' => ['getPassword', 'postPassword']
+		]);
 
 		$this->userRepository = $userRepository;
 		$this->verificationRepository = $verificationRepository;
