@@ -109,6 +109,7 @@ class AccountController extends Controller
 			'password' => 'required|confirmed|min:6'
 		]);
 
+		$this->userRepository->update(Auth::user(), $request->only('password'));
 		successMessage('Your password has been changed.');
 		return redirect()->route('account.password');
 	}

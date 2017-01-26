@@ -19,6 +19,8 @@ class VerificationController extends Controller
 	}
 
 	/**
+	 * Verify an email address.
+	 *
 	 * @param Request $request
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
