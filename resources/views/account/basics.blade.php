@@ -86,6 +86,7 @@
 				</label>
 			</div>
 		</div>
+		<hr />
 		<button type="submit" class="button">
 			Save
 		</button>

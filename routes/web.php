@@ -28,6 +28,10 @@ Route::group(['prefix' => 'account'], function() {
 		'as' => 'account.password',
 		'uses' => 'AccountController@getPassword'
 	]);
+	Route::post('password', [
+		'as' => 'account.password.process',
+		'uses' => 'AccountController@postPassword'
+	]);
 });
 
 Route::group(['namespace' => 'Auth'], function() {

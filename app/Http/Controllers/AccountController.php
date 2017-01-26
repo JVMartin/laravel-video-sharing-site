@@ -102,4 +102,14 @@ class AccountController extends Controller
 	{
 		return view('account.password');
 	}
+
+	public function postPassword(Request $request)
+	{
+		$this->validate($request, [
+			'password' => 'required|confirmed|min:6'
+		]);
+
+		successMessage('Your password has been changed.');
+		return redirect()->route('account.password');
+	}
 }
