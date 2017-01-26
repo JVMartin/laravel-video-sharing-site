@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Mail;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use App\Mail\ResetPasswordSocial;
+use App\Repositories\UserRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
@@ -11,9 +14,16 @@ class ForgotPasswordController extends Controller
 {
 	use SendsPasswordResetEmails;
 
-	public function __construct()
+	/**
+	 * @var UserRepository
+	 */
+	protected $userRepository;
+
+	public function __construct(UserRepository $userRepository)
 	{
 		$this->middleware('guest');
+
+		$this->userRepository = $userRepository;
 	}
 
 	/**
@@ -24,9 +34,16 @@ class ForgotPasswordController extends Controller
 	{
 		$this->validate($request, ['email' => 'required|email']);
 
-		// @TODO:
-		// Don't send reset links to social auth users.
-		$this->broker()->sendResetLink($request->only('email'));
+		$user = $this->userRepository->getByEmail($request->email);
+		if ($user) {
+			if ($user->usesSocialAuthentication()) {
+				Mail::to($user->email)
+					->send(new ResetPasswordSocial);
+			}
+			else {
+				$this->broker()->sendResetLink($request->only('email'));
+			}
+		}
 
 		return new JsonResponse(trans('auth.forgot-pass'));
 	}
