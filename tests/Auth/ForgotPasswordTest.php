@@ -38,10 +38,12 @@ class ForgotPasswordTest extends TestCase
 			->press('Change Password')
 			->see('Your password has been changed.');
 
+		// Ensure the reset is "used up".
 		$this->dontSeeInDatabase('password_resets', [
 			'email' => $user->email
 		]);
 
+		// Test the new password.
 		$this->postJson(route('sign-in.email'), [
 				'email' => $user->email,
 				'password' => $newPass
