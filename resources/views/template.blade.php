@@ -9,7 +9,7 @@
 	<meta property="og:title" content="@yield('title')">
 	<meta property="og:url" content="{{ Request::url() }}">
 
-	<title>@yield('title')</title>
+	<title>@yield('title') | {{ config('app.name') }}</title>
 
 	<link href="{{ elixir("css/app.css") }}" rel="stylesheet">
 	@yield('css')
