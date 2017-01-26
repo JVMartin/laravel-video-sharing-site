@@ -27,7 +27,11 @@ class ResetPasswordController extends Controller
 	 */
 	protected $authManager;
 
-	public function __construct(Connection $db, UserRepository $userRepository, AuthManager $authManager)
+	public function __construct(
+		Connection $db,
+		UserRepository $userRepository,
+		AuthManager $authManager
+	)
 	{
 		$this->middleware('guest');
 
@@ -37,11 +41,16 @@ class ResetPasswordController extends Controller
 	}
 
 	/**
+	 * Sign the user in and redirect them to the password reset account page.
+	 *
 	 * @param string|null $token
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
 	public function getReset($token = null)
 	{
+		// First, delete expired tokens.
+		$this->broker()->getRepository()->deleteExpired();
+
 		if ( ! strlen($token)) {
 			return $this->failedResponse();
 		}
@@ -54,13 +63,19 @@ class ResetPasswordController extends Controller
 		}
 
 		$user = $this->userRepository->getByEmail($reset->email);
+
+		$this->db->table('password_resets')
+			->where('token', $token)
+			->delete();
+
 		if ( ! $user) {
 			return $this->failedResponse();
 		}
 
-		$this->authManager->guard()->login($user);
+		$this->authManager->signIn($user);
 
-		successMessage('Use the form below to reset your password.');
+		successMessage('You have been signed in.  Use the form below to reset your password.');
+		return redirect()->route('account.password');
 	}
 
 	/**

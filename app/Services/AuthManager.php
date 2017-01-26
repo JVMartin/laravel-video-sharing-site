@@ -34,15 +34,20 @@ class AuthManager
 	}
 
 	/**
-	 * Attempt to sign in.
+	 * Sign in a given user, or attempt to sign in with user-supplied credentials.
 	 *
-	 * @param array $credentials
+	 * @param User|array $credentials
 	 * @param bool $remember
-	 * @return bool
+	 * @return mixed A boolean if credentials are passed in, otherwise void.
 	 */
 	public function signIn($credentials, $remember = false)
 	{
-		return $this->guard()->attempt($credentials, $remember);
+		if (is_array($credentials)) {
+			return $this->guard()->attempt($credentials, $remember);
+		}
+		if ($credentials instanceof User) {
+			$this->guard()->login($credentials, $remember);
+		}
 	}
 
 	/**
@@ -65,7 +70,7 @@ class AuthManager
 	{
 		$user = $this->userRepository->create($data);
 		event(new EmailRequiresVerification($user));
-		$this->guard()->login($user);
+		$this->signIn($user);
 		return $user;
 	}
 
