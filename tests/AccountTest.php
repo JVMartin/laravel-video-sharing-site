@@ -51,4 +51,16 @@ class AccountTest extends TestCase
 			->dontSee('<h3>Email</h3>')
 			->dontSee('social@test.com');
 	}
+
+	public function testAccountUnverifiedUser()
+	{
+		$unverifiedUser = User::where('email', 'unverified@test.com')->first();
+
+		// Email is unverified
+		$this->actingAs($unverifiedUser)
+			->visit(route('account.basics'))
+			->see('<h3>Email</h3>')
+			->see($unverifiedUser->email)
+			->see('Your email has not yet been verified.');
+	}
 }
