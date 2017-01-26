@@ -18,8 +18,8 @@ class RedirectIfUnauthenticated
 	public function handle($request, Closure $next, $guard = null)
 	{
 		if ( ! Auth::guard($guard)->check()) {
-			return redirect()->guest(route('home'))
-				->withErrors('You must be signed in to view that page.');
+			errorMessage('You must be signed in to view that page.');
+			return redirect()->guest(route('home'));
 		}
 
 		return $next($request);

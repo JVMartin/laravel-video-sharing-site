@@ -6,10 +6,9 @@ Route::get('/', [
 ]);
 
 Route::get('t', function() {
-	successMessage('heyo');
 	successMessage(['a', 'b', 'c']);
-	return redirect()->route('home')
-		->withErrors('test');
+	errorMessage(['a', 'b']);
+	return redirect()->route('home');
 });
 
 Route::group(['prefix' => 'account'], function() {
