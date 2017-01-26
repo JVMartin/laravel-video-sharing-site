@@ -7,7 +7,11 @@
 	<div class="top-bar" id="realEstateMenu">
 		<div class="top-bar-left">
 			<ul class="menu" data-responsive-menu="accordion">
-				<li class="menu-text">Videos</li>
+				<li>
+					<a href="{{ route('home') }}">
+						Videos
+					</a>
+				</li>
 			</ul>
 		</div>
 		<div class="top-bar-right">
