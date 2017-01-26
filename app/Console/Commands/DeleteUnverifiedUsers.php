@@ -50,13 +50,15 @@ class DeleteUnverifiedUsers extends Command
 
         // Delete all users who have not verified their emails in time.
         $this->db->table('verifications')->where('created_at', '<', $olderThan)
-			->chunk(100, function($verification) use ($verbose) {
-				$user = User::find($verification->user_id);
-				if ($user) {
-					if ($verbose) {
-						$this->info('Deleting user with email ' . $user->email);
+			->chunk(100, function($verifications) use ($verbose) {
+				foreach ($verifications as $verification) {
+					$user = User::find($verification->user_id);
+					if ($user) {
+						if ($verbose) {
+							$this->info('Deleting user with email ' . $user->email);
+						}
+						$user->delete();
 					}
-					$user->delete();
 				}
 			});
 
