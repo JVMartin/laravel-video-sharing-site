@@ -52,5 +52,13 @@ class ForgotPasswordTest extends TestCase
 			->seeJson([
 				'refresh'
 			]);
+
+		// Sign out again.
+		$this->visit(route('sign-out'));
+
+		// Ensure that invalid links give a helpful message.
+		$this->visit($resetPasswordLink)
+			->seePageIs(route('home'))
+			->see('The link you used is expired or malformed.');
 	}
 }

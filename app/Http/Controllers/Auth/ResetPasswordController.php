@@ -89,7 +89,6 @@ class ResetPasswordController extends Controller
 	private function failedResponse()
 	{
 		errorMessage('The link you used is expired or malformed.');
-		dd('wtf');
 		return redirect()->route('home');
 	}
 }
