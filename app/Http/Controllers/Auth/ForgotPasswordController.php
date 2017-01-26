@@ -24,6 +24,8 @@ class ForgotPasswordController extends Controller
 	{
 		$this->validate($request, ['email' => 'required|email']);
 
+		// @TODO:
+		// Don't send reset links to social auth users.
 		$this->broker()->sendResetLink($request->only('email'));
 
 		return new JsonResponse(trans('auth.forgot-pass'));
