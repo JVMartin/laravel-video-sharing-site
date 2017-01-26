@@ -14,21 +14,31 @@ class AccountTest extends TestCase
 
 		$generator = $this->app->make(Generator::class);
 
+		$email = 'newemail@test.com';
 		$firstName = $generator->firstName;
 		$lastName = $generator->lastName;
 
+		// Email is verified.
 		$this->actingAs($normalUser)
 			->visit(route('account.basics'))
 			->see('<h3>Email</h3>')
 			->see('user@test.com')
-			->see('Your email has been verified.')
-			->type($firstName, 'first_name')
+			->see('Your email has been verified.');
+
+		// Updating the name.
+		$this->type($firstName, 'first_name')
 			->type($lastName, 'last_name')
 			->press('Save')
 			->seePageIs(route('account.basics'))
 			->see('Your account has been updated.')
 			->see($firstName)
 			->see($lastName);
+
+		$this->type($email, 'email')
+			->press('Save')
+			->seePageIs(route('account.basics'))
+			->see('Your account has been updated.')
+			->see('Your email has not yet been verified.');
 	}
 
 	public function testAccountSocialUser()
