@@ -41,5 +41,14 @@ class ForgotPasswordTest extends TestCase
 		$this->dontSeeInDatabase('password_resets', [
 			'email' => $user->email
 		]);
+
+		$this->postJson(route('sign-in.email'), [
+				'email' => $user->email,
+				'password' => $newPass
+			])
+			->assertResponseStatus(200)
+			->seeJson([
+				'refresh'
+			]);
 	}
 }
