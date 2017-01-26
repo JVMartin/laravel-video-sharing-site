@@ -34,6 +34,7 @@ class AccountTest extends TestCase
 			->see($firstName)
 			->see($lastName);
 
+		// Updating the email.
 		$this->type($email, 'email')
 			->press('Save')
 			->seePageIs(route('account.basics'))

@@ -42,5 +42,6 @@ class FlushApplication extends Command
 		}
 		$this->call('migrate');
 		$this->call('db:seed');
+		$this->call('testing:flush');
 	}
 }
