@@ -20,4 +20,6 @@ elixir(mix => {
 	mix.webpack('app.js');
 
 	mix.version(['css/app.css', 'js/app.js']);
+
+	mix.copy('node_modules/tinymce/skins', 'public/build/js/skins');
 });

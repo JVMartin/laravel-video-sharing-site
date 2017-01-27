@@ -29,6 +29,7 @@
 		        </span>
 					@endforeach
 				</label>
+				<textarea class="tinymce"></textarea>
 			</div>
 		</div>
 	</section>

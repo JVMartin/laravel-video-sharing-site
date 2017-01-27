@@ -2,10 +2,12 @@
 window._ = require('lodash');
 window.$ = window.jQuery = require('jquery');
 window.Vue = require('vue');
+window.tinymce = require('tinymce/tinymce');
 
 // External packages - order matters.
 require('vue-resource');
 require('foundation-sites');
+require('tinymce/themes/modern/theme');
 
 // My scripts
 require('./form-ajax');
