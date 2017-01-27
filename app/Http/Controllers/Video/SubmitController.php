@@ -15,6 +15,8 @@ class SubmitController extends Controller
 
 	public function __construct(SubmissionValidator $submissionValidator)
 	{
+		$this->middleware('auth');
+
 		$this->submissionValidator = $submissionValidator;
 	}
 

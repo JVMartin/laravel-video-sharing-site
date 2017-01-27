@@ -16,6 +16,13 @@
 		</div>
 		<div class="top-bar-right">
 			<ul class="dropdown menu" data-dropdown-menu>
+				@if (Auth::check())
+					<li>
+						<a href="{{ route('video.submit') }}">
+							Submit Video
+						</a>
+					</li>
+				@endif
 				<li>
 					@if (Auth::check())
 						<a>Account</a>

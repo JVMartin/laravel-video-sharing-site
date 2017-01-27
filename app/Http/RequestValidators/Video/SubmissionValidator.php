@@ -20,7 +20,7 @@ class SubmissionValidator extends RequestValidator
 
 		// Custom validation to ensure that the role is acceptable.
 		$validator->after(function ($validator) use ($request) {
-			$youtube_id =
+			$youtube_id = 1;
 		});
 
 		if ($validator->fails()) {
