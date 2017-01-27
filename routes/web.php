@@ -34,6 +34,18 @@ Route::group(['prefix' => 'account'], function() {
 	]);
 });
 
+Route::group(['prefix' => 'video'], function() {
+	Route::get('submit', [
+		'as' => 'video.submit',
+		'uses' => 'Video\SubmitController@getSubmit'
+	]);
+	Route::post('submit', [
+		'as' => 'video.submit.process',
+		'uses' => 'Video\SubmitController@postSubmit'
+	]);
+});
+
+
 Route::group(['namespace' => 'Auth'], function() {
 	Route::get('sign-in/facebook', [
 		'as' => 'sign-in.social.facebook',
