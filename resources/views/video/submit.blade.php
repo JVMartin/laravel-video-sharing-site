@@ -33,8 +33,10 @@
 		</div>
 		<div class="row">
 			<div class="columns small-12">
-				<label>Description</label>
-				<textarea class="tinymce"></textarea>
+				<label>
+					Description
+					<textarea class="tinymce" name="description">{{ old('description') }}</textarea>
+				</label>
 			</div>
 		</div>
 	</section>

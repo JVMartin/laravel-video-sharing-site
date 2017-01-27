@@ -8,6 +8,10 @@ window.tinymce = require('tinymce/tinymce');
 require('vue-resource');
 require('foundation-sites');
 require('tinymce/themes/modern/theme');
+require('tinymce/plugins/code');
+require('tinymce/plugins/image');
+require('tinymce/plugins/link');
+require('tinymce/plugins/autoresize');
 
 // My scripts
 require('./form-ajax');

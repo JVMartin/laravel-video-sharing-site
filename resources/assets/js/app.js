@@ -14,8 +14,10 @@ $('#modalsForgotPassword').bind('open.zf.reveal', function() {
 });
 
 tinymce.init({
-	selector: '.tinymce',
-	plugins: []
+	selector: 'textarea.tinymce',
+	plugins: [
+		'code image link autoresize'
+	],
 });
 
 /**
