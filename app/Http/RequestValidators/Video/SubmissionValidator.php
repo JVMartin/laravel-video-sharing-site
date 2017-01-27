@@ -7,23 +7,24 @@ use App\Http\RequestValidators\RequestValidator;
 
 class SubmissionValidator extends RequestValidator
 {
-    /**
-     * Perform validation.
-     *
-     * @param Request $request - The request to validate.
-     */
-    public function validateRequest(Request $request)
-    {
-        $validator = $this->getValidationFactory()->make($request->all(), [
-            'youtube_url' => 'required',
-        ]);
+	/**
+	 * Perform validation.
+	 *
+	 * @param Request $request The request to validate.
+	 */
+	public function validateRequest(Request $request)
+	{
+		$validator = $this->getValidationFactory()->make($request->all(), [
+			'youtube_url' => 'required',
+		]);
 
-        // Custom validation to ensure that the role is acceptable.
-        $validator->after(function ($validator) use ($request) {
-        });
+		// Custom validation to ensure that the role is acceptable.
+		$validator->after(function ($validator) use ($request) {
+			$youtube_id =
+		});
 
-        if ($validator->fails()) {
-            $this->throwValidationException($request, $validator);
-        }
-    }
+		if ($validator->fails()) {
+			$this->throwValidationException($request, $validator);
+		}
+	}
 }
