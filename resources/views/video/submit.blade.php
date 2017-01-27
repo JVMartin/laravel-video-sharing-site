@@ -29,6 +29,11 @@
 		        </span>
 					@endforeach
 				</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="columns small-12">
+				<label>Description</label>
 				<textarea class="tinymce"></textarea>
 			</div>
 		</div>
