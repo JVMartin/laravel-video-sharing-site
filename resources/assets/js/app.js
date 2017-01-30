@@ -2,7 +2,7 @@
  * First, load all of our dependencies.
  */
 
-import './bootstrap';
+require('./bootstrap');
 
 $(document).foundation();
 
