@@ -12,13 +12,16 @@ class SubmitController extends Controller
 		$this->middleware('auth');
 	}
 
-	public function getSubmit()
+	public function getSubmit(Request $request)
 	{
-		return view('video.submit');
+		$code = $request->v;
+
+		if ( ! strlen($code)) {
+			return view('video.submit.get-code');
+		}
 	}
 
 	public function postSubmit(Request $request)
 	{
-		//
 	}
 }
