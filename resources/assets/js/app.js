@@ -7,9 +7,11 @@ require('./bootstrap');
 $(document).foundation();
 
 $('#modalsSignIn').bind('open.zf.reveal', function() {
+	alert('heyo');
 	$(this).find('input[name="email"]:first').focus();
 });
 $('#modalsForgotPassword').bind('open.zf.reveal', function() {
+	alert('wtf');
 	$(this).find('input[name="email"]').focus();
 });
 
