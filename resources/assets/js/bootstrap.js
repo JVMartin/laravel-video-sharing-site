@@ -9,7 +9,8 @@ window.axios.defaults.headers.common = {
 };
 
 // External packages - order matters.
-require('foundation-sites');
+//require('foundation-sites');
+require('./foundation');
 require('tinymce/themes/modern/theme');
 require('tinymce/plugins/code');
 require('tinymce/plugins/image');
