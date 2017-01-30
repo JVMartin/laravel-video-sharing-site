@@ -17,7 +17,7 @@ $('#modalsForgotPassword').bind('open.zf.reveal', function() {
 });
 
 //--------------------------------
-// Sign in modals
+// WYSIWYG editors
 //--------------------------------
 tinymce.init({
 	selector: 'textarea.tinymce',
