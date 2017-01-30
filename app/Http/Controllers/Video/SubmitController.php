@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Video;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\RequestValidators\Video\SubmissionValidator;
 
 class SubmitController extends Controller
 {
@@ -27,6 +26,6 @@ class SubmitController extends Controller
 
 	public function postSubmit(Request $request)
 	{
-		$this->submissionValidator->validateRequest($request);
+		//
 	}
 }
