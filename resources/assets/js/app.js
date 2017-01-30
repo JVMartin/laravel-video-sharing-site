@@ -6,6 +6,9 @@ require('./bootstrap');
 
 $(document).foundation();
 
+//--------------------------------
+// Sign in modals
+//--------------------------------
 $('#modalsSignIn').bind('open.zf.reveal', function() {
 	$(this).find('input[name="email"]:first').focus();
 });
@@ -13,6 +16,9 @@ $('#modalsForgotPassword').bind('open.zf.reveal', function() {
 	$(this).find('input[name="email"]').focus();
 });
 
+//--------------------------------
+// Sign in modals
+//--------------------------------
 tinymce.init({
 	selector: 'textarea.tinymce',
 	plugins: [
