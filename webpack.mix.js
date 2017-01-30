@@ -16,4 +16,4 @@ mix.disableNotifications();
 
 mix.js('resources/assets/js/app.js', 'public/js').version();
 mix.sass('resources/assets/sass/app.scss', 'public/css').version();
-mix.copy('node_modules/tinymce/skins', 'public/js/skins');
+mix.copy('node_modules/tinymce/skins', 'public/js/skins', false);

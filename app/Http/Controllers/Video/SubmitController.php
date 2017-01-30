@@ -7,16 +7,9 @@ use App\Http\Controllers\Controller;
 
 class SubmitController extends Controller
 {
-	/**
-	 * @var SubmissionValidator
-	 */
-	protected $submissionValidator;
-
-	public function __construct(SubmissionValidator $submissionValidator)
+	public function __construct()
 	{
 		$this->middleware('auth');
-
-		$this->submissionValidator = $submissionValidator;
 	}
 
 	public function getSubmit()
