@@ -67,7 +67,7 @@ return [
 	'providers' => [
 		'users' => [
 			'driver' => 'eloquent',
-			'model' => App\Models\User::class,
+			'model' => App\User::class,
 		],
 
 		// 'users' => [
@@ -98,11 +98,5 @@ return [
 			'expire' => 60,
 		],
 	],
-
-	// How long (in days) before a user can no longer verify their email and their account will
-	// be deleted.
-	'verifications' => [
-		'expire' => 3
-	]
 
 ];

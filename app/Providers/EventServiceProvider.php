@@ -15,7 +15,7 @@ class EventServiceProvider extends ServiceProvider
 	protected $listen = [
 		\App\Events\EmailRequiresVerification::class => [
 			\App\Listeners\SendVerificationEmail::class
-		]
+		],
 	];
 
 	/**

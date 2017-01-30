@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
 	 */
 	protected function schedule(Schedule $schedule)
 	{
-		 $schedule->command('users:delete-unverified')->daily();
+		$schedule->command('users:delete-unverified')->daily();
 	}
 
 	/**

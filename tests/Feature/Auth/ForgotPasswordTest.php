@@ -1,5 +1,8 @@
 <?php
 
+namespace Tests\Feature\Auth;
+
+use Tests\TestCase;
 use App\Models\User;
 use App\Mail\ResetPasswordLinkEmail;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
