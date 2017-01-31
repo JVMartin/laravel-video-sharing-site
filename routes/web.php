@@ -39,9 +39,9 @@ Route::group(['prefix' => 'video'], function() {
 		'as' => 'video.submit',
 		'uses' => 'Video\SubmitController@getSubmit'
 	]);
-	Route::post('submit', [
-		'as' => 'video.submit.process',
-		'uses' => 'Video\SubmitController@postSubmit'
+	Route::post('submit/code', [
+		'as' => 'video.submit.code',
+		'uses' => 'Video\SubmitController@postSubmitCode'
 	]);
 });
 
