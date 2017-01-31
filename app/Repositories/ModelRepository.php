@@ -2,8 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Models\Model;
 use Illuminate\Cache\Repository;
+use Illuminate\Database\Eloquent\Model;
 
 abstract class ModelRepository extends BaseRepository
 {

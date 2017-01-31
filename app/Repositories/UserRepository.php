@@ -4,8 +4,8 @@ namespace App\Repositories;
 
 use DB;
 use App\Models\User;
-use App\Models\Model;
 use Illuminate\Cache\Repository;
+use Illuminate\Database\Eloquent\Model;
 use App\Events\EmailRequiresVerification;
 
 class UserRepository extends ModelRepository
