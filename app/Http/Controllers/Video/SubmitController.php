@@ -22,9 +22,9 @@ class SubmitController extends Controller
 
 	public function getSubmit(Request $request)
 	{
-		$video_id = $request->v;
+		$youtube_id = $request->v;
 
-		if (strlen($video_id) !== 11) {
+		if (strlen($youtube_id) !== 11) {
 			return view('video.submit.get-code');
 		}
 
@@ -37,14 +37,21 @@ class SubmitController extends Controller
 			'youtube_url' => 'required|min:11'
 		]);
 
-		$video_id = $this->videoManager->extractVideoId($request->youtube_url);
+		$youtube_id = $this->videoManager->extractYoutubeId($request->youtube_url);
 
-		if (strlen($video_id) !== 11) {
-			return redirect()->back()
+		if (strlen($youtube_id) !== 11) {
+			return redirect()->route('video.submit')
 				->withErrors(['youtube_url' => 'This doesn\'t appear to be a valid YouTube url.']);
 		}
 
-		return redirect()->route('video.submit', ['v' => $video_id]);
+		$video = $this->videoManager->createVideo($youtube_id);
+
+		if ( ! $video) {
+			return redirect()->route('video.submit')
+				->withErrors(['youtube_url' => 'This video does not allow embedding.  :(']);
+		}
+
+		return redirect()->route('video.submit', ['v' => $youtube_id]);
 	}
 
 	public function getDetails(Request $request)
