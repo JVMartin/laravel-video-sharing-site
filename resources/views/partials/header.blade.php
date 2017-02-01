@@ -23,27 +23,29 @@
 						</a>
 					</li>
 				@endif
-				<li class="is-dropdown-submenu-parent">
-					@if (Auth::check())
-						<a>Account</a>
-						<ul class="menu is-dropdown-submenu">
-							<li>
-								<a href="{{ route('account.basics') }}">
-									Settings
-								</a>
-							</li>
-							<li>
-								<a href="{{ route('sign-out') }}">
-									Sign Out
-								</a>
-							</li>
-						</ul>
-					@else
+				@if (Auth::check())
+					<li class="is-dropdown-submenu-parent">
+					<a>Account</a>
+					<ul class="menu is-dropdown-submenu">
+						<li>
+							<a href="{{ route('account.basics') }}">
+								Settings
+							</a>
+						</li>
+						<li>
+							<a href="{{ route('sign-out') }}">
+								Sign Out
+							</a>
+						</li>
+					</ul>
+					</li>
+				@else
+					<li>
 						<a class="button" data-open="modalsSignIn">
 							Sign In
 						</a>
-					@endif
-				</li>
+					</li>
+				@endif
 			</ul>
 		</div>
 	</div>
