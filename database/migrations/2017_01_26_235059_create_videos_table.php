@@ -17,6 +17,8 @@ class CreateVideosTable extends Migration
 			$table->char('youtube_id', 11);
 			$table->string('title');
 			$table->text('description');
+			$table->boolean('embeddable');
+			$table->string('privacy_status');
 			$table->timestamps();
 
 			$table->primary('youtube_id');

@@ -4,7 +4,10 @@ namespace App\Services;
 
 use Google_Client;
 use App\Models\Video;
+use Google_Service_YouTube;
 use App\Repositories\VideoRepository;
+use Google_Service_YouTube_VideoSnippet;
+use Google_Service_YouTube_VideoListResponse;
 
 class VideoManager
 {
@@ -40,15 +43,37 @@ class VideoManager
 	 */
 	public function createVideo($youtube_id)
 	{
+		$response = $this->youtube()->videos->listVideos('snippet,status', [
+			'id' => $youtube_id
+		]);
+
+		if ( ! $response instanceof Google_Service_YouTube_VideoListResponse) {
+			return null;
+		}
+
+		$videoDetails = $response['items'][0];
+		$snippet = $videoDetails['snippet'];
+		$status = $videoDetails['status'];
+
+		if ( ! $snippet instanceof Google_Service_YouTube_VideoSnippet) {
+			return null;
+		}
+
+
 		return null;
 	}
 
+	/**
+	 * https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=kI5FYpwZMXU
+	 */
 	private function youtube()
 	{
-		$google = new Google_Client();
-		$google->setDeveloperKey();
-		$google->setClientId(env('GOOGLE_CLIENT_ID'));
-		$google->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
-		$google->setScopes('https://www.googleapis.com/auth/youtube');
+		static $youtube = null;
+		if ($youtube === null) {
+			$google = new Google_Client();
+			$google->setDeveloperKey(env('YOUTUBE_API_KEY'));
+			$youtube = new Google_Service_YouTube($google);
+		}
+		return $youtube;
 	}
 }
