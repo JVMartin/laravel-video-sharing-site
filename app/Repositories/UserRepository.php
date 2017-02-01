@@ -30,35 +30,6 @@ class UserRepository extends ModelRepository
 	}
 
 	/**
-	 * @param Model|User $user
-	 * @param array $attributes
-	 * @return void
-	 */
-	public function update(Model $user, array $attributes)
-	{
-		$emailRequiresVerification = false;
-
-		if (array_key_exists('email', $attributes)) {
-			$attributes['email'] = strtolower($attributes['email']);
-
-			// If the user is updating their email, we will want to send them a verification email.
-			if ($user->email !== $attributes['email']) {
-				$emailRequiresVerification = true;
-			}
-		}
-		if (array_key_exists('password', $attributes)) {
-			$attributes['password'] = bcrypt($attributes['password']);
-			$attributes['remember_token'] = str_random(60);
-		}
-
-		parent::update($user, $attributes);
-
-		if ($emailRequiresVerification) {
-			event(new EmailRequiresVerification($user));
-		}
-	}
-
-	/**
 	 * @param array $attributes
 	 * @return Model|User
 	 */
@@ -91,6 +62,35 @@ class UserRepository extends ModelRepository
 		});
 
 		return $user;
+	}
+
+	/**
+	 * @param Model|User $user
+	 * @param array $attributes
+	 * @return void
+	 */
+	public function update(Model $user, array $attributes)
+	{
+		$emailRequiresVerification = false;
+
+		if (array_key_exists('email', $attributes)) {
+			$attributes['email'] = strtolower($attributes['email']);
+
+			// If the user is updating their email, we will want to send them a verification email.
+			if ($user->email !== $attributes['email']) {
+				$emailRequiresVerification = true;
+			}
+		}
+		if (array_key_exists('password', $attributes)) {
+			$attributes['password'] = bcrypt($attributes['password']);
+			$attributes['remember_token'] = str_random(60);
+		}
+
+		parent::update($user, $attributes);
+
+		if ($emailRequiresVerification) {
+			event(new EmailRequiresVerification($user));
+		}
 	}
 
 	/**
