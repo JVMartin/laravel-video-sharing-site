@@ -68,4 +68,18 @@ abstract class ModelRepository extends BaseRepository
 	{
 		return $this->model->create($attributes);
 	}
+
+	/**
+	 * @param Model $model
+	 * @param array $attributes
+	 * @return void
+	 */
+	public function update(Model $model, array $attributes)
+	{
+		// Flush first, since the *old* attributes are the current keys in the cache.
+		$this->flush($model);
+
+		// Then update.
+		$model->update($attributes);
+	}
 }

@@ -30,11 +30,11 @@ class UserRepository extends ModelRepository
 	}
 
 	/**
-	 * @param User $user
+	 * @param Model|User $user
 	 * @param array $attributes
 	 * @return void
 	 */
-	public function update(User $user, array $attributes)
+	public function update(Model $user, array $attributes)
 	{
 		$emailRequiresVerification = false;
 
@@ -51,8 +51,7 @@ class UserRepository extends ModelRepository
 			$attributes['remember_token'] = str_random(60);
 		}
 
-		$user->update($attributes);
-		$this->flush($user);
+		parent::update($user, $attributes);
 
 		if ($emailRequiresVerification) {
 			event(new EmailRequiresVerification($user));
