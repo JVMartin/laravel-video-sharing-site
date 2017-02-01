@@ -21,9 +21,9 @@ function decodeHash($hash)
 {
     $decoded = Hashids::decode($hash);
 
-    if (is_array($decoded)) {
-		$decoded = $decoded[0];
+    if (is_array($decoded) && count($decoded)) {
+		return $decoded[0];
     }
 
-    return $decoded;
+    return null;
 }

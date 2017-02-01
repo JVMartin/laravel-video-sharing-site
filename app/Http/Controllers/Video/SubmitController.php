@@ -60,16 +60,19 @@ class SubmitController extends Controller
 		}
 
 		// Proceed on to get the details.
-		return redirect()->route('video.submit.details', ['v' => $video->hash]);
+		return redirect()->route('video.submit.details', [$video->hash]);
 	}
 
 	/**
-	 * @param Request $request
 	 * @param string $hashId
 	 */
-	public function getSubmitDetails(Request $request, $hashId)
+	public function getSubmitDetails($hashId)
 	{
 		$video = $this->videoRepository->getByHashId($hashId);
+
+		if ( ! $video) {
+			return redirect()->route('video.submit.url');
+		}
 
 		dd($video);
 	}
