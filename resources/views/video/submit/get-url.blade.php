@@ -4,7 +4,7 @@
 
 @section('content')
 	<section id="videoSubmitUrl">
-		<form action="{{ route('video.submit.url.process') }}" method="POST">
+		<form action="{{ route('video.submit.url.process') }}" method="POST" autocomplete="off">
 			{!! csrf_field() !!}
 			<div class="row">
 				<div class="column small-12">

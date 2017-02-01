@@ -17,7 +17,7 @@
 						<label>
 							Video
 						</label>
-						@include('video.embed')
+						@include('video.partials.embed')
 					</div>
 				</div>
 				<label>
@@ -28,7 +28,7 @@
 				</div>
 			</div>
 			<div class="columns large-7 large-pull-5">
-				<form action="{{ route('video.submit.details.process', $video->hash) }}" method="POST">
+				<form action="{{ route('video.submit.details.process', $video->hash) }}" method="POST" autocomplete="off">
 					{!! csrf_field() !!}
 					<label for="title" class="{{ ($errors->has('title')) ? 'is-invalid-label' : '' }}">
 						Your Title
