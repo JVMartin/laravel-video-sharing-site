@@ -39,7 +39,7 @@ class ForgotPasswordTest extends TestCase
 			->type($newPass, 'password')
 			->type($newPass, 'password_confirmation')
 			->press('Change Password')
-			->see('Your password has been changed.');
+			->assertSee('Your password has been changed.');
 
 		// Ensure the reset is "used up".
 		$this->dontSeeInDatabase('password_resets', [
@@ -62,6 +62,6 @@ class ForgotPasswordTest extends TestCase
 		// Ensure that invalid links give a helpful message.
 		$this->visit($resetPasswordLink)
 			->seePageIs(route('home'))
-			->see('The link you used is expired or malformed.');
+			->assertSee('The link you used is expired or malformed.');
 	}
 }

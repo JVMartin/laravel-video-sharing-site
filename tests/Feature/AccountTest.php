@@ -22,27 +22,27 @@ class AccountTest extends TestCase
 		$lastName = $generator->lastName;
 
 		// Email is verified.
-		$this->actingAs($normalUser)
-			->visit(route('account.basics'))
-			->see('<h3>Email</h3>')
-			->see('user@test.com')
-			->see('Your email has been verified.');
+		$response = $this->actingAs($normalUser)
+			->get(route('account.basics'));
+		$response->assertSee('<h3>Email</h3>')
+			->assertSee('user@test.com')
+			->assertSee('Your email has been verified.');
 
 		// Updating the name.
 		$this->type($firstName, 'first_name')
 			->type($lastName, 'last_name')
 			->press('Save')
 			->seePageIs(route('account.basics'))
-			->see('Your account has been updated.')
-			->see($firstName)
-			->see($lastName);
+			->assertSee('Your account has been updated.')
+			->assertSee($firstName)
+			->assertSee($lastName);
 
 		// Updating the email.
 		$this->type($email, 'email')
 			->press('Save')
 			->seePageIs(route('account.basics'))
-			->see('Your account has been updated.')
-			->see('Your email has not yet been verified.');
+			->assertSee('Your account has been updated.')
+			->assertSee('Your email has not yet been verified.');
 	}
 
 	public function testAccountSocialUser()
@@ -62,8 +62,8 @@ class AccountTest extends TestCase
 		// Email is unverified
 		$this->actingAs($unverifiedUser)
 			->visit(route('account.basics'))
-			->see('<h3>Email</h3>')
-			->see($unverifiedUser->email)
-			->see('Your email has not yet been verified.');
+			->assertSee('<h3>Email</h3>')
+			->assertSee($unverifiedUser->email)
+			->assertSee('Your email has not yet been verified.');
 	}
 }

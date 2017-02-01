@@ -10,6 +10,7 @@
         "cartalyst/tags": "^4.0",
         "fedeisas/laravel-mail-css-inliner": "^2.0",
         "google/apiclient": "^2.1",
+        "laravel/dusk": "^1.0",
         "laravel/framework": "5.4.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "^1.0",

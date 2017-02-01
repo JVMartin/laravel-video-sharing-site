@@ -57,7 +57,7 @@ class RegistrationTest extends TestCase
 		// Click the verification link from the email.
 		$this->visit($verificationLink)
 			->seePageIs(route('home'))
-			->see(trans('auth.verify.success'));
+			->assertSee(trans('auth.verify.success'));
 
 		// Ensure the user is now verified.
 		$this->dontSeeInDatabase('verifications', [
