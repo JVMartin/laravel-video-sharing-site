@@ -65,6 +65,7 @@ class SubmitController extends Controller
 
 	/**
 	 * @param string $hashId
+	 * @return \Illuminate\Http\RedirectResponse
 	 */
 	public function getSubmitDetails($hashId)
 	{
@@ -74,6 +75,8 @@ class SubmitController extends Controller
 			return redirect()->route('video.submit.url');
 		}
 
-		dd($video);
+		return view('video.submit.get-details', [
+			'video' => $video
+		]);
 	}
 }
