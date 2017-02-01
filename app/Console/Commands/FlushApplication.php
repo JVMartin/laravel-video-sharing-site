@@ -38,7 +38,7 @@ class FlushApplication extends Command
 		$this->call('optimize');
 
 		if (Schema::hasTable('migrations')) {
-			$this->call('migrate:rollback');
+			$this->call('migrate:reset');
 		}
 		$this->call('migrate');
 		$this->call('db:seed');
