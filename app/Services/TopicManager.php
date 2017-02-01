@@ -23,6 +23,11 @@ class TopicManager
 		$this->handleTopics($google_ids);
 	}
 
+	public function setRelevantTopics(Video $video, array $google_ids)
+	{
+		$this->handleTopics($google_ids);
+	}
+
 	private function handleTopics(array $google_ids)
 	{
 		$inserts = [];
@@ -53,10 +58,7 @@ class TopicManager
 		$client = new Client();
 
 		$response = $client->request('GET', 'https://kgsearch.googleapis.com/v1/entities:search', [
-			'query' => [
-				'key' => env('GOOGLE_API_KEY'),
-				'ids' => $google_id
-			]
+			'query' => $query
 		]);
 	}
 }

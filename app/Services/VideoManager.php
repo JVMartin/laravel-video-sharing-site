@@ -10,6 +10,7 @@ use App\Repositories\VideoRepository;
 use Illuminate\Database\Eloquent\Model;
 use Google_Service_YouTube_VideoStatus;
 use Google_Service_YouTube_VideoSnippet;
+use Google_Service_YouTube_VideoTopicDetails;
 use Google_Service_YouTube_VideoListResponse;
 
 class VideoManager
@@ -19,9 +20,18 @@ class VideoManager
 	 */
 	protected $videoRepository;
 
-	public function __construct(VideoRepository $videoRepository)
+	/**
+	 * @var TopicManager
+	 */
+	protected $topicManager;
+
+	public function __construct(
+		VideoRepository $videoRepository,
+		TopicManager $topicManager
+	)
 	{
 		$this->videoRepository = $videoRepository;
+		$this->topicManager = $topicManager;
 	}
 
 	/**
@@ -64,7 +74,7 @@ class VideoManager
 	 */
 	private function importVideo($youtube_id)
 	{
-		$response = $this->youtube()->videos->listVideos('snippet,status', [
+		$response = $this->youtube()->videos->listVideos('snippet,status,topicDetails', [
 			'id' => $youtube_id
 		]);
 
@@ -78,11 +88,15 @@ class VideoManager
 		$videoDetails = $response['items'][0];
 		$snippet = $videoDetails['snippet'];
 		$status = $videoDetails['status'];
+		$topicDetails = $videoDetails['topicDetails'];
 
 		if ( ! $snippet instanceof Google_Service_YouTube_VideoSnippet) {
 			return null;
 		}
 		if ( ! $status instanceof Google_Service_YouTube_VideoStatus) {
+			return null;
+		}
+		if ( ! $topicDetails instanceof Google_Service_YouTube_VideoTopicDetails) {
 			return null;
 		}
 
@@ -98,6 +112,13 @@ class VideoManager
 		// Add the tags that YouTube provides.
 		if (is_array($snippet->tags) && count($snippet->tags)) {
 			$video->tag($snippet->tags);
+		}
+
+		if (is_array($topicDetails->topicIds) && count($topicDetails->topicIds)) {
+			$this->topicManager->setTopics($video, $topicDetails->topicIds);
+		}
+		if (is_array($topicDetails->relevantTopicIds) && count($topicDetails->relevantTopicIds)) {
+			$this->topicManager->setRelevantTopics($video, $topicDetails->relevantTopicIds);
 		}
 
 		return $video;
