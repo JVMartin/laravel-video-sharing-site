@@ -111,6 +111,10 @@ class SubmitController extends Controller
 			'title' => 'required'
 		]);
 
+		// @TODO:
+		// Ensure that users can't make duplicate submissions...
+		// Perhaps just within a given time frame?
+
 		$submission = $this->submissionRepository->create([
 			'video_id' => $video->id,
 			'user_id' => Auth::user()->id,
