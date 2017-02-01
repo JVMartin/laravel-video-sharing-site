@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c05dc20d58302246cd7b04e999c16090",
-    "content-hash": "7d328b9150b12d4076d7e947481c2724",
+    "hash": "22f83145ee8e2e30f3a3d6f7a87b530a",
+    "content-hash": "d3e62e0a961ae4576e7774d3dc0a1ec1",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -60,6 +60,61 @@
                 "webprofiler"
             ],
             "time": "2017-01-19 08:19:49"
+        },
+        {
+            "name": "cartalyst/tags",
+            "version": "v4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cartalyst/tags.git",
+                "reference": "b8fdcf75bc7c8cbb9fc5fd06d9ca37aade9f0fd6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cartalyst/tags/zipball/b8fdcf75bc7c8cbb9fc5fd06d9ca37aade9f0fd6",
+                "reference": "b8fdcf75bc7c8cbb9fc5fd06d9ca37aade9f0fd6",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "5.4.*",
+                "php": ">=5.6.4"
+            },
+            "require-dev": {
+                "orchestra/database": "^3.3@dev",
+                "orchestra/testbench": "^3.4",
+                "phpunit/phpunit": "^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "component": "package",
+                "branch-alias": {
+                    "dev-master": "4.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Cartalyst\\Tags\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Cartalyst LLC",
+                    "email": "help@cartalyst.com",
+                    "homepage": "https://cartalyst.com"
+                }
+            ],
+            "description": "Easily add tags to your Eloquent models.",
+            "keywords": [
+                "cartalyst",
+                "laravel",
+                "php",
+                "tags"
+            ],
+            "time": "2017-01-30 23:10:02"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

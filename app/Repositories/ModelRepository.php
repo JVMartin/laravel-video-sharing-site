@@ -53,7 +53,7 @@ abstract class ModelRepository extends BaseRepository
 
 	/**
 	 * @param array $attributes
-	 * @return Model
+	 * @return mixed
 	 */
 	public function create(array $attributes = [])
 	{

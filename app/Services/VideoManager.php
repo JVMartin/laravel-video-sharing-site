@@ -77,6 +77,11 @@ class VideoManager
 			'published_at' => new Carbon($snippet->publishedAt)
 		]);
 
+		// Add the tags that YouTube provides.
+		if (is_array($snippet->tags) && count($snippet->tags)) {
+			$video->tag($snippet->tags);
+		}
+
 		return $video;
 	}
 

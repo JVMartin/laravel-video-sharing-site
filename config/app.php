@@ -171,6 +171,7 @@ return [
 		Laravel\Socialite\SocialiteServiceProvider::class,
 		Vinkla\Hashids\HashidsServiceProvider::class,
 		Fedeisas\LaravelMailCssInliner\LaravelMailCssInlinerServiceProvider::class,
+		Cartalyst\Tags\TagsServiceProvider::class,
 
 		/*
 		 * Application Service Providers...
