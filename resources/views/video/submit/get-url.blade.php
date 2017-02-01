@@ -9,6 +9,7 @@
 			<div class="row">
 				<div class="column small-12">
 					<h1>Submit Video</h1>
+					<p>First, paste the YouTube URL below.</p>
 				</div>
 			</div>
 			<div class="row">
