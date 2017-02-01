@@ -44,7 +44,7 @@ class SubmitController extends Controller
 				->withErrors(['youtube_url' => 'This doesn\'t appear to be a valid YouTube url.']);
 		}
 
-		$video = $this->videoManager->createVideo($youtube_id);
+		$video = $this->videoManager->importVideoIfNotExists($youtube_id);
 
 		if ( ! $video) {
 			return redirect()->route('video.submit')
