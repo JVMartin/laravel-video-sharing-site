@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
 use Google_Client;
 use App\Models\Video;
 use Google_Service_YouTube;
@@ -72,7 +73,8 @@ class VideoManager
 			'title' => $snippet->title,
 			'description' => $snippet->description,
 			'embeddable' => $status->embeddable,
-			'privacy_status' => $status->privacyStatus
+			'privacy_status' => $status->privacyStatus,
+			'published_at' => new Carbon($snippet->publishedAt)
 		]);
 
 		return $video;

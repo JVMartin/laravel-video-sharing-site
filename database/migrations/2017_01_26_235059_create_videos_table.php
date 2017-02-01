@@ -20,6 +20,7 @@ class CreateVideosTable extends Migration
 			$table->text('description');
 			$table->boolean('embeddable');
 			$table->string('privacy_status');
+			$table->timestamp('published_at');
 			$table->timestamps();
 		});
 	}
