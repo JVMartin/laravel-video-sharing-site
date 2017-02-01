@@ -16,6 +16,7 @@ class CreateTopicsTables extends Migration
 		Schema::create('topics', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('topic_code');
+			$table->text('json');
 			$table->string('slug');
 			$table->string('name');
 			$table->integer('count')->unsigned();
@@ -25,6 +26,7 @@ class CreateTopicsTables extends Migration
 			$table->increments('id');
 			$table->integer('topic_id')->unsigned();
 			$table->integer('video_id')->unsigned();
+			$table->string('type');  // 'topicId' or 'relevantTopicId'
 
 			$table->index('topic_id');
 			$table->index('video_id');
