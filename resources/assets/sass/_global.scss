@@ -1,0 +1,20 @@
+.expander {
+	position: relative;
+	max-height: 100px;
+	overflow: hidden;
+	margin-bottom: $global-margin;
+
+	.contents {
+		margin-bottom: 2rem;
+	}
+
+	.expand {
+		position: absolute;
+		left: 0; bottom: 0;
+		width: 100%;
+		background: $medium-gray;
+		text-align: center;
+		padding: 5px;
+		cursor: pointer;
+	}
+}

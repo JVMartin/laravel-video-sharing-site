@@ -18,13 +18,20 @@
 							Video
 						</label>
 						@include('video.embed')
-						<label>
-							Youtube Description
-						</label>
-						<p>
-							{!! nl2br($video->description) !!}
-						</p>
 					</div>
+				</div>
+				<label>
+					YouTube Description
+				</label>
+				<div class="expander">
+					<p>
+						{!! nl2br($video->description) !!}
+					</p>
+				</div>
+				<div class="expander">
+					<p>
+						Heyoo!  Also:  {!! nl2br($video->description) !!}
+					</p>
 				</div>
 			</div>
 			<div class="columns large-7 large-pull-5">

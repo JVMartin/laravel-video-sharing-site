@@ -1,14 +1,12 @@
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Overpass:300,400,600);
 
-// Variables
-@import "variables";
-
 // Foundation
 @import "node_modules/foundation-sites/scss/util/util";
 @import "settings";
 @import "node_modules/foundation-sites/scss/foundation";
 @include foundation-everything;
 
+@import "global";
 @import "modals/forgot-password";
 @import "modals/sign-in";

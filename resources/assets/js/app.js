@@ -26,6 +26,33 @@ tinymce.init({
 	],
 });
 
+$(function() {
+	const $expanders = $('.expander');
+
+	$expanders.each(function () {
+		const $expander = $(this);
+		const contents = $expander.html();
+		$expander.html('<div class="contents">' + contents + '</div>' +
+			'<div class="expand">SHOW MORE</div>');
+	});
+
+	$expanders.on('click', '.expand', function() {
+		const $expand = $(this);
+		const $expander = $expand.closest('.expander');
+
+		const text = $expand.html().trim();
+
+		if (text == 'SHOW MORE') {
+			$expander.css({'max-height': 'none'});
+			$expand.html('SHOW LESS');
+		}
+		else {
+			$expander.css({'max-height': '100px'});
+			$expand.html('SHOW MORE');
+		}
+	});
+});
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the body of the page. From here, you may begin adding components to
