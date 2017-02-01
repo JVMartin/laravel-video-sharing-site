@@ -27,7 +27,10 @@ class AuthManager
 	 */
 	protected $verificationRepository;
 
-	public function __construct(UserRepository $userRepository, VerificationRepository $verificationRepository)
+	public function __construct(
+		UserRepository $userRepository,
+		VerificationRepository $verificationRepository
+	)
 	{
 		$this->userRepository = $userRepository;
 		$this->verificationRepository = $verificationRepository;
