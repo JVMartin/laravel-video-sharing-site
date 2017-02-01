@@ -11,20 +11,20 @@ Route::get('t', function() {
 	return redirect()->route('home');
 });
 
-Route::group(['prefix' => 'video'], function() {
-	Route::get('submit/url', [
+Route::group(['prefix' => 'submit'], function() {
+	Route::get('url', [
 		'as' => 'video.submit.url',
 		'uses' => 'Video\SubmitController@getSubmitUrl'
 	]);
-	Route::post('submit/url', [
+	Route::post('url', [
 		'as' => 'video.submit.url.process',
 		'uses' => 'Video\SubmitController@postSubmitUrl'
 	]);
-	Route::get('submit/details/{hashId}', [
+	Route::get('details/{hashId}', [
 		'as' => 'video.submit.details',
 		'uses' => 'Video\SubmitController@getSubmitDetails'
 	]);
-	Route::post('submit/details/{hashId}', [
+	Route::post('details/{hashId}', [
 		'as' => 'video.submit.details.process',
 		'uses' => 'Video\SubmitController@postSubmitDetails'
 	]);
