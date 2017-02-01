@@ -11,6 +11,25 @@ Route::get('t', function() {
 	return redirect()->route('home');
 });
 
+Route::group(['prefix' => 'video'], function() {
+	Route::get('submit/url', [
+		'as' => 'video.submit.url',
+		'uses' => 'Video\SubmitController@getSubmitUrl'
+	]);
+	Route::post('submit/url', [
+		'as' => 'video.submit.url.process',
+		'uses' => 'Video\SubmitController@postSubmitUrl'
+	]);
+	Route::get('submit/details/{hashId}', [
+		'as' => 'video.submit.details',
+		'uses' => 'Video\SubmitController@getSubmitDetails'
+	]);
+	Route::post('submit/details/{hashId}', [
+		'as' => 'video.submit.details.process',
+		'uses' => 'Video\SubmitController@postSubmitDetails'
+	]);
+});
+
 Route::group(['prefix' => 'account'], function() {
 	Route::get('basics', [
 		'as' => 'account.basics',
@@ -33,18 +52,6 @@ Route::group(['prefix' => 'account'], function() {
 		'uses' => 'AccountController@postPassword'
 	]);
 });
-
-Route::group(['prefix' => 'video'], function() {
-	Route::get('submit', [
-		'as' => 'video.submit',
-		'uses' => 'Video\SubmitController@getSubmit'
-	]);
-	Route::post('submit/code', [
-		'as' => 'video.submit.code',
-		'uses' => 'Video\SubmitController@postSubmitCode'
-	]);
-});
-
 
 Route::group(['namespace' => 'Auth'], function() {
 	Route::get('sign-in/facebook', [

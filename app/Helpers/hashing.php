@@ -19,5 +19,11 @@ function encodeHash($id)
  */
 function decodeHash($hash)
 {
-    return Hashids::decode($hash);
+    $decoded = Hashids::decode($hash);
+
+    if (is_array($decoded)) {
+		$decoded = $decoded[0];
+    }
+
+    return $decoded;
 }

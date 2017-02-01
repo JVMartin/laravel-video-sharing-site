@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Video;
 use Illuminate\Http\Request;
 use App\Services\VideoManager;
 use App\Http\Controllers\Controller;
+use App\Repositories\VideoRepository;
 
 class SubmitController extends Controller
 {
@@ -13,25 +14,32 @@ class SubmitController extends Controller
 	 */
 	protected $videoManager;
 
-	public function __construct(VideoManager $videoManager)
+	/**
+	 * @var VideoRepository
+	 */
+	protected $videoRepository;
+
+	public function __construct(VideoManager $videoManager, VideoRepository $videoRepository)
 	{
 		$this->middleware('auth');
 
 		$this->videoManager = $videoManager;
+		$this->videoRepository = $videoRepository;
 	}
 
-	public function getSubmit(Request $request)
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
+	public function getSubmitUrl()
 	{
-		$youtube_id = $request->v;
-
-		if (strlen($youtube_id) !== 11) {
-			return view('video.submit.get-code');
-		}
-
-		return view('video.submit.get-details');
+		return view('video.submit.get-url');
 	}
 
-	public function postSubmitCode(Request $request)
+	/**
+	 * @param Request $request
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
+	public function postSubmitUrl(Request $request)
 	{
 		$this->validate($request, [
 			'youtube_url' => 'required|min:11'
@@ -40,22 +48,29 @@ class SubmitController extends Controller
 		$youtube_id = $this->videoManager->extractYoutubeId($request->youtube_url);
 
 		if (strlen($youtube_id) !== 11) {
-			return redirect()->route('video.submit')
+			return redirect()->route('video.submit.url')
 				->withErrors(['youtube_url' => 'This doesn\'t appear to be a valid YouTube url.']);
 		}
 
 		$video = $this->videoManager->importVideoIfNotExists($youtube_id);
 
 		if ( ! $video) {
-			return redirect()->route('video.submit')
-				->withErrors(['youtube_url' => 'This video does not allow embedding.  :(']);
+			return redirect()->route('video.submit.url')
+				->withErrors(['youtube_url' => 'YouTube will not let us use this video at this time.']);
 		}
 
-		return redirect()->route('video.submit', ['v' => $youtube_id]);
+		// Proceed on to get the details.
+		return redirect()->route('video.submit.details', ['v' => $video->hash]);
 	}
 
-	public function getDetails(Request $request)
+	/**
+	 * @param Request $request
+	 * @param string $hashId
+	 */
+	public function getSubmitDetails(Request $request, $hashId)
 	{
+		$video = $this->videoRepository->getByHashId($hashId);
 
+		dd($video);
 	}
 }

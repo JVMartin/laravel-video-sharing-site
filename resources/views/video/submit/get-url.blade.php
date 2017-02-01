@@ -3,8 +3,8 @@
 @section('title', 'Videos')
 
 @section('content')
-	<section id="videoSubmit">
-		<form action="{{ route('video.submit.code') }}" method="POST">
+	<section id="videoSubmitUrl">
+		<form action="{{ route('video.submit.url.process') }}" method="POST">
 			{!! csrf_field() !!}
 			<div class="row">
 				<div class="column small-12">

@@ -18,7 +18,7 @@
 			<ul class="dropdown menu" data-dropdown-menu>
 				@if (Auth::check())
 					<li>
-						<a href="{{ route('video.submit') }}">
+						<a href="{{ route('video.submit.url') }}">
 							Submit Video
 						</a>
 					</li>
