@@ -23,10 +23,10 @@
 						</a>
 					</li>
 				@endif
-				<li>
+				<li class="is-dropdown-submenu-parent">
 					@if (Auth::check())
 						<a>Account</a>
-						<ul class="menu">
+						<ul class="menu is-dropdown-submenu">
 							<li>
 								<a href="{{ route('account.basics') }}">
 									Settings

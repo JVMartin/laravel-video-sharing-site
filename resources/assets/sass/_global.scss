@@ -1,3 +1,10 @@
+// Fix apparent bug where the responsive menu flashes on page loads.
+.title-bar {
+	@include breakpoint(medium up) {
+		display:none;
+	}
+}
+
 .expander {
 	position: relative;
 	max-height: 100px;
