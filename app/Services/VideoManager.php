@@ -111,7 +111,7 @@ class VideoManager
 		static $youtube = null;
 		if ($youtube === null) {
 			$google = new Google_Client();
-			$google->setDeveloperKey(env('YOUTUBE_API_KEY'));
+			$google->setDeveloperKey(env('GOOGLE_API_KEY'));
 			$youtube = new Google_Service_YouTube($google);
 		}
 		return $youtube;
