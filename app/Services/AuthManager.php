@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Socialite;
 use Exception;
 use Google_Client;
 use App\Models\User;
