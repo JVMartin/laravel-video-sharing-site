@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Video;
 
+use Auth;
 use Illuminate\Http\Request;
 use App\Services\VideoManager;
 use App\Http\Controllers\Controller;
 use App\Repositories\VideoRepository;
+use App\Repositories\SubmissionRepository;
 
 class SubmitController extends Controller
 {
@@ -19,12 +21,22 @@ class SubmitController extends Controller
 	 */
 	protected $videoRepository;
 
-	public function __construct(VideoManager $videoManager, VideoRepository $videoRepository)
+	/**
+	 * @var SubmissionRepository
+	 */
+	protected $submissionRepository;
+
+	public function __construct(
+		VideoManager $videoManager,
+		VideoRepository $videoRepository,
+		SubmissionRepository $submissionRepository
+	)
 	{
 		$this->middleware('auth');
 
 		$this->videoManager = $videoManager;
 		$this->videoRepository = $videoRepository;
+		$this->submissionRepository = $submissionRepository;
 	}
 
 	/**
@@ -80,5 +92,32 @@ class SubmitController extends Controller
 		return view('video.submit.get-details', [
 			'video' => $video
 		]);
+	}
+
+	/**
+	 * @param Request $request
+	 * @param string $hashId
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
+	public function postSubmitDetails(Request $request, $hashId)
+	{
+		$video = $this->videoRepository->getByHashId($hashId);
+
+		if ( ! $video) {
+			return redirect()->route('video.submit.url');
+		}
+
+		$this->validate($request, [
+			'title' => 'required'
+		]);
+
+		$submission = $this->submissionRepository->create([
+			'video_id' => $video->id,
+			'user_id' => Auth::user()->id,
+			'title' => strip_tags($request->title),
+			'description' => $request->description
+		]);
+
+		dd($submission);
 	}
 }
