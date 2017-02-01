@@ -8,11 +8,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class HelperTests extends TestCase
 {
-	/**
-	 * A basic test example.
-	 *
-	 * @return void
-	 */
 	public function testStripUnsafeTags()
 	{
 		// Make sure good tags remain.
