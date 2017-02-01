@@ -2,11 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
 class Video extends Model
 {
-	protected $primaryKey = 'youtube_id';
 
-	protected $guarded = ['youtube_id'];
 }
