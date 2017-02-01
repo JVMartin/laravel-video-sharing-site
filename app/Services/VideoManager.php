@@ -39,6 +39,23 @@ class VideoManager
 	}
 
 	/**
+	 * Create a video entry in the database, leveraging the YouTube API.
+	 *
+	 * @param string $youtube_id
+	 * @return Video|null
+	 */
+	public function importVideoIfNotExists($youtube_id)
+	{
+		$video = $this->videoRepository->getByYoutubeId($youtube_id);
+
+		if ( ! $video) {
+			$video = $this->importVideo($youtube_id);
+		}
+
+		return $video;
+	}
+
+	/**
 	 * Import a video from the YouTube API into the database.
 	 *
 	 * @param string $youtube_id
@@ -80,23 +97,6 @@ class VideoManager
 		// Add the tags that YouTube provides.
 		if (is_array($snippet->tags) && count($snippet->tags)) {
 			$video->tag($snippet->tags);
-		}
-
-		return $video;
-	}
-
-	/**
-	 * Create a video entry in the database, leveraging the YouTube API.
-	 *
-	 * @param string $youtube_id
-	 * @return Video|null
-	 */
-	public function importVideoIfNotExists($youtube_id)
-	{
-		$video = $this->videoRepository->getByYoutubeId($youtube_id);
-
-		if ( ! $video) {
-			$video = $this->importVideo($youtube_id);
 		}
 
 		return $video;
