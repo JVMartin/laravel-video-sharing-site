@@ -26,6 +26,12 @@ tinymce.init({
 	],
 });
 
+//--------------------------------
+// Expanders
+//--------------------------------
+// @TODO:
+// Perhaps make this so that it doesn't add the button if the .contents div is already smaller
+// than 100px.
 $(function() {
 	const $expanders = $('.expander');
 

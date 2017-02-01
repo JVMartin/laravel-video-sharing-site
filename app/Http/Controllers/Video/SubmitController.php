@@ -49,6 +49,7 @@ class SubmitController extends Controller
 
 		if (strlen($youtube_id) !== 11) {
 			return redirect()->route('video.submit.url')
+				->withInput()
 				->withErrors(['youtube_url' => 'This doesn\'t appear to be a valid YouTube url.']);
 		}
 
@@ -56,11 +57,12 @@ class SubmitController extends Controller
 
 		if ( ! $video) {
 			return redirect()->route('video.submit.url')
+				->withInput()
 				->withErrors(['youtube_url' => 'YouTube will not let us use this video at this time.']);
 		}
 
 		// Proceed on to get the details.
-		return redirect()->route('video.submit.details', [$video->hash]);
+		return redirect()->route('video.submit.details', $video->hash);
 	}
 
 	/**

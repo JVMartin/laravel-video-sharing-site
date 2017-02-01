@@ -3,7 +3,7 @@
 @section('title', 'Videos')
 
 @section('content')
-	<section id="videoSubmit">
+	<section id="videoSubmitGetDetails">
 		<div class="row">
 			<div class="column small-12">
 				<h1>Submit Video</h1>
@@ -24,30 +24,30 @@
 					YouTube Description
 				</label>
 				<div class="expander">
-					<p>
-						{!! nl2br($video->description) !!}
-					</p>
-				</div>
-				<div class="expander">
-					<p>
-						Heyoo!  Also:  {!! nl2br($video->description) !!}
-					</p>
+					<p>{!! nl2br($video->description) !!}</p>
 				</div>
 			</div>
 			<div class="columns large-7 large-pull-5">
-				<label for="title" class="{{ ($errors->has('title')) ? 'is-invalid-label' : '' }}">
-					Your Title
-					<input type="text" placeholder="Title" name="title" value="{{ old('title') }}" class="{{ ($errors->has('title')) ? 'is-invalid-input' : '' }}" required autofocus>
-					@foreach ($errors->get('title') as $error)
-						<span class="form-error is-visible">
-			        {!! $error !!}
-		        </span>
-					@endforeach
-				</label>
-				<label>
-					Your Description (Optional)
-					<textarea class="tinymce" name="description">{{ old('description') }}</textarea>
-				</label>
+				<form action="{{ route('video.submit.details.process', $video->hash) }}" method="POST">
+					{!! csrf_field() !!}
+					<label for="title" class="{{ ($errors->has('title')) ? 'is-invalid-label' : '' }}">
+						Your Title
+						<input type="text" placeholder="Title" name="title" value="{{ old('title') }}" class="{{ ($errors->has('title')) ? 'is-invalid-input' : '' }}" required autofocus>
+						@foreach ($errors->get('title') as $error)
+							<span class="form-error is-visible">
+				        {!! $error !!}
+			        </span>
+						@endforeach
+					</label>
+					<label>
+						Your Description (Optional)
+						<textarea class="tinymce" name="description">{{ old('description') }}</textarea>
+					</label>
+					<p></p>
+					<button type="submit" class="button">
+						Submit Video
+					</button>
+				</form>
 			</div>
 		</div>
 	</section>
