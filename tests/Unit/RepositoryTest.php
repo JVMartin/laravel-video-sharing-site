@@ -23,5 +23,8 @@ class RepositoryTest extends TestCase
 
 		$user = $repo->getByEmail($email);
 		$this->assertEquals($user->email, $email);
+
+		$repo->delete($user);
+		$this->assertNull($repo->getByEmail($email));
 	}
 }
