@@ -54,6 +54,7 @@ abstract class ModelRepository extends BaseRepository
 
 	/**
 	 * @param Model $model
+	 * @return void
 	 */
 	public function flush(Model $model)
 	{

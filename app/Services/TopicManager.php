@@ -39,12 +39,7 @@ class TopicManager
 			}
 		}
 
-		//$this->fetchAndInsertTopics($missingTopics);
-		$this->fetchAndInsertTopics([
-			'/m/010lvgg4',
-			'/m/021dsh',
-			'/m/0glt670'
-		]);
+		$this->fetchAndInsertTopics($missingTopics);
 	}
 
 	private function fetchAndInsertTopics(array $google_ids)
@@ -53,20 +48,17 @@ class TopicManager
 			return;
 		}
 
-		dump($google_ids);
-
 		// Keep track of which ones have been filled/inserted.
 		$filled = [];
 		foreach ($google_ids as $google_id) {
 			$filled[$google_id] = false;
 		}
 
+		// Build our query with the multiple google ids.
 		$query = 'key=' . urlencode(env('GOOGLE_API_KEY'));
 		foreach ($google_ids as $google_id) {
 			$query .= '&ids=' . urlencode($google_id);
 		}
-
-		dump($query);
 
 		// This must stay in a try/catch so that our API key never reaches
 		// the light of day.
@@ -80,16 +72,12 @@ class TopicManager
 			return;
 		};
 
-		dump($response);
-
 		if ($response->getStatusCode() !== 200) {
 			$this->insertBlankTopics($google_ids);
 			return;
 		}
 
 		$json = json_decode($response->getBody());
-
-		dump($json);
 
 		if ( ! is_array($json->itemListElement) || ! count($json->itemListElement)) {
 			$this->insertBlankTopics($google_ids);
@@ -113,13 +101,21 @@ class TopicManager
 				$this->topicRepository->create([
 					'google_id' => $original_id,
 					'name' => $item->name,
-					'json' => json_encode($item)
+					'json' => json_encode($itemListElement)
 				]);
 				$filled[$original_id] = true;
 			}
 		}
 
-		dd($filled);
+		// Get the array of ids that the API didn't give us.
+		$unfilled = [];
+		foreach ($filled as $google_id => $wasFilled) {
+			if ( ! $wasFilled) {
+				$unfilled []= $google_id;
+			}
+		}
+
+		$this->insertBlankTopics($unfilled);
 	}
 
 	private function insertBlankTopics(array $google_ids)

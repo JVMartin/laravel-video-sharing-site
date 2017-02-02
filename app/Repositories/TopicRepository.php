@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use DB;
 use App\Models\Topic;
 use Illuminate\Cache\Repository;
 use Illuminate\Database\Eloquent\Model;
@@ -28,7 +29,23 @@ class TopicRepository extends ModelRepository
 	}
 
 	/**
+	 * {@inheritdoc}
+	 */
+	public function create(array $attributes = [])
+	{
+		// Only create it if it doesn't already exist.
+		DB::transaction(function() use (&$model, $attributes) {
+			$model = $this->model->where('google_id', $attributes['google_id'])->first();
+			if ( ! $model) {
+				$model = $this->model->create($attributes);
+			}
+		});
+		return $model;
+	}
+
+	/**
 	 * @param Model|Topic $model
+	 * @return void
 	 */
 	public function flush(Model $model)
 	{
