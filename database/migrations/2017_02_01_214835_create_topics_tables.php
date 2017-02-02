@@ -19,7 +19,7 @@ class CreateTopicsTables extends Migration
 			$table->string('slug')->nullable();
 			$table->string('name')->nullable();
 			$table->text('json')->nullable();
-			$table->integer('count')->unsigned();
+			$table->integer('count')->unsigned()->default(0);
 			$table->timestamps();
 		});
 

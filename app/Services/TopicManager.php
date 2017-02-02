@@ -125,7 +125,9 @@ class TopicManager
 	private function insertBlankTopics(array $google_ids)
 	{
 		foreach ($google_ids as $google_id) {
-
+			$this->topicRepository->create([
+				'google_id' => $google_id
+			]);
 		}
 	}
 }
