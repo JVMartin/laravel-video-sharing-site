@@ -48,7 +48,9 @@ class DeleteUnverifiedUsers extends Command
 		$olderThan = Carbon::now()->subDays($days);
 
 		// Delete all users who have not verified their emails in time.
-		$this->db->table('verifications')->where('created_at', '<', $olderThan)
+		$this->db->table('verifications')
+			->where('created_at', '<', $olderThan)
+			->orderBy('created_at')
 			->chunk(100, function($verifications) use ($verbose) {
 				foreach ($verifications as $verification) {
 					$user = User::find($verification->user_id);
