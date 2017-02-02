@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class HelperTests extends TestCase
+class HelperTest extends TestCase
 {
 	public function testStripUnsafeTags()
 	{

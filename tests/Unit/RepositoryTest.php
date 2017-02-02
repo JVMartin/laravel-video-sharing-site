@@ -7,7 +7,7 @@ use App\Repositories\UserRepository;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class RepositoryTests extends TestCase
+class RepositoryTest extends TestCase
 {
 	public function testRepository()
 	{
