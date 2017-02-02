@@ -3,9 +3,9 @@
 namespace App\Console\Commands;
 
 use Carbon\Carbon;
-use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Database\Connection;
+use App\Repositories\UserRepository;
 
 class DeleteUnverifiedUsers extends Command
 {
@@ -28,11 +28,20 @@ class DeleteUnverifiedUsers extends Command
 	 */
 	protected $db;
 
-	public function __construct(Connection $db)
+	/**
+	 * @var UserRepository
+	 */
+	protected $userRepository;
+
+	public function __construct(
+		Connection $db,
+		UserRepository $userRepository
+	)
 	{
 		parent::__construct();
 
 		$this->db = $db;
+		$this->userRepository = $userRepository;
 	}
 
 	/**
@@ -53,12 +62,12 @@ class DeleteUnverifiedUsers extends Command
 			->orderBy('created_at')
 			->chunk(100, function($verifications) use ($verbose) {
 				foreach ($verifications as $verification) {
-					$user = User::find($verification->user_id);
+					$user = $this->userRepository->getByKey($verification->user_id);
 					if ($user) {
 						if ($verbose) {
 							$this->info('Deleting user with email ' . $user->email);
 						}
-						$user->delete();
+						$this->userRepository->delete($user);
 					}
 				}
 			});

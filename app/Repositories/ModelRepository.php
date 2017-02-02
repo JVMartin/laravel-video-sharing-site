@@ -83,4 +83,13 @@ abstract class ModelRepository extends BaseRepository
 		// Then update.
 		$model->update($attributes);
 	}
+
+	/**
+	 * @param Model $model
+	 */
+	public function delete(Model $model)
+	{
+		$this->flush($model);
+		$model->delete();
+	}
 }
