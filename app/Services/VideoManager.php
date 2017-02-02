@@ -114,6 +114,7 @@ class VideoManager
 			$video->tag($snippet->tags);
 		}
 
+		// Add the topics that YouTube provides.
 		if (is_array($topicDetails->topicIds) && count($topicDetails->topicIds)) {
 			$this->topicManager->setTopics($video, $topicDetails->topicIds);
 		}

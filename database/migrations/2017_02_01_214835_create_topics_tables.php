@@ -15,11 +15,12 @@ class CreateTopicsTables extends Migration
 	{
 		Schema::create('topics', function (Blueprint $table) {
 			$table->increments('id');
-			$table->string('google_id');
-			$table->string('slug');
-			$table->string('name');
-			$table->text('json');
+			$table->string('google_id')->unique();
+			$table->string('slug')->nullable();
+			$table->string('name')->nullable();
+			$table->text('json')->nullable();
 			$table->integer('count')->unsigned();
+			$table->timestamps();
 		});
 
 		Schema::create('videos_topics', function (Blueprint $table) {
