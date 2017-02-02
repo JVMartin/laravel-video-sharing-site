@@ -18,7 +18,7 @@ class CreateSubmissionsTable extends Migration
 			$table->integer('video_id')->unsigned();
 			$table->integer('user_id')->unsigned();
 			$table->string('title');
-			$table->text('description');
+			$table->text('description')->nullable();
 			$table->timestamps();
 
 			$table->foreign('video_id')
