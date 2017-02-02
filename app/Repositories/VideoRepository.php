@@ -6,6 +6,9 @@ use App\Models\Video;
 use Illuminate\Cache\Repository;
 use Illuminate\Database\Eloquent\Model;
 
+// $repo = app(\App\Repositories\VideoRepository::class);
+// $repo->create(['youtube_id' => 'test', 'title' => 'blah', 'description' => '', 'embeddable' => true, 'privacy_status' => 'private', 'published_at' => \Carbon\Carbon::now()]);
+
 class VideoRepository extends ModelRepository
 {
 	public function __construct(Repository $cache)
