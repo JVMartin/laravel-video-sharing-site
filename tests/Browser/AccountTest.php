@@ -34,8 +34,8 @@ class AccountTest extends DuskTestCase
 				->press('Save')
 				->assertPathIs(route('account.basics', [], false))
 				->assertSee('Your account has been updated.')
-				->assertSee($firstName)
-				->assertSee($lastName);
+				->assertInputValue('first_name', $firstName)
+				->assertInputValue('last_name', $lastName);
 		});
 	}
 }
