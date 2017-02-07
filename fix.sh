@@ -17,8 +17,8 @@ function allowWrite() {
 }
 
 sudo chown $USER:$USER -R .
-find . -path ./node_modules -prune -o -type f -exec chmod 644 {} +
-find . -path ./node_modules -prune -o -type d -exec chmod 755 {} +
+find . -not -path './node_modules/*' -not -path './vendor/*' -type f -exec chmod 644 {} +
+find . -not -path './node_modules/*' -not -path './vendor/*' -type d -exec chmod 755 {} +
 
 allowWrite "storage"
 allowWrite "bootstrap/cache"
