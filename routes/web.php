@@ -6,8 +6,7 @@ Route::get('/', [
 ]);
 
 Route::get('t', function() {
-	successMessage(['a', 'b', 'c']);
-	errorMessage(['a', 'b']);
+	errorMessage(['test']);
 	return redirect()->route('home');
 });
 

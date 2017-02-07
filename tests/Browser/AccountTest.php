@@ -2,8 +2,10 @@
 
 namespace Tests\Browser;
 
+use App\Models\User;
 use Faker\Generator;
 use Tests\DuskTestCase;
+use Laravel\Dusk\Browser;
 use App\Repositories\UserRepository;
 
 class AccountTest extends DuskTestCase
@@ -37,20 +39,19 @@ class AccountTest extends DuskTestCase
 
 	public function testAccountNormalUser()
 	{
-		$this->browse(function($browser) {
-			$userRepository = $this->app->make(UserRepository::class);
+		$this->browse(function(Browser $browser) {
+//			$userRepository = $this->app->make(UserRepository::class);
+//
+//			$user = $userRepository->getByEmail('user@test.com');
+//
+//			$generator = $this->app->make(Generator::class);
+//
+//			$email = 'newemail@test.com';
+//			$firstName = $generator->firstName;
+//			$lastName = $generator->lastName;
 
-			$user = $userRepository->getByEmail('user@test.com');
-
-			$generator = $this->app->make(Generator::class);
-
-			$email = 'newemail@test.com';
-			$firstName = $generator->firstName;
-			$lastName = $generator->lastName;
-
-			$browser->visit('/account/basics')
-				->assertPathIs('/')
-				->assertSee('You must be signed in to view that page.');
+			$browser->visit(route('account.basics'))
+				->assertPathIs(route('home', [], false));
 		});
 	}
 }
