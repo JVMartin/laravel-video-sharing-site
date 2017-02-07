@@ -11,9 +11,6 @@ use App\Repositories\UserRepository;
 
 class SignInTest extends DuskTestCase
 {
-	/**
-	 * @group test
-	 */
 	public function testSignInMissingFields()
 	{
 		$this->browse(function(Browser $browser) {
@@ -22,14 +19,9 @@ class SignInTest extends DuskTestCase
 				->press('Sign In')
 				->waitForText(trans('validation.required', ['attribute' => 'email']))
 				->assertSee(trans('validation.required', ['attribute' => 'password']));
-//			->type('@sign-in-email', 'user@test.com')
-//				->type('@sign-in-password', 'test12')
 		});
 	}
 
-	/**
-	 * @group test
-	 */
 	public function testSignInInvalidCredentials()
 	{
 		$this->browse(function(Browser $browser) {
@@ -42,9 +34,6 @@ class SignInTest extends DuskTestCase
 		});
 	}
 
-	/**
-	 * @group test
-	 */
 	public function testSignInValidCredentials()
 	{
 		$this->browse(function(Browser $browser) {
