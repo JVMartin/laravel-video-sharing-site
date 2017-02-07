@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Video;
 
+use App\Http\RequestValidators\VideoSubmissionDetailsValidator;
 use Auth;
 use Illuminate\Http\Request;
 use App\Services\VideoManager;
@@ -26,10 +27,16 @@ class SubmitController extends Controller
 	 */
 	protected $submissionRepository;
 
+	/**
+	 * @var VideoSubmissionDetailsValidator
+	 */
+	protected $submissionValidator;
+
 	public function __construct(
 		VideoManager $videoManager,
 		VideoRepository $videoRepository,
-		SubmissionRepository $submissionRepository
+		SubmissionRepository $submissionRepository,
+		VideoSubmissionDetailsValidator $submissionValidator
 	)
 	{
 		$this->middleware('auth');
@@ -37,6 +44,7 @@ class SubmitController extends Controller
 		$this->videoManager = $videoManager;
 		$this->videoRepository = $videoRepository;
 		$this->submissionRepository = $submissionRepository;
+		$this->submissionValidator = $submissionValidator;
 	}
 
 	/**
@@ -107,9 +115,7 @@ class SubmitController extends Controller
 			return redirect()->route('video.submit.url');
 		}
 
-		$this->validate($request, [
-			'title' => 'required'
-		]);
+		$this->submissionValidator->validateRequest($request);
 
 		// @TODO:
 		// Ensure that users can't make duplicate submissions...

@@ -40,6 +40,10 @@ $('input.tags').selectize({
 	}
 });
 
+$('label.is-invalid-label .selectize-input').focusin(function() {
+	$(this).closest('.is-invalid-label').removeClass('is-invalid-label');
+});
+
 //--------------------------------
 // Expanders
 //--------------------------------

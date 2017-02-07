@@ -39,9 +39,9 @@
 			        </span>
 						@endforeach
 					</label>
-					<label for="title" class="{{ ($errors->has('tags')) ? 'is-invalid-label' : '' }}">
+					<label for="tags" class="{{ ($errors->has('tags')) ? 'is-invalid-label' : '' }}">
 						Tags (Please add at least 3)
-						<input type="text" name="tags" value="{{ old('tags') }}" class="tags {{ ($errors->has('tags')) ? 'is-invalid-input' : '' }}">
+						<input type="text" name="tags" value="{{ old('tags') }}" class="tags">
 						@foreach ($errors->get('tags') as $error)
 							<span class="form-error is-visible">
 				        {!! $error !!}

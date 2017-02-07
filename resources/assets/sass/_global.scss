@@ -25,3 +25,12 @@
 		cursor: pointer;
 	}
 }
+
+// Make the tags field nice and red like other inputs when invalid.
+label.is-invalid-label .selectize-input {
+	@include form-input-error;
+
+	&>div {
+		background: $white;
+	}
+}
