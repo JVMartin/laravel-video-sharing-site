@@ -26,3 +26,7 @@ allowWrite "public/img/u"
 
 chmod +x fix.sh
 chmod +x artisan
+
+# Give Selenium access to the databases.
+chmod 777 database
+chmod 666 database/database.sqlite
