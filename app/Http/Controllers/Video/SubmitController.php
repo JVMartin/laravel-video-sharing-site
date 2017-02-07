@@ -124,10 +124,9 @@ class SubmitController extends Controller
 		$submission = $this->submissionRepository->create([
 			'video_id' => $video->id,
 			'user_id' => Auth::user()->id,
-			'title' => strip_tags($request->title),
+			'title' => $request->title,
+			'tags' => $request->tags,
 			'description' => $request->description
 		]);
-
-		dd($submission);
 	}
 }
