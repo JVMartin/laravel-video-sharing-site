@@ -37,6 +37,7 @@ class HomePage extends Page
 		return [
 			'@sign-in-email' => '#signInForm input[name="email"]',
 			'@sign-in-password' => '#signInForm input[name="password"]',
+			'@forgot-password-email' => '#modalsForgotPassword input[name="email"]',
 		];
 	}
 }

@@ -11,7 +11,7 @@ class DuskFlushTest extends DuskTestCase
 
 	public function testCreateUser()
 	{
-		$repository = $this->app->make(UserRepository::class);
+		$repository = app(UserRepository::class);
 		$repository->create([
 			'email' => 'blah@blah.com'
 		]);
@@ -21,7 +21,7 @@ class DuskFlushTest extends DuskTestCase
 
 	public function testNotCreateUser()
 	{
-		$repository = $this->app->make(UserRepository::class);
+		$repository = app(UserRepository::class);
 
 		$this->assertEmpty($repository->getByEmail('blah@blah.com'));
 	}
