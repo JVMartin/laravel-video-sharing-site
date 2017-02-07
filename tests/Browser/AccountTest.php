@@ -2,7 +2,6 @@
 
 namespace Tests\Browser;
 
-use App\Models\User;
 use Faker\Generator;
 use Tests\DuskTestCase;
 use App\Repositories\UserRepository;
@@ -49,11 +48,9 @@ class AccountTest extends DuskTestCase
 			$firstName = $generator->firstName;
 			$lastName = $generator->lastName;
 
-			$browser->loginAs($user)
-				->visit(route('account.basics'))
-				->assertSee('<h3>Email</h3>')
-				->assertSee('user@test.com')
-				->assertSee('Your email has been verified.');
+			$browser->visit('/account/basics')
+				->assertPathIs('/')
+				->assertSee('You must be signed in to view that page.');
 		});
 	}
 }
