@@ -33,7 +33,8 @@ abstract class DuskTestCase extends BaseTestCase
 		// Reset the sqlite testing database
 		// http://www.chrisduell.com/blog/development/speeding-up-unit-tests-in-php/
 		copy(database_path('prepared.sqlite'), database_path('database.sqlite'));
-		exec('git clean -fxd ' . storage_path());
+		exec('git clean -fxd ' . storage_path('framework/cache'));
+		exec('git clean -fxd ' . storage_path('framework/sessions'));
 	}
 
 	/**
