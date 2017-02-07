@@ -23,12 +23,14 @@ class AccountTest extends DuskTestCase
 			$firstName = $generator->firstName;
 			$lastName = $generator->lastName;
 
+			// Email is verified.
 			$browser->loginAs($user)
 				->visit(route('account.basics'))
 				->assertSee('Email')
 				->assertInputValue('email', 'user@test.com')
 				->assertSee('Your email has been verified.');
 
+			// Updating the name works.
 			$browser->type('first_name', $firstName)
 				->type('last_name', $lastName)
 				->press('Save')
@@ -36,6 +38,13 @@ class AccountTest extends DuskTestCase
 				->assertSee('Your account has been updated.')
 				->assertInputValue('first_name', $firstName)
 				->assertInputValue('last_name', $lastName);
+
+			// Updating the email works.
+			$browser->type('email', $newEmail)
+				->press('Save')
+				->assertPathIs(route('account.basics', [], false))
+				->assertSee('Your account has been updated.')
+				->assertSee('Your email has not yet been verified.');
 		});
 	}
 }
