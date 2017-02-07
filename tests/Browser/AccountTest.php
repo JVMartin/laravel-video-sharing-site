@@ -3,9 +3,9 @@
 namespace Tests\Browser;
 
 use App\Models\User;
-use App\Repositories\UserRepository;
 use Faker\Generator;
 use Tests\DuskTestCase;
+use App\Repositories\UserRepository;
 
 class AccountTest extends DuskTestCase
 {
@@ -39,7 +39,9 @@ class AccountTest extends DuskTestCase
 	public function testAccountNormalUser()
 	{
 		$this->browse(function($browser) {
-			$normalUser = User::where('email', 'user@test.com')->first();
+			$userRepository = $this->app->make(UserRepository::class);
+
+			$user = $userRepository->getByEmail('user@test.com');
 
 			$generator = $this->app->make(Generator::class);
 
@@ -47,7 +49,11 @@ class AccountTest extends DuskTestCase
 			$firstName = $generator->firstName;
 			$lastName = $generator->lastName;
 
-//			$browser->loginAs();
+			$browser->loginAs($user)
+				->visit(route('account.basics'))
+				->assertSee('<h3>Email</h3>')
+				->assertSee('user@test.com')
+				->assertSee('Your email has been verified.');
 		});
 	}
 }
