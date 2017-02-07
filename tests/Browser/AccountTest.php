@@ -15,7 +15,7 @@ class AccountTest extends DuskTestCase
 		$this->browse(function(Browser $browser) {
 			$userRepository = $this->app->make(UserRepository::class);
 
-			$user = $userRepository->getByEmail('user@test.com');
+			$normalUser = $userRepository->getByEmail('user@test.com');
 
 			$generator = $this->app->make(Generator::class);
 
@@ -24,7 +24,7 @@ class AccountTest extends DuskTestCase
 			$lastName = $generator->lastName;
 
 			// Email is verified.
-			$browser->loginAs($user)
+			$browser->loginAs($normalUser)
 				->visit(route('account.basics'))
 				->assertSee('Email')
 				->assertInputValue('email', 'user@test.com')
@@ -53,18 +53,27 @@ class AccountTest extends DuskTestCase
 		$this->browse(function(Browser $browser) {
 			$userRepository = $this->app->make(UserRepository::class);
 
-			$user = $userRepository->getByEmail('social@test.com');
+			$socialUser = $userRepository->getByEmail('social@test.com');
 
-			$generator = $this->app->make(Generator::class);
-
-			$newEmail = 'newemail@test.com';
-			$firstName = $generator->firstName;
-			$lastName = $generator->lastName;
-
-			$browser->loginAs($user)
+			$browser->loginAs($socialUser)
 				->visit(route('account.basics'))
 				->assertDontSee('Email')
 				->assertDontSee('social@test.com');
+		});
+	}
+
+	public function testAccountUnverifiedUser()
+	{
+		$this->browse(function(Browser $browser) {
+			$userRepository = $this->app->make(UserRepository::class);
+
+			$unverifiedUser = $userRepository->getByEmail('unverified@test.com');
+
+			$browser->loginAs($unverifiedUser)
+				->visit(route('account.basics'))
+				->assertSee('Email')
+				->assertInputValue('email', $unverifiedUser->email)
+				->assertSee('Your email has not yet been verified.');
 		});
 	}
 }
