@@ -15,6 +15,7 @@ require('tinymce/plugins/code');
 require('tinymce/plugins/image');
 require('tinymce/plugins/link');
 require('tinymce/plugins/autoresize');
+require('selectize');
 
 // My scripts
 require('./form-ajax');

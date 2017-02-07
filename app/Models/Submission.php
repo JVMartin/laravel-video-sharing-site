@@ -2,8 +2,13 @@
 
 namespace App\Models;
 
-class Submission extends Model
+use Cartalyst\Tags\TaggableTrait;
+use Cartalyst\Tags\TaggableInterface;
+
+class Submission extends Model implements TaggableInterface
 {
+	use TaggableTrait;
+
 	protected $with = ['video'];
 
 	public function video()

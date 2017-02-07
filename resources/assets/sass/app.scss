@@ -7,6 +7,9 @@
 @import "node_modules/foundation-sites/scss/foundation";
 @include foundation-everything;
 
+// Other packages
+@import "node_modules/selectize/dist/css/selectize";
+
 @import "global";
 @import "modals/forgot-password";
 @import "modals/sign-in";

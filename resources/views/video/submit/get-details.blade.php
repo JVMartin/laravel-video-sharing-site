@@ -39,6 +39,15 @@
 			        </span>
 						@endforeach
 					</label>
+					<label for="title" class="{{ ($errors->has('tags')) ? 'is-invalid-label' : '' }}">
+						Tags (Please add at least 3)
+						<input type="text" name="tags" value="{{ old('tags') }}" class="tags {{ ($errors->has('tags')) ? 'is-invalid-input' : '' }}">
+						@foreach ($errors->get('tags') as $error)
+							<span class="form-error is-visible">
+				        {!! $error !!}
+			        </span>
+						@endforeach
+					</label>
 					<label>
 						Your Description (Optional)
 						<textarea class="tinymce" name="description">{{ old('description') }}</textarea>
