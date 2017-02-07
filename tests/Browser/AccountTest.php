@@ -24,6 +24,18 @@ class AccountTest extends DuskTestCase
 		$this->assertNotEmpty($repository->getByEmail('blah@blah.com'));
 	}
 
+	/**
+	 * A basic browser test example.
+	 *
+	 * @return void
+	 */
+	public function testBasicExample2()
+	{
+		$repository = $this->app->make(UserRepository::class);
+
+		$this->assertEmpty($repository->getByEmail('blah@blah.com'));
+	}
+
 	public function testAccountNormalUser()
 	{
 		$this->browse(function($browser) {
