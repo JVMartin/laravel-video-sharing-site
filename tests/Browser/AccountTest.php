@@ -47,4 +47,24 @@ class AccountTest extends DuskTestCase
 				->assertSee('Your email has not yet been verified.');
 		});
 	}
+
+	public function testAccountSocialUser()
+	{
+		$this->browse(function(Browser $browser) {
+			$userRepository = $this->app->make(UserRepository::class);
+
+			$user = $userRepository->getByEmail('social@test.com');
+
+			$generator = $this->app->make(Generator::class);
+
+			$newEmail = 'newemail@test.com';
+			$firstName = $generator->firstName;
+			$lastName = $generator->lastName;
+
+			$browser->loginAs($user)
+				->visit(route('account.basics'))
+				->assertDontSee('Email')
+				->assertDontSee('social@test.com');
+		});
+	}
 }
