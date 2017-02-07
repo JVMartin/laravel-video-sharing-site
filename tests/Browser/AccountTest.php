@@ -2,7 +2,6 @@
 
 namespace Tests\Browser;
 
-use App\Models\User;
 use Faker\Generator;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
