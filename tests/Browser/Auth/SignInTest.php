@@ -42,6 +42,21 @@ class SignInTest extends DuskTestCase
 		});
 	}
 
+	/**
+	 * @group test
+	 */
+	public function testSignInValidCredentials()
+	{
+		$this->browse(function(Browser $browser) {
+			$browser->visit(new HomePage)
+				->clickLink('Sign In')
+				->type('@sign-in-email', 'user@test.com')
+				->type('@sign-in-password', 'test12')
+				->press('Sign In')
+				->waitForText(trans('auth.sign-in.success'));
+		});
+	}
+
 	public function testAccountNormalUser()
 	{
 		$this->browse(function(Browser $browser) {
