@@ -7,6 +7,8 @@ use App\Repositories\UserRepository;
 
 class DuskFlushTest extends DuskTestCase
 {
+	// These tests ensure that the cache is flushed after each test.
+
 	public function testCreateUser()
 	{
 		$repository = $this->app->make(UserRepository::class);

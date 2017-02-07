@@ -13,7 +13,7 @@ class HomePage extends Page
 	 */
 	public function url()
 	{
-		return '/';
+		return route('home', [], false);
 	}
 
 	/**
@@ -23,7 +23,8 @@ class HomePage extends Page
 	 */
 	public function assert(Browser $browser)
 	{
-		//
+		$browser->assertPathIs($this->url());
+		$browser->assertSee('Videos');
 	}
 
 	/**
@@ -34,7 +35,8 @@ class HomePage extends Page
 	public function elements()
 	{
 		return [
-			'@element' => '#selector',
+			'@sign-in-email' => '#signInForm input[name="email"]',
+			'@sign-in-password' => '#signInForm input[name="password"]',
 		];
 	}
 }
