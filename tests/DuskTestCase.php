@@ -8,28 +8,42 @@ use Facebook\WebDriver\Remote\DesiredCapabilities;
 
 abstract class DuskTestCase extends BaseTestCase
 {
-    use CreatesApplication;
+	use CreatesApplication;
 
-    /**
-     * Prepare for Dusk test execution.
-     *
-     * @beforeClass
-     * @return void
-     */
-    public static function prepare()
-    {
-        static::startChromeDriver();
-    }
+	/**
+	 * Prepare for Dusk test execution.
+	 *
+	 * @beforeClass
+	 * @return void
+	 */
+	public static function prepare()
+	{
+		static::startChromeDriver();
+	}
 
-    /**
-     * Create the RemoteWebDriver instance.
-     *
-     * @return \Facebook\WebDriver\Remote\RemoteWebDriver
-     */
-    protected function driver()
-    {
-        return RemoteWebDriver::create(
-            'http://localhost:9515', DesiredCapabilities::chrome()
-        );
-    }
+	/**
+	 * Set up our testing environment
+	 *
+	 * @return void
+	 */
+	public function setUp()
+	{
+		parent::setUp();
+
+		// Reset the sqlite testing database
+		// http://www.chrisduell.com/blog/development/speeding-up-unit-tests-in-php/
+		copy(database_path('prepared.sqlite'), database_path('database.sqlite'));
+	}
+
+	/**
+	 * Create the RemoteWebDriver instance.
+	 *
+	 * @return \Facebook\WebDriver\Remote\RemoteWebDriver
+	 */
+	protected function driver()
+	{
+		return RemoteWebDriver::create(
+			'http://localhost:9515', DesiredCapabilities::chrome()
+		);
+	}
 }
