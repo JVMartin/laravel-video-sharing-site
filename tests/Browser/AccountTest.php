@@ -19,7 +19,7 @@ class AccountTest extends DuskTestCase
 
 			$generator = $this->app->make(Generator::class);
 
-			$email = 'newemail@test.com';
+			$newEmail = 'newemail@test.com';
 			$firstName = $generator->firstName;
 			$lastName = $generator->lastName;
 
@@ -28,6 +28,14 @@ class AccountTest extends DuskTestCase
 				->assertSee('Email')
 				->assertInputValue('email', 'user@test.com')
 				->assertSee('Your email has been verified.');
+
+			$browser->type('first_name', $firstName)
+				->type('last_name', $lastName)
+				->press('Save')
+				->assertPathIs(route('account.basics', [], false))
+				->assertSee('Your account has been updated.')
+				->assertSee($firstName)
+				->assertSee($lastName);
 		});
 	}
 }
