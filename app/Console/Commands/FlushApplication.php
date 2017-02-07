@@ -28,10 +28,6 @@ class FlushApplication extends Command
 	 */
 	public function handle()
 	{
-		passthru(base_path('fix.sh'));
-		passthru('git clean -fxd ' . public_path());
-		passthru('git clean -fxd ' . storage_path());
-
 		// IDE helper
 		$this->call('clear-compiled');
 		$this->call('ide-helper:generate');
@@ -43,6 +39,10 @@ class FlushApplication extends Command
 		$this->call('migrate');
 		$this->call('db:seed');
 		$this->call('testing:flush');
+
+		passthru('sudo git clean -fxd ' . public_path());
+		passthru('sudo git clean -fxd ' . storage_path());
+		passthru(base_path('fix.sh'));
 
 		passthru('npm run dev');
 	}
