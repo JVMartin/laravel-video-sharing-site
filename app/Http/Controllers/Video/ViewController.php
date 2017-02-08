@@ -30,6 +30,8 @@ class ViewController extends Controller
 			throw new NotFoundHttpException;
 		}
 
-		return view('video.submit.get-url');
+		return view('video.view', [
+			'submission' => $submission
+		]);
 	}
 }
