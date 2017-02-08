@@ -10,6 +10,10 @@ $('form').submit(function() {
 	const $form = $(this);
 	const $submitButton = $form.find(':submit').first();
 
+	if ($form.hasClass('form-ajax')) {
+		return;
+	}
+
 	$submitButton.prop('disabled', true).text('One moment...');
 });
 
