@@ -17,6 +17,13 @@ Route::group(['prefix' => 'video'], function() {
 	]);
 });
 
+Route::group(['prefix' => 'user'], function() {
+	Route::get('{username}', [
+		'as' => 'user.profile',
+		'uses' => 'User\ProfileController@getProfile'
+	]);
+});
+
 Route::group(['prefix' => 'submit'], function() {
 	Route::get('url', [
 		'as' => 'video.submit.url',

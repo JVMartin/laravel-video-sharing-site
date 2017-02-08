@@ -7,7 +7,15 @@
 		<div class="row">
 			<div class="column small-12">
 				<h1>{{ $submission->title }}</h1>
-				@include('video.partials.embed')
+				<p>
+					Submitted by
+					<a href="{{ $submission->user->url() }}">
+						{{ $submission->user->username }}
+					</a>
+					on
+					{{ $submission->created_at->toDayDateTimeString() }}
+				</p>
+				@include('video.partials.embed', ['video' => $submission->video])
 			</div>
 		</div>
 		@if (strlen($submission->description))
@@ -20,7 +28,7 @@
 		<div class="row">
 			<div class="column small-12">
 				<div class="expander">
-					<p>{!! nl2br($video->description) !!}</p>
+					<p>{!! nl2br($submission->video->description) !!}</p>
 				</div>
 			</div>
 		</div>

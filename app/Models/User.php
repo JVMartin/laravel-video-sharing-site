@@ -46,4 +46,9 @@ class User extends Model implements
 	{
 		return (strlen($this->password) === 0);
 	}
+
+	public function url()
+	{
+		return route('user.profile', $this->username);
+	}
 }

@@ -128,5 +128,8 @@ class SubmitController extends Controller
 			'tags' => $request->tags,
 			'description' => $request->description
 		]);
+
+		successMessage('Nice - your submission is now live!');
+		return redirect($submission->url());
 	}
 }
