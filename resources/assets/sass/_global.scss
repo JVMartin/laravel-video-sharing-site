@@ -1,8 +1,11 @@
 #master {
 	padding-top: 1rem;
-	margin-top: 1rem;
 	background: $medium-gray;
 	box-shadow: 3px 3px 4px #666;
+
+	@include breakpoint(xlarge) {
+		margin-top: 1rem;
+	}
 }
 
 a.tag {
@@ -14,7 +17,7 @@ a.tag {
 
 // Fix apparent bug where the responsive menu flashes on page loads.
 .title-bar {
-	@include breakpoint(medium up) {
+	@include breakpoint(medium) {
 		display:none;
 	}
 }
