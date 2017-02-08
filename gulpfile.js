@@ -22,4 +22,5 @@ elixir(mix => {
 	mix.version(['css/app.css', 'js/app.js']);
 
 	mix.copy('node_modules/tinymce/skins', 'public/build/js/skins');
+	mix.copy('node_modules/font-awesome/fonts', 'public/build/fonts');
 });

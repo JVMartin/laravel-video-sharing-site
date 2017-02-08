@@ -11,8 +11,8 @@
 					<h1>Submit Video</h1>
 					<p>First, paste the YouTube URL below.</p>
 					<label for="youtube_url" class="{{ ($errors->has('youtube_url')) ? 'is-invalid-label' : '' }}">
-						Youtube URL
-						<input type="text" placeholder="Youtube URL" name="youtube_url" value="{{ old('youtube_url') }}" class="{{ ($errors->has('youtube_url')) ? 'is-invalid-input' : '' }}" autofocus required>
+						YouTube URL
+						<input type="text" placeholder="YouTube URL" name="youtube_url" value="{{ old('youtube_url') }}" class="{{ ($errors->has('youtube_url')) ? 'is-invalid-input' : '' }}" autofocus required>
 						@foreach ($errors->get('youtube_url') as $error)
 			        <span class="form-error is-visible">
 				        {!! $error !!}
@@ -22,6 +22,7 @@
 					<div class="text-right">
 						<button type="submit" class="button">
 							Next Step
+							<i class="fa fa-arrow-right"></i>
 						</button>
 					</div>
 				</div>
