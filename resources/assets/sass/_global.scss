@@ -1,3 +1,10 @@
+#master {
+	padding-top: 1rem;
+	margin-top: 1rem;
+	background: $medium-gray;
+	box-shadow: 3px 3px 4px #666;
+}
+
 // Fix apparent bug where the responsive menu flashes on page loads.
 .title-bar {
 	@include breakpoint(medium up) {
@@ -19,10 +26,11 @@
 		position: absolute;
 		left: 0; bottom: 0;
 		width: 100%;
-		background: $medium-gray;
+		background: $scheme-3;
 		text-align: center;
 		padding: 5px;
 		cursor: pointer;
+		color: $anchor-color;
 	}
 }
 

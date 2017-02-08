@@ -22,7 +22,7 @@ return [
 		'success' => 'You have signed in successfully.',
 		'failure' => 'These credentials do not match our records.'
 	],
-	'sign-out' => 'You have signed out.  Come back soon!',
+	'sign-out' => 'You have signed out.',
 	'forgot-pass' => 'If you have an account with us, a password reset link should arrive in your email shortly.',
 //	'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 

@@ -4,11 +4,6 @@
 
 @section('content')
 	<section id="videoBrowse">
-		<div class="row">
-			<div class="column small-12">
-				<h1>Video Sharing Site</h1>
-			</div>
-		</div>
 		<div class="row small-up-2 medium-up-3 large-up-4">
 			@foreach ($submissions as $submission)
 				<div class="column column-block">

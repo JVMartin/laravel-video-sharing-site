@@ -16,8 +16,10 @@
 </head>
 <body>
 	@include('partials.header')
-	@include('partials.messages')
-	@yield('content')
+	<div id="master" class="row column">
+		@include('partials.messages')
+		@yield('content')
+	</div>
 	@if (Auth::guest())
 		@include('modals.sign-in')
 		@include('modals.forgot-password')
