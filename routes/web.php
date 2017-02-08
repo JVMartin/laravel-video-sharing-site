@@ -2,7 +2,7 @@
 
 Route::get('/', [
 	'as' => 'home',
-	'uses' => 'PageController@getHome'
+	'uses' => 'Video\BrowseController@getHome'
 ]);
 
 Route::get('t', function() {
