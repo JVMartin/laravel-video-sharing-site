@@ -11,10 +11,10 @@
 		</div>
 		<div class="row small-up-1 medium-up-2 large-up-3">
 			@foreach ($submissions as $submission)
-				<div class="thumbnail">
+				<a class="thumbnail" href="{{ $submission->url() }}">
 					<h3>{{ $submission->title }}</h3>
 					<img src="https://img.youtube.com/vi/{{ $submission->video->youtube_id }}/mqdefault.jpg" />
-				</div>
+				</a>
 			@endforeach
 		</div>
 	</section>
