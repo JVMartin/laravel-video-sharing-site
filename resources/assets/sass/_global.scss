@@ -5,6 +5,13 @@
 	box-shadow: 3px 3px 4px #666;
 }
 
+a.tag {
+	background: $white;
+	padding: 4px;
+	margin: 4px;
+	display:inline-block;
+}
+
 // Fix apparent bug where the responsive menu flashes on page loads.
 .title-bar {
 	@include breakpoint(medium up) {
