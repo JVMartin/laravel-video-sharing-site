@@ -10,6 +10,13 @@ Route::get('t', function() {
 	return redirect()->route('home');
 });
 
+Route::group(['prefix' => 'video'], function() {
+	Route::get('{slug}', [
+		'as' => 'video.view',
+		'uses' => 'Video\ViewController@getView'
+	]);
+});
+
 Route::group(['prefix' => 'submit'], function() {
 	Route::get('url', [
 		'as' => 'video.submit.url',

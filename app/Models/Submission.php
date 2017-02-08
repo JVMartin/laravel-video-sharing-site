@@ -15,4 +15,14 @@ class Submission extends Model implements TaggableInterface
 	{
 		return $this->belongsTo(Video::class);
 	}
+
+	public function user()
+	{
+		return $this->belongsTo(User::class);
+	}
+
+	public function url()
+	{
+		return route('video.view', $this->slug . '-' . $this->hash);
+	}
 }
