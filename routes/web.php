@@ -10,6 +10,11 @@ Route::get('t', function() {
 	return redirect()->route('home');
 });
 
+Route::get('browse/by-tag/{slug}', [
+	'as' => 'browse.by-tag',
+	'uses' => 'NoController@getView'
+]);
+
 Route::group(['prefix' => 'video'], function() {
 	Route::get('{slug}', [
 		'as' => 'video.view',
