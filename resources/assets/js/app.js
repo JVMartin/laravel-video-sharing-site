@@ -6,6 +6,13 @@ require('./bootstrap');
 
 $(document).foundation();
 
+$('form').submit(function() {
+	const $form = $(this);
+	const $submitButton = $form.find(':submit').first();
+
+	$submitButton.prop('disabled', true).text('One moment...');
+});
+
 //--------------------------------
 // Sign in modals
 //--------------------------------
