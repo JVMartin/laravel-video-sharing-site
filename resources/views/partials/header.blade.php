@@ -5,48 +5,50 @@
 	</div>
 
 	<div class="top-bar" id="realEstateMenu">
-		<div class="top-bar-left">
-			<ul class="menu" data-responsive-menu="accordion">
-				<li>
-					<a href="{{ route('home') }}">
-						Videos
-					</a>
-				</li>
-			</ul>
-		</div>
-		<div class="top-bar-right">
-			<ul class="dropdown menu" data-dropdown-menu>
-				@if (Auth::check())
+		<div class="row column">
+			<div class="top-bar-left">
+				<ul class="menu" data-responsive-menu="accordion">
 					<li>
-						<a href="{{ route('video.submit.url') }}">
-							Submit Video
+						<a href="{{ route('home') }}">
+							Videos
 						</a>
 					</li>
-				@endif
-				@if (Auth::check())
-					<li class="is-dropdown-submenu-parent">
-					<a>Account</a>
-					<ul class="menu is-dropdown-submenu">
+				</ul>
+			</div>
+			<div class="top-bar-right">
+				<ul class="dropdown menu" data-dropdown-menu>
+					@if (Auth::check())
 						<li>
-							<a href="{{ route('account.basics') }}">
-								Settings
+							<a href="{{ route('video.submit.url') }}">
+								Submit Video
 							</a>
 						</li>
+					@endif
+					@if (Auth::check())
+						<li class="is-dropdown-submenu-parent">
+						<a>Account</a>
+						<ul class="menu is-dropdown-submenu">
+							<li>
+								<a href="{{ route('account.basics') }}">
+									Settings
+								</a>
+							</li>
+							<li>
+								<a href="{{ route('sign-out') }}">
+									Sign Out
+								</a>
+							</li>
+						</ul>
+						</li>
+					@else
 						<li>
-							<a href="{{ route('sign-out') }}">
-								Sign Out
+							<a class="button" data-open="modalsSignIn">
+								Sign In
 							</a>
 						</li>
-					</ul>
-					</li>
-				@else
-					<li>
-						<a class="button" data-open="modalsSignIn">
-							Sign In
-						</a>
-					</li>
-				@endif
-			</ul>
+					@endif
+				</ul>
+			</div>
 		</div>
 	</div>
 </section>
