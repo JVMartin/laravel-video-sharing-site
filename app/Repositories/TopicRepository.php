@@ -5,6 +5,7 @@ namespace App\Repositories;
 use DB;
 use App\Models\Topic;
 use Illuminate\Cache\Repository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class TopicRepository extends ModelRepository
@@ -26,6 +27,15 @@ class TopicRepository extends ModelRepository
 		return $this->cache->remember($key, 10, function() use ($query, $google_id) {
 			return $query->where('google_id', $google_id)->first();
 		});
+	}
+
+	/**
+	 * @param array $google_ids
+	 * @return Collection|null
+	 */
+	public function getByGoogleIds(array $google_ids)
+	{
+		return $this->model->whereIn('google_id', $google_ids)->get();
 	}
 
 	/**

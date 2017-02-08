@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Video;
 
-use App\Http\RequestValidators\VideoSubmissionDetailsValidator;
 use Auth;
 use Illuminate\Http\Request;
 use App\Services\VideoManager;
 use App\Http\Controllers\Controller;
 use App\Repositories\VideoRepository;
 use App\Repositories\SubmissionRepository;
+use App\Http\RequestValidators\VideoSubmissionDetailsValidator;
 
 class SubmitController extends Controller
 {

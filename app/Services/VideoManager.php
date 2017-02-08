@@ -119,7 +119,7 @@ class VideoManager
 			$this->topicManager->setTopics($video, $topicDetails->topicIds);
 		}
 		if (is_array($topicDetails->relevantTopicIds) && count($topicDetails->relevantTopicIds)) {
-			$this->topicManager->setRelevantTopics($video, $topicDetails->relevantTopicIds);
+			$this->topicManager->setTopics($video, $topicDetails->relevantTopicIds, 'relevantTopicId');
 		}
 
 		return $video;

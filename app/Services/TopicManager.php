@@ -18,16 +18,19 @@ class TopicManager
 		$this->topicRepository = $topicRepository;
 	}
 
-	public function setTopics(Video $video, array $google_ids)
+	public function setTopics(Video $video, array $google_ids, $type = 'topicId')
 	{
 		$this->handleTopics($google_ids);
+
+		$topics = $this->topicRepository->getByGoogleIds($google_ids);
+		$video->topics()->attach($topics, ['type' => $type]);
 	}
 
-	public function setRelevantTopics(Video $video, array $google_ids)
-	{
-		$this->handleTopics($google_ids);
-	}
-
+	/**
+	 * Ensure all the topics are in the database.  If not, fetch them from Google.
+	 *
+	 * @param array $google_ids
+	 */
 	private function handleTopics(array $google_ids)
 	{
 		$missingTopics = [];
