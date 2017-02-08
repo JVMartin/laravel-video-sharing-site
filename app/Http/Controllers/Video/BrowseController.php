@@ -20,8 +20,10 @@ class BrowseController extends Controller
 	/**
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
-	public function getHome($slug)
+	public function getHome()
 	{
-		$submissions = $this->browseManager->;
+		return view('video.browse', [
+			'submissions' => $this->browseManager->home()
+		]);
 	}
 }

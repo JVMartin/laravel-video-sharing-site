@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Submission;
 use App\Repositories\VideoRepository;
 use App\Repositories\SubmissionRepository;
 
@@ -24,5 +25,10 @@ class BrowseManager
 	{
 		$this->videoRepository = $videoRepository;
 		$this->submissionRepository = $submissionRepository;
+	}
+
+	public function home()
+	{
+		return Submission::paginate();
 	}
 }
