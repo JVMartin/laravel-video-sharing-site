@@ -28,5 +28,7 @@ chmod +x fix.sh
 chmod +x artisan
 
 # Give Selenium access to the databases.
-chmod 777 database
-chmod 666 database/database.sqlite
+chmod 775 database
+chmod 664 database/database.sqlite
+chown $USER:www-data database
+chown $USER:www-data database/database.sqlite
