@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
 		// Used in development:
 		\App\Console\Commands\FlushApplication::class,
 		\App\Console\Commands\FlushTestingDatabase::class,
+		\App\Console\Commands\GrabVideos::class,
 
 		// Used in production:
 		\App\Console\Commands\DeleteUnverifiedUsers::class,
