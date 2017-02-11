@@ -7,6 +7,14 @@ use App\Repositories\UserRepository;
 
 class DuskFlushTest extends DuskTestCase
 {
+	// Let's ensure the fix command gets ran after all the tests are done.
+	public function testRunFixAfter()
+	{
+		register_shutdown_function(function() {
+			passthru(base_path('fix.sh'));
+		});
+	}
+
 	// These tests ensure that the cache is flushed after each test.
 
 	public function testCreateUser()
