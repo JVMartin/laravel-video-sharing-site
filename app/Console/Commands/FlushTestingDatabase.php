@@ -89,7 +89,7 @@ class FlushTestingDatabase extends Command
 
 		// Double check that the file exists before moving on
 		if ( ! file_exists($connection['database'])) {
-			$this->error("Could not find {$connection['database']}");
+			$this->error("Could not create database file {$connection['database']}");
 			exit();
 		}
 	}
