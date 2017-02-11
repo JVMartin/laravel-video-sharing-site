@@ -38,6 +38,12 @@ class UserSeeder extends Seeder
 			'password' => 'test12'
 		]);
 
+		// Another "normal" user.
+		$this->userRepository->create([
+			'email' => 'user2@test.com',
+			'password' => 'test12'
+		]);
+
 		// Social authentication user.
 		$this->userRepository->create([
 			'email' => 'social@test.com'
