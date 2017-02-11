@@ -12,7 +12,7 @@
 				<div class="hideOnSuccess">
 					<label for="email">
 						email address
-						<input type="email" name="email" placeholder="email address" />
+						<input type="email" name="email" placeholder="email address" required />
 					</label>
 					<div class="row submitWrap">
 						<div class="small-6 column">

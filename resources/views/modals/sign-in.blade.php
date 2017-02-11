@@ -23,11 +23,11 @@
 				{!! csrf_field() !!}
 				<label for="email">
 					email address
-					<input type="email" name="email" placeholder="email address" />
+					<input type="email" name="email" placeholder="email address" required />
 				</label>
 				<label for="password">
 					password
-					<input type="password" name="password" placeholder="password" />
+					<input type="password" name="password" placeholder="password" required />
 				</label>
 				<div class="text-left">
 					<input id="rememberMeCheckbox" type="checkbox" name="remember" />
@@ -62,11 +62,11 @@
 				{!! csrf_field() !!}
 				<label for="email">
 					email address
-					<input type="email" name="email" placeholder="email address" />
+					<input type="email" name="email" placeholder="email address" required />
 				</label>
 				<label for="password">
 					password
-					<input type="password" name="password" placeholder="password" />
+					<input type="password" name="password" placeholder="password" required />
 				</label>
 				<div class="row submitWrap">
 					<div class="small-6 column">
