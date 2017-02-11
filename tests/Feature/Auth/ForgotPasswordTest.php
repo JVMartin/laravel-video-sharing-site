@@ -6,9 +6,6 @@ use Mail;
 use Tests\TestCase;
 use App\Models\User;
 use App\Mail\ResetPasswordLinkEmail;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ForgotPasswordTest extends TestCase
 {
@@ -17,7 +14,6 @@ class ForgotPasswordTest extends TestCase
 		Mail::fake();
 
 		$user = User::where('email', 'user@test.com')->first();
-		$newPass = 'testiepoo';
 
 		$response = $this->postJson(route('forgot-password'), [
 				'email' => $user->email
@@ -55,16 +51,15 @@ class ForgotPasswordTest extends TestCase
 			'email' => $user->email
 		]);
 
-//		$this->visit($resetPasswordLink)
-//			->seePageIs(route('account.password'))
-//			->type($newPass, 'password')
-//			->type($newPass, 'password_confirmation')
-//			->press('Change Password')
-//			->assertSee('Your password has been changed.');
+		// Sign out.
+		$this->get(route('sign-out', [], false));
 
-		// Ensure that invalid links give a helpful message.
-//		$this->visit($resetPasswordLink)
-//			->seePageIs(route('home'))
-//			->assertSee('The link you used is expired or malformed.');
+		// Try the link again.
+		$response = $this->get($resetPasswordLink);
+		$response->assertRedirect(route('home', [], false));
+
+		$response = $this->get(route('home', [], false));
+		$response->assertStatus(200)
+			->assertSee(trans('auth.forgot-pass.invalid-link'));
 	}
 }

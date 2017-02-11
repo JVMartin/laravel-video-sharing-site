@@ -25,7 +25,8 @@ return [
 	'sign-out' => 'You have signed out.',
 	'forgot-pass' => [
 		'email-sent' => 'If you have an account with us, a password reset link should arrive in your email shortly.',
-		'email-used' => 'You have been signed in. Use the form below to reset your password.'
+		'email-used' => 'You have been signed in. Use the form below to reset your password.',
+		'invalid-link' => 'The link you used is expired or malformed.',
 	],
 //	'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
