@@ -1,26 +1,10 @@
 <?php
 
-namespace App\Console\Commands;
-
 use App\Services\VideoManager;
-use Illuminate\Console\Command;
+use Illuminate\Database\Seeder;
 
-class GrabVideos extends Command
+class VideoSeeder extends Seeder
 {
-	/**
-	 * The name and signature of the console command.
-	 *
-	 * @var string
-	 */
-	protected $signature = 'db:youtube';
-
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Hit YouTube and grab a bunch of videos.';
-
 	/**
 	 * @var VideoManager
 	 */
@@ -29,16 +13,14 @@ class GrabVideos extends Command
 	public function __construct(VideoManager $videoManager)
 	{
 		$this->videoManager = $videoManager;
-
-		parent::__construct();
 	}
 
 	/**
-	 * Execute the console command.
+	 * Run the database seeds.
 	 *
-	 * @return mixed
+	 * @return void
 	 */
-	public function handle()
+	public function run()
 	{
 		$youtube_ids = [
 			'qrO4YZeyl0I', // Bad Romance
@@ -70,6 +52,8 @@ class GrabVideos extends Command
 			'9-5TSxd0ep0', // arcade fire
 		];
 
-		dd($youtube_ids);
+		foreach ($youtube_ids as $youtube_id) {
+			$this->videoManager->importVideoIfNotExists($youtube_id);
+		}
 	}
 }
