@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
+use Mail;
 use Tests\TestCase;
 use App\Models\User;
 use App\Mail\ResetPasswordLinkEmail;
@@ -18,21 +19,29 @@ class ForgotPasswordTest extends TestCase
 		$user = User::where('email', 'user@test.com')->first();
 		$newPass = 'testiepoo';
 
-		$this->postJson(route('forgot-password'), [
+		$response = $this->postJson(route('forgot-password'), [
 				'email' => $user->email
-			])
-			->assertResponseStatus(200);
+			]);
+		$response->assertStatus(200);
 
-		$this->seeInDatabase('password_resets', [
+		$this->assertDatabaseHas('password_resets', [
 			'email' => $user->email
 		]);
 
-		Mail::assertSentTo($user->email, ResetPasswordLinkEmail::class);
-
-		Mail::assertSent(ResetPasswordLinkEmail::class, function ($mail) use (&$resetPasswordLink) {
+		Mail::assertSent(ResetPasswordLinkEmail::class, function ($mail) use (&$to, &$resetPasswordLink) {
+			$to = $mail->to;
 			$resetPasswordLink = $mail->link;
 			return true;
 		});
+
+		$this->assertEquals($to[0]['address'], $user->email);
+
+		$response = $this->get($resetPasswordLink);
+		dd($response);
+		$response->assertRedirect(route('account.password', [], false));
+
+		$response = $this->get($resetPasswordLink);
+		$response->assertStatus(200);
 
 		$this->visit($resetPasswordLink)
 			->seePageIs(route('account.password'))
