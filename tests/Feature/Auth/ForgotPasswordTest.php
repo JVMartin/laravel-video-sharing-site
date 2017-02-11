@@ -25,13 +25,11 @@ class ForgotPasswordTest extends TestCase
 			'email' => $user->email
 		]);
 
-		Mail::assertSent(ResetPasswordLinkEmail::class, function ($mail) use (&$to, &$resetPasswordLink) {
-			$to = $mail->to;
+		Mail::assertSent(ResetPasswordLinkEmail::class, function ($mail) use (&$user, &$resetPasswordLink) {
+			$this->assertEquals($mail->to[0]['address'], $user->email);
 			$resetPasswordLink = $mail->link;
 			return true;
 		});
-
-		$this->assertEquals($to[0]['address'], $user->email);
 
 		$this->assertDatabaseHas('password_resets', [
 			'email' => $user->email

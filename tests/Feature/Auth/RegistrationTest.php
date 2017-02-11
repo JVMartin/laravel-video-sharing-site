@@ -2,23 +2,21 @@
 
 namespace Tests\Feature\Auth;
 
+use Mail;
 use Tests\TestCase;
 use App\Models\User;
 use App\Mail\VerificationEmail;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class RegistrationTest extends TestCase
 {
 	public function testRegisterBadFields()
 	{
-		$this->postJson(route('register'), [
+		$response = $this->postJson(route('register'), [
 				'email' => '',
 				'password' => 'abc'
-			])
-			->assertResponseStatus(422)
-			->seeJson([
+			]);
+		$response->assertStatus(422)
+			->assertJson([
 				'email' => [trans('validation.required', ['attribute' => 'email'])],
 				'password' => [trans('validation.min.string', ['attribute' => 'password', 'min' => 6])],
 			]);
@@ -32,35 +30,37 @@ class RegistrationTest extends TestCase
 		$pass = 'badpassword';
 
 		// Hit the register route with the account details.
-		$this->postJson(route('register'), [
+		$response = $this->postJson(route('register'), [
 				'email' => $email,
 				'password' => $pass
-			])
-			->assertResponseStatus(200);
+			]);
+		$response->assertStatus(200);
 
 		// Grab the new user from the database.
 		$user = User::where('email', $email)->first();
 		$this->assertNotEmpty($user);
 
 		// Ensure the user is NOT verified.
-		$this->seeInDatabase('verifications', [
+		$this->assertDatabaseHas('verifications', [
 			'user_id' => $user->id
 		]);
 
-		Mail::assertSentTo($email, VerificationEmail::class);
-
-		Mail::assertSent(VerificationEmail::class, function ($mail) use (&$verificationLink) {
+		Mail::assertSent(VerificationEmail::class, function ($mail) use (&$user, &$verificationLink) {
+			$this->assertEquals($mail->to[0]['address'], $user->email);
 			$verificationLink = $mail->link;
 			return true;
 		});
 
 		// Click the verification link from the email.
-		$this->visit($verificationLink)
-			->seePageIs(route('home'))
+		$response = $this->get($verificationLink);
+		$response->assertRedirect(route('home', [], false));
+
+		$response = $this->get(route('home', [], false));
+		$response->assertStatus(200)
 			->assertSee(trans('auth.verify.success'));
 
 		// Ensure the user is now verified.
-		$this->dontSeeInDatabase('verifications', [
+		$this->assertDatabaseMissing('verifications', [
 			'user_id' => $user->id
 		]);
 	}
