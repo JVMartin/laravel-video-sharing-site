@@ -3,20 +3,17 @@
 namespace Tests\Feature\Auth;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class SignInTest extends TestCase
 {
 	public function testSignInMissingFields()
 	{
-		$this->postJson(route('sign-in.email'), [
+		$response = $this->postJson(route('sign-in.email'), [
 				'email' => '',
 				'password' => ''
-			])
-			->assertResponseStatus(422)
-			->seeJson([
+			]);
+		$response->assertStatus(422)
+			->assertJson([
 				'email' => [trans('validation.required', ['attribute' => 'email'])],
 				'password' => [trans('validation.required', ['attribute' => 'password'])],
 			]);
@@ -24,24 +21,24 @@ class SignInTest extends TestCase
 
 	public function testSignInInvalidCredentials()
 	{
-		$this->postJson(route('sign-in.email'), [
+		$response = $this->postJson(route('sign-in.email'), [
 				'email' => 'xxxx@xxx.com',
 				'password' => 'xxxxx'
-			])
-			->assertResponseStatus(422)
-			->seeJson([
+			]);
+		$response->assertStatus(422)
+			->assertJson([
 				trans('auth.sign-in.failure')
 			]);
 	}
 
 	public function testSignInValidCredentials()
 	{
-		$this->postJson(route('sign-in.email'), [
+		$response = $this->postJson(route('sign-in.email'), [
 				'email' => 'user@test.com',
 				'password' => 'test12'
-			])
-			->assertResponseStatus(200)
-			->seeJson([
+			]);
+		$response->assertStatus(200)
+			->assertExactJson([
 				'refresh'
 			]);
 	}
