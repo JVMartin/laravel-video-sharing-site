@@ -8,6 +8,7 @@ use Illuminate\Database\Connection;
 use App\Repositories\UserRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Auth\Passwords\DatabaseTokenRepository;
 
 class ResetPasswordController extends Controller
 {
@@ -24,6 +25,11 @@ class ResetPasswordController extends Controller
 	protected $userRepository;
 
 	/**
+	 * @var DatabaseTokenRepository
+	 */
+	protected $tokenRepository;
+
+	/**
 	 * @var AuthManager
 	 */
 	protected $authManager;
@@ -31,11 +37,13 @@ class ResetPasswordController extends Controller
 	public function __construct(
 		Connection $db,
 		UserRepository $userRepository,
+		DatabaseTokenRepository $tokenRepository,
 		AuthManager $authManager
 	)
 	{
 		$this->db = $db;
 		$this->userRepository = $userRepository;
+		$this->tokenRepository = $tokenRepository;
 		$this->authManager = $authManager;
 	}
 
@@ -45,7 +53,7 @@ class ResetPasswordController extends Controller
 	 * @param string|null $token
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
-	public function getReset($token = null)
+	public function getReset($hashid = null, $token = null)
 	{
 		if (Auth::check()) {
 			// Only weirdos should ever see this.
@@ -56,26 +64,17 @@ class ResetPasswordController extends Controller
 		// First, delete expired tokens.
 		$this->broker()->getRepository()->deleteExpired();
 
-		if ( ! strlen($token)) {
+		if ( ! strlen($hashid) || ! strlen($token)) {
 			return $this->failedResponse();
 		}
 
-		$reset = $this->db->table('password_resets')
-				->where('token', $token)
-				->first();
-		if ( ! $reset) {
+		$user = $this->userRepository->getByHashId($hashid);
+
+		if ( ! $user || ! $this->tokenRepository->exists($user, $token)) {
 			return $this->failedResponse();
 		}
 
-		$user = $this->userRepository->getByEmail($reset->email);
-
-		$this->db->table('password_resets')
-			->where('token', $token)
-			->delete();
-
-		if ( ! $user) {
-			return $this->failedResponse();
-		}
+		$this->tokenRepository->delete($user);
 
 		$this->authManager->signIn($user);
 

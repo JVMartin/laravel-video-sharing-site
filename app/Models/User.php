@@ -34,7 +34,7 @@ class User extends Model implements
 	 */
 	public function sendPasswordResetNotification($token)
 	{
-		Mail::to($this->email)->send(new ResetPasswordLinkEmail($token));
+		Mail::to($this->email)->send(new ResetPasswordLinkEmail($this->hash, $token));
 	}
 
 	/**

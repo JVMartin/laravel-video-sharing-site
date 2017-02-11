@@ -113,7 +113,7 @@ Route::group(['namespace' => 'Auth'], function() {
 		'as' => 'forgot-password',
 		'uses' => 'ForgotPasswordController@postForgotPassword'
 	]);
-	Route::get('forgot-password/{token}', [
+	Route::get('forgot-password/{hashid}/{token}', [
 		'as' => 'forgot-password.link',
 		'uses' => 'ResetPasswordController@getReset'
 	]);

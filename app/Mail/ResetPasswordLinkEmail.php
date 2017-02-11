@@ -14,6 +14,11 @@ class ResetPasswordLinkEmail extends Mailable implements ShouldQueue
 	/**
 	 * @var string
 	 */
+	public $hashid;
+
+	/**
+	 * @var string
+	 */
 	public $token;
 
 	/**
@@ -21,10 +26,11 @@ class ResetPasswordLinkEmail extends Mailable implements ShouldQueue
 	 */
 	public $link;
 
-	public function __construct($token)
+	public function __construct($hashid, $token)
 	{
+		$this->hashid = $hashid;
 		$this->token = $token;
-		$this->link = route('forgot-password.link', ['token' => $token]);
+		$this->link = route('forgot-password.link', [$hashid, $token]);
 	}
 
 	/**
