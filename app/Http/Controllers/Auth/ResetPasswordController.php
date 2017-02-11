@@ -25,11 +25,6 @@ class ResetPasswordController extends Controller
 	protected $userRepository;
 
 	/**
-	 * @var DatabaseTokenRepository
-	 */
-	protected $tokenRepository;
-
-	/**
 	 * @var AuthManager
 	 */
 	protected $authManager;
@@ -37,13 +32,11 @@ class ResetPasswordController extends Controller
 	public function __construct(
 		Connection $db,
 		UserRepository $userRepository,
-		DatabaseTokenRepository $tokenRepository,
 		AuthManager $authManager
 	)
 	{
 		$this->db = $db;
 		$this->userRepository = $userRepository;
-		$this->tokenRepository = $tokenRepository;
 		$this->authManager = $authManager;
 	}
 
@@ -61,8 +54,10 @@ class ResetPasswordController extends Controller
 			return redirect()->route('home');
 		}
 
+		$tokenRepository = $this->broker()->getRepository();
+
 		// First, delete expired tokens.
-		$this->broker()->getRepository()->deleteExpired();
+		$tokenRepository->deleteExpired();
 
 		if ( ! strlen($hashid) || ! strlen($token)) {
 			return $this->failedResponse();
@@ -70,11 +65,11 @@ class ResetPasswordController extends Controller
 
 		$user = $this->userRepository->getByHashId($hashid);
 
-		if ( ! $user || ! $this->tokenRepository->exists($user, $token)) {
+		if ( ! $user || ! $tokenRepository->exists($user, $token)) {
 			return $this->failedResponse();
 		}
 
-		$this->tokenRepository->delete($user);
+		$tokenRepository->delete($user);
 
 		$this->authManager->signIn($user);
 
