@@ -45,6 +45,6 @@ class ForgotPasswordController extends Controller
 			}
 		}
 
-		return new JsonResponse(trans('auth.forgot-pass'));
+		return new JsonResponse(trans('auth.forgot-pass.email-sent'));
 	}
 }

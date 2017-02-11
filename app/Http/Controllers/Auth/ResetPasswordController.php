@@ -8,7 +8,6 @@ use Illuminate\Database\Connection;
 use App\Repositories\UserRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-use Illuminate\Auth\Passwords\DatabaseTokenRepository;
 
 class ResetPasswordController extends Controller
 {
@@ -73,7 +72,7 @@ class ResetPasswordController extends Controller
 
 		$this->authManager->signIn($user);
 
-		successMessage('You have been signed in.  Use the form below to reset your password.');
+		successMessage(trans('auth.forgot-pass.email-used'));
 		return redirect()->route('account.password');
 	}
 

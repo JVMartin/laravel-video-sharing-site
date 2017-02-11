@@ -28,7 +28,7 @@ class ForgotPasswordTest extends DuskTestCase
 				->clickLink('forgot password?')
 				->type('@forgot-password-email', $user->email)
 				->press('Email Me')
-				->waitForText(trans('auth.forgot-pass'));
+				->waitForText(trans('auth.forgot-pass.email-sent'));
 		});
 
 		Mail::assertSent(ResetPasswordLinkEmail::class);
