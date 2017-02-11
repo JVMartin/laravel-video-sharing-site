@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Mail;
 use App\Mail\ResetPasswordLinkEmail;
 use Illuminate\Auth\Authenticatable;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\Access\Authorizable;

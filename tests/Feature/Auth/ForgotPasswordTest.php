@@ -22,7 +22,8 @@ class ForgotPasswordTest extends TestCase
 		$response = $this->postJson(route('forgot-password'), [
 				'email' => $user->email
 			]);
-		$response->assertStatus(200);
+		$response->assertStatus(200)
+			->assertSee(trans('auth.forgot-pass'));
 
 		$this->assertDatabaseHas('password_resets', [
 			'email' => $user->email
@@ -37,8 +38,8 @@ class ForgotPasswordTest extends TestCase
 		$this->assertEquals($to[0]['address'], $user->email);
 
 		$response = $this->get($resetPasswordLink);
-		dd($response);
-		$response->assertRedirect(route('account.password', [], false));
+		$response->assertRedirect(route('account.password', [], false))
+			->assertSee('');
 
 		$response = $this->get($resetPasswordLink);
 		$response->assertStatus(200);
