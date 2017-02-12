@@ -18,7 +18,7 @@ class RebuildDatabase extends Command
 	 *
 	 * @var string
 	 */
-	protected $description = 'Flush the testing database source and run the migrations and seeders.';
+	protected $description = 'Rebuild the database.';
 
 	/**
 	 * Execute the console command.
