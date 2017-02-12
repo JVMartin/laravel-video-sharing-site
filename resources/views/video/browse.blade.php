@@ -14,5 +14,8 @@
 				</div>
 			@endforeach
 		</div>
+		<div class="row column">
+			{{ $submissions->links('pagination::foundation') }}
+		</div>
 	</section>
 @endsection
