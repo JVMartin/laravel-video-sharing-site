@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
 	protected $commands = [
 		// Used in development:
 		\App\Console\Commands\FlushApplication::class,
-		\App\Console\Commands\FlushTestingDatabase::class,
+		\App\Console\Commands\RebuildDatabase::class,
+		\App\Console\Commands\RebuildTestingDatabase::class,
 
 		// Used in production:
 		\App\Console\Commands\DeleteUnverifiedUsers::class,

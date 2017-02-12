@@ -4,14 +4,14 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class FlushTestingDatabase extends Command
+class RebuildTestingDatabase extends Command
 {
 	/**
 	 * The name and signature of the console command.
 	 *
 	 * @var string
 	 */
-	protected $signature = 'testing:flush';
+	protected $signature = 'testing:rebuild';
 
 	/**
 	 * The console command description.
@@ -43,7 +43,7 @@ class FlushTestingDatabase extends Command
 		copy(database_path('database.sqlite'), database_path('prepared.sqlite'));
 
 		// Send a completion message to the user
-		$this->info($connection['database'] . ' has been refreshed.');
+		$this->info($connection['database'] . ' has been rebuilt.');
 	}
 
 	/**
