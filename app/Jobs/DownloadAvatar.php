@@ -65,7 +65,7 @@ class DownloadAvatar implements ShouldQueue
 		$image->cropThumbnailImage(200, 200);
 		$image->writeImage($resized);
 
-		$this->user->avatar = true;
+		$this->user->has_avatar = true;
 		$this->user->save();
 	}
 }

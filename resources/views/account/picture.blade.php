@@ -6,6 +6,11 @@
 	<form action="{{ route('account.basics.process') }}" method="POST" enctype="multipart/form-data">
 		{!! csrf_field() !!}
 		<h3>Picture</h3>
+		@if (Auth::user()->has_avatar)
+			<p>
+				<img src="{{ Auth::user()->avatar() }}" />
+			</p>
+		@endif
 		<p>
 			Upload a picture to be displayed alongside your username.
 			It will be cropped to a square for you.

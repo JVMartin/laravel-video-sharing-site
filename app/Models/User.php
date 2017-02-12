@@ -51,4 +51,9 @@ class User extends Model implements
 	{
 		return route('user.profile', $this->username);
 	}
+
+	public function avatar()
+	{
+		return '/img/u/' . $this->hash . '/avatar.jpg';
+	}
 }
