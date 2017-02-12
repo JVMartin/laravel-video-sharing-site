@@ -24,7 +24,10 @@
 					YouTube Description
 				</label>
 				<div class="expander">
-					<p>{!! nl2br($video->description) !!}</p>
+					<div class="contents">
+						{!! nl2br($video->description) !!}
+					</div>
+					<div class="expand">SHOW MORE</div>
 				</div>
 			</div>
 			<div class="columns large-7 large-pull-5">

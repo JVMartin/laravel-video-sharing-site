@@ -32,22 +32,28 @@
 				<div class="row column">
 					<strong>Tags</strong>
 					<div class="expander">
-						@foreach ($submission->tags as $tag)
-							<a href="{{ route('browse.by-tag', $tag->slug) }}" class="tag">
-								{{ $tag->name }}
-							</a>
-						@endforeach
-						@foreach ($submission->video->tags as $tag)
-							<a href="{{ route('browse.by-tag', $tag->slug) }}" class="tag">
-								{{ $tag->name }}
-							</a>
-						@endforeach
+						<div class="contents">
+							@foreach ($submission->tags as $tag)
+								<a href="{{ route('browse.by-tag', $tag->slug) }}" class="tag">
+									{{ $tag->name }}
+								</a>
+							@endforeach
+							@foreach ($submission->video->tags as $tag)
+								<a href="{{ route('browse.by-tag', $tag->slug) }}" class="tag">
+									{{ $tag->name }}
+								</a>
+							@endforeach
+						</div>
+						<div class="expand">SHOW MORE</div>
 					</div>
 				</div>
 				<div class="row column">
 					<strong>Youtube Description</strong>
 					<div class="expander">
-						<p>{!! nl2br($submission->video->description) !!}</p>
+						<div class="contents">
+							{!! nl2br($submission->video->description) !!}
+						</div>
+						<div class="expand">SHOW MORE</div>
 					</div>
 				</div>
 			</div>

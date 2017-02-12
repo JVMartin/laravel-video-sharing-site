@@ -64,13 +64,6 @@ $('label.is-invalid-label .selectize-input').focusin(function() {
 $(function() {
 	const $expanders = $('.expander');
 
-	$expanders.each(function () {
-		const $expander = $(this);
-		const contents = $expander.html();
-		$expander.html('<div class="contents">' + contents + '</div>' +
-			'<div class="expand">SHOW MORE</div>');
-	});
-
 	$expanders.on('click', '.expand', function() {
 		const $expand = $(this);
 		const $expander = $expand.closest('.expander');
