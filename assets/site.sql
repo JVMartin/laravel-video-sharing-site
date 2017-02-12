@@ -310,6 +310,7 @@ CREATE TABLE users (
     first_name character varying(255),
     last_name character varying(255),
     password character varying(255),
+    has_avatar boolean DEFAULT false NOT NULL,
     last_sign_in timestamp(0) without time zone,
     created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone,
@@ -489,13 +490,13 @@ ALTER TABLE ONLY videos_topics ALTER COLUMN id SET DEFAULT nextval('videos_topic
 --
 
 COPY migrations (id, migration, batch) FROM stdin;
-390	2014_10_12_000000_create_users_table	1
-391	2014_10_12_100000_create_password_resets_table	1
-392	2014_10_29_202547_migration_cartalyst_tags_create_tables	1
-393	2017_01_18_221958_create_verifications_table	1
-394	2017_01_26_235059_create_videos_table	1
-395	2017_01_31_224924_create_submissions_table	1
-396	2017_02_01_214835_create_topics_tables	1
+1	2014_10_12_000000_create_users_table	1
+2	2014_10_12_100000_create_password_resets_table	1
+3	2014_10_29_202547_migration_cartalyst_tags_create_tables	1
+4	2017_01_18_221958_create_verifications_table	1
+5	2017_01_26_235059_create_videos_table	1
+6	2017_01_31_224924_create_submissions_table	1
+7	2017_02_01_214835_create_topics_tables	1
 \.
 
 
@@ -503,7 +504,7 @@ COPY migrations (id, migration, batch) FROM stdin;
 -- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('migrations_id_seq', 396, true);
+SELECT pg_catalog.setval('migrations_id_seq', 7, true);
 
 
 --
@@ -519,32 +520,32 @@ COPY password_resets (email, token, created_at) FROM stdin;
 --
 
 COPY submissions (id, video_id, user_id, title, slug, description, created_at, updated_at) FROM stdin;
-1	1	2	Et deserunt ratione temporibus ea numquam aspernatur neque qui.	et-deserunt-ratione-temporibus-ea-numquam-aspernatur-neque-qui	Harum pariatur quam eum beatae ipsa. Sunt reprehenderit quia et et dolor quibusdam quod. Nesciunt minima qui ut perferendis consectetur eius.\n\nAperiam et totam ut accusamus quia ullam. Illo eaque vel molestiae sapiente cum at atque. Quo rem molestiae velit quia nulla esse.	2017-02-12 00:43:47	2017-02-12 00:43:47
-2	2	1	Quia nesciunt nihil nisi.	quia-nesciunt-nihil-nisi	Dolores sit voluptatem voluptas et est eaque odit. Numquam quae iusto fuga. Expedita omnis doloribus modi pariatur optio iste. Et atque fugit facere reprehenderit. Repudiandae reiciendis assumenda quas optio alias beatae numquam.\n\nDolores eos itaque doloribus reprehenderit eaque voluptatem. Unde et et quia ipsa eveniet. Nihil eius nesciunt ad omnis quia veritatis.	2017-02-12 00:43:47	2017-02-12 00:43:47
-3	3	2	Vitae pariatur rerum voluptates rerum quas illum.	vitae-pariatur-rerum-voluptates-rerum-quas-illum	Autem tempore nisi sit corporis sint blanditiis asperiores. Dolor doloremque est doloremque. Assumenda sit earum earum est omnis dicta. Reiciendis et reprehenderit omnis id.\n\nQuis rerum dolores saepe expedita accusamus quis molestias. Et dicta qui quis exercitationem. Consequatur reprehenderit quibusdam assumenda dolores asperiores illum. Voluptas maiores voluptates non minima voluptate.	2017-02-12 00:43:47	2017-02-12 00:43:47
-4	4	1	Quo magni modi ipsum eaque a ut qui.	quo-magni-modi-ipsum-eaque-a-ut-qui	Earum error aut voluptas. Voluptates ipsa dignissimos officiis ipsam. Exercitationem ea doloremque ducimus omnis accusantium dolores quia consequatur.\n\nDoloremque officiis accusamus aut aut suscipit debitis quaerat. Consequatur dicta et beatae voluptatem. Nobis sed ut tempore nihil qui eaque.	2017-02-12 00:43:47	2017-02-12 00:43:47
-5	5	2	Quasi perspiciatis qui quibusdam et blanditiis.	quasi-perspiciatis-qui-quibusdam-et-blanditiis	Ullam dolore enim optio sed et et. Facilis sapiente unde repudiandae. Adipisci nemo velit quia qui qui qui quia. Nisi ut consequatur nisi ea libero corporis quidem amet.\n\nEarum modi asperiores sit occaecati suscipit. Sed quo ut voluptatem et distinctio et eaque. Est nesciunt enim libero sint.	2017-02-12 00:43:47	2017-02-12 00:43:47
-6	6	1	Ex quis dolorem culpa quia suscipit.	ex-quis-dolorem-culpa-quia-suscipit	Ea nam consequatur quae labore consequatur nulla laudantium consequatur. Sed cumque aliquam repudiandae minima quia. Quia voluptas aut eveniet ea aut et. Quam voluptatem alias aliquid fuga.\n\nConsequuntur quibusdam dolorum sed commodi laboriosam. Aut repellendus sunt vitae dolor. Explicabo ex ex consequuntur nesciunt voluptas dolorum. Quia deserunt dolores vero adipisci itaque.	2017-02-12 00:43:47	2017-02-12 00:43:47
-7	7	2	Velit et corrupti quia dolorem ut rerum dolorum.	velit-et-corrupti-quia-dolorem-ut-rerum-dolorum	Quia a aut aliquam natus sit vitae harum. Placeat nihil laudantium est. Qui laboriosam et amet cumque.\n\nQuis et possimus impedit praesentium minima qui. Inventore reiciendis nam cupiditate facere totam.	2017-02-12 00:43:47	2017-02-12 00:43:47
-8	8	1	Et sint sed aliquid perferendis deleniti dolor.	et-sint-sed-aliquid-perferendis-deleniti-dolor	Facere est velit blanditiis debitis. Quo ea sit laudantium quo ut sint. Inventore est delectus debitis error repellat.\n\nFuga culpa eum quaerat nam. Enim deserunt quae ullam debitis in sed id. Autem repellat omnis ut et. Perferendis inventore natus repellendus ipsam.	2017-02-12 00:43:47	2017-02-12 00:43:47
-9	9	2	Repellat voluptas maxime ab rerum.	repellat-voluptas-maxime-ab-rerum	Vel sit enim assumenda facere doloremque fugiat quod. Ut assumenda dolores quo minus doloremque et nobis.\n\nQuia eaque at repudiandae consequatur. Aut in nihil facilis ipsa. Quisquam et hic nobis quis ducimus ut explicabo. Dolor explicabo veritatis doloremque cumque ab.	2017-02-12 00:43:47	2017-02-12 00:43:47
-10	10	1	Et nihil repellendus deserunt et.	et-nihil-repellendus-deserunt-et	Aperiam incidunt id dignissimos dignissimos ipsa hic. Officiis quo debitis repellat repellendus. Natus deleniti quas facere velit culpa. Nihil voluptatem velit iste a exercitationem eius velit. Nostrum commodi aut at nostrum voluptas suscipit rem consectetur.\n\nConsequatur quibusdam eum voluptatem dolorem ut odio itaque. Reiciendis vel excepturi temporibus omnis. Delectus eum et et doloremque. Reprehenderit non aperiam quam id blanditiis.	2017-02-12 00:43:47	2017-02-12 00:43:47
-11	11	2	Aut distinctio accusantium cupiditate dolores enim.	aut-distinctio-accusantium-cupiditate-dolores-enim	Accusamus alias est est voluptatem temporibus. Velit dignissimos aut dolor dolorem voluptatem nihil. Eum voluptate quia accusantium in voluptatem debitis est adipisci.\n\nUt eveniet molestiae est explicabo et. Qui impedit quas quia enim. Impedit esse quaerat reiciendis dignissimos non.	2017-02-12 00:43:47	2017-02-12 00:43:47
-12	12	1	Velit quis sunt ea quis adipisci.	velit-quis-sunt-ea-quis-adipisci	Omnis iure voluptas unde perspiciatis ab autem. Repellendus placeat voluptatibus voluptas aut pariatur aut laboriosam sunt. Earum quo in sed deleniti est. Est exercitationem quasi exercitationem tenetur maxime.\n\nNobis non quam officiis nobis harum nisi eaque. Et eveniet iste dolores et aut ipsam magnam. Maxime doloribus velit inventore modi impedit labore in. Sit blanditiis nostrum non vel ut consequatur.	2017-02-12 00:43:47	2017-02-12 00:43:47
-13	23	2	Repellendus nihil vero amet asperiores.	repellendus-nihil-vero-amet-asperiores	Et omnis consequatur autem ut vero voluptate aut. Sapiente iure nihil et blanditiis dicta. Adipisci et molestiae sit et ut animi.\n\nAut deserunt dolor maiores. Quod pariatur distinctio ut a eum officia. Aperiam atque quia et voluptatem.	2017-02-12 00:43:47	2017-02-12 00:43:47
-14	13	1	Modi debitis iusto incidunt iusto magnam suscipit quis.	modi-debitis-iusto-incidunt-iusto-magnam-suscipit-quis	Eum quos et vel aut. Voluptatum atque et et non adipisci eum. Inventore rerum voluptas aliquam nobis officiis a.\n\nPorro aut occaecati nam autem molestiae reprehenderit aut. Commodi facere nemo eos dolorem natus exercitationem. Exercitationem possimus repellat eius laboriosam nobis officiis ut. Hic deleniti rerum fuga voluptatem aliquid assumenda odio.	2017-02-12 00:43:47	2017-02-12 00:43:47
-15	14	2	Occaecati dignissimos officia id laborum quidem.	occaecati-dignissimos-officia-id-laborum-quidem	Ea voluptas velit quae quasi nihil autem. Non excepturi eaque odio et est qui. Velit reprehenderit officia sapiente dicta in. Magnam ut quas cum eos cumque minima quia.\n\nEos harum quia nam qui sit sed ullam. Quisquam magnam quisquam facilis amet autem et consequuntur. Et quam aspernatur accusamus et iure. Repellat eius molestias labore ea est.	2017-02-12 00:43:47	2017-02-12 00:43:47
-16	15	1	Occaecati autem debitis inventore soluta non.	occaecati-autem-debitis-inventore-soluta-non	Fugit aut pariatur accusamus quis aut provident. Consectetur nostrum quisquam et recusandae minima. Sunt voluptates consectetur magnam.\n\nError ipsum occaecati ut recusandae accusamus eius esse. Dolorem debitis eum eos fugit. Facilis fuga assumenda ullam voluptas consequuntur. Vero pariatur porro nemo nihil eligendi voluptatem.	2017-02-12 00:43:47	2017-02-12 00:43:47
-17	16	2	Rerum laborum aut amet aut odit.	rerum-laborum-aut-amet-aut-odit	In sit ducimus earum assumenda rerum adipisci laborum. Blanditiis dolores commodi dolore ut libero perspiciatis cum velit. Aspernatur at qui qui ea veritatis qui.\n\nFacilis labore error fugiat ut. Iste eos sed et atque. Vitae in sed voluptatem. Quam ullam nihil voluptas qui. Expedita dolor facere fuga veritatis sunt repellendus quia autem.	2017-02-12 00:43:47	2017-02-12 00:43:47
-18	17	1	Quia sed distinctio natus temporibus ipsum aut rerum.	quia-sed-distinctio-natus-temporibus-ipsum-aut-rerum	At adipisci fuga in voluptatem quo aliquam. Distinctio modi voluptatibus consequatur. Praesentium dicta voluptas modi cupiditate odit rerum. Dicta aliquam at repellat. Est repellat odio aut quo corporis.\n\nAutem voluptas necessitatibus perspiciatis corrupti et ea laboriosam doloribus. Et voluptatum dicta nam quia qui ea. Cumque voluptates mollitia dicta iusto a quas enim suscipit.	2017-02-12 00:43:47	2017-02-12 00:43:47
-19	18	2	Porro ex omnis qui.	porro-ex-omnis-qui	Consequatur quis ab cumque ut sed non sit. Non perspiciatis quidem aut dolor sunt voluptate earum deserunt. Ducimus voluptatem necessitatibus eius quas. Sapiente repudiandae quis illo cupiditate eveniet ducimus.\n\nQuia pariatur possimus totam. Id ut iste cumque velit. Vel nesciunt ipsum quas aliquam aliquid aut eligendi.	2017-02-12 00:43:47	2017-02-12 00:43:47
-20	19	1	Excepturi cupiditate corrupti omnis delectus illo.	excepturi-cupiditate-corrupti-omnis-delectus-illo	Aut laudantium autem magni et itaque. Consequatur vel dicta aliquam corrupti. Ex aspernatur corrupti delectus tenetur facilis laboriosam voluptas.\n\nConsequuntur aut et nesciunt earum. Molestias ut perferendis ut nemo exercitationem exercitationem odio maiores. Et facere explicabo ducimus non expedita quasi. Nihil sed eius ea suscipit.	2017-02-12 00:43:47	2017-02-12 00:43:47
-21	20	2	Incidunt molestiae necessitatibus et est porro natus aperiam.	incidunt-molestiae-necessitatibus-et-est-porro-natus-aperiam	Rerum fugiat non accusantium quasi voluptatem quo error. Perspiciatis quam ipsa sed quaerat. Qui fugit tempora itaque ab quo omnis doloribus soluta.\n\nEarum facilis incidunt magni ut illo. Nesciunt iste consequatur qui qui voluptatem eligendi porro. Harum rerum consequatur ut excepturi. Blanditiis sit sapiente quam illum dolor et.	2017-02-12 00:43:47	2017-02-12 00:43:47
-22	21	1	Quis ullam provident numquam qui error occaecati.	quis-ullam-provident-numquam-qui-error-occaecati	Qui voluptas eligendi provident minus quidem cum commodi. Voluptatibus explicabo modi sed distinctio exercitationem sint ipsam. Quia accusantium eaque reiciendis voluptatem laboriosam.\n\nDolores minima magni molestiae nemo. Quaerat sunt modi sapiente ut deleniti dolorum repellendus. Iste soluta non ab omnis aut. Voluptatibus quibusdam dolor qui ullam fuga nulla dignissimos.	2017-02-12 00:43:47	2017-02-12 00:43:47
-23	22	2	Magnam minus et qui et.	magnam-minus-et-qui-et	Deserunt illo enim provident ut. Ut aperiam aperiam omnis veniam sint at perspiciatis sunt. Consequatur aut vitae omnis numquam. Unde placeat excepturi fuga quam.\n\nExpedita ut nesciunt vitae facere earum atque. Aperiam iusto eos accusantium sed eligendi ut sed minima. Minus nostrum nihil temporibus dolore.	2017-02-12 00:43:48	2017-02-12 00:43:48
-24	24	1	Autem eos accusantium et sed et dolorem.	autem-eos-accusantium-et-sed-et-dolorem	Autem voluptatibus aliquid molestias ut sit. Ut vitae vero perferendis rerum omnis in a quod. Id aspernatur est repudiandae id ducimus nulla.\n\nUt minima omnis nesciunt necessitatibus dolores soluta. Voluptate eveniet nam animi omnis aliquid iure officia praesentium. Et alias voluptatem rerum sed dicta neque.	2017-02-12 00:43:48	2017-02-12 00:43:48
-25	25	2	Temporibus sed excepturi rerum totam et et.	temporibus-sed-excepturi-rerum-totam-et-et	Reprehenderit adipisci velit soluta omnis corporis unde. Qui pariatur porro rerum voluptas a esse. Porro consectetur et cupiditate eos aut cumque eos in.\n\nEsse minima fuga excepturi nesciunt eum et iusto. Itaque ullam ullam necessitatibus facilis rerum ducimus. Facilis laudantium doloribus repellat quia officia aut architecto.	2017-02-12 00:43:48	2017-02-12 00:43:48
-26	26	1	Corrupti in temporibus inventore neque aut.	corrupti-in-temporibus-inventore-neque-aut	Error error et et et. Soluta possimus voluptatem accusamus dolor ipsam necessitatibus neque. Enim corporis expedita rem vero. Non quo voluptas sunt.\n\nIste necessitatibus quod voluptate non. Qui possimus quod vel necessitatibus. Sed delectus consectetur maiores aperiam.	2017-02-12 00:43:48	2017-02-12 00:43:48
+1	1	2	Necessitatibus est dolorum unde et ut modi.	necessitatibus-est-dolorum-unde-et-ut-modi	Ad hic qui et consequatur aut. Id sed animi tempora. Minus laborum labore quidem autem.\n\nVitae dolores vel amet animi. Eaque dolor autem quidem est voluptate excepturi qui. Qui inventore unde minus odio provident.	2017-02-12 22:33:45	2017-02-12 22:33:45
+2	2	1	Et tempore ducimus fugit saepe aut inventore enim.	et-tempore-ducimus-fugit-saepe-aut-inventore-enim	Quis similique aut iste. Odio cum impedit excepturi vel animi. Sit et quis fuga architecto porro est. Sed consequatur alias molestias rerum quo.\n\nNihil id autem eveniet autem est. Sit vel voluptatem quas dicta quos officiis. Dolor libero tenetur tenetur mollitia iure quidem.	2017-02-12 22:33:45	2017-02-12 22:33:45
+3	3	2	Culpa suscipit dolore necessitatibus delectus.	culpa-suscipit-dolore-necessitatibus-delectus	Aut nemo eos qui et impedit. Doloremque repellendus nesciunt et sapiente quibusdam. Assumenda voluptatem rerum laudantium nemo qui tempora. Iusto quia nostrum dolorum rerum.\n\nUllam unde dolore accusamus distinctio omnis consequatur inventore. Ea eius corporis sed quia enim et odio. Omnis et iure similique omnis. Possimus omnis amet alias dolores minus.	2017-02-12 22:33:45	2017-02-12 22:33:45
+4	4	1	Laudantium enim magnam aperiam sed natus dolorum.	laudantium-enim-magnam-aperiam-sed-natus-dolorum	Aut placeat explicabo sint soluta nisi voluptas est. Consequuntur ab ut nam rem est alias quos. Fugiat eligendi minima sint architecto.\n\nAlias dolorum eaque atque pariatur expedita dignissimos. Ut libero quia consequatur sed. Similique aut enim expedita minima. Ut officiis aliquam ut est error.	2017-02-12 22:33:45	2017-02-12 22:33:45
+5	5	2	Repellendus quo eum saepe ut.	repellendus-quo-eum-saepe-ut	Illum labore non sit cum. Sint debitis error consequatur et ut sequi eum quis. Et illo ullam assumenda optio assumenda veritatis repellendus aut.\n\nEos blanditiis non debitis aspernatur voluptates cum at. Maiores ad minima asperiores non est ratione. Aliquid modi eos voluptatem voluptatem nihil.	2017-02-12 22:33:45	2017-02-12 22:33:45
+6	6	1	Aliquid dolores sit vero iusto.	aliquid-dolores-sit-vero-iusto	Tenetur nemo rerum ut quo velit nesciunt sit. Aut non ducimus nemo quia porro rerum. Ullam ullam nemo necessitatibus.\n\nIllum ipsa corrupti necessitatibus sed id ut. Consequatur sint veniam atque aut harum. Ea cupiditate natus eveniet non laborum molestiae deleniti. Quam sint asperiores reprehenderit sed odio rerum qui.	2017-02-12 22:33:45	2017-02-12 22:33:45
+7	7	2	Autem sit delectus inventore qui velit.	autem-sit-delectus-inventore-qui-velit	Sint odit maxime fuga dicta. Nisi sequi amet sunt. Rerum quos voluptatem repellat dolorum omnis magni nemo. Ut itaque cupiditate ut voluptatum iure non.\n\nRecusandae atque quis fugiat. Dolorem ea sunt sed doloremque nihil repellendus. Magnam aut ab totam.	2017-02-12 22:33:45	2017-02-12 22:33:45
+8	8	1	Odio sed delectus doloremque repudiandae quasi.	odio-sed-delectus-doloremque-repudiandae-quasi	Et ut voluptatem minus. Porro doloribus dolores recusandae mollitia et consequuntur sunt. Consequuntur laborum omnis illum ea dolores.\n\nUt hic quisquam minima earum adipisci. Commodi consequatur dolorum et accusamus. Dolores voluptatem perspiciatis totam qui neque dolores id. Unde reiciendis molestias molestias ea est ut atque dolor.	2017-02-12 22:33:45	2017-02-12 22:33:45
+9	9	2	Debitis aut suscipit et natus.	debitis-aut-suscipit-et-natus	Velit sed autem dolor odio unde ut doloribus. Voluptas natus unde ducimus soluta id laudantium. Facilis laborum dolorem totam.\n\nDicta dicta consequuntur adipisci. Autem ut dolor cupiditate error est quisquam quaerat. Qui modi totam sit unde qui ratione.	2017-02-12 22:33:45	2017-02-12 22:33:45
+10	10	1	Rerum quis consequatur quia voluptates.	rerum-quis-consequatur-quia-voluptates	Dolor omnis tempore aperiam sunt provident et. Et accusantium est aut illo officiis est et repudiandae. Atque ut animi quas voluptatem facere voluptas.\n\nDolorem et rerum delectus officiis similique enim itaque enim. Vel hic nihil eos cumque culpa libero magni. Corporis assumenda nobis tenetur ipsum eos cumque modi. Qui aliquid non aspernatur et sed doloremque dicta voluptas. Aut et dignissimos ut.	2017-02-12 22:33:45	2017-02-12 22:33:45
+11	11	2	Enim amet alias libero aut quis.	enim-amet-alias-libero-aut-quis	Et quod est est iusto ut. Sequi qui est accusantium. Occaecati vel eos explicabo.\n\nAccusamus repellendus et ipsam reprehenderit aut beatae dolorum. Id fugiat sint necessitatibus vel. Aut vitae quia est minima dolore eos.	2017-02-12 22:33:45	2017-02-12 22:33:45
+12	12	1	Molestiae ex rerum perferendis magnam.	molestiae-ex-rerum-perferendis-magnam	Aut sunt impedit delectus sunt nemo ut tempore ducimus. Placeat et est possimus libero. Pariatur amet aut voluptatibus adipisci molestiae ut omnis. Porro qui ut adipisci aliquid autem minima.\n\nSit harum aperiam dolores dolorem non velit in. Magnam suscipit praesentium molestias tempora quia sit. Maiores omnis nisi sit quod.	2017-02-12 22:33:45	2017-02-12 22:33:45
+13	23	2	Provident consectetur voluptatem recusandae.	provident-consectetur-voluptatem-recusandae	Quo nam maxime corrupti porro. Reprehenderit ipsam mollitia doloremque ea. Quia illum blanditiis sit deserunt fuga.\n\nIllo qui officiis et officiis aliquam adipisci. Dolore molestiae incidunt delectus quas neque in repellendus. Provident ipsum ut et odio.	2017-02-12 22:33:45	2017-02-12 22:33:45
+14	13	1	Quam sed saepe sapiente nobis voluptatem delectus error.	quam-sed-saepe-sapiente-nobis-voluptatem-delectus-error	Et nam totam porro illum. Itaque id nisi sapiente voluptas sit hic. Et est esse accusantium qui.\n\nNatus sapiente doloribus nobis veniam qui est. Voluptatem et id magni amet saepe aut. Harum eveniet sunt officiis quisquam. Corrupti amet voluptatem rerum repudiandae et sunt ut eius.	2017-02-12 22:33:45	2017-02-12 22:33:45
+15	14	2	Voluptas ratione nesciunt dolores perspiciatis.	voluptas-ratione-nesciunt-dolores-perspiciatis	Numquam omnis omnis repellat consequuntur nesciunt nam ut sit. Sapiente omnis eius ducimus veritatis consequuntur. Iusto sint quidem quis eligendi qui quo quo. Repellat sit tenetur iure perferendis repudiandae.\n\nDistinctio id blanditiis illo pariatur eum ab. Iure et quia molestiae ipsa. Doloremque et sit repudiandae pariatur voluptatem odit.	2017-02-12 22:33:45	2017-02-12 22:33:45
+16	15	1	Sint rem inventore saepe nisi eos.	sint-rem-inventore-saepe-nisi-eos	Est sapiente nesciunt saepe facilis. Optio natus voluptatem sit et. Id delectus distinctio et ab sed culpa soluta.\n\nRerum ratione iusto beatae ratione reiciendis id. In eum dolor vitae quidem velit.	2017-02-12 22:33:45	2017-02-12 22:33:45
+17	16	2	Labore aut consequatur voluptate minus ducimus quia voluptatibus reprehenderit.	labore-aut-consequatur-voluptate-minus-ducimus-quia-voluptatibus-reprehenderit	Sit provident vero modi mollitia quas est aperiam. Voluptas minima cupiditate sed quia ut. Laborum sint odit corrupti similique omnis quia. Voluptatem quo et perferendis voluptatibus.\n\nCorporis ab nam sit. Tempora ut commodi rerum facere asperiores. Eligendi qui possimus voluptas iusto. Ipsum est quae mollitia est quibusdam vero.	2017-02-12 22:33:45	2017-02-12 22:33:45
+18	17	1	Vel harum expedita incidunt est.	vel-harum-expedita-incidunt-est	Necessitatibus non sunt corporis reprehenderit consequatur ipsum laborum. Placeat architecto vero doloremque reiciendis. Inventore et quia ut qui. Qui distinctio odio culpa neque illum ratione eaque.\n\nSapiente voluptatum quam vel. Facilis ea vero ipsam iste laudantium tempora quis. Saepe sit saepe quisquam est eaque eveniet.	2017-02-12 22:33:45	2017-02-12 22:33:45
+19	18	2	Laboriosam animi optio consectetur ea ut.	laboriosam-animi-optio-consectetur-ea-ut	Suscipit atque ad qui sint. Quis quis totam et at ea beatae ut. Necessitatibus possimus pariatur quo.\n\nMinus dolorem est delectus animi. Placeat et dolores qui qui in ab dolore sed. Vitae quo est in adipisci.	2017-02-12 22:33:46	2017-02-12 22:33:46
+20	19	1	Quae omnis nesciunt eaque facilis vero maiores delectus.	quae-omnis-nesciunt-eaque-facilis-vero-maiores-delectus	Numquam impedit ipsa ea assumenda dignissimos et voluptate. Nam non nihil placeat dicta aliquam sed. Enim error et non ratione exercitationem assumenda. Sit commodi cumque voluptates earum quibusdam sint.\n\nOfficiis alias non mollitia maxime. Cum est voluptatem in laboriosam impedit. Sint fuga voluptatum culpa doloribus.	2017-02-12 22:33:46	2017-02-12 22:33:46
+21	20	2	Rerum ea totam in omnis omnis eum.	rerum-ea-totam-in-omnis-omnis-eum	Maiores aut veniam amet porro. Totam aut accusamus vel error iusto. Earum asperiores qui cumque id debitis explicabo accusantium. Praesentium aut veritatis eum voluptates temporibus veritatis.\n\nSed necessitatibus aliquam et odio non. Sunt quas possimus dolorem nam enim. Eligendi praesentium tempore repudiandae laboriosam et nisi maiores labore.	2017-02-12 22:33:46	2017-02-12 22:33:46
+22	21	1	Et laudantium voluptatem aut rerum praesentium ut accusantium.	et-laudantium-voluptatem-aut-rerum-praesentium-ut-accusantium	Qui voluptas et facilis illum nihil dolor ut occaecati. Totam sed ut soluta quo aperiam atque. Repellendus sit id ab vel.\n\nEius tempora placeat doloribus deleniti dicta atque. Beatae cum est beatae quae esse. Voluptatem iusto commodi occaecati et aliquid veritatis.	2017-02-12 22:33:46	2017-02-12 22:33:46
+23	22	2	Laudantium odio non soluta.	laudantium-odio-non-soluta	Quo sit harum maxime fugiat culpa quia. Repellat et illo ipsam rem optio.\n\nReprehenderit molestias temporibus et minus dolores. Molestias sit architecto libero officiis reprehenderit. Totam laudantium quae sit saepe saepe sit maiores.	2017-02-12 22:33:46	2017-02-12 22:33:46
+24	24	1	Inventore dolor rem natus.	inventore-dolor-rem-natus	Aut est blanditiis adipisci quia accusamus. Qui qui aut enim aut vel hic. Sit cumque aliquam quia optio laborum. Consequuntur incidunt esse explicabo inventore et eligendi ipsam totam.\n\nAccusamus consequatur minima possimus nostrum quis. Nobis explicabo voluptas explicabo natus explicabo quos reprehenderit aut. Voluptas voluptatem neque non. Unde molestiae et deserunt reiciendis ut est nobis.	2017-02-12 22:33:46	2017-02-12 22:33:46
+25	25	2	Libero earum ut dolor molestiae.	libero-earum-ut-dolor-molestiae	Unde praesentium consequatur modi aut quo voluptatem. Totam placeat illo pariatur recusandae expedita placeat. Alias harum quos eos unde. Voluptas voluptatum odit libero illo amet harum.\n\nIpsam dicta delectus repellat asperiores quisquam. Quis quidem eos ducimus doloremque. Minus reiciendis ratione et.	2017-02-12 22:33:46	2017-02-12 22:33:46
+26	26	1	Nobis dolorum eos dignissimos debitis repudiandae in in.	nobis-dolorum-eos-dignissimos-debitis-repudiandae-in-in	Nisi vero soluta officia sapiente esse temporibus et. Sit eveniet qui dolorum officia. Sit modi ducimus quia et autem unde. Unde rerum aut et soluta quis optio expedita eum.\n\nEt ex ab dolore. Ullam iusto quia vel et enim. Neque assumenda vero sunt consequatur maiores eligendi.	2017-02-12 22:33:46	2017-02-12 22:33:46
 \.
 
 
@@ -978,132 +979,127 @@ COPY tagged (id, taggable_type, taggable_id, tag_id) FROM stdin;
 416	App\\Models\\Submission	1	385
 417	App\\Models\\Submission	1	386
 418	App\\Models\\Submission	1	387
-419	App\\Models\\Submission	2	388
+419	App\\Models\\Submission	1	388
 420	App\\Models\\Submission	2	389
 421	App\\Models\\Submission	2	390
 422	App\\Models\\Submission	2	391
 423	App\\Models\\Submission	2	392
-424	App\\Models\\Submission	3	393
-425	App\\Models\\Submission	3	394
+424	App\\Models\\Submission	2	393
+425	App\\Models\\Submission	2	394
 426	App\\Models\\Submission	3	395
 427	App\\Models\\Submission	3	396
 428	App\\Models\\Submission	3	397
-429	App\\Models\\Submission	3	398
-430	App\\Models\\Submission	3	390
-431	App\\Models\\Submission	4	388
-432	App\\Models\\Submission	4	399
-433	App\\Models\\Submission	4	400
-434	App\\Models\\Submission	5	401
-435	App\\Models\\Submission	5	402
-436	App\\Models\\Submission	5	403
-437	App\\Models\\Submission	5	404
-438	App\\Models\\Submission	5	393
-439	App\\Models\\Submission	5	405
-440	App\\Models\\Submission	5	406
-441	App\\Models\\Submission	6	407
-442	App\\Models\\Submission	6	408
-443	App\\Models\\Submission	6	409
-444	App\\Models\\Submission	6	410
-445	App\\Models\\Submission	6	411
-446	App\\Models\\Submission	6	412
-447	App\\Models\\Submission	6	390
-448	App\\Models\\Submission	7	389
-449	App\\Models\\Submission	7	413
-450	App\\Models\\Submission	7	414
-451	App\\Models\\Submission	8	415
-452	App\\Models\\Submission	8	416
-453	App\\Models\\Submission	8	417
-454	App\\Models\\Submission	8	418
-455	App\\Models\\Submission	9	419
-456	App\\Models\\Submission	9	420
-457	App\\Models\\Submission	9	421
-458	App\\Models\\Submission	9	422
-459	App\\Models\\Submission	9	423
-460	App\\Models\\Submission	9	418
-461	App\\Models\\Submission	10	424
-462	App\\Models\\Submission	10	425
-463	App\\Models\\Submission	10	426
-464	App\\Models\\Submission	10	427
-465	App\\Models\\Submission	10	415
-466	App\\Models\\Submission	10	420
-467	App\\Models\\Submission	11	412
-468	App\\Models\\Submission	11	428
-469	App\\Models\\Submission	11	416
-470	App\\Models\\Submission	11	420
-471	App\\Models\\Submission	11	429
-472	App\\Models\\Submission	11	430
-473	App\\Models\\Submission	12	393
-474	App\\Models\\Submission	12	385
-475	App\\Models\\Submission	12	431
-476	App\\Models\\Submission	12	425
-477	App\\Models\\Submission	12	432
-478	App\\Models\\Submission	12	402
-479	App\\Models\\Submission	13	433
-480	App\\Models\\Submission	13	434
-481	App\\Models\\Submission	13	421
-482	App\\Models\\Submission	14	385
-483	App\\Models\\Submission	14	435
-484	App\\Models\\Submission	14	436
-485	App\\Models\\Submission	14	425
-486	App\\Models\\Submission	14	437
-487	App\\Models\\Submission	15	438
-488	App\\Models\\Submission	15	439
-489	App\\Models\\Submission	15	436
-490	App\\Models\\Submission	15	440
-491	App\\Models\\Submission	15	425
-492	App\\Models\\Submission	16	441
-493	App\\Models\\Submission	16	442
-494	App\\Models\\Submission	16	443
-495	App\\Models\\Submission	17	429
-496	App\\Models\\Submission	17	415
-497	App\\Models\\Submission	17	388
-498	App\\Models\\Submission	18	444
-499	App\\Models\\Submission	18	445
-500	App\\Models\\Submission	18	446
-501	App\\Models\\Submission	18	447
-502	App\\Models\\Submission	18	388
-503	App\\Models\\Submission	18	403
-504	App\\Models\\Submission	18	448
-505	App\\Models\\Submission	19	402
-506	App\\Models\\Submission	19	449
-507	App\\Models\\Submission	19	450
-508	App\\Models\\Submission	19	451
-509	App\\Models\\Submission	19	388
-510	App\\Models\\Submission	20	452
-511	App\\Models\\Submission	20	406
-512	App\\Models\\Submission	20	438
-513	App\\Models\\Submission	20	453
-514	App\\Models\\Submission	20	439
-515	App\\Models\\Submission	20	440
-516	App\\Models\\Submission	20	388
-517	App\\Models\\Submission	21	454
-518	App\\Models\\Submission	21	455
-519	App\\Models\\Submission	21	456
-520	App\\Models\\Submission	22	432
-521	App\\Models\\Submission	22	457
-522	App\\Models\\Submission	22	458
-523	App\\Models\\Submission	22	411
-524	App\\Models\\Submission	22	459
-525	App\\Models\\Submission	23	404
-526	App\\Models\\Submission	23	402
-527	App\\Models\\Submission	23	460
-528	App\\Models\\Submission	23	461
-529	App\\Models\\Submission	23	406
-530	App\\Models\\Submission	23	462
-531	App\\Models\\Submission	24	463
-532	App\\Models\\Submission	24	464
-533	App\\Models\\Submission	24	460
-534	App\\Models\\Submission	24	465
-535	App\\Models\\Submission	24	388
-536	App\\Models\\Submission	24	432
-537	App\\Models\\Submission	25	466
-538	App\\Models\\Submission	25	393
-539	App\\Models\\Submission	25	404
-540	App\\Models\\Submission	26	467
-541	App\\Models\\Submission	26	401
-542	App\\Models\\Submission	26	389
-543	App\\Models\\Submission	26	468
-544	App\\Models\\Submission	26	469
+429	App\\Models\\Submission	4	398
+430	App\\Models\\Submission	4	399
+431	App\\Models\\Submission	4	400
+432	App\\Models\\Submission	4	401
+433	App\\Models\\Submission	4	402
+434	App\\Models\\Submission	5	403
+435	App\\Models\\Submission	5	396
+436	App\\Models\\Submission	5	404
+437	App\\Models\\Submission	6	405
+438	App\\Models\\Submission	6	406
+439	App\\Models\\Submission	6	407
+440	App\\Models\\Submission	7	408
+441	App\\Models\\Submission	7	409
+442	App\\Models\\Submission	7	402
+443	App\\Models\\Submission	7	410
+444	App\\Models\\Submission	7	411
+445	App\\Models\\Submission	8	412
+446	App\\Models\\Submission	8	413
+447	App\\Models\\Submission	8	414
+448	App\\Models\\Submission	8	415
+449	App\\Models\\Submission	8	416
+450	App\\Models\\Submission	8	417
+451	App\\Models\\Submission	9	418
+452	App\\Models\\Submission	9	419
+453	App\\Models\\Submission	9	420
+454	App\\Models\\Submission	10	421
+455	App\\Models\\Submission	10	422
+456	App\\Models\\Submission	10	423
+457	App\\Models\\Submission	10	424
+458	App\\Models\\Submission	10	425
+459	App\\Models\\Submission	10	426
+460	App\\Models\\Submission	11	425
+461	App\\Models\\Submission	11	427
+462	App\\Models\\Submission	11	428
+463	App\\Models\\Submission	11	429
+464	App\\Models\\Submission	12	414
+465	App\\Models\\Submission	12	430
+466	App\\Models\\Submission	12	431
+467	App\\Models\\Submission	12	393
+468	App\\Models\\Submission	12	432
+469	App\\Models\\Submission	12	421
+470	App\\Models\\Submission	13	414
+471	App\\Models\\Submission	13	433
+472	App\\Models\\Submission	13	415
+473	App\\Models\\Submission	13	434
+474	App\\Models\\Submission	13	435
+475	App\\Models\\Submission	13	436
+476	App\\Models\\Submission	14	437
+477	App\\Models\\Submission	14	414
+478	App\\Models\\Submission	14	391
+479	App\\Models\\Submission	14	438
+480	App\\Models\\Submission	14	388
+481	App\\Models\\Submission	14	393
+482	App\\Models\\Submission	15	419
+483	App\\Models\\Submission	15	439
+484	App\\Models\\Submission	15	396
+485	App\\Models\\Submission	15	440
+486	App\\Models\\Submission	16	441
+487	App\\Models\\Submission	16	436
+488	App\\Models\\Submission	16	442
+489	App\\Models\\Submission	17	443
+490	App\\Models\\Submission	17	444
+491	App\\Models\\Submission	17	445
+492	App\\Models\\Submission	17	446
+493	App\\Models\\Submission	17	447
+494	App\\Models\\Submission	18	448
+495	App\\Models\\Submission	18	414
+496	App\\Models\\Submission	18	449
+497	App\\Models\\Submission	18	416
+498	App\\Models\\Submission	18	450
+499	App\\Models\\Submission	18	413
+500	App\\Models\\Submission	19	451
+501	App\\Models\\Submission	19	445
+502	App\\Models\\Submission	19	439
+503	App\\Models\\Submission	19	452
+504	App\\Models\\Submission	19	453
+505	App\\Models\\Submission	19	454
+506	App\\Models\\Submission	20	455
+507	App\\Models\\Submission	20	418
+508	App\\Models\\Submission	20	456
+509	App\\Models\\Submission	20	457
+510	App\\Models\\Submission	20	390
+511	App\\Models\\Submission	21	458
+512	App\\Models\\Submission	21	459
+513	App\\Models\\Submission	21	460
+514	App\\Models\\Submission	22	420
+515	App\\Models\\Submission	22	426
+516	App\\Models\\Submission	22	461
+517	App\\Models\\Submission	22	400
+518	App\\Models\\Submission	22	462
+519	App\\Models\\Submission	22	447
+520	App\\Models\\Submission	22	411
+521	App\\Models\\Submission	23	463
+522	App\\Models\\Submission	23	451
+523	App\\Models\\Submission	23	464
+524	App\\Models\\Submission	23	465
+525	App\\Models\\Submission	23	413
+526	App\\Models\\Submission	24	464
+527	App\\Models\\Submission	24	407
+528	App\\Models\\Submission	24	456
+529	App\\Models\\Submission	24	466
+530	App\\Models\\Submission	24	467
+531	App\\Models\\Submission	24	468
+532	App\\Models\\Submission	24	469
+533	App\\Models\\Submission	25	399
+534	App\\Models\\Submission	25	470
+535	App\\Models\\Submission	25	419
+536	App\\Models\\Submission	25	420
+537	App\\Models\\Submission	26	471
+538	App\\Models\\Submission	26	413
+539	App\\Models\\Submission	26	472
 \.
 
 
@@ -1111,7 +1107,7 @@ COPY tagged (id, taggable_type, taggable_id, tag_id) FROM stdin;
 -- Name: tagged_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('tagged_id_seq', 544, true);
+SELECT pg_catalog.setval('tagged_id_seq', 539, true);
 
 
 --
@@ -1503,91 +1499,94 @@ COPY tags (id, namespace, slug, name, count) FROM stdin;
 382	App\\Models\\Video	eagle	Eagle	1
 383	App\\Models\\Video	rock	Rock	1
 384	App\\Models\\Video	alternative	Alternative	1
-388	App\\Models\\Submission	ut	ut	7
-386	App\\Models\\Submission	perferendis	perferendis	1
-387	App\\Models\\Submission	laborum	laborum	1
-390	App\\Models\\Submission	enim	enim	3
-389	App\\Models\\Submission	et	et	3
-391	App\\Models\\Submission	ipsam	ipsam	1
-392	App\\Models\\Submission	mollitia	mollitia	1
-394	App\\Models\\Submission	qui	qui	1
-395	App\\Models\\Submission	accusantium	accusantium	1
-396	App\\Models\\Submission	assumenda	assumenda	1
-397	App\\Models\\Submission	sapiente	sapiente	1
-398	App\\Models\\Submission	necessitatibus	necessitatibus	1
-399	App\\Models\\Submission	excepturi	excepturi	1
-400	App\\Models\\Submission	quis	quis	1
-435	App\\Models\\Submission	nam	nam	1
-455	App\\Models\\Submission	repellendus	repellendus	1
-466	App\\Models\\Submission	officiis	officiis	1
-405	App\\Models\\Submission	provident	provident	1
-407	App\\Models\\Submission	aliquid	aliquid	1
-408	App\\Models\\Submission	quae	quae	1
-409	App\\Models\\Submission	facere	facere	1
-410	App\\Models\\Submission	impedit	impedit	1
-393	App\\Models\\Submission	sed	sed	4
-456	App\\Models\\Submission	voluptatum	voluptatum	1
-413	App\\Models\\Submission	magnam	magnam	1
-414	App\\Models\\Submission	unde	unde	1
-404	App\\Models\\Submission	aut	aut	3
-417	App\\Models\\Submission	hic	hic	1
-437	App\\Models\\Submission	nisi	nisi	1
-419	App\\Models\\Submission	commodi	commodi	1
-422	App\\Models\\Submission	voluptas	voluptas	1
-423	App\\Models\\Submission	ducimus	ducimus	1
-418	App\\Models\\Submission	libero	libero	2
-424	App\\Models\\Submission	similique	similique	1
-426	App\\Models\\Submission	quo	quo	1
-427	App\\Models\\Submission	ex	ex	1
-457	App\\Models\\Submission	deserunt	deserunt	1
-412	App\\Models\\Submission	sint	sint	2
-428	App\\Models\\Submission	voluptatibus	voluptatibus	1
-416	App\\Models\\Submission	dolores	dolores	2
-420	App\\Models\\Submission	sunt	sunt	3
-458	App\\Models\\Submission	quos	quos	1
-430	App\\Models\\Submission	quaerat	quaerat	1
-431	App\\Models\\Submission	totam	totam	1
-411	App\\Models\\Submission	placeat	placeat	2
-433	App\\Models\\Submission	adipisci	adipisci	1
-434	App\\Models\\Submission	laudantium	laudantium	1
-421	App\\Models\\Submission	ad	ad	2
-385	App\\Models\\Submission	perspiciatis	perspiciatis	3
-436	App\\Models\\Submission	eveniet	eveniet	2
-459	App\\Models\\Submission	velit	velit	1
-425	App\\Models\\Submission	omnis	omnis	4
-441	App\\Models\\Submission	a	a	1
-442	App\\Models\\Submission	voluptatem	voluptatem	1
-443	App\\Models\\Submission	illo	illo	1
-429	App\\Models\\Submission	blanditiis	blanditiis	2
-415	App\\Models\\Submission	distinctio	distinctio	3
-444	App\\Models\\Submission	cum	cum	1
-445	App\\Models\\Submission	animi	animi	1
-446	App\\Models\\Submission	architecto	architecto	1
-447	App\\Models\\Submission	eum	eum	1
-403	App\\Models\\Submission	id	id	2
-448	App\\Models\\Submission	atque	atque	1
-467	App\\Models\\Submission	cumque	cumque	1
-449	App\\Models\\Submission	saepe	saepe	1
-450	App\\Models\\Submission	nulla	nulla	1
-451	App\\Models\\Submission	rerum	rerum	1
-452	App\\Models\\Submission	nihil	nihil	1
-401	App\\Models\\Submission	optio	optio	2
-438	App\\Models\\Submission	quasi	quasi	2
-453	App\\Models\\Submission	corporis	corporis	1
-439	App\\Models\\Submission	neque	neque	2
-440	App\\Models\\Submission	at	at	2
-454	App\\Models\\Submission	est	est	1
-402	App\\Models\\Submission	sit	sit	4
-461	App\\Models\\Submission	non	non	1
-406	App\\Models\\Submission	earum	earum	3
-462	App\\Models\\Submission	iste	iste	1
-463	App\\Models\\Submission	ipsum	ipsum	1
-464	App\\Models\\Submission	cupiditate	cupiditate	1
-460	App\\Models\\Submission	dignissimos	dignissimos	2
-465	App\\Models\\Submission	consequatur	consequatur	1
-432	App\\Models\\Submission	tempora	tempora	3
-468	App\\Models\\Submission	doloremque	doloremque	1
-469	App\\Models\\Submission	dolore	dolore	1
+385	App\\Models\\Submission	placeat	placeat	1
+386	App\\Models\\Submission	pariatur	pariatur	1
+387	App\\Models\\Submission	culpa	culpa	1
+390	App\\Models\\Submission	dolores	dolores	2
+389	App\\Models\\Submission	vero	vero	1
+388	App\\Models\\Submission	voluptatem	voluptatem	2
+392	App\\Models\\Submission	eos	eos	1
+455	App\\Models\\Submission	soluta	soluta	1
+394	App\\Models\\Submission	ea	ea	1
+395	App\\Models\\Submission	ab	ab	1
+397	App\\Models\\Submission	ratione	ratione	1
+398	App\\Models\\Submission	fugit	fugit	1
+472	App\\Models\\Submission	unde	unde	1
+407	App\\Models\\Submission	dicta	dicta	2
+401	App\\Models\\Submission	explicabo	explicabo	1
+437	App\\Models\\Submission	enim	enim	1
+403	App\\Models\\Submission	autem	autem	1
+418	App\\Models\\Submission	fugiat	fugiat	2
+404	App\\Models\\Submission	similique	similique	1
+405	App\\Models\\Submission	reiciendis	reiciendis	1
+406	App\\Models\\Submission	aspernatur	aspernatur	1
+408	App\\Models\\Submission	omnis	omnis	1
+409	App\\Models\\Submission	impedit	impedit	1
+402	App\\Models\\Submission	deleniti	deleniti	2
+410	App\\Models\\Submission	dolorum	dolorum	1
+456	App\\Models\\Submission	quasi	quasi	2
+412	App\\Models\\Submission	repellendus	repellendus	1
+391	App\\Models\\Submission	beatae	beatae	2
+417	App\\Models\\Submission	magni	magni	1
+457	App\\Models\\Submission	maxime	maxime	1
+466	App\\Models\\Submission	itaque	itaque	1
+422	App\\Models\\Submission	sit	sit	1
+423	App\\Models\\Submission	sapiente	sapiente	1
+424	App\\Models\\Submission	aperiam	aperiam	1
+438	App\\Models\\Submission	amet	amet	1
+425	App\\Models\\Submission	rem	rem	2
+427	App\\Models\\Submission	necessitatibus	necessitatibus	1
+428	App\\Models\\Submission	incidunt	incidunt	1
+429	App\\Models\\Submission	nostrum	nostrum	1
+393	App\\Models\\Submission	veritatis	veritatis	3
+430	App\\Models\\Submission	hic	hic	1
+431	App\\Models\\Submission	voluptate	voluptate	1
+432	App\\Models\\Submission	quis	quis	1
+421	App\\Models\\Submission	sint	sint	2
+458	App\\Models\\Submission	voluptatum	voluptatum	1
+433	App\\Models\\Submission	in	in	1
+415	App\\Models\\Submission	quidem	quidem	2
+434	App\\Models\\Submission	officiis	officiis	1
+435	App\\Models\\Submission	numquam	numquam	1
+396	App\\Models\\Submission	sed	sed	3
+440	App\\Models\\Submission	dignissimos	dignissimos	1
+441	App\\Models\\Submission	inventore	inventore	1
+436	App\\Models\\Submission	possimus	possimus	2
+442	App\\Models\\Submission	reprehenderit	reprehenderit	1
+443	App\\Models\\Submission	delectus	delectus	1
+444	App\\Models\\Submission	voluptatibus	voluptatibus	1
+459	App\\Models\\Submission	qui	qui	1
+446	App\\Models\\Submission	illo	illo	1
+467	App\\Models\\Submission	voluptates	voluptates	1
+448	App\\Models\\Submission	nihil	nihil	1
+414	App\\Models\\Submission	et	et	5
+449	App\\Models\\Submission	quaerat	quaerat	1
+416	App\\Models\\Submission	ut	ut	2
+450	App\\Models\\Submission	illum	illum	1
+468	App\\Models\\Submission	repudiandae	repudiandae	1
+445	App\\Models\\Submission	dolor	dolor	2
+439	App\\Models\\Submission	aut	aut	2
+452	App\\Models\\Submission	cumque	cumque	1
+453	App\\Models\\Submission	atque	atque	1
+454	App\\Models\\Submission	cupiditate	cupiditate	1
+460	App\\Models\\Submission	nulla	nulla	1
+426	App\\Models\\Submission	distinctio	distinctio	2
+461	App\\Models\\Submission	error	error	1
+400	App\\Models\\Submission	est	est	2
+462	App\\Models\\Submission	eius	eius	1
+447	App\\Models\\Submission	esse	esse	2
+411	App\\Models\\Submission	quia	quia	2
+463	App\\Models\\Submission	quo	quo	1
+451	App\\Models\\Submission	consequuntur	consequuntur	2
+465	App\\Models\\Submission	magnam	magnam	1
+464	App\\Models\\Submission	vel	vel	2
+469	App\\Models\\Submission	sunt	sunt	1
+399	App\\Models\\Submission	dolorem	dolorem	2
+470	App\\Models\\Submission	quod	quod	1
+419	App\\Models\\Submission	non	non	3
+420	App\\Models\\Submission	porro	porro	3
+471	App\\Models\\Submission	neque	neque	1
+413	App\\Models\\Submission	molestiae	molestiae	4
 \.
 
 
@@ -1595,7 +1594,7 @@ COPY tags (id, namespace, slug, name, count) FROM stdin;
 -- Name: tags_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('tags_id_seq', 469, true);
+SELECT pg_catalog.setval('tags_id_seq', 472, true);
 
 
 --
@@ -1603,98 +1602,118 @@ SELECT pg_catalog.setval('tags_id_seq', 469, true);
 --
 
 COPY topics (id, google_id, slug, name, json, count, created_at, updated_at) FROM stdin;
-1	/m/0478__m	\N	Lady Gaga	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/0478__m","name":"Lady Gaga","@type":["Person","Thing"],"description":"Singer-songwriter","image":{"contentUrl":"http:\\/\\/t3.gstatic.com\\/images?q=tbn:ANd9GcTotytMaY9gb94XgsQmQV0WqTZpxfyG_J7GjRl0-40Wp8wSc8ug","url":"https:\\/\\/simple.wikipedia.org\\/wiki\\/Lady_Gaga","license":"http:\\/\\/creativecommons.org\\/licenses\\/by\\/2.0"},"detailedDescription":{"articleBody":"Stefani Joanne Angelina Germanotta, known professionally as Lady Gaga, is an American singer, songwriter, and actress. She performed initially in theater, appearing in high school plays, and studied at CAP21 through NYU's Tisch School of the Arts before dropping out to pursue a musical career. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Lady_Gaga","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/www.ladygaga.com\\/"},"resultScore":29.558586}	0	2017-02-12 00:43:31	2017-02-12 00:43:31
-2	/m/0ftryzw	\N	Bad Romance	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/0ftryzw","name":"Bad Romance","@type":["MusicRecording","Thing"],"description":"Song by Lady Gaga"},"resultScore":6.303305}	0	2017-02-12 00:43:31	2017-02-12 00:43:31
-3	/m/0807c3_	\N	\N	\N	0	2017-02-12 00:43:31	2017-02-12 00:43:31
-4	/m/064t9	\N	\N	\N	0	2017-02-12 00:43:31	2017-02-12 00:43:31
-5	/m/08b6yt	\N	\N	\N	0	2017-02-12 00:43:32	2017-02-12 00:43:32
-6	/m/01gl72	\N	\N	\N	0	2017-02-12 00:43:32	2017-02-12 00:43:32
-7	/m/01n33z	\N	Joe Rogan	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/01n33z","name":"Joe Rogan","@type":["Person","Thing"],"description":"Comedian","image":{"contentUrl":"http:\\/\\/t0.gstatic.com\\/images?q=tbn:ANd9GcSyNVl1ABw3HIRxjrnKu2x5XU-I0v8oHo1zHc_TIO9clUfLPnhj","url":"https:\\/\\/simple.wikipedia.org\\/wiki\\/Joe_Rogan","license":"http:\\/\\/creativecommons.org\\/licenses\\/by\\/2.0"},"detailedDescription":{"articleBody":"Joseph James \\"Joe\\" Rogan is an American stand-up comedian, sports color commentator, television host, actor, and podcast host. Born in Newark, New Jersey, Rogan and his family moved several times before they settled in Newton Upper Falls, Massachusetts. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Joe_Rogan","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/joerogan.net\\/"},"resultScore":20.564383}	0	2017-02-12 00:43:33	2017-02-12 00:43:33
-8	/m/01_6j_	\N	Alex Jones	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/01_6j_","name":"Alex Jones","@type":["Person","Thing"],"description":"Radio host","image":{"contentUrl":"http:\\/\\/t3.gstatic.com\\/images?q=tbn:ANd9GcRmIVNYmckayjYoT9IhW1vX928BhjX8nVDoAW7px7ByVsva0x23","url":"https:\\/\\/simple.wikipedia.org\\/wiki\\/Alex_Jones","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/2.0"},"detailedDescription":{"articleBody":"Alexander Emerick \\"Alex\\" Jones is an American right-wing radio show host, filmmaker, writer, and conspiracy theorist. He hosts The Alex Jones Show from Austin, Texas, which airs on the Genesis Communications Network and shortwave radio station WWCR across the United States and online. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Alex_Jones_(radio_host)","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/www.infowars.com\\/"},"resultScore":22.356672}	0	2017-02-12 00:43:33	2017-02-12 00:43:33
-9	/m/08rm_x	\N	Eddie Bravo	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/08rm_x","name":"Eddie Bravo","@type":["Thing","Person"],"image":{"contentUrl":"http:\\/\\/t0.gstatic.com\\/images?q=tbn:ANd9GcTXZxRWA6CSPh-1JZzKfiZG2WlLQsTAu0LBSDUbbCkjIv4YOz7Y","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Eddie_Bravo"},"detailedDescription":{"articleBody":"Edgar \\"Eddie\\" Bravo is an American Jiu-Jitsu instructor and the founder of 10th Planet Jiu-Jitsu.","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Eddie_Bravo","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":15.273909}	0	2017-02-12 00:43:33	2017-02-12 00:43:33
-10	/m/01x2m_y	\N	Radical Face	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/01x2m_y","name":"Radical Face","@type":["Thing"],"description":"Musical Artist","detailedDescription":{"articleBody":"Radical Face is a musical act whose main member is Ben Cooper.","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Radical_Face","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/www.radicalface.com\\/"},"resultScore":15.498034}	0	2017-02-12 00:43:34	2017-02-12 00:43:34
-11	/m/01f4vzq	\N	Welcome Home	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/01f4vzq","name":"Welcome Home","@type":["MusicRecording","Thing"],"description":"Song by Radical Face"},"resultScore":5.584968}	0	2017-02-12 00:43:34	2017-02-12 00:43:34
-12	/m/0_kd_k5	\N	\N	\N	0	2017-02-12 00:43:34	2017-02-12 00:43:34
-13	/m/0342h	\N	\N	\N	0	2017-02-12 00:43:34	2017-02-12 00:43:34
-14	/m/01rlyjc	\N	Reggie Watts	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/01rlyjc","name":"Reggie Watts","@type":["Person","Thing"],"description":"Musician","image":{"contentUrl":"http:\\/\\/t2.gstatic.com\\/images?q=tbn:ANd9GcTWRxWITwRnOUWVBsuNvarcsc9mzoCa3pf2VPEXPA6PeRj6-0lR","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Reggie_Watts_at_PopTech_2011_(a).jpg","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/2.0"},"detailedDescription":{"articleBody":"Reginald Lucien Frank Roger \\"Reggie\\" Watts is an American musician, singer, beatboxer, actor, and comedian. His improvised musical sets are created using only his voice, a keyboard, and a looping machine. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Reggie_Watts","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/www.reggiewatts.com\\/"},"resultScore":18.374756}	0	2017-02-12 00:43:34	2017-02-12 00:43:34
-15	/m/017rf_	\N	Netflix	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/017rf_","name":"Netflix","@type":["Thing","Corporation","Organization"],"description":"Company","image":{"contentUrl":"http:\\/\\/t3.gstatic.com\\/images?q=tbn:ANd9GcTvwi94qQVasbn-bIrq0zCSsiyWW0fDxhbEG66TYJoBub58vuwZ","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Netflix_logo.svg"},"detailedDescription":{"articleBody":"Netflix, Inc. is an American entertainment company founded on August 29, 1997, in Scotts Valley, California, by Reed Hastings and Marc Randolph. It specializes in and provides streaming media and video-on-demand online and DVD by mail. In 2013 Netflix expanded into film and television production, as well as online distribution. As of 2017 the company has its headquarters in Los Gatos, California.\\nIn 1998, about a year after Netflix's founding, the company grew by starting in the DVD by mail business. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Netflix","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":42.148647}	0	2017-02-12 00:43:34	2017-02-12 00:43:34
-16	/m/018gz8	\N	\N	\N	0	2017-02-12 00:43:34	2017-02-12 00:43:34
-17	/m/033lpr	\N	\N	\N	0	2017-02-12 00:43:34	2017-02-12 00:43:34
-18	/m/015lz1	\N	\N	\N	0	2017-02-12 00:43:34	2017-02-12 00:43:34
-19	/m/01gq53	\N	\N	\N	0	2017-02-12 00:43:34	2017-02-12 00:43:34
-20	/m/09kqc	\N	\N	\N	0	2017-02-12 00:43:34	2017-02-12 00:43:34
-21	/m/0k4j	\N	\N	\N	0	2017-02-12 00:43:35	2017-02-12 00:43:35
-22	/m/0g94m	\N	\N	\N	0	2017-02-12 00:43:35	2017-02-12 00:43:35
-23	/m/0hrh365	\N	\N	\N	0	2017-02-12 00:43:35	2017-02-12 00:43:35
-24	/m/0bqb0z	\N	\N	\N	0	2017-02-12 00:43:35	2017-02-12 00:43:35
-25	/m/07yv9	\N	\N	\N	0	2017-02-12 00:43:35	2017-02-12 00:43:35
-26	/m/07j7r	\N	Tree	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/07j7r","name":"Tree","@type":["Thing"],"description":"Plant","image":{"contentUrl":"http:\\/\\/t1.gstatic.com\\/images?q=tbn:ANd9GcTK6gW1d8ZXaaMHStFqYUhb6VmrgrUZIerqgsKWGSleVVW1nVGb","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Tree","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/2.0"},"detailedDescription":{"articleBody":"In botany, a tree is a perennial plant with an elongated stem, or trunk, supporting branches and leaves in most species. In some usages, the definition of a tree may be narrower, including only woody plants with secondary growth, plants that are usable as lumber or plants above a specified height. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Tree","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":27.303528}	0	2017-02-12 00:43:36	2017-02-12 00:43:36
-27	/m/05h0n	\N	\N	\N	0	2017-02-12 00:43:36	2017-02-12 00:43:36
-28	/m/05b0n7k	\N	\N	\N	0	2017-02-12 00:43:36	2017-02-12 00:43:36
-29	/m/023bbt	\N	\N	\N	0	2017-02-12 00:43:36	2017-02-12 00:43:36
-30	/m/02zr8	\N	\N	\N	0	2017-02-12 00:43:36	2017-02-12 00:43:36
-31	/m/01h6d4	\N	\N	\N	0	2017-02-12 00:43:36	2017-02-12 00:43:36
-32	/m/09d_r	\N	\N	\N	0	2017-02-12 00:43:36	2017-02-12 00:43:36
-33	/m/07bxq	\N	\N	\N	0	2017-02-12 00:43:36	2017-02-12 00:43:36
-34	/m/014l4w	\N	National Film Board of Canada	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/014l4w","name":"National Film Board of Canada","@type":["Corporation","Organization","GovernmentOrganization","Thing"],"description":"Film distributor","image":{"contentUrl":"http:\\/\\/t2.gstatic.com\\/images?q=tbn:ANd9GcQNzzUpRRcRRg9lao4L25JBUXmxnGEbkpq4-ClrC3SVz1hAerVm","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Office_national_du_film_montreal.jpg","license":"http:\\/\\/www.gnu.org\\/copyleft\\/fdl.html"},"detailedDescription":{"articleBody":"The National Film Board of Canada is Canada's twelve-time Academy Award-winning public film and digital media producer and distributor. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/National_Film_Board_of_Canada","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/www.NFB.ca"},"resultScore":20.777863}	0	2017-02-12 00:43:36	2017-02-12 00:43:36
-35	/m/04byh1	\N	Universe	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/04byh1","name":"Universe","@type":["Movie","Thing"],"description":"1960 film","detailedDescription":{"articleBody":"Universe is a black-and-white short animated documentary made in 1960 by the National Film Board of Canada. It \\"creates on the screen a vast, awe-inspiring picture of the universe as it would appear to a voyager through space. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Universe_(1960_film)","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":9.404593}	0	2017-02-12 00:43:36	2017-02-12 00:43:36
-36	/m/0d060g	\N	Canada	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/0d060g","name":"Canada","@type":["Country","Thing","AdministrativeArea","Place"],"description":"Country","image":{"contentUrl":"http:\\/\\/t2.gstatic.com\\/images?q=tbn:ANd9GcRhs5VpCA5iyxCPBZz6bEfI5C4H9uDrGBFnlbP4kBs70iRynyip","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Flag_of_Canada_(Pantone).svg"},"detailedDescription":{"articleBody":"Canada is a country in the northern half of North America. Its ten provinces and three territories extend from the Atlantic to the Pacific and northward into the Arctic Ocean, covering 9.98 million square kilometres, making it the world's second-largest country by total area and the fourth-largest country by land area. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Canada","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/www.gc.ca\\/"},"resultScore":40.565517}	0	2017-02-12 00:43:37	2017-02-12 00:43:37
-37	/m/02wc06	\N	Roman Kroitor	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/02wc06","name":"Roman Kroitor","@type":["Thing","Person"],"description":"Filmmaker","detailedDescription":{"articleBody":"Roman Kroitor was a Canadian filmmaker who was known as an early practitioner of Cin\\u00e9ma v\\u00e9rit\\u00e9, as co-founder of IMAX, and as creator of the Sandde hand-drawn stereoscopic animation system. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Roman_Kroitor","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":11.433697}	0	2017-02-12 00:43:37	2017-02-12 00:43:37
-38	/m/02vxn	\N	\N	\N	0	2017-02-12 00:43:37	2017-02-12 00:43:37
-39	/m/01d9ll	\N	\N	\N	0	2017-02-12 00:43:37	2017-02-12 00:43:37
-40	/m/0jtdp	\N	\N	\N	0	2017-02-12 00:43:37	2017-02-12 00:43:37
-41	/m/0lyj0	\N	Appalachian National Scenic Trail	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/0lyj0","name":"Appalachian National Scenic Trail","@type":["Place","TouristAttraction","Thing"],"description":"National Park","image":{"contentUrl":"http:\\/\\/t0.gstatic.com\\/images?q=tbn:ANd9GcSBjbfJ19NbtMbpTI43JeI7ERohCE47K0DvDfmBj4n8r1pz-CO7","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Appalachian_Trail_sign_in_Pennsylvania.JPG","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/3.0"},"detailedDescription":{"articleBody":"The Appalachian National Scenic Trail, generally known as the Appalachian Trail or simply the A.T., is a marked hiking trail in the eastern United States extending between Springer Mountain in Georgia and Mount Katahdin in Maine. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Appalachian_Trail","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":22.665983}	0	2017-02-12 00:43:37	2017-02-12 00:43:37
-42	/m/0lm0n	\N	Appalachian Mountains	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/0lm0n","name":"Appalachian Mountains","@type":["Thing","Mountain","Place"],"description":"Mountain system","image":{"contentUrl":"http:\\/\\/t3.gstatic.com\\/images?q=tbn:ANd9GcSNaRAZgGHHaV3_kNDemYsEBx_T4Lmm6A8ts3k_STXem6gmOaub","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:MonNatForest.jpg","license":"http:\\/\\/www.gnu.org\\/copyleft\\/fdl.html"},"detailedDescription":{"articleBody":"The Appalachian Mountains, often called the Appalachians, are a system of mountains in eastern North America. The Appalachians first formed roughly 480 million years ago during the Ordovician Period. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Appalachian_Mountains","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":23.682806}	0	2017-02-12 00:43:37	2017-02-12 00:43:37
-43	/m/04rh6b	\N	\N	\N	0	2017-02-12 00:43:37	2017-02-12 00:43:37
-44	/m/0148v7	\N	\N	\N	0	2017-02-12 00:43:38	2017-02-12 00:43:38
-45	/m/016bnh	\N	\N	\N	0	2017-02-12 00:43:38	2017-02-12 00:43:38
-46	/m/02p0qmm	\N	\N	\N	0	2017-02-12 00:43:38	2017-02-12 00:43:38
-47	/m/01mf0	\N	\N	\N	0	2017-02-12 00:43:38	2017-02-12 00:43:38
-48	/m/07c1v	\N	\N	\N	0	2017-02-12 00:43:38	2017-02-12 00:43:38
-49	/m/051x4df	\N	Philip DeFranco	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/051x4df","name":"Philip DeFranco","@type":["Person","Thing"],"description":"Video blogger","image":{"contentUrl":"http:\\/\\/t0.gstatic.com\\/images?q=tbn:ANd9GcQxYEK-spxxDrx5dGrXi277fxeJiYi0XrONP7sT0G_SOdC98geX","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Philip_DeFranco","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/3.0"},"detailedDescription":{"articleBody":"Philip James DeFranco Jr, is an American video blogger and YouTube personality. He is most notable for The Philip DeFranco Show, usually abbreviated as PDS, a news show centered on current events, politics, pop culture, and celebrity gossip in which he voices his opinion, often presented in a satirical manner and with frequent jump cuts to create a fast-paced feel. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Philip_DeFranco","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/phillyd.tv\\/"},"resultScore":17.557213}	0	2017-02-12 00:43:39	2017-02-12 00:43:39
-50	/m/0z_7x56	\N	Dear White People	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/0z_7x56","name":"Dear White People","@type":["Movie","Thing"],"description":"2014 film","detailedDescription":{"articleBody":"Dear White People is a 2014 American satirical comedy-drama film, written, directed, and co-produced by Justin Simien. The film focuses on escalating racial tensions at a prestigious Ivy League college from the perspective of several African American students. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Dear_White_People","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/www.dearwhitepeoplemovie.com\\/"},"resultScore":16.10474}	0	2017-02-12 00:43:39	2017-02-12 00:43:39
-51	/m/06d4h	\N	\N	\N	0	2017-02-12 00:43:39	2017-02-12 00:43:39
-52	/m/07cb8	\N	\N	\N	0	2017-02-12 00:43:39	2017-02-12 00:43:39
-53	/m/0jbk	\N	Animal	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/0jbk","name":"Animal","@type":["Thing"],"image":{"contentUrl":"http:\\/\\/t2.gstatic.com\\/images?q=tbn:ANd9GcQ9tdhmB3iQe9zysaKtGyaQmus2XVDAHs5jjf5zkH4dzXZgHykz","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Animal_diversity_October_2007_for_thumbnail.jpg","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/3.0"},"detailedDescription":{"articleBody":"Animals are multicellular, eukaryotic organisms of the kingdom Animalia. The animal kingdom emerged as a basal clade within Apoikozoa as a sister of the choanoflagellates. Sponges are the most basal clade of animals. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Animal","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":39.504063}	0	2017-02-12 00:43:39	2017-02-12 00:43:39
-54	/m/01yrx	\N	cat	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/01yrx","name":"cat","@type":["Thing"],"description":"Animal","image":{"contentUrl":"http:\\/\\/t1.gstatic.com\\/images?q=tbn:ANd9GcShZghyt2L03zlqdj_6F7EPbCCsWWnAcVsvJ3_xv7cc-IraZc-o","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Cat_March_2010-1.jpg","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/3.0"},"detailedDescription":{"articleBody":"The domestic cat is a small, typically furry, carnivorous mammal. They are often called house cats when kept as indoor pets or simply cats when there is no need to distinguish them from other felids and felines. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Cat","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":29.050875}	0	2017-02-12 00:43:39	2017-02-12 00:43:39
-55	/m/0lbxg	\N	\N	\N	0	2017-02-12 00:43:39	2017-02-12 00:43:39
-56	/m/0k8zdxn	\N	PewDiePie	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/0k8zdxn","name":"PewDiePie","@type":["Thing","Person"],"description":"Comedian","image":{"contentUrl":"http:\\/\\/t0.gstatic.com\\/images?q=tbn:ANd9GcRPnHg34RH_KudIgj76pp3nYCrq9rTivaKDcFTpajjUaDpu9lOE","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:PewDiePie_at_PAX_2015_crop.jpg","license":"http:\\/\\/creativecommons.org\\/publicdomain\\/zero\\/1.0\\/deed.en"},"detailedDescription":{"articleBody":"Felix Arvid Ulf Kjellberg, better known by his online alias PewDiePie, is a Swedish web-based comedian and video producer, best known for his Let's Play commentaries and vlogs on YouTube.\\n","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/PewDiePie","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/www.pewdiepie.com\\/"},"resultScore":22.611353}	0	2017-02-12 00:43:40	2017-02-12 00:43:40
-57	/m/04wv_	\N	Moon	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/04wv_","name":"Moon","@type":["Thing"],"description":"Natural Satellite","image":{"contentUrl":"http:\\/\\/t3.gstatic.com\\/images?q=tbn:ANd9GcRWRAcLt2z8Rz--ZzApqQ2XprbuCiowBs6oOdtQcmKN2c92x3tM","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Moon","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/3.0"},"detailedDescription":{"articleBody":"The Moon is an astronomical body that orbits planet Earth, being Earth's only permanent natural satellite. It is the fifth-largest natural satellite in the Solar System, and the largest among planetary satellites relative to the size of the planet that it orbits. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Moon","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":29.167313}	0	2017-02-12 00:43:41	2017-02-12 00:43:41
-58	/m/05d1bj	\N	\N	\N	0	2017-02-12 00:43:41	2017-02-12 00:43:41
-59	/m/06mq7	\N	\N	\N	0	2017-02-12 00:43:41	2017-02-12 00:43:41
-60	/m/01k8wb	\N	\N	\N	0	2017-02-12 00:43:41	2017-02-12 00:43:41
-61	/m/084dw	\N	\N	\N	0	2017-02-12 00:43:42	2017-02-12 00:43:42
-62	/m/0bt9lr	\N	Dog	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/0bt9lr","name":"Dog","@type":["Thing"],"description":"Animal","image":{"contentUrl":"http:\\/\\/t2.gstatic.com\\/images?q=tbn:ANd9GcTtX76fJgSOyauWqsuLK15i9cgthxwi-L9zBWiWWfUYfhZxGIXW","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Too-cute-doggone-it-video-playlist.jpg","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/4.0"},"detailedDescription":{"articleBody":"The domestic dog is a member of genus Canis that forms part of the wolf-like canids, and is the most widely abundant carnivore. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Dog","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":30.540926}	0	2017-02-12 00:43:42	2017-02-12 00:43:42
-63	/m/017y8_	\N	Terrier	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/017y8_","name":"Terrier","@type":["Thing"],"description":"Animal","image":{"contentUrl":"http:\\/\\/t3.gstatic.com\\/images?q=tbn:ANd9GcS5sYl_uVjIbsjFxgnPJZhiBnQDx3p7i_TiYvdfgYScHXubZWuN","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Terrier","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/4.0"},"detailedDescription":{"articleBody":"A terrier is a dog of any one of many breeds or landraces of terrier type, which are typically small, wiry, very active and fearless dogs. Terrier breeds vary greatly in size from just 1 kg to over 32 kg and are usually categorized by size or function. There are five different groups with each group having several different breeds.","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Terrier","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":20.581709}	0	2017-02-12 00:43:43	2017-02-12 00:43:43
-64	/m/02x9dk	\N	Boston Terrier	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/02x9dk","name":"Boston Terrier","@type":["Thing"],"description":"Dog Breed","image":{"contentUrl":"http:\\/\\/t2.gstatic.com\\/images?q=tbn:ANd9GcQDpcp8xndNIF5M0Fmw4NBdwBULheeO0PYeLofhqrivF5l1j_ff","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:BostonTerrier001.JPG","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/3.0"},"detailedDescription":{"articleBody":"The Boston Terrier is a breed of dog originating in the United States. This \\"American Gentleman\\" was accepted in 1893 by the American Kennel Club as a non-sporting breed. Color and markings are important when distinguishing this breed to the AKC standard. They should be either black, brindle or seal with white markings. Bostons are small and compact with a short tail and erect ears. The AKC says they are highly intelligent and very easily trained. They are friendly and can be stubborn at times. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Boston_Terrier","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":20.561565}	0	2017-02-12 00:43:43	2017-02-12 00:43:43
-65	/m/068hy	\N	\N	\N	0	2017-02-12 00:43:43	2017-02-12 00:43:43
-66	/m/0d7s3w	\N	\N	\N	0	2017-02-12 00:43:43	2017-02-12 00:43:43
-67	/m/0l4h_	\N	\N	\N	0	2017-02-12 00:43:43	2017-02-12 00:43:43
-68	/m/05mqq3	\N	\N	\N	0	2017-02-12 00:43:43	2017-02-12 00:43:43
-69	/m/0p57p	\N	\N	\N	0	2017-02-12 00:43:44	2017-02-12 00:43:44
-70	/m/01mtb	\N	\N	\N	0	2017-02-12 00:43:44	2017-02-12 00:43:44
-71	/m/052sf	\N	Mushroom	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/052sf","name":"Mushroom","@type":["Thing"],"description":"Food","image":{"contentUrl":"http:\\/\\/t2.gstatic.com\\/images?q=tbn:ANd9GcRTElRA0zZBZeWI1peCmg1-CdkVSHvvUG4g6smH8mv_rm7ktuj5","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Mushroom","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/2.5"},"detailedDescription":{"articleBody":"A mushroom is the fleshy, spore-bearing fruiting body of a fungus, typically produced above ground on soil or on its food source.\\n","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Mushroom","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":23.629423}	0	2017-02-12 00:43:44	2017-02-12 00:43:44
-72	/m/020t4k	\N	Stuffing	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/020t4k","name":"Stuffing","@type":["Thing"],"description":"Food","image":{"contentUrl":"http:\\/\\/t3.gstatic.com\\/images?q=tbn:ANd9GcSuOfILP59ebdFdMcSDpHFwAdKFzcc9DuMVPCXA4o2onCwl8CUz","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Stuffing_a_turkey.jpg","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/2.0"},"detailedDescription":{"articleBody":"Stuffing, filling, or dressing is an edible substance or mixture, often a starch, used to fill a cavity in another food item while cooking. Many foods may be stuffed, including eggs, poultry, seafood, mammals, and vegetables.\\n","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Stuffing","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":19.934374}	0	2017-02-12 00:43:44	2017-02-12 00:43:44
-73	/m/02q08p0	\N	\N	\N	0	2017-02-12 00:43:44	2017-02-12 00:43:44
-74	/m/02wbm	\N	\N	\N	0	2017-02-12 00:43:44	2017-02-12 00:43:44
-75	/m/0bqtd	\N	\N	\N	0	2017-02-12 00:43:44	2017-02-12 00:43:44
-76	/m/0dv34	\N	\N	\N	0	2017-02-12 00:43:44	2017-02-12 00:43:44
-77	/m/02j71	\N	Earth	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/02j71","name":"Earth","@type":["Thing","Place"],"description":"Planet","image":{"contentUrl":"http:\\/\\/t0.gstatic.com\\/images?q=tbn:ANd9GcT1mh46qaRg5na3pNLs9iakbicwHMDGgUuYN7jDdkyhgIeJky9y","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Earth_Eastern_Hemisphere.jpg"},"detailedDescription":{"articleBody":"Earth, otherwise known as the world, is the third planet from the Sun and the only object in the Universe known to harbor life. It is the densest planet in the Solar System and the largest of the four terrestrial planets.\\nAccording to radiometric dating and other sources of evidence, Earth formed about 4.54 billion years ago. Earth's gravity interacts with other objects in space, especially the Sun and the Moon, Earth's only natural satellite. During one orbit around the Sun, Earth rotates about its axis over 365 times, thus an Earth year is about 365.26 days long. Earth's axis of rotation is tilted, producing seasonal variations on the planet's surface. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Earth","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":35.737907}	0	2017-02-12 00:43:44	2017-02-12 00:43:44
-78	/m/0d1w9	\N	\N	\N	0	2017-02-12 00:43:44	2017-02-12 00:43:44
-79	/m/07094	\N	\N	\N	0	2017-02-12 00:43:45	2017-02-12 00:43:45
-80	/m/07kk5	\N	\N	\N	0	2017-02-12 00:43:45	2017-02-12 00:43:45
-81	/m/094dsh	\N	\N	\N	0	2017-02-12 00:43:45	2017-02-12 00:43:45
-82	/m/06nzl	\N	\N	\N	0	2017-02-12 00:43:45	2017-02-12 00:43:45
-83	/m/0gvt53w	\N	The Master	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/0gvt53w","name":"The Master","@type":["Movie","Thing"],"description":"2012 film","detailedDescription":{"articleBody":"The Master is a 2012 American psychological drama film written, directed, and co-produced by Paul Thomas Anderson and starring Joaquin Phoenix, Philip Seymour Hoffman, and Amy Adams. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/The_Master_(2012_film)","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/www.themasterfilm.com\\/"},"resultScore":20.193451}	0	2017-02-12 00:43:46	2017-02-12 00:43:46
-84	/m/03hdbf	\N	\N	\N	0	2017-02-12 00:43:46	2017-02-12 00:43:46
-85	/m/045wvq	\N	Arcade Fire	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/045wvq","name":"Arcade Fire","@type":["Thing","MusicGroup"],"description":"Rock band","image":{"contentUrl":"http:\\/\\/t2.gstatic.com\\/images?q=tbn:ANd9GcRtb9OlB1HcKIUKw4Qp5uhu13lQzcKnpGGCYzfbfDLmxZnT45gj","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Arcade_fire_mg_7287.jpg","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/2.0\\/fr\\/deed.en"},"detailedDescription":{"articleBody":"Arcade Fire is a Canadian indie rock band based in Montreal, Quebec,consisting of husband and wife Win Butler and R\\u00e9gine Chassagne, along with Win's younger brother William Butler, Richard Reed Parry, Tim Kingsbury and Jeremy Gara. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Arcade_Fire","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/arcadefire.com\\/"},"resultScore":21.822828}	0	2017-02-12 00:43:46	2017-02-12 00:43:46
-86	/m/025tqfq	\N	\N	\N	0	2017-02-12 00:43:46	2017-02-12 00:43:46
-87	/m/01jj9zk	\N	Live at Earls Court	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/01jj9zk","name":"Live at Earls Court","@type":["MusicAlbum","Thing"],"description":"Live album by Morrissey","detailedDescription":{"articleBody":"Live at Earls Court is a live album by Morrissey. Its sleeve notes state that it was \\"recorded live at Earls Court in London on the 18 December 2004 in front of 17,183 people.\\"","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Live_at_Earls_Court","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":10.61483}	0	2017-02-12 00:43:47	2017-02-12 00:43:47
-88	/m/01jddz	\N	\N	\N	0	2017-02-12 00:43:47	2017-02-12 00:43:47
-89	/m/04_5hy	\N	\N	\N	0	2017-02-12 00:43:47	2017-02-12 00:43:47
-90	/m/039v1	\N	\N	\N	0	2017-02-12 00:43:47	2017-02-12 00:43:47
-91	/m/03qtwd	\N	\N	\N	0	2017-02-12 00:43:47	2017-02-12 00:43:47
-92	/m/09jwl	\N	\N	\N	0	2017-02-12 00:43:47	2017-02-12 00:43:47
+1	/m/0478__m	\N	Lady Gaga	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/0478__m","name":"Lady Gaga","@type":["Person","Thing"],"description":"Singer-songwriter","image":{"contentUrl":"http:\\/\\/t3.gstatic.com\\/images?q=tbn:ANd9GcTotytMaY9gb94XgsQmQV0WqTZpxfyG_J7GjRl0-40Wp8wSc8ug","url":"https:\\/\\/simple.wikipedia.org\\/wiki\\/Lady_Gaga","license":"http:\\/\\/creativecommons.org\\/licenses\\/by\\/2.0"},"detailedDescription":{"articleBody":"Stefani Joanne Angelina Germanotta, known professionally as Lady Gaga, is an American singer, songwriter, and actress. She performed initially in theater, appearing in high school plays, and studied at CAP21 through NYU's Tisch School of the Arts before dropping out to pursue a musical career. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Lady_Gaga","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/www.ladygaga.com\\/"},"resultScore":29.558249}	0	2017-02-12 22:33:23	2017-02-12 22:33:23
+2	/m/0ftryzw	\N	Bad Romance	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/0ftryzw","name":"Bad Romance","@type":["MusicRecording","Thing"],"description":"Song by Lady Gaga"},"resultScore":6.303305}	0	2017-02-12 22:33:23	2017-02-12 22:33:23
+3	/m/0807c3_	\N	\N	\N	0	2017-02-12 22:33:23	2017-02-12 22:33:23
+4	/m/074ft	\N	\N	\N	0	2017-02-12 22:33:23	2017-02-12 22:33:23
+5	/m/0mdxd	\N	\N	\N	0	2017-02-12 22:33:23	2017-02-12 22:33:23
+6	/m/04rlf	\N	\N	\N	0	2017-02-12 22:33:23	2017-02-12 22:33:23
+7	/m/064t9	\N	\N	\N	0	2017-02-12 22:33:23	2017-02-12 22:33:23
+8	/m/09hkc	\N	\N	\N	0	2017-02-12 22:33:24	2017-02-12 22:33:24
+9	/m/0199g	\N	\N	\N	0	2017-02-12 22:33:24	2017-02-12 22:33:24
+10	/m/0g45k9	\N	Scotty Cranmer	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/0g45k9","name":"Scotty Cranmer","@type":["Thing","Person"],"detailedDescription":{"articleBody":"Scotty Cranmer is an American BMX rider. He is tied with Dave Mirra for the most X Games BMX Park medals with nine, three each in gold, silver and bronze over fourteen appearances. He attended Jackson Memorial High School. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Scotty_Cranmer","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":15.090113}	0	2017-02-12 22:33:25	2017-02-12 22:33:25
+11	/m/01gl72	\N	\N	\N	0	2017-02-12 22:33:25	2017-02-12 22:33:25
+12	/m/06ntj	\N	\N	\N	0	2017-02-12 22:33:25	2017-02-12 22:33:25
+13	/m/06zfw	\N	\N	\N	0	2017-02-12 22:33:25	2017-02-12 22:33:25
+14	/m/01sgl	\N	\N	\N	0	2017-02-12 22:33:25	2017-02-12 22:33:25
+15	/m/05b0n7k	\N	\N	\N	0	2017-02-12 22:33:25	2017-02-12 22:33:25
+16	/m/08b6yt	\N	\N	\N	0	2017-02-12 22:33:25	2017-02-12 22:33:25
+17	/m/08t0vy	\N	\N	\N	0	2017-02-12 22:33:25	2017-02-12 22:33:25
+18	/m/09qkx	\N	\N	\N	0	2017-02-12 22:33:25	2017-02-12 22:33:25
+19	/m/04rh6b	\N	\N	\N	0	2017-02-12 22:33:25	2017-02-12 22:33:25
+20	/m/03hs7k	\N	\N	\N	0	2017-02-12 22:33:25	2017-02-12 22:33:25
+21	/m/07yv9	\N	\N	\N	0	2017-02-12 22:33:25	2017-02-12 22:33:25
+22	/m/01n33z	\N	Joe Rogan	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/01n33z","name":"Joe Rogan","@type":["Person","Thing"],"description":"Comedian","image":{"contentUrl":"http:\\/\\/t0.gstatic.com\\/images?q=tbn:ANd9GcSyNVl1ABw3HIRxjrnKu2x5XU-I0v8oHo1zHc_TIO9clUfLPnhj","url":"https:\\/\\/simple.wikipedia.org\\/wiki\\/Joe_Rogan","license":"http:\\/\\/creativecommons.org\\/licenses\\/by\\/2.0"},"detailedDescription":{"articleBody":"Joseph James \\"Joe\\" Rogan is an American stand-up comedian, sports color commentator, television host, actor, and podcast host. Born in Newark, New Jersey, Rogan and his family moved several times before they settled in Newton Upper Falls, Massachusetts. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Joe_Rogan","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/joerogan.net\\/"},"resultScore":20.564383}	0	2017-02-12 22:33:26	2017-02-12 22:33:26
+23	/m/01_6j_	\N	Alex Jones	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/01_6j_","name":"Alex Jones","@type":["Person","Thing"],"description":"Radio host","image":{"contentUrl":"http:\\/\\/t3.gstatic.com\\/images?q=tbn:ANd9GcRmIVNYmckayjYoT9IhW1vX928BhjX8nVDoAW7px7ByVsva0x23","url":"https:\\/\\/simple.wikipedia.org\\/wiki\\/Alex_Jones","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/2.0"},"detailedDescription":{"articleBody":"Alexander Emerick \\"Alex\\" Jones is an American right-wing radio show host, filmmaker, writer, and conspiracy theorist. He hosts The Alex Jones Show from Austin, Texas, which airs on the Genesis Communications Network and shortwave radio station WWCR across the United States and online. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Alex_Jones_(radio_host)","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/www.infowars.com\\/"},"resultScore":22.353977}	0	2017-02-12 22:33:27	2017-02-12 22:33:27
+24	/m/08rm_x	\N	Eddie Bravo	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/08rm_x","name":"Eddie Bravo","@type":["Person","Thing"],"image":{"contentUrl":"http:\\/\\/t0.gstatic.com\\/images?q=tbn:ANd9GcTXZxRWA6CSPh-1JZzKfiZG2WlLQsTAu0LBSDUbbCkjIv4YOz7Y","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Eddie_Bravo"},"detailedDescription":{"articleBody":"Edgar \\"Eddie\\" Bravo is an American Jiu-Jitsu instructor and the founder of 10th Planet Jiu-Jitsu.","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Eddie_Bravo","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":15.273909}	0	2017-02-12 22:33:27	2017-02-12 22:33:27
+25	/m/02jjt	\N	\N	\N	0	2017-02-12 22:33:27	2017-02-12 22:33:27
+26	/m/01x2m_y	\N	Radical Face	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/01x2m_y","name":"Radical Face","@type":["Thing"],"description":"Musical Artist","detailedDescription":{"articleBody":"Radical Face is a musical act whose main member is Ben Cooper.","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Radical_Face","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/www.radicalface.com\\/"},"resultScore":15.498034}	0	2017-02-12 22:33:27	2017-02-12 22:33:27
+27	/m/01f4vzq	\N	Welcome Home	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/01f4vzq","name":"Welcome Home","@type":["MusicRecording","Thing"],"description":"Song by Radical Face"},"resultScore":5.584968}	0	2017-02-12 22:33:27	2017-02-12 22:33:27
+28	/m/0_kd_k5	\N	\N	\N	0	2017-02-12 22:33:27	2017-02-12 22:33:27
+29	/m/0342h	\N	\N	\N	0	2017-02-12 22:33:28	2017-02-12 22:33:28
+30	/m/01rlyjc	\N	Reggie Watts	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/01rlyjc","name":"Reggie Watts","@type":["Thing","Person"],"description":"Musician","image":{"contentUrl":"http:\\/\\/t2.gstatic.com\\/images?q=tbn:ANd9GcTWRxWITwRnOUWVBsuNvarcsc9mzoCa3pf2VPEXPA6PeRj6-0lR","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Reggie_Watts_at_PopTech_2011_(a).jpg","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/2.0"},"detailedDescription":{"articleBody":"Reginald Lucien Frank Roger \\"Reggie\\" Watts is an American musician, singer, beatboxer, actor, and comedian. His improvised musical sets are created using only his voice, a keyboard, and a looping machine. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Reggie_Watts","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/www.reggiewatts.com\\/"},"resultScore":18.374756}	0	2017-02-12 22:33:28	2017-02-12 22:33:28
+100	/m/07kk5	\N	\N	\N	0	2017-02-12 22:33:43	2017-02-12 22:33:43
+101	/m/094dsh	\N	\N	\N	0	2017-02-12 22:33:43	2017-02-12 22:33:43
+102	/m/06nzl	\N	\N	\N	0	2017-02-12 22:33:43	2017-02-12 22:33:43
+31	/m/017rf_	\N	Netflix	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/017rf_","name":"Netflix","@type":["Thing","Organization","Corporation"],"description":"Company","image":{"contentUrl":"http:\\/\\/t3.gstatic.com\\/images?q=tbn:ANd9GcTvwi94qQVasbn-bIrq0zCSsiyWW0fDxhbEG66TYJoBub58vuwZ","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Netflix_logo.svg"},"detailedDescription":{"articleBody":"Netflix, Inc. is an American entertainment company founded on August 29, 1997, in Scotts Valley, California, by Reed Hastings and Marc Randolph. It specializes in and provides streaming media and video-on-demand online and DVD by mail. In 2013 Netflix expanded into film and television production, as well as online distribution. As of 2017 the company has its headquarters in Los Gatos, California.\\nIn 1998, about a year after Netflix's founding, the company grew by starting in the DVD by mail business. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Netflix","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":42.148872}	0	2017-02-12 22:33:29	2017-02-12 22:33:29
+32	/m/018gz8	\N	\N	\N	0	2017-02-12 22:33:29	2017-02-12 22:33:29
+33	/m/033lpr	\N	\N	\N	0	2017-02-12 22:33:29	2017-02-12 22:33:29
+34	/m/015lz1	\N	\N	\N	0	2017-02-12 22:33:29	2017-02-12 22:33:29
+35	/m/01gq53	\N	\N	\N	0	2017-02-12 22:33:29	2017-02-12 22:33:29
+36	/m/09kqc	\N	\N	\N	0	2017-02-12 22:33:29	2017-02-12 22:33:29
+37	/m/0k4j	\N	\N	\N	0	2017-02-12 22:33:29	2017-02-12 22:33:29
+38	/m/0g94m	\N	\N	\N	0	2017-02-12 22:33:29	2017-02-12 22:33:29
+39	/m/0hrh365	\N	\N	\N	0	2017-02-12 22:33:29	2017-02-12 22:33:29
+40	/m/0bqb0z	\N	\N	\N	0	2017-02-12 22:33:29	2017-02-12 22:33:29
+41	/m/016clk	\N	Pacific Crest Trail	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/016clk","name":"Pacific Crest Trail","@type":["Thing","Place"],"description":"Park","image":{"contentUrl":"http:\\/\\/t2.gstatic.com\\/images?q=tbn:ANd9GcSTfSEl0_HcRQ2v1KRIdrpCq72P4mQyH3S379JlI125zC7IFmZl","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Pacific_crest_trail_route_overview.png"},"detailedDescription":{"articleBody":"The Pacific Crest Trail is a long-distance hiking and equestrian trail closely aligned with the highest portion of the Sierra Nevada and Cascade mountain ranges, which lie 100 to 150 miles east of the U.S. Pacific coast. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Pacific_Crest_Trail","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":19.312973}	0	2017-02-12 22:33:30	2017-02-12 22:33:30
+42	/m/07j7r	\N	Tree	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/07j7r","name":"Tree","@type":["Thing"],"description":"Plant","image":{"contentUrl":"http:\\/\\/t1.gstatic.com\\/images?q=tbn:ANd9GcTK6gW1d8ZXaaMHStFqYUhb6VmrgrUZIerqgsKWGSleVVW1nVGb","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Tree","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/2.0"},"detailedDescription":{"articleBody":"In botany, a tree is a perennial plant with an elongated stem, or trunk, supporting branches and leaves in most species. In some usages, the definition of a tree may be narrower, including only woody plants with secondary growth, plants that are usable as lumber or plants above a specified height. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Tree","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":27.303528}	0	2017-02-12 22:33:30	2017-02-12 22:33:30
+43	/m/05h0n	\N	\N	\N	0	2017-02-12 22:33:30	2017-02-12 22:33:30
+44	/m/012v4j	\N	\N	\N	0	2017-02-12 22:33:31	2017-02-12 22:33:31
+45	/m/0hm03	\N	\N	\N	0	2017-02-12 22:33:31	2017-02-12 22:33:31
+46	/m/023bbt	\N	\N	\N	0	2017-02-12 22:33:31	2017-02-12 22:33:31
+47	/m/02zr8	\N	\N	\N	0	2017-02-12 22:33:31	2017-02-12 22:33:31
+48	/m/03hfn0	\N	\N	\N	0	2017-02-12 22:33:31	2017-02-12 22:33:31
+49	/m/01h6d4	\N	\N	\N	0	2017-02-12 22:33:31	2017-02-12 22:33:31
+50	/m/09d_r	\N	\N	\N	0	2017-02-12 22:33:31	2017-02-12 22:33:31
+51	/m/098kym	\N	\N	\N	0	2017-02-12 22:33:31	2017-02-12 22:33:31
+52	/m/019_rr	\N	\N	\N	0	2017-02-12 22:33:31	2017-02-12 22:33:31
+53	/m/03glg	\N	\N	\N	0	2017-02-12 22:33:31	2017-02-12 22:33:31
+54	/m/07bxq	\N	\N	\N	0	2017-02-12 22:33:31	2017-02-12 22:33:31
+55	/m/014l4w	\N	National Film Board of Canada	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/014l4w","name":"National Film Board of Canada","@type":["GovernmentOrganization","Thing","Corporation","Organization"],"description":"Film distributor","image":{"contentUrl":"http:\\/\\/t2.gstatic.com\\/images?q=tbn:ANd9GcQNzzUpRRcRRg9lao4L25JBUXmxnGEbkpq4-ClrC3SVz1hAerVm","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Office_national_du_film_montreal.jpg","license":"http:\\/\\/www.gnu.org\\/copyleft\\/fdl.html"},"detailedDescription":{"articleBody":"The National Film Board of Canada is Canada's twelve-time Academy Award-winning public film and digital media producer and distributor. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/National_Film_Board_of_Canada","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/www.NFB.ca"},"resultScore":20.777863}	0	2017-02-12 22:33:31	2017-02-12 22:33:31
+56	/m/04byh1	\N	Universe	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/04byh1","name":"Universe","@type":["Thing","Movie"],"description":"1960 film","detailedDescription":{"articleBody":"Universe is a black-and-white short animated documentary made in 1960 by the National Film Board of Canada. It \\"creates on the screen a vast, awe-inspiring picture of the universe as it would appear to a voyager through space. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Universe_(1960_film)","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":9.422796}	0	2017-02-12 22:33:31	2017-02-12 22:33:31
+57	/m/0d060g	\N	Canada	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/0d060g","name":"Canada","@type":["Country","Place","Thing","AdministrativeArea"],"description":"Country","image":{"contentUrl":"http:\\/\\/t2.gstatic.com\\/images?q=tbn:ANd9GcRhs5VpCA5iyxCPBZz6bEfI5C4H9uDrGBFnlbP4kBs70iRynyip","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Flag_of_Canada_(Pantone).svg"},"detailedDescription":{"articleBody":"Canada is a country in the northern half of North America. Its ten provinces and three territories extend from the Atlantic to the Pacific and northward into the Arctic Ocean, covering 9.98 million square kilometres, making it the world's second-largest country by total area and the fourth-largest country by land area. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Canada","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/www.gc.ca\\/"},"resultScore":40.565987}	0	2017-02-12 22:33:32	2017-02-12 22:33:32
+58	/m/02wc06	\N	Roman Kroitor	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/02wc06","name":"Roman Kroitor","@type":["Person","Thing"],"description":"Filmmaker","detailedDescription":{"articleBody":"Roman Kroitor was a Canadian filmmaker who was known as an early practitioner of Cin\\u00e9ma v\\u00e9rit\\u00e9, as co-founder of IMAX, and as creator of the Sandde hand-drawn stereoscopic animation system. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Roman_Kroitor","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":11.433697}	0	2017-02-12 22:33:32	2017-02-12 22:33:32
+59	/m/02vxn	\N	\N	\N	0	2017-02-12 22:33:32	2017-02-12 22:33:32
+60	/m/01d9ll	\N	\N	\N	0	2017-02-12 22:33:32	2017-02-12 22:33:32
+61	/m/0jtdp	\N	\N	\N	0	2017-02-12 22:33:32	2017-02-12 22:33:32
+62	/m/0lyj0	\N	Appalachian National Scenic Trail	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/0lyj0","name":"Appalachian National Scenic Trail","@type":["Thing","TouristAttraction","Place"],"description":"National Park","image":{"contentUrl":"http:\\/\\/t0.gstatic.com\\/images?q=tbn:ANd9GcSBjbfJ19NbtMbpTI43JeI7ERohCE47K0DvDfmBj4n8r1pz-CO7","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Appalachian_Trail_sign_in_Pennsylvania.JPG","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/3.0"},"detailedDescription":{"articleBody":"The Appalachian National Scenic Trail, generally known as the Appalachian Trail or simply the A.T., is a marked hiking trail in the eastern United States extending between Springer Mountain in Georgia and Mount Katahdin in Maine. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Appalachian_Trail","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":22.681515}	0	2017-02-12 22:33:32	2017-02-12 22:33:32
+63	/m/0lm0n	\N	Appalachian Mountains	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/0lm0n","name":"Appalachian Mountains","@type":["Mountain","Thing","Place"],"description":"Mountain system","image":{"contentUrl":"http:\\/\\/t3.gstatic.com\\/images?q=tbn:ANd9GcSNaRAZgGHHaV3_kNDemYsEBx_T4Lmm6A8ts3k_STXem6gmOaub","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:MonNatForest.jpg","license":"http:\\/\\/www.gnu.org\\/copyleft\\/fdl.html"},"detailedDescription":{"articleBody":"The Appalachian Mountains, often called the Appalachians, are a system of mountains in eastern North America. The Appalachians first formed roughly 480 million years ago during the Ordovician Period. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Appalachian_Mountains","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":23.68317}	0	2017-02-12 22:33:33	2017-02-12 22:33:33
+64	/m/0148v7	\N	\N	\N	0	2017-02-12 22:33:33	2017-02-12 22:33:33
+65	/m/016bnh	\N	\N	\N	0	2017-02-12 22:33:33	2017-02-12 22:33:33
+66	/m/01mf0	\N	\N	\N	0	2017-02-12 22:33:33	2017-02-12 22:33:33
+67	/m/07c1v	\N	\N	\N	0	2017-02-12 22:33:33	2017-02-12 22:33:33
+68	/m/0z_7x56	\N	Dear White People	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/0z_7x56","name":"Dear White People","@type":["Movie","Thing"],"description":"2014 film","detailedDescription":{"articleBody":"Dear White People is a 2014 American satirical comedy-drama film, written, directed, and co-produced by Justin Simien. The film focuses on escalating racial tensions at a prestigious Ivy League college from the perspective of several African American students. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Dear_White_People","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/www.dearwhitepeoplemovie.com\\/"},"resultScore":16.10474}	0	2017-02-12 22:33:34	2017-02-12 22:33:34
+69	/m/051x4df	\N	Philip DeFranco	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/051x4df","name":"Philip DeFranco","@type":["Thing","Person"],"description":"Video blogger","image":{"contentUrl":"http:\\/\\/t0.gstatic.com\\/images?q=tbn:ANd9GcQxYEK-spxxDrx5dGrXi277fxeJiYi0XrONP7sT0G_SOdC98geX","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Philip_DeFranco","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/3.0"},"detailedDescription":{"articleBody":"Philip James DeFranco Jr, is an American video blogger and YouTube personality. He is most notable for The Philip DeFranco Show, usually abbreviated as PDS, a news show centered on current events, politics, pop culture, and celebrity gossip in which he voices his opinion, often presented in a satirical manner and with frequent jump cuts to create a fast-paced feel. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Philip_DeFranco","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/phillyd.tv\\/"},"resultScore":17.549507}	0	2017-02-12 22:33:34	2017-02-12 22:33:34
+70	/m/06d4h	\N	\N	\N	0	2017-02-12 22:33:34	2017-02-12 22:33:34
+71	/m/010n_ch8	\N	Anna Akana	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/010n_ch8","name":"Anna Akana","@type":["Thing","Person"],"description":"Filmmaker","detailedDescription":{"articleBody":"Anna Kay Akana is an American filmmaker, producer, actress, comedienne, and model. She is known for her YouTube channel, which has over 1.5 million subscribers and over 100 million video views.","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Anna_Akana","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/www.annaakana.com\\/"},"resultScore":15.759341}	0	2017-02-12 22:33:35	2017-02-12 22:33:35
+72	/m/0jbk	\N	Animal	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/0jbk","name":"Animal","@type":["Thing"],"image":{"contentUrl":"http:\\/\\/t2.gstatic.com\\/images?q=tbn:ANd9GcQ9tdhmB3iQe9zysaKtGyaQmus2XVDAHs5jjf5zkH4dzXZgHykz","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Animal_diversity_October_2007_for_thumbnail.jpg","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/3.0"},"detailedDescription":{"articleBody":"Animals are multicellular, eukaryotic organisms of the kingdom Animalia. The animal kingdom emerged as a basal clade within Apoikozoa as a sister of the choanoflagellates. Sponges are the most basal clade of animals. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Animal","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":39.50462}	0	2017-02-12 22:33:36	2017-02-12 22:33:36
+73	/m/01yrx	\N	cat	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/01yrx","name":"cat","@type":["Thing"],"description":"Animal","image":{"contentUrl":"http:\\/\\/t1.gstatic.com\\/images?q=tbn:ANd9GcShZghyt2L03zlqdj_6F7EPbCCsWWnAcVsvJ3_xv7cc-IraZc-o","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Cat_March_2010-1.jpg","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/3.0"},"detailedDescription":{"articleBody":"The domestic cat is a small, typically furry, carnivorous mammal. They are often called house cats when kept as indoor pets or simply cats when there is no need to distinguish them from other felids and felines. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Cat","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":29.050875}	0	2017-02-12 22:33:36	2017-02-12 22:33:36
+74	/m/0lbxg	\N	\N	\N	0	2017-02-12 22:33:36	2017-02-12 22:33:36
+75	/m/0k8zdxn	\N	PewDiePie	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/0k8zdxn","name":"PewDiePie","@type":["Thing","Person"],"description":"Comedian","image":{"contentUrl":"http:\\/\\/t0.gstatic.com\\/images?q=tbn:ANd9GcRPnHg34RH_KudIgj76pp3nYCrq9rTivaKDcFTpajjUaDpu9lOE","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:PewDiePie_at_PAX_2015_crop.jpg","license":"http:\\/\\/creativecommons.org\\/publicdomain\\/zero\\/1.0\\/deed.en"},"detailedDescription":{"articleBody":"Felix Arvid Ulf Kjellberg, better known by his online alias PewDiePie, is a Swedish web-based comedian and video producer, best known for his Let's Play commentaries and vlogs on YouTube.\\n","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/PewDiePie","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/www.pewdiepie.com\\/"},"resultScore":22.620884}	0	2017-02-12 22:33:36	2017-02-12 22:33:36
+76	/m/0r4_lfb	\N	\N	\N	0	2017-02-12 22:33:36	2017-02-12 22:33:36
+77	/m/04wv_	\N	Moon	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/04wv_","name":"Moon","@type":["Thing"],"description":"Natural Satellite","image":{"contentUrl":"http:\\/\\/t3.gstatic.com\\/images?q=tbn:ANd9GcRWRAcLt2z8Rz--ZzApqQ2XprbuCiowBs6oOdtQcmKN2c92x3tM","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Moon","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/3.0"},"detailedDescription":{"articleBody":"The Moon is an astronomical body that orbits planet Earth, being Earth's only permanent natural satellite. It is the fifth-largest natural satellite in the Solar System, and the largest among planetary satellites relative to the size of the planet that it orbits. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Moon","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":29.167957}	0	2017-02-12 22:33:37	2017-02-12 22:33:37
+78	/m/05d1bj	\N	\N	\N	0	2017-02-12 22:33:37	2017-02-12 22:33:37
+79	/m/06mq7	\N	\N	\N	0	2017-02-12 22:33:37	2017-02-12 22:33:37
+80	/m/01k8wb	\N	\N	\N	0	2017-02-12 22:33:37	2017-02-12 22:33:37
+81	/m/084dw	\N	\N	\N	0	2017-02-12 22:33:38	2017-02-12 22:33:38
+82	/m/0bt9lr	\N	Dog	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/0bt9lr","name":"Dog","@type":["Thing"],"description":"Animal","image":{"contentUrl":"http:\\/\\/t2.gstatic.com\\/images?q=tbn:ANd9GcTtX76fJgSOyauWqsuLK15i9cgthxwi-L9zBWiWWfUYfhZxGIXW","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Too-cute-doggone-it-video-playlist.jpg","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/4.0"},"detailedDescription":{"articleBody":"The domestic dog is a member of genus Canis that forms part of the wolf-like canids, and is the most widely abundant carnivore. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Dog","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":30.541529}	0	2017-02-12 22:33:39	2017-02-12 22:33:39
+83	/m/017y8_	\N	Terrier	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/017y8_","name":"Terrier","@type":["Thing"],"description":"Animal","image":{"contentUrl":"http:\\/\\/t3.gstatic.com\\/images?q=tbn:ANd9GcS5sYl_uVjIbsjFxgnPJZhiBnQDx3p7i_TiYvdfgYScHXubZWuN","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Terrier","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/4.0"},"detailedDescription":{"articleBody":"A terrier is a dog of any one of many breeds or landraces of terrier type, which are typically small, wiry, very active and fearless dogs. Terrier breeds vary greatly in size from just 1 kg to over 32 kg and are usually categorized by size or function. There are five different groups with each group having several different breeds.","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Terrier","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":20.581709}	0	2017-02-12 22:33:39	2017-02-12 22:33:39
+84	/m/02x9dk	\N	Boston Terrier	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/02x9dk","name":"Boston Terrier","@type":["Thing"],"description":"Dog Breed","image":{"contentUrl":"http:\\/\\/t2.gstatic.com\\/images?q=tbn:ANd9GcQDpcp8xndNIF5M0Fmw4NBdwBULheeO0PYeLofhqrivF5l1j_ff","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:BostonTerrier001.JPG","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/3.0"},"detailedDescription":{"articleBody":"The Boston Terrier is a breed of dog originating in the United States. This \\"American Gentleman\\" was accepted in 1893 by the American Kennel Club as a non-sporting breed. Color and markings are important when distinguishing this breed to the AKC standard. They should be either black, brindle or seal with white markings. Bostons are small and compact with a short tail and erect ears. The AKC says they are highly intelligent and very easily trained. They are friendly and can be stubborn at times. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Boston_Terrier","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":20.558798}	0	2017-02-12 22:33:39	2017-02-12 22:33:39
+85	/m/068hy	\N	\N	\N	0	2017-02-12 22:33:39	2017-02-12 22:33:39
+86	/m/0d7s3w	\N	\N	\N	0	2017-02-12 22:33:39	2017-02-12 22:33:39
+87	/m/0l4h_	\N	\N	\N	0	2017-02-12 22:33:39	2017-02-12 22:33:39
+88	/m/05mqq3	\N	\N	\N	0	2017-02-12 22:33:39	2017-02-12 22:33:39
+89	/m/0p57p	\N	\N	\N	0	2017-02-12 22:33:40	2017-02-12 22:33:40
+90	/m/01mtb	\N	\N	\N	0	2017-02-12 22:33:40	2017-02-12 22:33:40
+91	/m/052sf	\N	Mushroom	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/052sf","name":"Mushroom","@type":["Thing"],"description":"Food","image":{"contentUrl":"http:\\/\\/t2.gstatic.com\\/images?q=tbn:ANd9GcRTElRA0zZBZeWI1peCmg1-CdkVSHvvUG4g6smH8mv_rm7ktuj5","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Mushroom","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/2.5"},"detailedDescription":{"articleBody":"A mushroom is the fleshy, spore-bearing fruiting body of a fungus, typically produced above ground on soil or on its food source.\\n","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Mushroom","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":23.629423}	0	2017-02-12 22:33:40	2017-02-12 22:33:40
+92	/m/020t4k	\N	Stuffing	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/020t4k","name":"Stuffing","@type":["Thing"],"description":"Food","image":{"contentUrl":"http:\\/\\/t3.gstatic.com\\/images?q=tbn:ANd9GcSuOfILP59ebdFdMcSDpHFwAdKFzcc9DuMVPCXA4o2onCwl8CUz","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Stuffing_a_turkey.jpg","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/2.0"},"detailedDescription":{"articleBody":"Stuffing, filling, or dressing is an edible substance or mixture, often a starch, used to fill a cavity in another food item while cooking. Many foods may be stuffed, including eggs, poultry, seafood, mammals, and vegetables.\\n","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Stuffing","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":19.934374}	0	2017-02-12 22:33:40	2017-02-12 22:33:40
+93	/m/02q08p0	\N	\N	\N	0	2017-02-12 22:33:40	2017-02-12 22:33:40
+94	/m/02wbm	\N	\N	\N	0	2017-02-12 22:33:40	2017-02-12 22:33:40
+95	/m/0bqtd	\N	\N	\N	0	2017-02-12 22:33:40	2017-02-12 22:33:40
+96	/m/0dv34	\N	\N	\N	0	2017-02-12 22:33:41	2017-02-12 22:33:41
+97	/m/02j71	\N	Earth	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/02j71","name":"Earth","@type":["Place","Thing"],"description":"Planet","image":{"contentUrl":"http:\\/\\/t0.gstatic.com\\/images?q=tbn:ANd9GcT1mh46qaRg5na3pNLs9iakbicwHMDGgUuYN7jDdkyhgIeJky9y","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Earth_Eastern_Hemisphere.jpg"},"detailedDescription":{"articleBody":"Earth, otherwise known as the world, is the third planet from the Sun and the only object in the Universe known to harbor life. It is the densest planet in the Solar System and the largest of the four terrestrial planets.\\nAccording to radiometric dating and other sources of evidence, Earth formed about 4.54 billion years ago. Earth's gravity interacts with other objects in space, especially the Sun and the Moon, Earth's only natural satellite. During one orbit around the Sun, Earth rotates about its axis over 365 times, thus an Earth year is about 365.26 days long. Earth's axis of rotation is tilted, producing seasonal variations on the planet's surface. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Earth","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":35.737965}	0	2017-02-12 22:33:41	2017-02-12 22:33:41
+98	/m/0d1w9	\N	\N	\N	0	2017-02-12 22:33:41	2017-02-12 22:33:41
+99	/m/07094	\N	\N	\N	0	2017-02-12 22:33:42	2017-02-12 22:33:42
+103	/m/0gvt53w	\N	The Master	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/0gvt53w","name":"The Master","@type":["Movie","Thing"],"description":"2012 film","detailedDescription":{"articleBody":"The Master is a 2012 American psychological drama film written, directed, and co-produced by Paul Thomas Anderson and starring Joaquin Phoenix, Philip Seymour Hoffman, and Amy Adams. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/The_Master_(2012_film)","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/www.themasterfilm.com\\/"},"resultScore":20.193451}	0	2017-02-12 22:33:44	2017-02-12 22:33:44
+104	/m/03hdbf	\N	\N	\N	0	2017-02-12 22:33:44	2017-02-12 22:33:44
+105	/m/045wvq	\N	Arcade Fire	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/045wvq","name":"Arcade Fire","@type":["MusicGroup","Thing"],"description":"Rock band","image":{"contentUrl":"http:\\/\\/t2.gstatic.com\\/images?q=tbn:ANd9GcRtb9OlB1HcKIUKw4Qp5uhu13lQzcKnpGGCYzfbfDLmxZnT45gj","url":"https:\\/\\/commons.wikimedia.org\\/wiki\\/File:Arcade_fire_mg_7287.jpg","license":"http:\\/\\/creativecommons.org\\/licenses\\/by-sa\\/2.0\\/fr\\/deed.en"},"detailedDescription":{"articleBody":"Arcade Fire is a Canadian indie rock band based in Montreal, Quebec,consisting of husband and wife Win Butler and R\\u00e9gine Chassagne, along with Win's younger brother William Butler, Richard Reed Parry, Tim Kingsbury and Jeremy Gara. ","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Arcade_Fire","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"},"url":"http:\\/\\/www.arcadefire.com\\/"},"resultScore":21.822828}	0	2017-02-12 22:33:44	2017-02-12 22:33:44
+106	/m/025tqfq	\N	\N	\N	0	2017-02-12 22:33:44	2017-02-12 22:33:44
+107	/m/01jj9zk	\N	Live at Earls Court	{"@type":"EntitySearchResult","result":{"@id":"kg:\\/m\\/01jj9zk","name":"Live at Earls Court","@type":["MusicAlbum","Thing"],"description":"Live album by Morrissey","detailedDescription":{"articleBody":"Live at Earls Court is a live album by Morrissey. Its sleeve notes state that it was \\"recorded live at Earls Court in London on the 18 December 2004 in front of 17,183 people.\\"","url":"https:\\/\\/en.wikipedia.org\\/wiki\\/Live_at_Earls_Court","license":"https:\\/\\/en.wikipedia.org\\/wiki\\/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License"}},"resultScore":10.61483}	0	2017-02-12 22:33:45	2017-02-12 22:33:45
+108	/m/01jddz	\N	\N	\N	0	2017-02-12 22:33:45	2017-02-12 22:33:45
+109	/m/04_5hy	\N	\N	\N	0	2017-02-12 22:33:45	2017-02-12 22:33:45
+110	/m/039v1	\N	\N	\N	0	2017-02-12 22:33:45	2017-02-12 22:33:45
+111	/m/03qtwd	\N	\N	\N	0	2017-02-12 22:33:45	2017-02-12 22:33:45
+112	/m/09jwl	\N	\N	\N	0	2017-02-12 22:33:45	2017-02-12 22:33:45
 \.
 
 
@@ -1702,18 +1721,18 @@ COPY topics (id, google_id, slug, name, json, count, created_at, updated_at) FRO
 -- Name: topics_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('topics_id_seq', 92, true);
+SELECT pg_catalog.setval('topics_id_seq', 112, true);
 
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY users (id, email, username, first_name, last_name, password, last_sign_in, created_at, updated_at, remember_token) FROM stdin;
-1	user@test.com	Anonymous-x0qj5lom	\N	\N	$2y$10$mg8TGt//OdppXQ901tbDpOAbeRCDZTbiEgob/bgpr0SoX.cIdgneC	\N	2017-02-12 00:43:30	2017-02-12 00:43:30	\N
-2	user2@test.com	Anonymous-zky59q97	\N	\N	$2y$10$7tdQVNd0Sajx1dohguHZxOr53r355d1IC81u1UNaeZGyAxxdbTwiC	\N	2017-02-12 00:43:30	2017-02-12 00:43:30	\N
-3	social@test.com	Anonymous-k6lx7yx2	\N	\N	\N	\N	2017-02-12 00:43:30	2017-02-12 00:43:30	\N
-4	unverified@test.com	Anonymous-j0yrxy9z	\N	\N	$2y$10$IWcq9gYByMqPsLiD0YsgL.3Zz4QBUFC/xMARsd2jrflV4s9kLy4y2	\N	2017-02-12 00:43:30	2017-02-12 00:43:30	\N
+COPY users (id, email, username, first_name, last_name, password, has_avatar, last_sign_in, created_at, updated_at, remember_token) FROM stdin;
+1	user@test.com	Anonymous-x0qj5lom	\N	\N	$2y$10$Ea2wyDbD5ytDWnB2JWY9kOU/VToTqaExocNSJkS5nb2WyPsYPecLq	f	\N	2017-02-12 22:33:22	2017-02-12 22:33:22	\N
+2	user2@test.com	Anonymous-zky59q97	\N	\N	$2y$10$MWaFjDltHUo6to/HDcyUi.8zQAtb1VEK8FRc3Kmdb6ZiCPe4nkMH.	f	\N	2017-02-12 22:33:22	2017-02-12 22:33:22	\N
+3	social@test.com	Anonymous-k6lx7yx2	\N	\N	\N	f	\N	2017-02-12 22:33:22	2017-02-12 22:33:22	\N
+4	unverified@test.com	Anonymous-j0yrxy9z	\N	\N	$2y$10$/mHx.q3ts4TpMDhvQg.EY.4YsmHl.680/yclWjKyVWEC5SlaKZIfC	f	\N	2017-02-12 22:33:22	2017-02-12 22:33:22	\N
 \.
 
 
@@ -1729,7 +1748,7 @@ SELECT pg_catalog.setval('users_id_seq', 4, true);
 --
 
 COPY verifications (user_id, token, created_at) FROM stdin;
-4	ea6c0c44eff227904fbeff60ce50c198a3acf0ec8cf9294c6d18debe6c881ade	2017-02-12 00:43:30
+4	acd8637730ffbe5df1785a0a1dbf99cccbcc5ed413595a591e442d7074391d7d	2017-02-12 22:33:22
 \.
 
 
@@ -1738,32 +1757,32 @@ COPY verifications (user_id, token, created_at) FROM stdin;
 --
 
 COPY videos (id, youtube_id, title, description, embeddable, privacy_status, published_at, created_at, updated_at) FROM stdin;
-1	qrO4YZeyl0I	Lady Gaga - Bad Romance	LADY GAGA / JOANNE \nNEW ALBUM / OUT NOW\niTunes: http://smarturl.it/Joanne \nGoogle Play: http://smarturl.it/Joanne.gp \nAmazon: http://smarturl.it/Joanne.amz\nLadyGaga.com: http://smarturl.it/GagaStore\n\nFOLLOW LADY GAGA:\nhttp://www.facebook.com/ladygaga\nhttp://www.twitter.com/ladygaga\nhttp://www.instagram.com/ladygaga\nhttp://www.snapchat.com/add/ladygaga\nhttp://smarturl.it/LG.sp \n\nEMAIL LIST: \nhttp://smarturl.it/LadyGaga.News\n\nMusic video by Lady Gaga performing Bad Romance. (C) 2009 Interscope Records\n#VEVOCertified on January 31, 2010. http://www.vevo.com/certified http://www.youtube.com/vevocertified	t	public	2009-11-24 07:45:26	2017-02-12 00:43:31	2017-02-12 00:43:31
-2	eQZEQQMWiVs	UH OH BIG BOY TAIL WHIPS AGAIN!	Finally a somewhat nice day has come in what has been a very cold February winter. Matty, BIG BOY and I went to a random skatepark by my cousins work for an awesome session. We rolled up there and it was a skatepark full of skateboarders, but they were absoultluy awesome and they had no issue with us getting a session in with them. Matty and BIG BOY did a lot on some ramps that they thought were going to be to small to ride Matty made BIG BOY learn how to do a bunch of new tricks like a whip over the bank to bank box. I called BIG BOY out on a bunch of tricks and as usual he gets completely broke off in some way and takes a crazy crash. I can't tell you how awesome it is to be back and going around to skatepark to skatepark with these boys. Thanks for watching, remember to subscribe and peace!	t	public	2017-02-11 21:03:37	2017-02-12 00:43:31	2017-02-12 00:43:31
-3	uuIlvSNU67o	NEED ADVICE	A brief update on the backyard ramp before Spencer and I get some riding in. Got some cool announcements and some good footage in this one :)\nMERCH - http://LZBMX.COM\n\nSpencer's Channel - https://www.youtube.com/channel/UCQsNNWoGmf0tN2mi04c7hnA\n\nSong #1 by David Cutter\nhttps://www.davidcuttermusic.co.uk\nSong #2 by Ryan Little\nhttps://soundcloud.com/iamryanlittle	t	public	2017-02-11 16:42:16	2017-02-12 00:43:32	2017-02-12 00:43:32
-4	UZPCp8SPfOM	Joe Rogan Experience #911 - Alex Jones & Eddie Bravo	Alex Jones is a radio show host, filmmaker, writer, and conspiracy theorist. Eddie Bravo is a jiujitsu black belt, music producer, and author.	t	public	2017-02-02 02:15:04	2017-02-12 00:43:32	2017-02-12 00:43:32
-5	P8a4iiOnzsc	Radical Face 'Welcome Home'	http://www.radicalface.com\nhttp://youtube.com/radicalface\nhttp://facebook.com/radicalface\nhttp://twitter.com/radicalface\nhttps://www.instagram.com/radicalfaceofficial/\n\nWebstore: http://radicalface.shop.musictoday.com/store/\nPurchase/Steam: https://Nettwerk.lnk.to/radicalfaceYA\nApple Music: http://apple.co/1Vo1Vti\nTour: http://home.radicalface.com/shows\n\nDiscography\nThe Family Tree: The Leaves\nThe Bastards\nThe Family Tree: The Branches\nAlways Gold EP\nThe Family Tree: The Roots\nWelcome Home EP\nGhost\n\nDIRECTOR's web site:   http://www.justinmitchell.com	t	public	2009-06-02 22:32:19	2017-02-12 00:43:33	2017-02-12 00:43:33
-6	QVQK_Yp0KuI	Reggie Watts - Spatial 2016 (Full New Comedy Special)	Reggie Watts - Spatial 2016 FULL Stand-Up Comedy Special \nSpatial, his new Netflix special, is signature Watts, meaning it’s alternately exhilarating, silly, exhausting, and transcendent. Coming onstage as a Darth Vader-esque cloaked figure, Watts sonorously tells his audience of a vast, confusing interstellar conflict before reassuring them, “The vestibule has been opened and all of us continue to exist as if nothing will occur.” He then loses his train of thought while trying to come up with the name of their mortal enemies.	t	public	2016-12-18 05:13:35	2017-02-12 00:43:34	2017-02-12 00:43:34
-7	mulGqCjMzCs	Running in Front of Cars	Instagram @Cherdleys https://www.instagram.com/cherdleys/\nSnapchat  @Cherdleys\nTwitter      @Cherdleys https://twitter.com/cherdleys\n\nCreated by Chad LeBaron AKA Cherdleys AKA One Of Those Kids That Hurts Cats\n\nWatch last video: https://www.youtube.com/watch?v=1uDu-...\n\nFollow Saxon:\nInstagram @OldManSaxon - https://www.instagram.com/oldmansaxon/	t	public	2016-02-23 15:31:46	2017-02-12 00:43:35	2017-02-12 00:43:35
-8	-X_aCfVhWYI	EP35 - ONE WEEK LEFT - Pacific Crest Trail 2016	October 1, 2016 - PCT trail miles 2507.5 to 2522.1\nFollow me on https://www.instagram.com/zachrotondo/\n\nEnd screen music - soundcloud.com/lakeyinspired	t	public	2016-12-16 17:21:56	2017-02-12 00:43:35	2017-02-12 00:43:35
-9	Hu64xbgprWY	Universe - National Film Board of Canada (1960)	Universe is a black-and-white short documentary made in 1960 by the National Film Board of Canada. It dramatizes the nightly work of an astronomer at the David Dunlap Observatory in Richmond Hill, Ontario, a facility that is owned and operated by the University of Toronto, Canada. The film was a nominee at the 33rd Academy Awards in the category of Best Documentary Short Subject in 1961.	t	public	2013-06-18 15:03:22	2017-02-12 00:43:36	2017-02-12 00:43:36
-10	7xTOj6VwaVc	The World's Worst Backpacker on the Pacific Crest Trail...	It's time for me to share the story of my first night on the Pacific Crest Trail. Don't try this at home! (... not that you could...)\nIf you've never hiked on the PCT, this video may be for you. You might also like it if you've had a trail chew you up and spit you out.\nThis video also serves as a preview to my new monologue, The World's Worst Backpacker - coming to Audible and iTunes this summer!\nFind out more at www.kenlasalle.com.	t	public	2016-05-16 23:16:20	2017-02-12 00:43:37	2017-02-12 00:43:37
-11	UYG7FoneZZU	2016 Thru Hikers Part 4	https://www.gofundme.com/hikertrashvideo	t	public	2016-11-08 02:46:02	2017-02-12 00:43:37	2017-02-12 00:43:37
-12	UNsIVfGptqM	Do You Need A College Degree For a System Administration Career?	It's one of the most popular questions I get: Is a college degree required for a System Administration Career?\n\n-Do I need a university degree for a tech career, in general?\n-How can I get my first Linux sysadmin job without a degree?\n\nIn this video I talk about the value of Degrees vs. the value of Education, and some career/learning strategies for people who don't have a college degree.\n\n3:18 - Education vs Experience\n4:09 - What to Study (High-Level overview in terms of University classes to emulate)\n6:10 - Theory vs. Practical Skill\n7:52 - How to Become a System Administrator (recommended learning path)\n10:02 - Practice + Theory work together to make you better\n\n\nBook Mentioned: Andrew Tanenbaum's Modern Operating Systems (4th ed) - http://amzn.to/2kcBc6a\n\nFull Linux Sysadmin Basics Playlist: https://www.youtube.com/playlist?list=PLtK75qxsQaMLZSo7KL-PmiRarU7hrpnwK\n\nCheck out my project-based Linux System Administration course (free sample videos): https://www.udemy.com/hands-on-linux-self-hosted-wordpress-for-linux-beginners/?couponCode=tl35\n\nOfficial Site: https://tutorialinux.com/\nTwitter: https://twitter.com/tutorialinux\nFacebook: https://www.facebook.com/tutorialinux\nPatreon: https://www.patreon.com/tutorialinux	t	public	2017-02-10 15:35:31	2017-02-12 00:43:37	2017-02-12 00:43:37
-23	kE1mKj8awyY	My Top 10 Essential Documentaries	Previous Video ▶ http://bit.ly/2kkfZeI\n\nSubscribe For Daily Vids ▶ http://bit.ly/1KOilIP\nFollow My Snapchat ▶ http://snpcht.me/Mrhales100\nFollow My Twitter ▶ http://www.twitter.com/lahwf\nFollow My Instagram ▶ http://www.instagram.com/mrhales109\nLike the Facebook page ▶ http://www.facebook.com/lahwf\n\nSHIRTS ▶ http://shrsl.com/?e6xk\n\nSend Fan Mail to:\n5419 Hollywood Blvd, Ste. C825\nHollywood, CA 90027	t	public	2017-01-30 20:43:26	2017-02-12 00:43:44	2017-02-12 00:43:44
-13	Gt_tUnf6T2E	The Truth About Dear White People: Racist Propaganda or Marketing Fail?	THURSDAY! These videos are my fave to make. Here goes nothing…\nWatch the Brand New Docuvlog!: https://youtu.be/SB3Se3dKBfo\nTheDeFrancoFam Vlog: https://youtu.be/_7K_Byz7Ah8\n————————————\nSTORIES:\n‘Dear White People’ Outrage:\nhttp://www.huffingtonpost.com/entry/netflix-boycott-dear-white-people_us_589cbb85e4b04061313c33eb\nhttp://www.revelist.com/tv/racists-boycott-netflix/6811\nhttp://www.telegraph.co.uk/tv/2017/02/09/dear-white-people-trailer-sparks-backlash-netflix-faces-claims/\nWatch The Movie: https://www.hulu.com/watch/850296\nhttps://www.amazon.com/White-People-Tyler-James-Williams/dp/B00OSQAP6G\n\nYouTube Sub Glitch:\nhttps://thenextweb.com/apps/2017/02/09/youtube-glitch-counter-channels/\nhttp://www.ibtimes.co.uk/youtube-finally-fixes-bug-causing-channels-lose-hundreds-subscribers-per-minute-1605713\n\nNBA 2K ELEAGUE:\nhttp://www.digitaltrends.com/gaming/nba-official-esports-league/\nhttp://www.espn.com/nba/story/_/id/18647863/nba-take-two-interactive-software-partnering-nba-2k-esports-league\nhttp://www.nba.com/article/2017/02/09/nba-video-game-company-launch-new-gaming-league-2018\n\nBaylor Sexual Assault Scandal:\nhttp://sportsday.dallasnews.com/college-sports/collegesports/2017/02/06/5-biggest-recent-revelations-baylors-sexual-assault-scandal\nhttp://www.tmz.com/2017/02/02/art-briles-alleged-text-messages/\nhttp://www.npr.org/2017/02/08/514172776/baylor-sanctioned-by-big-12-after-new-revelations-about-football-team-controvers\nhttp://www.dallasnews.com/news/baylor/2017/01/27/new-baylor-lawsuit-describes-show-em-good-time-culture-cites-52-rapes-football-players-4-years\nhttp://www.dallasnews.com/news/higher-education/2016/11/03/baylor-examining-sex-assault-claims-2011-2015\nhttp://www.foxnews.com/sports/2017/02/07/baylor-university-assistant-coach-fired-charged-with-soliciting-prostitute.html\n\n————————————\nFollow Me On Social:\nFACEBOOK: http://on.fb.me/mqpRW7\nTWITTER: http://Twitter.com/PhillyD\nINSTAGRAM: https://instagram.com/phillydefranco/\nSNAPCHAT: TheDeFrancoFam\nREDDIT: https://www.reddit.com/r/DeFranco\nITUNES: http://DeFrancoMistakes.com\nSOUNDCLOUD: http://letsmakemistakestogether.com\nGOOGLE PLAY: http://mistakeswithdefranco.com\n\nEdited by:\nJames Girardier - https://twitter.com/jamesgirardier\n\nProduced by:\nAmanda Morones - https://twitter.com/MandaOhDang\n\nMotion Graphics Artist\nBrian Borst - https://twitter.com/GrandpaHyde\n\nMailing Address:\nAttn: Philip DeFranco\n6433 Topanga Canyon Blvd #805\nCanoga Park, CA 91303	t	public	2017-02-09 22:30:03	2017-02-12 00:43:38	2017-02-12 00:43:38
-14	KJC71dY13L8	I Need A Cat Dad	Happy Valentine's day!\nGHOST & STARS ▶ http://GhostAndStars\nHELP ME MAKE VIDEOS ▶ https://www.patreon.com/annaakana\n\nI need a cat dad - This super serious music video was created for Valentine's day so that whenever a potential cat dad (or mom!) pops up, you can send them this video with a "You, yes? ;)" and be as creepy as possible. \n\nbusiness\nAkanaActing@gmail.com\nTom Spriggs at The Coronel Group\n\nThanks Brad!\nhttp://youtube.com/BradGageComedy\n\nAudio mix by Jesse Cale\nhttps://www.youtube.com/user/TheOfficialMcSwagger\n\nshot and edited by Eric Lombart\nhttp://youtube.com/EricLombart\n\nmake up & hair by Melissa Tabares\nhttp://instagram.com/melissatabareshair\n\ngfx by Bethany Radloff\nhttp://youtube.com/BethBeRad	t	public	2017-02-09 21:06:12	2017-02-12 00:43:39	2017-02-12 00:43:39
-15	qjYxXg4wZDg	My Epic Collab With Pewdiepie!!	I hope you enjoy my collab with Pewdiepie!\nHila is leaving me for this guy ► https://goo.gl/0yCVIX \n\nH3 Podcast is available at:\nITUNES ► https://goo.gl/desgTE\nGOOGLE PLAY MUSIC ►https://goo.gl/EnllKV\n\nTwitter......................►https://twitter.com/h3h3productions\nHila's Twitter............►https://twitter.com/hilakleinh3\nSpreadshirt..............►http://h3h3productions.spreadshirt.com\nInstagram................►http://instagram.com/h3h3productions\nHila's Instragram.....►https://www.instagram.com/kleinhila\nWebsite....................►http://h3h3productions.com\nSubreddit.................►http://reddit.com/r/h3h3productions\n\nTheme Song by MajorLeagueWobs:\nhttps://www.youtube.com/user/strangeholder	t	public	2017-02-08 20:03:44	2017-02-12 00:43:40	2017-02-12 00:43:40
-16	hbXDLKFkjm0	Water on the Moon?	NEW CHANNEL! http://youtube.com/sciencium\n\nFor a long time we thought the Moon was completely dry, but it turns out there are actually three sources of lunar water.\nThanks to Google Making and Science for supporting the new channel! http://youtube.com/makingscience\n\nThanks to Patreon supporters:\nNathan Hansen, Donal Botkin, Tony Fadell, Zach Mueller, Ron Neal\n\nSupport Veritasium on Patreon: http://bit.ly/VePatreon\n\nReferences:\nGreat history of water on the moon: https://arxiv.org/pdf/1205.5597.pdf\n\nFilmed by Raquel Nuno\n\nMusic from http://epidemicsound.com "Serene Story 2"	t	public	2017-02-08 14:30:01	2017-02-12 00:43:40	2017-02-12 00:43:40
-17	j26ax_NDeek	idubbbz visits tana mongeau	Thank you for viewing\n\nFor the full video visit: https://youtu.be/N8vaJaFCFYA\n__\n\nSUBSCRIBE ► https://www.youtube.com/channel/UC-tsNNJ3yIW98MtPH6PWFAQ?sub_confirmation=1\n\nMain Channel ► https://www.youtube.com/user/iDubbbzTV\nSecond Channel ► https://www.youtube.com/channel/UC-tsNNJ3yIW98MtPH6PWFAQ\nGaming Channel ► https://www.youtube.com/channel/UCVhfFXNY0z3-mbrTh1OYRXA\n\nWebsite ► http://www.idubbbz.com/\n\nInstagram ► https://instagram.com/idubbbz/\nTwitter ► https://twitter.com/Idubbbz\nFacebook ► http://www.facebook.com/IDubbbz\nTwitch ► http://www.twitch.tv/idubbbz\n_	t	public	2017-02-06 23:11:44	2017-02-12 00:43:41	2017-02-12 00:43:41
-18	7jjTnvFAG0w	Weird Frat Guy Taking Shots	Wait for it...\n\n\nConnect with Cherdleys:\n► https://www.facebook.com/cherdleys\n► https://www.instagram.com/cherdleys\n\nSupport Cherdleys ► https://www.patreon.com/cherdleys\nMerchandise► https://www.cherdleys.com\nSecond Channel ► http://bit.ly/2i6SuRX	t	public	2017-02-06 20:13:17	2017-02-12 00:43:41	2017-02-12 00:43:41
-19	uqWUfTsEEOE	MY GIRL IS LEAVING ME FOR THIS GUY	Connor Murphy will steal your girl in seconds\nMaking Music with Post Malone ► https://goo.gl/gnpe3H\n\nH3 Podcast is available at:\n\nITUNES ► https://goo.gl/desgTE\nGOOGLE PLAY MUSIC ►https://goo.gl/EnllKV\n\nTwitter......................►https://twitter.com/h3h3productions\nHila's Twitter............►https://twitter.com/hilakleinh3\nSpreadshirt..............►http://h3h3productions.spreadshirt.com\nInstagram................►http://instagram.com/h3h3productions\nHila's Instragram.....►https://www.instagram.com/kleinhila\nWebsite....................►http://h3h3productions.com\nSubreddit.................►http://reddit.com/r/h3h3productions\n\nSource video:\nhttps://www.youtube.com/channel/UCwNPPl_oX8oUtKVMLxL13jg\n\nMusic:\n\n"Sweet as Honey" by Topher Mohr and Alex Elena\n\nBig Car Theft by Audionautix is licensed under a Creative Commons Attribution license (https://creativecommons.org/licenses/by/4.0/)\nArtist: http://audionautix.com/	t	public	2017-02-04 23:06:33	2017-02-12 00:43:42	2017-02-12 00:43:42
-20	IjpvhYpLVMo	Cutest Dog in the World | Mockumentary	Please Subscribe ▶ http://bit.ly/1FmhXhC \nExtras & Vlogs ▶ https://www.youtube.com/user/LAHWFextra\nFollow My Twitter ▶ http://www.twitter.com/lahwf\nFollow My Instagram ▶ http://www.instagram.com/mrhales109\nLike the Facebook page! ▶ http://www.facebook.com/lahwf\nCreep on my snaps! ▶ http://snpcht.me/Mrhales100\n\nBonnie's Instagram ▶ https://www.instagram.com/bonnie_babies/\n\nLuke's Channel ▶ https://www.youtube.com/user/fLUKEy1989\nAryia's Channel ▶ https://www.youtube.com/user/SimpleSexyStupid\n\nSong:\nGymnopedie No 1 by Kevin MacLeod is licensed under a Creative Commons Attribution license (https://creativecommons.org/licenses/by/4.0/)\nSource: http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100787\nArtist: http://incompetech.com/\n\nSend Fan Mail to:\n5419 Hollywood Blvd, Ste. C825\nHollywood, CA 90027	t	public	2017-02-04 02:47:20	2017-02-12 00:43:42	2017-02-12 00:43:42
-21	wDc2aDH3zMM	Best Stuffed Mushrooms Recipe	This stuffed mushrooms recipe makes a great appetizer and party dish --and it's pretty easy to make a bunch of these stuffed mushrooms at one time. Stuffed mushrooms are often filled with freshly grated Parmesan, garlic, and herbs, but it's a super versatile recipe...so experiment with your favorite flavors; I personally like a blue cheese and hot sauce combo thrown into the filling, and chopped nuts and toasted breadcrumbs can add a much needed crunchiness.\nA printable copy of this stuffed mushrooms recipe and more tips on how to prepare it can be found at  \nhttp://www.myfoodchannel.com/stuffed-mushrooms-recipe/\nGive this stuffed mushroom recipe a try and let me know what you think, and for more recipes check out the Chef Buck playlist:  \nhttp://www.youtube.com/playlist?list=PL2EFBD7E8FE2BB552 \nand to print all recipes visit my website at http://www.myfoodchannel.com/\n\nConnect with this media to catch all of my videos...thanks:\nMY OTHER YOUTUBE CHANNEL:  http://www.youtube.com/user/buckredbuck\nFACEBOOK \nhttp://www.facebook.com/buckredbuck\nTWITTER \nhttps://twitter.com/buckredbuck\nINSTAGRAM\nhttps://www.instagram.com/buckredbuck/\nGOOGLE+  \nhttp://plus.google.com/u/0/109193261972985167770/posts\nPRINT RECIPES AT MY WEBSITE:  \nhttp://www.myfoodchannel.com/\nRECIPE PLAYLISTS:  http://www.youtube.com/user/FromUnderTheRock\n\nWhat You Need for This Stuffed Mushrooms Recipe \n \n12-15 MUSHROOMS\n½ cup PANKO BREADCRUMBs\n1 TBSP BUTTER\nsome OLIVE OIL\nfilling mixture like...\n½ cup PARMESAN CHEESE\n½ cup BLUE CHEESE\n4-6 cloves GARLIC (finely chopped)\n½ cup PARSLEY (chopped)\n½ cup CASHEWS (chopped)\nsome HOT SAUCE\nSALT and PEPPER (to taste)\n...but fillings are optional\n\nHow To Make Stuffed Mushrooms\n\nBuy whole mushrooms that are uniform in size; I buy mushrooms that are not already pre-packaged, so I can select the best.\nChoose mushrooms that are firm and dry and store in the fridge in a paper sack until you are ready to use them.\nBefore using, clean mushrooms with a damp towel. \nremove the stems and use a knife or spoon to open the mushroom center and create more room for the stuffing.\nTake your time preparing the mushroom caps to avoid splitting them. \nI often set aside some of the stems to use in other recipes, while reserving some to chop and mix with the stuffing.\nCoat the mushroom caps lightly with olive oil and set aside.\nIn a bowl, combine some of the chopped stems and whatever fillings you desire.\nI often use an egg, minced garlic, freshly grated parmesan, and fresh chopped parsley with my filling, but\nthe variations are endless.\nBlue cheese is fantastic in stuffed mushrooms.\nFor added crunchiness, nuts are a great idea. I find that chopped cashews work very well.\nI'll often add ingredients to the stuffing mix as I stuff the mushrooms, which makes for a nice variety of flavors.\nSpoon the filling into the mushroom cap.\nIn a skillet, melt butter and add panko breadcrumbs. The breadcrumbs will soak up the butter and flavor.\nTop stuffed mushrooms with panko breadcrumbs and place on a rack over a baking sheet.\nPlace stuffed mushrooms in an oven pre-heated to 375 degrees F. and bake for approximately 30 minutes or until\nthe breadcrumb topping is nicely toasted.\nServe warm.\n\nGive this stuffed mushrooms recipe a try, and let me know what you think, and bon appétit!	t	public	2017-02-03 15:32:26	2017-02-12 00:43:43	2017-02-12 00:43:43
-22	RVMZxH1TIIQ	Why Earth Is A Prison and How To Escape It	We are trapped on earth. Controlled by an ancient debt to the universe...\n\nLearn more about Ariane 6: http://www.airbusafran-launchers.com/en/universe/ariane-6-en/\n\nSupport us on Patreon so we can make more videos (and get cool stuff in return): https://www.patreon.com/Kurzgesagt?ty=h\n\nKurzgesagt merch here:  http://bit.ly/1P1hQIH\n\nGet the music of the video here: \n\nSoundcloud: http://bit.ly/2kqsiGb\nBandcamp: http://bit.ly/2kryP3c\nFacebook: https://www.facebook.com/epic-mountain-music\n \nTHANKS A LOT TO OUR LOVELY PATRONS FOR SUPPORTING US:\n\nJohn Wendeborn, Haan, Doktor Andy, Josh Gabbatiss, Peter Egger, Rick Lawrence, Eric Gao, 주영정, Jeff Threatt, Lars v., BurmansHealthShop, Ian White, Coty Rosenblath, SoraHavok, Andrew Berscheid, Jakub Zych, Eddie Han, Bubble Our Travel, Anton Ukhanev, Jan Pac, Mike, Martin Harding, Louis, Thomas G. Digranes, Todd, Mishal Alsuwyan, Liam Swann, Timothee Groleau, John Cido, Nicholas Bethencourt, Jeremy B Costella, Matthew Clarkson, Anna Chiara Brunetti, ValCab33, Neno Ganchev, Matt Saville, Klaas Pieter Annema, Peter Spalthoff, Andrew Campbell, Mads Bertheussen, Josué Barbosa dos Santos, Corey Hinds, Julian Fiander, BillDoor, Garrett Blackmon, Leeann Toland, Marshall Dow, Horia Constantin, Austin Hooper, Thomas E. Lee, Sylvain Milan, Jake Lee Kennedy, teddy zhang, Albinomaur, Casey Schad, Pearce Bergh, Dan Werdnly, Richard Patenaude, Moch Faisal Rasid, Antoine Dymond, James Hyde, Jonathan Verlohren, H.L.Hammons, Mikael Hannikainen, Kevin Douglass, Erik Onnen, Thiago Torres, Bryan Benninghoff, Frank Tuffner, Kevan Rynning, Aschwin Berkhout, Daniel Neilson, Damon Weil, Wesley Byrd, Bryan Andrade, Sergei Gaponov, Torodes, Ori Haski, Adam, Pavel Ševčík, Will Schmid, Alan Tran, Raoul Verhaegen, Fabercastel, Max, Youlia Hadzhidimova, Tristan Waddington, Bror Ronning, Santiago Campellone, Harjeet Taggar, James Horrocks, Brandon Bizzarro, Michel Vaillancourt, RHall, Brian David Henderson, Vikas Dhiman, Jack, Tomáš Miškov, Derral Gerken, Anthony, Vadim Golub, Fervidus, Justin Ritchie, Nicolas Dolgin, Harry, Andrew Miner, Rohan Dowd, Jesse Versluys, Juraj Trizna, André Léger, Peter Reynolds, Tom Handcock, Shaquille D. Johnson, HUISHI ZHANG, Robert S Peschel, Chris Bowley, Thomasz Kolosowski, Hogtree Octovish, Donovan Shickley, Bruce Hill, William Johnson, Ángel Garcia Casado, Riikka S, Daniel Moul, Daniel John, Anirudh Joshi, Robert, Iman, Jannis Kaiser, Andrew Bennett, Mariann Nagy, Daniel Kömpf, Philip Zapfel, Vince Gabor\n\nHelp us caption & translate this video!\n\nhttp://www.youtube.com/timedtext_cs_panel?c=UCsXVk37bltHxD1rDPwtNM8Q&tab=2\n\nOverpopulation – The Human Explosion Explained	t	public	2017-02-01 13:22:31	2017-02-12 00:43:44	2017-02-12 00:43:44
-24	Q8ccXzM3x8A	The Case for String Theory - Sixty Symbols	Dr Tony Padilla  on why he thinks there's a compelling case for String Theory... This is one of our occasional longer-form interviews.\nLonger interviews with Ed Copeland: http://bit.ly/CopelandGoesLong\nOur visit to CERN: http://bit.ly/LHCvideos\nObjectivity: http://bit.ly/Objectivity\n\nDr Padilla is a cosmologist at the University of Nottingham - https://www.nottingham.ac.uk/physics/people/antonio.padilla\n\nVisit our website at http://www.sixtysymbols.com/\nWe're on Facebook at http://www.facebook.com/sixtysymbols\nAnd Twitter at http://twitter.com/sixtysymbols\nThis project features scientists from The University of Nottingham\nhttp://bit.ly/NottsPhysics\n\nPatreon: https://www.patreon.com/sixtysymbols\n\nSixty Symbols videos by Brady Haran\nhttp://www.bradyharanblog.com\n\nEmail list: http://eepurl.com/YdjL9\n\nExtra videos and images via CERN and ESO.\nMusic via Harri at freesound.org	t	public	2017-01-30 14:30:33	2017-02-12 00:43:45	2017-02-12 00:43:45
-25	keYYiuOJdrE	The Master: How Scientology Works	Get a free 30 day trial of Audible here: http://www.audible.com/nerdwriter\n\nI WAS NOMINATED FOR A SHORTY! VOTE FOR ME HERE: http://shortyawards.com/9th/theenerdwriter\nNERDWRITER T-SHIRTS: https://store.dftba.com/products/the-nerdwriter-shirt\n\n\nSOURCES AND FURTHER READING:\n\nhttps://luckyottershaven.com/2017/01/15/why-scientology-auditing-is-not-at-all-like-traditional-psychotherapy-part-2/\n\nhttps://luckyottershaven.com/2017/01/14/why-scientology-auditing-is-not-at-all-like-traditional-psychotherapy-part-1/\n\nhttps://www.youtube.com/watch?v=dbmPVq6e2aA\n\nhttps://www.ncbi.nlm.nih.gov/pmc/articles/PMC3856510/	t	public	2017-01-26 15:01:31	2017-02-12 00:43:45	2017-02-12 00:43:45
-26	9-5TSxd0ep0	Arcade Fire - Rebellion (Lies): Live at Earls Court	Arcade Fire : The Reflektor Tapes / Live At Earls Court released on DVD & BluRay on 27 January 2017. \n\nDVD - http://smarturl.it/REFLEKTORTAPESDVD\nBlu Ray - http://smarturl.it/REFLEKTORTAPESBR\n\nMusic video by Arcade Fire performing Rebellion (Lies). (C) 2016 Arcade Fire Music, LLC, exclusively licensed to Eagle Rock Entertainment Ltd.\n\nhttp://vevo.ly/ZPzbTY	t	public	2017-01-26 11:00:02	2017-02-12 00:43:46	2017-02-12 00:43:46
+1	qrO4YZeyl0I	Lady Gaga - Bad Romance	LADY GAGA / JOANNE \nNEW ALBUM / OUT NOW\niTunes: http://smarturl.it/Joanne \nGoogle Play: http://smarturl.it/Joanne.gp \nAmazon: http://smarturl.it/Joanne.amz\nLadyGaga.com: http://smarturl.it/GagaStore\n\nFOLLOW LADY GAGA:\nhttp://www.facebook.com/ladygaga\nhttp://www.twitter.com/ladygaga\nhttp://www.instagram.com/ladygaga\nhttp://www.snapchat.com/add/ladygaga\nhttp://smarturl.it/LG.sp \n\nEMAIL LIST: \nhttp://smarturl.it/LadyGaga.News\n\nMusic video by Lady Gaga performing Bad Romance. (C) 2009 Interscope Records\n#VEVOCertified on January 31, 2010. http://www.vevo.com/certified http://www.youtube.com/vevocertified	t	public	2009-11-24 07:45:26	2017-02-12 22:33:22	2017-02-12 22:33:22
+2	eQZEQQMWiVs	UH OH BIG BOY TAIL WHIPS AGAIN!	Finally a somewhat nice day has come in what has been a very cold February winter. Matty, BIG BOY and I went to a random skatepark by my cousins work for an awesome session. We rolled up there and it was a skatepark full of skateboarders, but they were absoultluy awesome and they had no issue with us getting a session in with them. Matty and BIG BOY did a lot on some ramps that they thought were going to be to small to ride Matty made BIG BOY learn how to do a bunch of new tricks like a whip over the bank to bank box. I called BIG BOY out on a bunch of tricks and as usual he gets completely broke off in some way and takes a crazy crash. I can't tell you how awesome it is to be back and going around to skatepark to skatepark with these boys. Thanks for watching, remember to subscribe and peace!	t	public	2017-02-11 21:03:37	2017-02-12 22:33:23	2017-02-12 22:33:23
+3	uuIlvSNU67o	NEED ADVICE	A brief update on the backyard ramp before Spencer and I get some riding in. Got some cool announcements and some good footage in this one :)\nMERCH - http://LZBMX.COM\n\nSpencer's Channel - https://www.youtube.com/channel/UCQsNNWoGmf0tN2mi04c7hnA\n\nSong #1 by David Cutter\nhttps://www.davidcuttermusic.co.uk\nSong #2 by Ryan Little\nhttps://soundcloud.com/iamryanlittle	t	public	2017-02-11 16:42:16	2017-02-12 22:33:25	2017-02-12 22:33:25
+4	UZPCp8SPfOM	Joe Rogan Experience #911 - Alex Jones & Eddie Bravo	Alex Jones is a radio show host, filmmaker, writer, and conspiracy theorist. Eddie Bravo is a jiujitsu black belt, music producer, and author.	t	public	2017-02-02 02:15:04	2017-02-12 22:33:25	2017-02-12 22:33:25
+5	P8a4iiOnzsc	Radical Face 'Welcome Home'	http://www.radicalface.com\nhttp://youtube.com/radicalface\nhttp://facebook.com/radicalface\nhttp://twitter.com/radicalface\nhttps://www.instagram.com/radicalfaceofficial/\n\nWebstore: http://radicalface.shop.musictoday.com/store/\nPurchase/Steam: https://Nettwerk.lnk.to/radicalfaceYA\nApple Music: http://apple.co/1Vo1Vti\nTour: http://home.radicalface.com/shows\n\nDiscography\nThe Family Tree: The Leaves\nThe Bastards\nThe Family Tree: The Branches\nAlways Gold EP\nThe Family Tree: The Roots\nWelcome Home EP\nGhost\n\nDIRECTOR's web site:   http://www.justinmitchell.com	t	public	2009-06-02 22:32:19	2017-02-12 22:33:27	2017-02-12 22:33:27
+6	QVQK_Yp0KuI	Reggie Watts - Spatial 2016 (Full New Comedy Special)	Reggie Watts - Spatial 2016 FULL Stand-Up Comedy Special \nSpatial, his new Netflix special, is signature Watts, meaning it’s alternately exhilarating, silly, exhausting, and transcendent. Coming onstage as a Darth Vader-esque cloaked figure, Watts sonorously tells his audience of a vast, confusing interstellar conflict before reassuring them, “The vestibule has been opened and all of us continue to exist as if nothing will occur.” He then loses his train of thought while trying to come up with the name of their mortal enemies.	t	public	2016-12-18 05:13:35	2017-02-12 22:33:28	2017-02-12 22:33:28
+7	mulGqCjMzCs	Running in Front of Cars	Instagram @Cherdleys https://www.instagram.com/cherdleys/\nSnapchat  @Cherdleys\nTwitter      @Cherdleys https://twitter.com/cherdleys\n\nCreated by Chad LeBaron AKA Cherdleys AKA One Of Those Kids That Hurts Cats\n\nWatch last video: https://www.youtube.com/watch?v=1uDu-...\n\nFollow Saxon:\nInstagram @OldManSaxon - https://www.instagram.com/oldmansaxon/	t	public	2016-02-23 15:31:46	2017-02-12 22:33:29	2017-02-12 22:33:29
+8	-X_aCfVhWYI	EP35 - ONE WEEK LEFT - Pacific Crest Trail 2016	October 1, 2016 - PCT trail miles 2507.5 to 2522.1\nFollow me on https://www.instagram.com/zachrotondo/\n\nEnd screen music - soundcloud.com/lakeyinspired	t	public	2016-12-16 17:21:56	2017-02-12 22:33:29	2017-02-12 22:33:29
+9	Hu64xbgprWY	Universe - National Film Board of Canada (1960)	Universe is a black-and-white short documentary made in 1960 by the National Film Board of Canada. It dramatizes the nightly work of an astronomer at the David Dunlap Observatory in Richmond Hill, Ontario, a facility that is owned and operated by the University of Toronto, Canada. The film was a nominee at the 33rd Academy Awards in the category of Best Documentary Short Subject in 1961.	t	public	2013-06-18 15:03:22	2017-02-12 22:33:31	2017-02-12 22:33:31
+10	7xTOj6VwaVc	The World's Worst Backpacker on the Pacific Crest Trail...	It's time for me to share the story of my first night on the Pacific Crest Trail. Don't try this at home! (... not that you could...)\nIf you've never hiked on the PCT, this video may be for you. You might also like it if you've had a trail chew you up and spit you out.\nThis video also serves as a preview to my new monologue, The World's Worst Backpacker - coming to Audible and iTunes this summer!\nFind out more at www.kenlasalle.com.	t	public	2016-05-16 23:16:20	2017-02-12 22:33:32	2017-02-12 22:33:32
+11	UYG7FoneZZU	2016 Thru Hikers Part 4	https://www.gofundme.com/hikertrashvideo	t	public	2016-11-08 02:46:02	2017-02-12 22:33:32	2017-02-12 22:33:32
+12	UNsIVfGptqM	Do You Need A College Degree For a System Administration Career?	It's one of the most popular questions I get: Is a college degree required for a System Administration Career?\n\n-Do I need a university degree for a tech career, in general?\n-How can I get my first Linux sysadmin job without a degree?\n\nIn this video I talk about the value of Degrees vs. the value of Education, and some career/learning strategies for people who don't have a college degree.\n\n3:18 - Education vs Experience\n4:09 - What to Study (High-Level overview in terms of University classes to emulate)\n6:10 - Theory vs. Practical Skill\n7:52 - How to Become a System Administrator (recommended learning path)\n10:02 - Practice + Theory work together to make you better\n\n\nBook Mentioned: Andrew Tanenbaum's Modern Operating Systems (4th ed) - http://amzn.to/2kcBc6a\n\nFull Linux Sysadmin Basics Playlist: https://www.youtube.com/playlist?list=PLtK75qxsQaMLZSo7KL-PmiRarU7hrpnwK\n\nCheck out my project-based Linux System Administration course (free sample videos): https://www.udemy.com/hands-on-linux-self-hosted-wordpress-for-linux-beginners/?couponCode=tl35\n\nOfficial Site: https://tutorialinux.com/\nTwitter: https://twitter.com/tutorialinux\nFacebook: https://www.facebook.com/tutorialinux\nPatreon: https://www.patreon.com/tutorialinux	t	public	2017-02-10 15:35:31	2017-02-12 22:33:33	2017-02-12 22:33:33
+23	kE1mKj8awyY	My Top 10 Essential Documentaries	Previous Video ▶ http://bit.ly/2kkfZeI\n\nSubscribe For Daily Vids ▶ http://bit.ly/1KOilIP\nFollow My Snapchat ▶ http://snpcht.me/Mrhales100\nFollow My Twitter ▶ http://www.twitter.com/lahwf\nFollow My Instagram ▶ http://www.instagram.com/mrhales109\nLike the Facebook page ▶ http://www.facebook.com/lahwf\n\nSHIRTS ▶ http://shrsl.com/?e6xk\n\nSend Fan Mail to:\n5419 Hollywood Blvd, Ste. C825\nHollywood, CA 90027	t	public	2017-01-30 20:43:26	2017-02-12 22:33:41	2017-02-12 22:33:41
+13	Gt_tUnf6T2E	The Truth About Dear White People: Racist Propaganda or Marketing Fail?	THURSDAY! These videos are my fave to make. Here goes nothing…\nWatch the Brand New Docuvlog!: https://youtu.be/SB3Se3dKBfo\nTheDeFrancoFam Vlog: https://youtu.be/_7K_Byz7Ah8\n————————————\nSTORIES:\n‘Dear White People’ Outrage:\nhttp://www.huffingtonpost.com/entry/netflix-boycott-dear-white-people_us_589cbb85e4b04061313c33eb\nhttp://www.revelist.com/tv/racists-boycott-netflix/6811\nhttp://www.telegraph.co.uk/tv/2017/02/09/dear-white-people-trailer-sparks-backlash-netflix-faces-claims/\nWatch The Movie: https://www.hulu.com/watch/850296\nhttps://www.amazon.com/White-People-Tyler-James-Williams/dp/B00OSQAP6G\n\nYouTube Sub Glitch:\nhttps://thenextweb.com/apps/2017/02/09/youtube-glitch-counter-channels/\nhttp://www.ibtimes.co.uk/youtube-finally-fixes-bug-causing-channels-lose-hundreds-subscribers-per-minute-1605713\n\nNBA 2K ELEAGUE:\nhttp://www.digitaltrends.com/gaming/nba-official-esports-league/\nhttp://www.espn.com/nba/story/_/id/18647863/nba-take-two-interactive-software-partnering-nba-2k-esports-league\nhttp://www.nba.com/article/2017/02/09/nba-video-game-company-launch-new-gaming-league-2018\n\nBaylor Sexual Assault Scandal:\nhttp://sportsday.dallasnews.com/college-sports/collegesports/2017/02/06/5-biggest-recent-revelations-baylors-sexual-assault-scandal\nhttp://www.tmz.com/2017/02/02/art-briles-alleged-text-messages/\nhttp://www.npr.org/2017/02/08/514172776/baylor-sanctioned-by-big-12-after-new-revelations-about-football-team-controvers\nhttp://www.dallasnews.com/news/baylor/2017/01/27/new-baylor-lawsuit-describes-show-em-good-time-culture-cites-52-rapes-football-players-4-years\nhttp://www.dallasnews.com/news/higher-education/2016/11/03/baylor-examining-sex-assault-claims-2011-2015\nhttp://www.foxnews.com/sports/2017/02/07/baylor-university-assistant-coach-fired-charged-with-soliciting-prostitute.html\n\n————————————\nFollow Me On Social:\nFACEBOOK: http://on.fb.me/mqpRW7\nTWITTER: http://Twitter.com/PhillyD\nINSTAGRAM: https://instagram.com/phillydefranco/\nSNAPCHAT: TheDeFrancoFam\nREDDIT: https://www.reddit.com/r/DeFranco\nITUNES: http://DeFrancoMistakes.com\nSOUNDCLOUD: http://letsmakemistakestogether.com\nGOOGLE PLAY: http://mistakeswithdefranco.com\n\nEdited by:\nJames Girardier - https://twitter.com/jamesgirardier\n\nProduced by:\nAmanda Morones - https://twitter.com/MandaOhDang\n\nMotion Graphics Artist\nBrian Borst - https://twitter.com/GrandpaHyde\n\nMailing Address:\nAttn: Philip DeFranco\n6433 Topanga Canyon Blvd #805\nCanoga Park, CA 91303	t	public	2017-02-09 22:30:03	2017-02-12 22:33:33	2017-02-12 22:33:33
+14	KJC71dY13L8	I Need A Cat Dad	Happy Valentine's day!\nGHOST & STARS ▶ http://GhostAndStars\nHELP ME MAKE VIDEOS ▶ https://www.patreon.com/annaakana\n\nI need a cat dad - This super serious music video was created for Valentine's day so that whenever a potential cat dad (or mom!) pops up, you can send them this video with a "You, yes? ;)" and be as creepy as possible. \n\nbusiness\nAkanaActing@gmail.com\nTom Spriggs at The Coronel Group\n\nThanks Brad!\nhttp://youtube.com/BradGageComedy\n\nAudio mix by Jesse Cale\nhttps://www.youtube.com/user/TheOfficialMcSwagger\n\nshot and edited by Eric Lombart\nhttp://youtube.com/EricLombart\n\nmake up & hair by Melissa Tabares\nhttp://instagram.com/melissatabareshair\n\ngfx by Bethany Radloff\nhttp://youtube.com/BethBeRad	t	public	2017-02-09 21:06:12	2017-02-12 22:33:34	2017-02-12 22:33:34
+15	qjYxXg4wZDg	My Epic Collab With Pewdiepie!!	I hope you enjoy my collab with Pewdiepie!\nHila is leaving me for this guy ► https://goo.gl/0yCVIX \n\nH3 Podcast is available at:\nITUNES ► https://goo.gl/desgTE\nGOOGLE PLAY MUSIC ►https://goo.gl/EnllKV\n\nTwitter......................►https://twitter.com/h3h3productions\nHila's Twitter............►https://twitter.com/hilakleinh3\nSpreadshirt..............►http://h3h3productions.spreadshirt.com\nInstagram................►http://instagram.com/h3h3productions\nHila's Instragram.....►https://www.instagram.com/kleinhila\nWebsite....................►http://h3h3productions.com\nSubreddit.................►http://reddit.com/r/h3h3productions\n\nTheme Song by MajorLeagueWobs:\nhttps://www.youtube.com/user/strangeholder	t	public	2017-02-08 20:03:44	2017-02-12 22:33:36	2017-02-12 22:33:36
+16	hbXDLKFkjm0	Water on the Moon?	NEW CHANNEL! http://youtube.com/sciencium\n\nFor a long time we thought the Moon was completely dry, but it turns out there are actually three sources of lunar water.\nThanks to Google Making and Science for supporting the new channel! http://youtube.com/makingscience\n\nThanks to Patreon supporters:\nNathan Hansen, Donal Botkin, Tony Fadell, Zach Mueller, Ron Neal\n\nSupport Veritasium on Patreon: http://bit.ly/VePatreon\n\nReferences:\nGreat history of water on the moon: https://arxiv.org/pdf/1205.5597.pdf\n\nFilmed by Raquel Nuno\n\nMusic from http://epidemicsound.com "Serene Story 2"	t	public	2017-02-08 14:30:01	2017-02-12 22:33:36	2017-02-12 22:33:36
+17	j26ax_NDeek	idubbbz visits tana mongeau	Thank you for viewing\n\nFor the full video visit: https://youtu.be/N8vaJaFCFYA\n__\n\nSUBSCRIBE ► https://www.youtube.com/channel/UC-tsNNJ3yIW98MtPH6PWFAQ?sub_confirmation=1\n\nMain Channel ► https://www.youtube.com/user/iDubbbzTV\nSecond Channel ► https://www.youtube.com/channel/UC-tsNNJ3yIW98MtPH6PWFAQ\nGaming Channel ► https://www.youtube.com/channel/UCVhfFXNY0z3-mbrTh1OYRXA\n\nWebsite ► http://www.idubbbz.com/\n\nInstagram ► https://instagram.com/idubbbz/\nTwitter ► https://twitter.com/Idubbbz\nFacebook ► http://www.facebook.com/IDubbbz\nTwitch ► http://www.twitch.tv/idubbbz\n_	t	public	2017-02-06 23:11:44	2017-02-12 22:33:37	2017-02-12 22:33:37
+18	7jjTnvFAG0w	Weird Frat Guy Taking Shots	Wait for it...\n\n\nConnect with Cherdleys:\n► https://www.facebook.com/cherdleys\n► https://www.instagram.com/cherdleys\n\nSupport Cherdleys ► https://www.patreon.com/cherdleys\nMerchandise► https://www.cherdleys.com\nSecond Channel ► http://bit.ly/2i6SuRX	t	public	2017-02-06 20:13:17	2017-02-12 22:33:37	2017-02-12 22:33:37
+19	uqWUfTsEEOE	MY GIRL IS LEAVING ME FOR THIS GUY	Connor Murphy will steal your girl in seconds\nMaking Music with Post Malone ► https://goo.gl/gnpe3H\n\nH3 Podcast is available at:\n\nITUNES ► https://goo.gl/desgTE\nGOOGLE PLAY MUSIC ►https://goo.gl/EnllKV\n\nTwitter......................►https://twitter.com/h3h3productions\nHila's Twitter............►https://twitter.com/hilakleinh3\nSpreadshirt..............►http://h3h3productions.spreadshirt.com\nInstagram................►http://instagram.com/h3h3productions\nHila's Instragram.....►https://www.instagram.com/kleinhila\nWebsite....................►http://h3h3productions.com\nSubreddit.................►http://reddit.com/r/h3h3productions\n\nSource video:\nhttps://www.youtube.com/channel/UCwNPPl_oX8oUtKVMLxL13jg\n\nMusic:\n\n"Sweet as Honey" by Topher Mohr and Alex Elena\n\nBig Car Theft by Audionautix is licensed under a Creative Commons Attribution license (https://creativecommons.org/licenses/by/4.0/)\nArtist: http://audionautix.com/	t	public	2017-02-04 23:06:33	2017-02-12 22:33:38	2017-02-12 22:33:38
+20	IjpvhYpLVMo	Cutest Dog in the World | Mockumentary	Please Subscribe ▶ http://bit.ly/1FmhXhC \nExtras & Vlogs ▶ https://www.youtube.com/user/LAHWFextra\nFollow My Twitter ▶ http://www.twitter.com/lahwf\nFollow My Instagram ▶ http://www.instagram.com/mrhales109\nLike the Facebook page! ▶ http://www.facebook.com/lahwf\nCreep on my snaps! ▶ http://snpcht.me/Mrhales100\n\nBonnie's Instagram ▶ https://www.instagram.com/bonnie_babies/\n\nLuke's Channel ▶ https://www.youtube.com/user/fLUKEy1989\nAryia's Channel ▶ https://www.youtube.com/user/SimpleSexyStupid\n\nSong:\nGymnopedie No 1 by Kevin MacLeod is licensed under a Creative Commons Attribution license (https://creativecommons.org/licenses/by/4.0/)\nSource: http://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100787\nArtist: http://incompetech.com/\n\nSend Fan Mail to:\n5419 Hollywood Blvd, Ste. C825\nHollywood, CA 90027	t	public	2017-02-04 02:47:20	2017-02-12 22:33:38	2017-02-12 22:33:38
+21	wDc2aDH3zMM	Best Stuffed Mushrooms Recipe	This stuffed mushrooms recipe makes a great appetizer and party dish --and it's pretty easy to make a bunch of these stuffed mushrooms at one time. Stuffed mushrooms are often filled with freshly grated Parmesan, garlic, and herbs, but it's a super versatile recipe...so experiment with your favorite flavors; I personally like a blue cheese and hot sauce combo thrown into the filling, and chopped nuts and toasted breadcrumbs can add a much needed crunchiness.\nA printable copy of this stuffed mushrooms recipe and more tips on how to prepare it can be found at  \nhttp://www.myfoodchannel.com/stuffed-mushrooms-recipe/\nGive this stuffed mushroom recipe a try and let me know what you think, and for more recipes check out the Chef Buck playlist:  \nhttp://www.youtube.com/playlist?list=PL2EFBD7E8FE2BB552 \nand to print all recipes visit my website at http://www.myfoodchannel.com/\n\nConnect with this media to catch all of my videos...thanks:\nMY OTHER YOUTUBE CHANNEL:  http://www.youtube.com/user/buckredbuck\nFACEBOOK \nhttp://www.facebook.com/buckredbuck\nTWITTER \nhttps://twitter.com/buckredbuck\nINSTAGRAM\nhttps://www.instagram.com/buckredbuck/\nGOOGLE+  \nhttp://plus.google.com/u/0/109193261972985167770/posts\nPRINT RECIPES AT MY WEBSITE:  \nhttp://www.myfoodchannel.com/\nRECIPE PLAYLISTS:  http://www.youtube.com/user/FromUnderTheRock\n\nWhat You Need for This Stuffed Mushrooms Recipe \n \n12-15 MUSHROOMS\n½ cup PANKO BREADCRUMBs\n1 TBSP BUTTER\nsome OLIVE OIL\nfilling mixture like...\n½ cup PARMESAN CHEESE\n½ cup BLUE CHEESE\n4-6 cloves GARLIC (finely chopped)\n½ cup PARSLEY (chopped)\n½ cup CASHEWS (chopped)\nsome HOT SAUCE\nSALT and PEPPER (to taste)\n...but fillings are optional\n\nHow To Make Stuffed Mushrooms\n\nBuy whole mushrooms that are uniform in size; I buy mushrooms that are not already pre-packaged, so I can select the best.\nChoose mushrooms that are firm and dry and store in the fridge in a paper sack until you are ready to use them.\nBefore using, clean mushrooms with a damp towel. \nremove the stems and use a knife or spoon to open the mushroom center and create more room for the stuffing.\nTake your time preparing the mushroom caps to avoid splitting them. \nI often set aside some of the stems to use in other recipes, while reserving some to chop and mix with the stuffing.\nCoat the mushroom caps lightly with olive oil and set aside.\nIn a bowl, combine some of the chopped stems and whatever fillings you desire.\nI often use an egg, minced garlic, freshly grated parmesan, and fresh chopped parsley with my filling, but\nthe variations are endless.\nBlue cheese is fantastic in stuffed mushrooms.\nFor added crunchiness, nuts are a great idea. I find that chopped cashews work very well.\nI'll often add ingredients to the stuffing mix as I stuff the mushrooms, which makes for a nice variety of flavors.\nSpoon the filling into the mushroom cap.\nIn a skillet, melt butter and add panko breadcrumbs. The breadcrumbs will soak up the butter and flavor.\nTop stuffed mushrooms with panko breadcrumbs and place on a rack over a baking sheet.\nPlace stuffed mushrooms in an oven pre-heated to 375 degrees F. and bake for approximately 30 minutes or until\nthe breadcrumb topping is nicely toasted.\nServe warm.\n\nGive this stuffed mushrooms recipe a try, and let me know what you think, and bon appétit!	t	public	2017-02-03 15:32:26	2017-02-12 22:33:40	2017-02-12 22:33:40
+22	RVMZxH1TIIQ	Why Earth Is A Prison and How To Escape It	We are trapped on earth. Controlled by an ancient debt to the universe...\n\nLearn more about Ariane 6: http://www.airbusafran-launchers.com/en/universe/ariane-6-en/\n\nSupport us on Patreon so we can make more videos (and get cool stuff in return): https://www.patreon.com/Kurzgesagt?ty=h\n\nKurzgesagt merch here:  http://bit.ly/1P1hQIH\n\nGet the music of the video here: \n\nSoundcloud: http://bit.ly/2kqsiGb\nBandcamp: http://bit.ly/2kryP3c\nFacebook: https://www.facebook.com/epic-mountain-music\n \nTHANKS A LOT TO OUR LOVELY PATRONS FOR SUPPORTING US:\n\nJohn Wendeborn, Haan, Doktor Andy, Josh Gabbatiss, Peter Egger, Rick Lawrence, Eric Gao, 주영정, Jeff Threatt, Lars v., BurmansHealthShop, Ian White, Coty Rosenblath, SoraHavok, Andrew Berscheid, Jakub Zych, Eddie Han, Bubble Our Travel, Anton Ukhanev, Jan Pac, Mike, Martin Harding, Louis, Thomas G. Digranes, Todd, Mishal Alsuwyan, Liam Swann, Timothee Groleau, John Cido, Nicholas Bethencourt, Jeremy B Costella, Matthew Clarkson, Anna Chiara Brunetti, ValCab33, Neno Ganchev, Matt Saville, Klaas Pieter Annema, Peter Spalthoff, Andrew Campbell, Mads Bertheussen, Josué Barbosa dos Santos, Corey Hinds, Julian Fiander, BillDoor, Garrett Blackmon, Leeann Toland, Marshall Dow, Horia Constantin, Austin Hooper, Thomas E. Lee, Sylvain Milan, Jake Lee Kennedy, teddy zhang, Albinomaur, Casey Schad, Pearce Bergh, Dan Werdnly, Richard Patenaude, Moch Faisal Rasid, Antoine Dymond, James Hyde, Jonathan Verlohren, H.L.Hammons, Mikael Hannikainen, Kevin Douglass, Erik Onnen, Thiago Torres, Bryan Benninghoff, Frank Tuffner, Kevan Rynning, Aschwin Berkhout, Daniel Neilson, Damon Weil, Wesley Byrd, Bryan Andrade, Sergei Gaponov, Torodes, Ori Haski, Adam, Pavel Ševčík, Will Schmid, Alan Tran, Raoul Verhaegen, Fabercastel, Max, Youlia Hadzhidimova, Tristan Waddington, Bror Ronning, Santiago Campellone, Harjeet Taggar, James Horrocks, Brandon Bizzarro, Michel Vaillancourt, RHall, Brian David Henderson, Vikas Dhiman, Jack, Tomáš Miškov, Derral Gerken, Anthony, Vadim Golub, Fervidus, Justin Ritchie, Nicolas Dolgin, Harry, Andrew Miner, Rohan Dowd, Jesse Versluys, Juraj Trizna, André Léger, Peter Reynolds, Tom Handcock, Shaquille D. Johnson, HUISHI ZHANG, Robert S Peschel, Chris Bowley, Thomasz Kolosowski, Hogtree Octovish, Donovan Shickley, Bruce Hill, William Johnson, Ángel Garcia Casado, Riikka S, Daniel Moul, Daniel John, Anirudh Joshi, Robert, Iman, Jannis Kaiser, Andrew Bennett, Mariann Nagy, Daniel Kömpf, Philip Zapfel, Vince Gabor\n\nHelp us caption & translate this video!\n\nhttp://www.youtube.com/timedtext_cs_panel?c=UCsXVk37bltHxD1rDPwtNM8Q&tab=2\n\nOverpopulation – The Human Explosion Explained	t	public	2017-02-01 13:22:31	2017-02-12 22:33:41	2017-02-12 22:33:41
+24	Q8ccXzM3x8A	The Case for String Theory - Sixty Symbols	Dr Tony Padilla  on why he thinks there's a compelling case for String Theory... This is one of our occasional longer-form interviews.\nLonger interviews with Ed Copeland: http://bit.ly/CopelandGoesLong\nOur visit to CERN: http://bit.ly/LHCvideos\nObjectivity: http://bit.ly/Objectivity\n\nDr Padilla is a cosmologist at the University of Nottingham - https://www.nottingham.ac.uk/physics/people/antonio.padilla\n\nVisit our website at http://www.sixtysymbols.com/\nWe're on Facebook at http://www.facebook.com/sixtysymbols\nAnd Twitter at http://twitter.com/sixtysymbols\nThis project features scientists from The University of Nottingham\nhttp://bit.ly/NottsPhysics\n\nPatreon: https://www.patreon.com/sixtysymbols\n\nSixty Symbols videos by Brady Haran\nhttp://www.bradyharanblog.com\n\nEmail list: http://eepurl.com/YdjL9\n\nExtra videos and images via CERN and ESO.\nMusic via Harri at freesound.org	t	public	2017-01-30 14:30:33	2017-02-12 22:33:42	2017-02-12 22:33:42
+25	keYYiuOJdrE	The Master: How Scientology Works	Get a free 30 day trial of Audible here: http://www.audible.com/nerdwriter\n\nI WAS NOMINATED FOR A SHORTY! VOTE FOR ME HERE: http://shortyawards.com/9th/theenerdwriter\nNERDWRITER T-SHIRTS: https://store.dftba.com/products/the-nerdwriter-shirt\n\n\nSOURCES AND FURTHER READING:\n\nhttps://luckyottershaven.com/2017/01/15/why-scientology-auditing-is-not-at-all-like-traditional-psychotherapy-part-2/\n\nhttps://luckyottershaven.com/2017/01/14/why-scientology-auditing-is-not-at-all-like-traditional-psychotherapy-part-1/\n\nhttps://www.youtube.com/watch?v=dbmPVq6e2aA\n\nhttps://www.ncbi.nlm.nih.gov/pmc/articles/PMC3856510/	t	public	2017-01-26 15:01:31	2017-02-12 22:33:43	2017-02-12 22:33:43
+26	9-5TSxd0ep0	Arcade Fire - Rebellion (Lies): Live at Earls Court	Arcade Fire : The Reflektor Tapes / Live At Earls Court released on DVD & BluRay on 27 January 2017. \n\nDVD - http://smarturl.it/REFLEKTORTAPESDVD\nBlu Ray - http://smarturl.it/REFLEKTORTAPESBR\n\nMusic video by Arcade Fire performing Rebellion (Lies). (C) 2016 Arcade Fire Music, LLC, exclusively licensed to Eagle Rock Entertainment Ltd.\n\nhttp://vevo.ly/ZPzbTY	t	public	2017-01-26 11:00:02	2017-02-12 22:33:44	2017-02-12 22:33:44
 \.
 
 
@@ -1783,109 +1802,170 @@ COPY videos_topics (id, topic_id, video_id, type) FROM stdin;
 2	2	1	topicId
 3	3	1	topicId
 4	4	1	relevantTopicId
-5	5	2	relevantTopicId
-6	6	2	relevantTopicId
-7	7	4	topicId
-8	8	4	relevantTopicId
-9	9	4	relevantTopicId
-10	10	5	topicId
-11	11	5	topicId
-12	12	5	topicId
-13	13	5	relevantTopicId
-14	14	6	topicId
-15	15	6	relevantTopicId
-16	16	6	relevantTopicId
-17	17	6	relevantTopicId
-18	18	6	relevantTopicId
-19	19	6	relevantTopicId
-20	20	6	relevantTopicId
-21	21	7	relevantTopicId
-22	22	7	relevantTopicId
-23	23	7	relevantTopicId
-24	24	7	relevantTopicId
-25	25	7	relevantTopicId
-26	26	8	relevantTopicId
-27	27	8	relevantTopicId
-28	28	8	relevantTopicId
-29	29	8	relevantTopicId
-30	30	8	relevantTopicId
-31	31	8	relevantTopicId
-32	32	8	relevantTopicId
-33	33	8	relevantTopicId
-34	34	9	topicId
-35	35	9	topicId
-36	36	9	relevantTopicId
-37	37	9	relevantTopicId
-38	38	9	relevantTopicId
-39	39	9	relevantTopicId
-40	40	9	relevantTopicId
-41	41	11	topicId
-42	42	11	relevantTopicId
-43	43	11	relevantTopicId
-44	44	12	topicId
-45	45	12	relevantTopicId
-46	46	12	relevantTopicId
-47	47	12	relevantTopicId
-48	48	12	relevantTopicId
-49	49	13	topicId
-50	50	13	topicId
-51	43	13	relevantTopicId
-52	51	13	relevantTopicId
-53	52	13	relevantTopicId
-54	53	14	relevantTopicId
-55	54	14	relevantTopicId
-56	55	14	relevantTopicId
-57	56	15	topicId
-58	57	16	relevantTopicId
-59	58	16	relevantTopicId
-60	59	16	relevantTopicId
-61	60	16	relevantTopicId
-62	43	17	relevantTopicId
-63	43	18	relevantTopicId
-64	61	18	relevantTopicId
-65	43	19	relevantTopicId
-66	61	19	relevantTopicId
-67	62	20	topicId
-68	24	20	relevantTopicId
-69	53	20	relevantTopicId
-70	62	20	relevantTopicId
-71	63	20	relevantTopicId
-72	64	20	relevantTopicId
-73	65	20	relevantTopicId
-74	66	20	relevantTopicId
-75	67	20	relevantTopicId
-76	68	20	relevantTopicId
-77	69	21	topicId
-78	70	21	topicId
-79	70	21	relevantTopicId
-80	71	21	relevantTopicId
-81	72	21	relevantTopicId
-82	73	21	relevantTopicId
-83	74	21	relevantTopicId
-84	75	21	relevantTopicId
-85	76	21	relevantTopicId
-86	77	22	relevantTopicId
-87	78	22	relevantTopicId
-88	40	23	topicId
-89	38	23	relevantTopicId
-90	40	23	relevantTopicId
-91	79	24	topicId
-92	80	24	relevantTopicId
-93	81	24	relevantTopicId
-94	82	25	topicId
-95	38	25	relevantTopicId
-96	83	25	relevantTopicId
-97	84	25	relevantTopicId
-98	85	26	topicId
-99	86	26	topicId
-100	18	26	relevantTopicId
-101	19	26	relevantTopicId
-102	87	26	relevantTopicId
-103	88	26	relevantTopicId
-104	89	26	relevantTopicId
-105	90	26	relevantTopicId
-106	91	26	relevantTopicId
-107	92	26	relevantTopicId
+5	5	1	relevantTopicId
+6	6	1	relevantTopicId
+7	7	1	relevantTopicId
+8	8	2	topicId
+9	9	2	topicId
+10	8	2	relevantTopicId
+11	9	2	relevantTopicId
+12	10	2	relevantTopicId
+13	11	2	relevantTopicId
+14	12	2	relevantTopicId
+15	13	2	relevantTopicId
+16	14	2	relevantTopicId
+17	15	2	relevantTopicId
+18	16	2	relevantTopicId
+19	17	2	relevantTopicId
+20	18	2	relevantTopicId
+21	8	3	topicId
+22	8	3	relevantTopicId
+23	9	3	relevantTopicId
+24	12	3	relevantTopicId
+25	14	3	relevantTopicId
+26	17	3	relevantTopicId
+27	19	3	relevantTopicId
+28	20	3	relevantTopicId
+29	21	3	relevantTopicId
+30	22	4	topicId
+31	23	4	relevantTopicId
+32	24	4	relevantTopicId
+33	25	4	relevantTopicId
+34	26	5	topicId
+35	27	5	topicId
+36	28	5	topicId
+37	5	5	relevantTopicId
+38	6	5	relevantTopicId
+39	29	5	relevantTopicId
+40	30	6	topicId
+41	4	6	relevantTopicId
+42	6	6	relevantTopicId
+43	25	6	relevantTopicId
+44	31	6	relevantTopicId
+45	32	6	relevantTopicId
+46	33	6	relevantTopicId
+47	34	6	relevantTopicId
+48	35	6	relevantTopicId
+49	36	6	relevantTopicId
+50	21	7	relevantTopicId
+51	25	7	relevantTopicId
+52	37	7	relevantTopicId
+53	38	7	relevantTopicId
+54	39	7	relevantTopicId
+55	40	7	relevantTopicId
+56	41	8	topicId
+57	15	8	relevantTopicId
+58	42	8	relevantTopicId
+59	43	8	relevantTopicId
+60	44	8	relevantTopicId
+61	45	8	relevantTopicId
+62	46	8	relevantTopicId
+63	47	8	relevantTopicId
+64	48	8	relevantTopicId
+65	49	8	relevantTopicId
+66	50	8	relevantTopicId
+67	51	8	relevantTopicId
+68	52	8	relevantTopicId
+69	53	8	relevantTopicId
+70	54	8	relevantTopicId
+71	55	9	topicId
+72	56	9	topicId
+73	6	9	relevantTopicId
+74	57	9	relevantTopicId
+75	58	9	relevantTopicId
+76	59	9	relevantTopicId
+77	60	9	relevantTopicId
+78	61	9	relevantTopicId
+79	41	10	topicId
+80	44	10	relevantTopicId
+81	48	10	relevantTopicId
+82	52	10	relevantTopicId
+83	53	10	relevantTopicId
+84	44	11	topicId
+85	51	11	topicId
+86	62	11	topicId
+87	19	11	relevantTopicId
+88	44	11	relevantTopicId
+89	45	11	relevantTopicId
+90	52	11	relevantTopicId
+91	53	11	relevantTopicId
+92	63	11	relevantTopicId
+93	64	12	relevantTopicId
+94	65	12	relevantTopicId
+95	66	12	relevantTopicId
+96	67	12	relevantTopicId
+97	68	13	topicId
+98	19	13	relevantTopicId
+99	69	13	relevantTopicId
+100	70	13	relevantTopicId
+101	71	14	topicId
+102	4	14	relevantTopicId
+103	5	14	relevantTopicId
+104	6	14	relevantTopicId
+105	72	14	relevantTopicId
+106	73	14	relevantTopicId
+107	74	14	relevantTopicId
+108	75	15	topicId
+109	25	15	relevantTopicId
+110	76	16	topicId
+111	77	16	relevantTopicId
+112	78	16	relevantTopicId
+113	79	16	relevantTopicId
+114	80	16	relevantTopicId
+115	6	17	relevantTopicId
+116	19	17	relevantTopicId
+117	19	18	relevantTopicId
+118	52	18	relevantTopicId
+119	81	18	relevantTopicId
+120	19	19	relevantTopicId
+121	52	19	relevantTopicId
+122	81	19	relevantTopicId
+123	82	20	topicId
+124	25	20	relevantTopicId
+125	40	20	relevantTopicId
+126	72	20	relevantTopicId
+127	82	20	relevantTopicId
+128	83	20	relevantTopicId
+129	84	20	relevantTopicId
+130	85	20	relevantTopicId
+131	86	20	relevantTopicId
+132	87	20	relevantTopicId
+133	88	20	relevantTopicId
+134	89	21	topicId
+135	90	21	topicId
+136	52	21	relevantTopicId
+137	90	21	relevantTopicId
+138	91	21	relevantTopicId
+139	92	21	relevantTopicId
+140	93	21	relevantTopicId
+141	94	21	relevantTopicId
+142	95	21	relevantTopicId
+143	96	21	relevantTopicId
+144	97	22	relevantTopicId
+145	98	22	relevantTopicId
+146	61	23	topicId
+147	59	23	relevantTopicId
+148	61	23	relevantTopicId
+149	99	24	topicId
+150	6	24	relevantTopicId
+151	100	24	relevantTopicId
+152	101	24	relevantTopicId
+153	102	25	topicId
+154	59	25	relevantTopicId
+155	103	25	relevantTopicId
+156	104	25	relevantTopicId
+157	105	26	topicId
+158	106	26	topicId
+159	4	26	relevantTopicId
+160	6	26	relevantTopicId
+161	34	26	relevantTopicId
+162	35	26	relevantTopicId
+163	107	26	relevantTopicId
+164	108	26	relevantTopicId
+165	109	26	relevantTopicId
+166	110	26	relevantTopicId
+167	111	26	relevantTopicId
+168	112	26	relevantTopicId
 \.
 
 
@@ -1893,7 +1973,7 @@ COPY videos_topics (id, topic_id, video_id, type) FROM stdin;
 -- Name: videos_topics_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('videos_topics_id_seq', 107, true);
+SELECT pg_catalog.setval('videos_topics_id_seq', 168, true);
 
 
 --
