@@ -64,5 +64,8 @@ class DownloadAvatar implements ShouldQueue
 		$image = new Imagick($destFile);
 		$image->cropThumbnailImage(200, 200);
 		$image->writeImage($resized);
+
+		$this->user->avatar = true;
+		$this->user->save();
 	}
 }

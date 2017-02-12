@@ -97,6 +97,8 @@ class AuthManager
 	}
 
 	/**
+	 * Redirect the user to sign in with Facebook.
+	 *
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
 	public function redirectFacebook()
@@ -105,6 +107,8 @@ class AuthManager
 	}
 
 	/**
+	 * Redirect the user to sign in with Google.
+	 *
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
 	public function redirectGoogle()
