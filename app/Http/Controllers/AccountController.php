@@ -98,6 +98,16 @@ class AccountController extends Controller
 		return redirect()->route('account.basics');
 	}
 
+	public function getPicture()
+	{
+		return view('account.picture');
+	}
+
+	public function postPicture()
+	{
+
+	}
+
 	/**
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */

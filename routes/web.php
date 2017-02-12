@@ -57,6 +57,14 @@ Route::group(['prefix' => 'account'], function() {
 		'as' => 'account.basics.process',
 		'uses' => 'AccountController@postBasics'
 	]);
+	Route::get('picture', [
+		'as' => 'account.picture',
+		'uses' => 'AccountController@getPicture'
+	]);
+	Route::post('picture', [
+		'as' => 'account.picture.process',
+		'uses' => 'AccountController@postPicture'
+	]);
 	Route::get('resend-verification', [
 		'as' => 'account.resend-verification',
 		'uses' => 'AccountController@getResendVerification'
