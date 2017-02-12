@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use URL;
 use Illuminate\Http\Request;
 use App\Services\AuthManager;
 use App\Http\Controllers\Controller;
@@ -26,6 +27,7 @@ class SocialController extends Controller
 	 */
 	public function getSignInFacebook()
 	{
+		session(['url.intended' => URL::previous()]);
 		return $this->authManager->redirectFacebook();
 	}
 
@@ -34,6 +36,7 @@ class SocialController extends Controller
 	 */
 	public function getSignInGoogle()
 	{
+		session(['url.intended' => URL::previous()]);
 		return $this->authManager->redirectGoogle();
 	}
 
