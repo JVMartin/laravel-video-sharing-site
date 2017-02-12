@@ -40,7 +40,7 @@ class FlushApplication extends Command
 //		$this->call('db:seed');
 		$this->info('Reloading database...');
 		$db = env('DB_DATABASE');
-		exec("sudo -u postgres psql $db < " . base_path("assets/$db.sql"));
+		passthru("sudo -u postgres psql $db < " . base_path("assets/$db.sql"));
 
 		passthru('sudo git clean -fxd ' . public_path());
 		passthru('sudo git clean -fxd ' . storage_path());
