@@ -6,6 +6,10 @@
 	<form action="{{ route('account.basics.process') }}" method="POST" enctype="multipart/form-data">
 		{!! csrf_field() !!}
 		<h3>Picture</h3>
+		<p>
+			Upload a picture to be displayed alongside your username.
+			It will be cropped to a square for you.
+		</p>
 		<div class="row">
 			<div class="columns medium-6 end">
 				<label for="username" class="{{ ($errors->has('username')) ? 'is-invalid-label' : '' }}">
