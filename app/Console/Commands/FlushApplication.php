@@ -33,12 +33,14 @@ class FlushApplication extends Command
 		$this->call('ide-helper:generate');
 		$this->call('optimize');
 
-		if (Schema::hasTable('migrations')) {
-			$this->call('migrate:reset');
-		}
-		$this->call('migrate');
-		$this->call('db:seed');
-		$this->call('testing:flush');
+//		if (Schema::hasTable('migrations')) {
+//			$this->call('migrate:reset');
+//		}
+//		$this->call('migrate');
+//		$this->call('db:seed');
+		$this->info('Reloading database...');
+		$db = env('DB_DATABASE');
+		exec("sudo -u postgres psql $db < " . base_path("assets/$db.sql"));
 
 		passthru('sudo git clean -fxd ' . public_path());
 		passthru('sudo git clean -fxd ' . storage_path());
