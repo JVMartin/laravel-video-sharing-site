@@ -143,8 +143,8 @@ class AuthManager
 			$user = $this->userRepository->create([
 				'email' => $googleUser->email
 			]);
+			$this->fillGoogleUser($user, $googleUser);
 		}
-		$this->fillGoogleUser($user, $googleUser);
 
 		return $user;
 	}
