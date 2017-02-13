@@ -8,11 +8,13 @@
 			{!! csrf_field() !!}
 			<h3>Picture</h3>
 			<div class="picture-frame">
-				<a href="{{ route('account.picture.delete') }}"
-				   class="button tiny"
-				   data-confirm="Are you sure you want to delete your current picture?">
-						<i class="fa fa-trash"></i>
-				</a>
+				@if (Auth::user()->has_avatar)
+					<a href="{{ route('account.picture.delete') }}"
+					   class="button tiny"
+					   data-confirm="Are you sure you want to delete your current picture?">
+							<i class="fa fa-trash"></i>
+					</a>
+				@endif
 				<img src="{{ Auth::user()->avatar() }}" />
 			</div>
 			<p>

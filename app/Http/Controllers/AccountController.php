@@ -110,8 +110,11 @@ class AccountController extends Controller
 		$file = public_path('img/u/' . $user->hash . '/avatar.jpg');
 
 		if (file_exists($file)) {
-			//unlink($file);
+			unlink($file);
 		}
+
+		$user->has_avatar = false;
+		$user->save();
 
 		return redirect()->route('account.picture');
 	}
