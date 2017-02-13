@@ -61,6 +61,10 @@ Route::group(['prefix' => 'account'], function() {
 		'as' => 'account.picture',
 		'uses' => 'AccountController@getPicture'
 	]);
+	Route::get('picture/delete', [
+		'as' => 'account.picture.delete',
+		'uses' => 'AccountController@getDeletePicture'
+	]);
 	Route::post('picture', [
 		'as' => 'account.picture.process',
 		'uses' => 'AccountController@postPicture'

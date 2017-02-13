@@ -103,6 +103,19 @@ class AccountController extends Controller
 		return view('account.picture');
 	}
 
+	public function getDeletePicture()
+	{
+		$user = Auth::user();
+
+		$file = public_path('img/u/' . $user->hash . '/avatar.jpg');
+
+		if (file_exists($file)) {
+			//unlink($file);
+		}
+
+		return redirect()->route('account.picture');
+	}
+
 	public function postPicture()
 	{
 

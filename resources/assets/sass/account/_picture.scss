@@ -1,0 +1,14 @@
+#accountPicture {
+	.picture-frame {
+		position:relative;
+		width: 200px;
+		height: 200px;
+		margin-bottom:15px;
+
+		a {
+			position: absolute;
+			top: 5px;
+			right: 5px;
+		}
+	}
+}

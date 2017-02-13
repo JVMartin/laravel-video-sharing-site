@@ -61,24 +61,29 @@ $('label.is-invalid-label .selectize-input').focusin(function() {
 // @TODO:
 // Perhaps make this so that it doesn't add the button if the .contents div is already smaller
 // than 100px.
-$(function() {
-	const $expanders = $('.expander');
+$('.expander').on('click', '.expand', function() {
+	const $expand = $(this);
+	const $expander = $expand.closest('.expander');
 
-	$expanders.on('click', '.expand', function() {
-		const $expand = $(this);
-		const $expander = $expand.closest('.expander');
+	const text = $expand.html().trim();
 
-		const text = $expand.html().trim();
+	if (text == 'SHOW MORE') {
+		$expander.css({'max-height': 'none'});
+		$expand.html('SHOW LESS');
+	}
+	else {
+		$expander.css({'max-height': '100px'});
+		$expand.html('SHOW MORE');
+	}
+});
 
-		if (text == 'SHOW MORE') {
-			$expander.css({'max-height': 'none'});
-			$expand.html('SHOW LESS');
-		}
-		else {
-			$expander.css({'max-height': '100px'});
-			$expand.html('SHOW MORE');
-		}
-	});
+// Ask for confirmation when necessary.
+$('a').click(function(e) {
+	let $this = $(this);
+
+	if ($this.attr('data-confirm') &&  ! confirm($this.data('confirm'))) {
+		e.preventDefault();
+	}
 });
 
 /**
