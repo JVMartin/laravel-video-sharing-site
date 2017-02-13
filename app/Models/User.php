@@ -60,4 +60,9 @@ class User extends Model implements
 
 		return '/img/avatar-placeholder.png';
 	}
+
+	public function avatarPath()
+	{
+		return public_path('img/u/' . $this->hash . '/avatar.jpg');
+	}
 }

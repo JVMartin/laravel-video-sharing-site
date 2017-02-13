@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use Illuminate\Http\Request;
 use App\Services\AuthManager;
+use App\Services\ImageManager;
 use App\Repositories\UserRepository;
 use App\Events\EmailRequiresVerification;
 use App\Repositories\VerificationRepository;
@@ -26,10 +27,16 @@ class AccountController extends Controller
 	 */
 	protected $authManager;
 
+	/**
+	 * @var ImageManager
+	 */
+	protected $imageManager;
+
 	public function __construct(
 		UserRepository $userRepository,
 		VerificationRepository $verificationRepository,
-		AuthManager $authManager
+		AuthManager $authManager,
+		ImageManager $imageManager
 	)
 	{
 		$this->middleware('auth');
@@ -40,6 +47,7 @@ class AccountController extends Controller
 		$this->userRepository = $userRepository;
 		$this->verificationRepository = $verificationRepository;
 		$this->authManager = $authManager;
+		$this->imageManager = $imageManager;
 	}
 
 	/**
@@ -107,7 +115,7 @@ class AccountController extends Controller
 	{
 		$user = Auth::user();
 
-		$file = public_path('img/u/' . $user->hash . '/avatar.jpg');
+		$file = $user->avatarPath();
 
 		if (file_exists($file)) {
 			unlink($file);
@@ -119,9 +127,22 @@ class AccountController extends Controller
 		return redirect()->route('account.picture');
 	}
 
-	public function postPicture()
+	public function postPicture(Request $request)
 	{
+		$this->validate($request, [
+			'picture' => 'file|mimes:jpg,jpeg,gif,bmp,png'
+		]);
 
+		$user = Auth::user();
+
+		$source = $request->file('picture')->getRealPath();
+		$destination = $user->avatarPath();
+		$this->imageManager->cropImageTo($source, $destination);
+
+		$user->has_avatar = true;
+		$user->save();
+
+		return redirect()->route('account.picture');
 	}
 
 	/**

@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Services\ImageManager;
 use Imagick;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -45,11 +46,11 @@ class DownloadAvatar implements ShouldQueue
 
 		$userImgPath = public_path('img/u/' . $this->user->hash);
 
-		$destFile = $userImgPath . '/avatar-o.jpg';
+		$origFile = $userImgPath . '/avatar-o.jpg';
 		$resized = $userImgPath . '/avatar.jpg';
 
 		// It's already been saved, no need to do so again.
-		if (file_exists($destFile)) {
+		if (file_exists($origFile)) {
 			return;
 		}
 
@@ -58,12 +59,10 @@ class DownloadAvatar implements ShouldQueue
 		}
 
 		// Download the image.
-		copy($this->url, $destFile);
+		copy($this->url, $origFile);
 
-		// Turn it into a 200 x 200 square.
-		$image = new Imagick($destFile);
-		$image->cropThumbnailImage(200, 200);
-		$image->writeImage($resized);
+		$imageManager = app(ImageManager::class);
+		$imageManager->cropImageTo($origFile, $resized);
 
 		$this->user->has_avatar = true;
 		$this->user->save();
