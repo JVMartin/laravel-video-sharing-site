@@ -54,6 +54,10 @@ class User extends Model implements
 
 	public function avatar()
 	{
-		return '/img/u/' . $this->hash . '/avatar.jpg';
+		if ($this->has_avatar) {
+			return '/img/u/' . $this->hash . '/avatar.jpg';
+		}
+
+		return '/img/avatar-placeholder.png';
 	}
 }
