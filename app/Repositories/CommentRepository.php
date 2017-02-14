@@ -15,6 +15,9 @@ class CommentRepository extends ModelRepository
 
 	public function getBySubmissionId($id)
 	{
-		return $this->model->where('submission_id', $id)->get();
+		return $this->model
+			->where('submission_id', $id)
+			->whereNull('parent_id')
+			->get();
 	}
 }
