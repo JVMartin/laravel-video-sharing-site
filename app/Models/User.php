@@ -30,6 +30,13 @@ class User extends Model implements
 	];
 
 	/**
+	 * The accessors to append to the model's array form.
+	 *
+	 * @var array
+	 */
+	protected $appends = ['hash'];
+
+	/**
 	 * Send the password reset notification.
 	 *
 	 * @param string $token
