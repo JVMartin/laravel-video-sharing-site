@@ -12,4 +12,9 @@ class CommentRepository extends ModelRepository
 	{
 		parent::__construct($cache, new Comment);
 	}
+
+	public function getBySubmissionId($id)
+	{
+		return $this->model->where('submission_id', $id)->get();
+	}
 }

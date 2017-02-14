@@ -26,7 +26,7 @@
 	@endif
 	<script src="{{ elixir("js/app.js") }}"></script>
 	<script>
-		var data = {
+		window.data = {
 			@if (Route::currentRouteNamed('video.view'))
 				submissionHash: '{{ $submission->hash }}',
 			@endif

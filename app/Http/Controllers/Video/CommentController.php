@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Video;
 
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Repositories\CommentRepository;
 
@@ -17,11 +18,14 @@ class CommentController extends Controller
 		$this->commentRepository = $commentRepository;
 	}
 
-	public function getCommentsForSubmission($slug)
+	public function getCommentsForSubmission($hashId)
 	{
+		$comments = $this->commentRepository->getBySubmissionId(decodeHash($hashId));
+
+		return new JsonResponse($comments);
 	}
 
-	public function postCommentOnSubmission($slug)
+	public function postCommentOnSubmission($hashId)
 	{
 	}
 }

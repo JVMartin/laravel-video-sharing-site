@@ -11,7 +11,7 @@
 <script>
 	export default {
 		mounted() {
-			this.$http.get('/').then(response => {
+			this.$http.get('/comments/submission/' + window.data.submissionHash).then(response => {
 				console.log(response);
 			}, response => {
 

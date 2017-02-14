@@ -91,11 +91,13 @@ $('a').click(function(e) {
  * the body of the page. From here, you may begin adding components to
  * the application, or feel free to tweak this setup for your needs.
  */
-
-if (data.hasOwnProperty('submissionHash')) {
-	Vue.component('comments', require('./components/Comments.vue'));
-	Vue.use(require('vue-resource'));
-	const comments = new Vue({
-		el: 'comments'
-	});
-}
+$(function() {
+	console.log(window.data);
+	if (window.data.hasOwnProperty('submissionHash')) {
+		Vue.component('comments', require('./components/Comments.vue'));
+		Vue.use(require('vue-resource'));
+		const comments = new Vue({
+			el: 'comments'
+		});
+	}
+});

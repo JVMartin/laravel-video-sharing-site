@@ -23,11 +23,11 @@ Route::group(['prefix' => 'video'], function() {
 });
 
 Route::group(['prefix' => 'comments'], function() {
-	Route::get('submission/{slug}', [
+	Route::get('submission/{hashId}', [
 		'as' => 'comments.submission',
 		'uses' => 'Video\CommentController@getCommentsForSubmission'
 	]);
-	Route::post('submission/{slug}', [
+	Route::post('submission/{hashId}', [
 		'as' => 'comments.submission.post',
 		'uses' => 'Video\CommentController@postCommentOnSubmission'
 	]);
