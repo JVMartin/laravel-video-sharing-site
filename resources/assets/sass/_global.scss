@@ -1,8 +1,12 @@
+@mixin shadow() {
+	box-shadow: 3px 3px 4px #666;
+}
+
 #master {
 	padding-top: 1rem;
 	background: $medium-gray;
-	box-shadow: 3px 3px 4px #666;
 
+	@include shadow;
 	@include breakpoint(xlarge) {
 		margin-top: 1rem;
 	}
@@ -27,9 +31,12 @@ a.tag {
 	max-height: 100px;
 	overflow: hidden;
 	margin-bottom: $global-margin;
+	border: 2px solid $scheme-3;
+
+	@include shadow;
 
 	.contents {
-		margin-bottom: 2rem;
+		margin: 7px 7px 2.2rem 7px;
 	}
 
 	.expand {
