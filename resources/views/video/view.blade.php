@@ -58,5 +58,6 @@
 				</div>
 			</div>
 		</div>
+		<comments></comments>
 	</section>
 @endsection

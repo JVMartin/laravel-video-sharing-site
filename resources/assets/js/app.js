@@ -92,7 +92,7 @@ $('a').click(function(e) {
  * the application, or feel free to tweak this setup for your needs.
  */
 
-// Vue.component('example', require('./components/Example.vue'));
-// const app = new Vue({
-// 	el: '#app'
-// });
+Vue.component('comments', require('./components/Comments.vue'));
+const app = new Vue({
+	el: 'comments'
+});
