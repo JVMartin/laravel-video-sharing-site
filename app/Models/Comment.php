@@ -10,6 +10,15 @@ class Comment extends Model
 
 	protected $with = ['user'];
 
+	/**
+	 * The attributes that should be hidden for arrays.
+	 *
+	 * @var array
+	 */
+	protected $hidden = [
+		'submission_id', 'user_id'
+	];
+
 	public function user()
 	{
 		return $this->belongsTo(User::class);

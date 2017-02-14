@@ -24,7 +24,10 @@ class User extends Model implements
 	 *
 	 * @var array
 	 */
-	protected $hidden = ['password', 'remember_token'];
+	protected $hidden = [
+		'id', 'email', 'first_name', 'last_name', 'password', 'remember_token',
+		'last_sign_in', 'created_at', 'updated_at'
+	];
 
 	/**
 	 * Send the password reset notification.

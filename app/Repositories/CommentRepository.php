@@ -18,6 +18,7 @@ class CommentRepository extends ModelRepository
 		return $this->model
 			->where('submission_id', $id)
 			->whereNull('parent_id')
+			->orderBy('score', 'DESC')
 			->get();
 	}
 }
