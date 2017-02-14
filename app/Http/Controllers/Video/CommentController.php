@@ -2,36 +2,26 @@
 
 namespace App\Http\Controllers\Video;
 
-use App\Models\Submission;
-use App\Services\SubmissionManager;
 use App\Http\Controllers\Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use App\Repositories\CommentRepository;
 
 class CommentController extends Controller
 {
 	/**
-	 * @var SubmissionManager
+	 * @var CommentRepository
 	 */
-	protected $submissionManager;
+	protected $commentRepository;
 
-	public function __construct(SubmissionManager $submissionManager)
+	public function __construct(CommentRepository $commentRepository)
 	{
-		$this->submissionManager = $submissionManager;
+		$this->commentRepository = $commentRepository;
 	}
 
-	/**
-	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-	 */
-	public function getView($slug)
+	public function getCommentsForSubmission($slug)
 	{
-		$submission = $this->submissionManager->getFromSlug($slug);
+	}
 
-		if ( ! $submission instanceof Submission) {
-			throw new NotFoundHttpException;
-		}
-
-		return view('video.view', [
-			'submission' => $submission
-		]);
+	public function postCommentOnSubmission($slug)
+	{
 	}
 }
