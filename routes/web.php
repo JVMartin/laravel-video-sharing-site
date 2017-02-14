@@ -22,6 +22,17 @@ Route::group(['prefix' => 'video'], function() {
 	]);
 });
 
+Route::group(['prefix' => 'comments'], function() {
+	Route::get('submission/{slug}', [
+		'as' => 'comments.submission',
+		'uses' => 'Video\CommentController@getCommentsForSubmission'
+	]);
+	Route::post('submission/{slug}', [
+		'as' => 'comments.submission.post',
+		'uses' => 'Video\CommentController@postCommentOnSubmission'
+	]);
+});
+
 Route::group(['prefix' => 'user'], function() {
 	Route::get('{username}', [
 		'as' => 'user.profile',

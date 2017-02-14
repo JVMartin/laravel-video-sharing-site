@@ -92,7 +92,10 @@ $('a').click(function(e) {
  * the application, or feel free to tweak this setup for your needs.
  */
 
-Vue.component('comments', require('./components/Comments.vue'));
-const app = new Vue({
-	el: 'comments'
-});
+if (data.hasOwnProperty('submissionHash')) {
+	Vue.component('comments', require('./components/Comments.vue'));
+	Vue.use(require('vue-resource'));
+	const comments = new Vue({
+		el: 'comments'
+	});
+}

@@ -9,9 +9,13 @@
 </template>
 
 <script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
-    }
+	export default {
+		mounted() {
+			this.$http.get('/').then(response => {
+				console.log(response);
+			}, response => {
+
+			});
+		}
+	};
 </script>
