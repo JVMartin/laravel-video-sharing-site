@@ -24,6 +24,7 @@ class CreateCommentsTable extends Migration
 			$table->timestamps();
 
 			$table->index('submission_id');
+			$table->index('user_id');
 
 			$table->foreign('submission_id')
 				->references('id')->on('submissions')
@@ -42,6 +43,7 @@ class CreateCommentsTable extends Migration
 			$table->boolean('down')->default(false);
 
 			$table->index('comment_id');
+			$table->index('user_id');
 
 			$table->foreign('comment_id')
 				->references('id')->on('comments')
