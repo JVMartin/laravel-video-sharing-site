@@ -92,7 +92,6 @@ $('a').click(function(e) {
  * the application, or feel free to tweak this setup for your needs.
  */
 $(function() {
-	console.log(window.data);
 	if (window.data.hasOwnProperty('submissionHash')) {
 		Vue.component('comments', require('./components/Comments.vue'));
 		Vue.use(require('vue-resource'));
