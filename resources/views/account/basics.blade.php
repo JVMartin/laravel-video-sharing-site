@@ -35,7 +35,10 @@
 						in {{ $daysUntilDeletion }} days!
 					@else
 						later today!
-					@endif
+					@endif<br />
+					<a href="{!! route('account.resend-verification') !!}" class="button">
+						Resend Verification Email
+					</a>
 				</div>
 			@endif
 			<div class="row">
@@ -51,13 +54,6 @@
 					</label>
 				</div>
 			</div>
-			@if ( ! $verified)
-				<p>
-					<a href="{!! route('account.resend-verification') !!}" class="button">
-						Resend Verification Email
-					</a>
-				</p>
-			@endif
 			<hr />
 		@endif
 		<h3>Name</h3>
