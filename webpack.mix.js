@@ -14,8 +14,8 @@ mix.autoload({});
  |
  */
 
-mix.js('resources/assets/js/app/app.js', 'public/js').version();
-mix.sass('resources/assets/sass/app/app.scss', 'public/css').version();
+mix.js('resources/assets/js/app.js', 'public/js').version();
+mix.sass('resources/assets/sass/app.scss', 'public/css').version();
 
 mix.copy('node_modules/tinymce/skins', 'public/js/skins', false);
 mix.copy('node_modules/font-awesome/fonts', 'public/fonts', false);

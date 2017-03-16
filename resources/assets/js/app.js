@@ -20,12 +20,17 @@ $('form').submit(function() {
 //--------------------------------
 // Sign in modals
 //--------------------------------
-$('#modalsSignIn').bind('open.zf.reveal', function() {
-	$(this).find('input[name="email"]:first').focus();
-});
-$('#modalsForgotPassword').bind('open.zf.reveal', function() {
-	$(this).find('input[name="email"]').focus();
-});
+(function() {
+	const $modalsSignIn = $('#modalsSignIn');
+	$modalsSignIn.bind('open.zf.reveal', function() {
+		$modalsSignIn.find('input[name="email"]:first').focus();
+	});
+
+	const $modalsForgotPassword = $('#modalsForgotPassword');
+	$modalsForgotPassword.bind('open.zf.reveal', function() {
+		$modalsForgotPassword.find('input[name="email"]').focus();
+	});
+})();
 
 //--------------------------------
 // WYSIWYG editors
@@ -51,7 +56,7 @@ $('input.tags').selectize({
 	}
 });
 
-$('label.is-invalid-label .selectize-input').focusin(function() {
+$('label.is-invalid-label').find('.selectize-input').focusin(function() {
 	$(this).closest('.is-invalid-label').removeClass('is-invalid-label');
 });
 
@@ -86,15 +91,12 @@ $('a').click(function(e) {
 	}
 });
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the body of the page. From here, you may begin adding components to
- * the application, or feel free to tweak this setup for your needs.
- */
+//--------------------------------
+// Vue components
+//--------------------------------
 $(function() {
 	if (window.data.hasOwnProperty('submissionHash')) {
 		Vue.component('comments', require('./components/Comments.vue'));
-		Vue.use(require('vue-resource'));
 		const comments = new Vue({
 			el: 'comments'
 		});
