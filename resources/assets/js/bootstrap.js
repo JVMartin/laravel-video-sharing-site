@@ -5,7 +5,7 @@ window.Vue = require('vue');
 window.tinymce = require('tinymce/tinymce');
 window.axios = require('axios');
 window.axios.defaults.headers.common = {
-	'X-CSRF-TOKEN': window.Laravel.csrfToken,
+	'X-CSRF-TOKEN': window.data.csrfToken,
 	'X-Requested-With': 'XMLHttpRequest'
 };
 
