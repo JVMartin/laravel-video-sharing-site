@@ -44,7 +44,6 @@ class FlushApplication extends Command
 
 		passthru('sudo git clean -fxd ' . public_path());
 		passthru('sudo git clean -fxd ' . storage_path());
-		passthru(base_path('fix.sh'));
 
 		passthru('npm run dev');
 	}
