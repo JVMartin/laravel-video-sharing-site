@@ -43,7 +43,7 @@
 						@endforeach
 					</label>
 					<label for="tags" class="{{ ($errors->has('tags')) ? 'is-invalid-label' : '' }}">
-						Tags (Please add at least 3)
+						Tags (Optional, separate with commas or tabs)
 						<input type="text" name="tags" value="{{ old('tags') }}" class="tags">
 						@foreach ($errors->get('tags') as $error)
 							<span class="form-error is-visible">

@@ -15,16 +15,15 @@ class VideoSubmissionDetailsValidator extends RequestValidator
 	{
 		$validator = $this->getValidationFactory()->make($request->all(), [
 			'title' => 'required|min:3',
-			'tags' => 'required'
 		]);
 
 		// Enforce minimum number of tags.
-		$validator->after(function ($validator) use ($request) {
+		/*$validator->after(function ($validator) use ($request) {
 			$numTags = count(explode(',', $request->tags));
 			if ($numTags < 3) {
 				$validator->errors()->add('tags', 'Please add at least 3 tags.');
 			}
-		});
+		});*/
 
 		if ($validator->fails()) {
 			$this->throwValidationException($request, $validator);
