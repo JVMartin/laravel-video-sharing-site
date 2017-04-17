@@ -85,6 +85,12 @@ class VideoManager
 			return null;
 		}
 
+		// This happens when the video does not exist anymore - there is a response, but the items
+		// array is empty.
+		if ( ! isset($response['items'][0])) {
+			return null;
+		}
+
 		$videoDetails = $response['items'][0];
 		$snippet = $videoDetails['snippet'];
 		$status = $videoDetails['status'];
