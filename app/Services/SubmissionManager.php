@@ -19,12 +19,12 @@ class SubmissionManager
 	}
 
 	/**
-	 * @param $slug
+	 * @param string $slugHashid
 	 * @return Submission|Model|null
 	 */
-	public function getFromSlug($slug)
+	public function getFromSlugHashid($slugHashid)
 	{
-		$parts = explode('-', $slug);
+		$parts = explode('-', $slugHashid);
 
 		if ( ! count($parts)) {
 			return null;

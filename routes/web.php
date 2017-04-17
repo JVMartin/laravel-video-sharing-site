@@ -23,11 +23,11 @@ Route::group(['prefix' => 'video'], function() {
 });
 
 Route::group(['prefix' => 'comments'], function() {
-	Route::get('submission/{hashId}', [
+	Route::get('submission/{hashid}', [
 		'as' => 'comments.submission',
 		'uses' => 'Video\CommentController@getCommentsForSubmission'
 	]);
-	Route::post('submission/{hashId}', [
+	Route::post('submission/{hashid}', [
 		'as' => 'comments.submission.post',
 		'uses' => 'Video\CommentController@postCommentOnSubmission'
 	]);
@@ -49,11 +49,11 @@ Route::group(['prefix' => 'submit'], function() {
 		'as' => 'video.submit.url.process',
 		'uses' => 'Video\SubmitController@postSubmitUrl'
 	]);
-	Route::get('details/{hashId}', [
+	Route::get('details/{hashid}', [
 		'as' => 'video.submit.details',
 		'uses' => 'Video\SubmitController@getSubmitDetails'
 	]);
-	Route::post('details/{hashId}', [
+	Route::post('details/{hashid}', [
 		'as' => 'video.submit.details.process',
 		'uses' => 'Video\SubmitController@postSubmitDetails'
 	]);

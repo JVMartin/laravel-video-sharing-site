@@ -18,13 +18,13 @@ class CommentController extends Controller
 		$this->commentRepository = $commentRepository;
 	}
 
-	public function getCommentsForSubmission($hashId)
+	public function getCommentsForSubmission($hashid)
 	{
-		$comments = $this->commentRepository->getBySubmissionId(decodeHash($hashId));
+		$comments = $this->commentRepository->getBySubmissionId(decodeHash($hashid));
 		return new JsonResponse($comments);
 	}
 
-	public function postCommentOnSubmission($hashId)
+	public function postCommentOnSubmission($hashid)
 	{
 	}
 }

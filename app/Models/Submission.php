@@ -21,8 +21,13 @@ class Submission extends Model implements TaggableInterface
 		return $this->belongsTo(User::class);
 	}
 
+	public function slugHashid()
+	{
+		return $this->slug . '-' . $this->hash;
+	}
+
 	public function url()
 	{
-		return route('video.view', $this->slug . '-' . $this->hash);
+		return route('video.view', $this->slugHashid());
 	}
 }

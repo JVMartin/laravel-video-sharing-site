@@ -19,19 +19,18 @@ class ViewController extends Controller
 	}
 
 	/**
-	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 * @param string $slugHashid
+	 * @return \Illuminate\View\View
 	 */
-	public function getView($slug)
+	public function getView($slugHashid)
 	{
-		$submission = $this->submissionManager->getFromSlug($slug);
+		$submission = $this->submissionManager->getFromSlugHashid($slugHashid);
 
 		if ( ! $submission instanceof Submission) {
 			abort(404);
 		}
 
-		$correctSlug = $submission->slug . '-' . $submission->hash;
-
-		if ($slug !== $correctSlug) {
+		if ($slugHashid != $submission->slugHashid()) {
 		    return redirect($submission->url());
         }
 

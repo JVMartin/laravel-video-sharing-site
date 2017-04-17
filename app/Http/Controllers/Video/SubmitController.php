@@ -86,12 +86,12 @@ class SubmitController extends Controller
 	}
 
 	/**
-	 * @param string $hashId
+	 * @param string $hashid
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
-	public function getSubmitDetails($hashId)
+	public function getSubmitDetails($hashid)
 	{
-		$video = $this->videoRepository->getByHashId($hashId);
+		$video = $this->videoRepository->getByHashId($hashid);
 
 		if ( ! $video) {
 			return redirect()->route('video.submit.url');
@@ -104,12 +104,12 @@ class SubmitController extends Controller
 
 	/**
 	 * @param Request $request
-	 * @param string $hashId
+	 * @param string $hashid
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
-	public function postSubmitDetails(Request $request, $hashId)
+	public function postSubmitDetails(Request $request, $hashid)
 	{
-		$video = $this->videoRepository->getByHashId($hashId);
+		$video = $this->videoRepository->getByHashId($hashid);
 
 		if ( ! $video) {
 			return redirect()->route('video.submit.url');

@@ -44,12 +44,12 @@ abstract class ModelRepository extends BaseRepository
 	}
 
 	/**
-	 * @param string $hashId
+	 * @param string $hashid
 	 * @return Model|null
 	 */
-	public function getByHashId($hashId)
+	public function getByHashId($hashid)
 	{
-		return $this->getByKey(decodeHash($hashId));
+		return $this->getByKey(decodeHash($hashid));
 	}
 
 	/**
