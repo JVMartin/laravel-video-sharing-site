@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Video;
 use App\Models\Submission;
 use App\Services\SubmissionManager;
 use App\Http\Controllers\Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ViewController extends Controller
 {
@@ -27,8 +26,14 @@ class ViewController extends Controller
 		$submission = $this->submissionManager->getFromSlug($slug);
 
 		if ( ! $submission instanceof Submission) {
-			throw new NotFoundHttpException;
+			abort(404);
 		}
+
+		$correctSlug = $submission->slug . '-' . $submission->hash;
+
+		if ($slug !== $correctSlug) {
+		    return redirect($submission->url());
+        }
 
 		return view('video.view', [
 			'submission' => $submission
