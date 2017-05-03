@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use Sentry;
 use Carbon\Carbon;
 use Google_Client;
 use App\Models\Video;
@@ -80,18 +79,18 @@ class VideoManager
 		]);
 
 		if ( ! $response instanceof Google_Service_YouTube_VideoListResponse) {
-			Sentry::captureMessage("Import video issue: response not Google_Service_YouTube_VideoListResponse ($youtube_id)");
+			issue("Import video issue: response not Google_Service_YouTube_VideoListResponse ($youtube_id)");
 			return null;
 		}
 		if ( ! is_array($response['items'])) {
-			Sentry::captureMessage("Import video issue: response['items'] not an array ($youtube_id)");
+			issue("Import video issue: response['items'] not an array ($youtube_id)");
 			return null;
 		}
 
 		// This happens when the video does not exist anymore - there is a response, but the items
 		// array is empty.
 		if ( ! isset($response['items'][0])) {
-			Sentry::captureMessage("Import video issue: response['items'] does not contain items ($youtube_id)");
+			issue("Import video issue: response['items'] does not contain items ($youtube_id)");
 			return null;
 		}
 
@@ -101,15 +100,15 @@ class VideoManager
 		$topicDetails = $videoDetails['topicDetails'];
 
 		if ( ! $snippet instanceof Google_Service_YouTube_VideoSnippet) {
-			Sentry::captureMessage("Import video issue: snippet not Google_Service_YouTube_VideoSnippet ($youtube_id)");
+			issue("Import video issue: snippet not Google_Service_YouTube_VideoSnippet ($youtube_id)");
 			return null;
 		}
 		if ( ! $status instanceof Google_Service_YouTube_VideoStatus) {
-			Sentry::captureMessage("Import video issue: status not Google_Service_YouTube_VideoStatus ($youtube_id)");
+			issue("Import video issue: status not Google_Service_YouTube_VideoStatus ($youtube_id)");
 			return null;
 		}
 		if ( ! $topicDetails instanceof Google_Service_YouTube_VideoTopicDetails) {
-			Sentry::captureMessage("Import video issue: topicDetails not Google_Service_YouTube_VideoTopicDetails ($youtube_id)");
+			issue("Import video issue: topicDetails not Google_Service_YouTube_VideoTopicDetails ($youtube_id)");
 			return null;
 		}
 

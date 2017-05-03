@@ -30,3 +30,11 @@ function stripUnsafeTags($string)
 
 	return strip_tags($string, $whitelist);
 }
+
+/**
+ * Report an issue to the site administrators.
+ */
+function issue($message)
+{
+	Sentry::captureMessage($message);
+}
