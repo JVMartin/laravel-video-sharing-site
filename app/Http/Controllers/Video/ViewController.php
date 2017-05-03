@@ -31,8 +31,8 @@ class ViewController extends Controller
 		}
 
 		if ($slugHashid != $submission->slugHashid()) {
-		    return redirect($submission->url());
-        }
+			return redirect($submission->url());
+		}
 
 		return view('video.view', [
 			'submission' => $submission
