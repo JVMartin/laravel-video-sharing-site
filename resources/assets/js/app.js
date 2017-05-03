@@ -76,7 +76,7 @@ $('.expander').on('click', '.expand', function() {
 $('a').click(function(e) {
 	let $this = $(this);
 
-	if ($this.attr('data-confirm') &&  ! confirm($this.data('confirm'))) {
+	if ($this.attr('data-confirm') && ! confirm($this.data('confirm'))) {
 		e.preventDefault();
 	}
 });
