@@ -30,7 +30,7 @@
 			</div>
 			<div class="column large-4">
 				<div class="row column">
-					<strong>Tags</strong>
+					<h4>Tags</h4>
 					<div class="expander">
 						<div class="contents">
 							@foreach ($submission->tags as $tag)
@@ -48,7 +48,7 @@
 					</div>
 				</div>
 				<div class="row column">
-					<strong>Youtube Description</strong>
+					<h4>Youtube Description</h4>
 					<div class="expander">
 						<div class="contents">
 							{!! nl2br($submission->video->description) !!}

@@ -30,6 +30,7 @@
 			@if (Route::currentRouteNamed('video.view'))
 				submissionHash: '{{ $submission->hash }}',
 			@endif
+			auth: {{ Auth::check() ? 'true' : 'false' }},
 		};
 	</script>
 	@yield('js')
