@@ -1,14 +1,14 @@
 <template>
 	<section id="comments">
 		<div class="row column" v-for="comment in comments">
-			{{ comment.contents }}
+			<div v-html="comment.contents"></div>
 		</div>
 		<div class="row column large-8">
 			<h4>Leave a comment</h4>
 			<div v-if="data.auth">
 				<textarea id="commentBox"></textarea>
 				<div class="row column text-right postCommentWrap">
-					<button type="submit" class="button">
+					<button type="submit" class="button" v-on:click="submitComment">
 						Post comment
 					</button>
 				</div>
@@ -34,12 +34,12 @@
 		data() {
 			return {
 				data: data,
-				comments: []
+				comments: [],
 			};
 		},
 		mounted() {
 			axios.get('/comments/submission/' + this.hashid).then(function(response) {
-				console.log(response);
+				console.log(response.data);
 			});
 //			this.$http.get('/comments/submission/' + window.data.submissionHash).then(response => {
 //				console.log(response);
@@ -48,7 +48,19 @@
 //
 //			});
 			wysiwyg('#commentBox');
-		}
+		},
+		methods: {
+			submitComment() {
+				let comment = tinymce.get('commentBox').getContent();
+				axios.post('/comments/submission/' + this.hashid, {
+					comment: comment,
+				});
+
+				this.comments.push({
+					contents: comment,
+				});
+			},
+		},
 	};
 </script>
 

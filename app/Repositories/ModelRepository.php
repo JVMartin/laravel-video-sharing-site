@@ -45,7 +45,7 @@ abstract class ModelRepository extends BaseRepository
 
 	/**
 	 * @param string $hashid
-	 * @return Model|null
+	 * @return Model|mixed|null
 	 */
 	public function getByHashId($hashid)
 	{

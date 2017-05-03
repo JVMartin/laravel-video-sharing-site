@@ -21,6 +21,11 @@ class Submission extends Model implements TaggableInterface
 		return $this->belongsTo(User::class);
 	}
 
+	public function comments()
+	{
+		return $this->hasMany(Comment::class);
+	}
+
 	public function slugHashid()
 	{
 		return $this->slug . '-' . $this->hash;
