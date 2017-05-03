@@ -11,15 +11,11 @@ window.axios.defaults.headers.common = {
 
 // External packages - order matters.
 require('foundation-sites');
-require('tinymce/themes/modern/theme');
-require('tinymce/plugins/code');
-require('tinymce/plugins/image');
-require('tinymce/plugins/link');
-require('tinymce/plugins/autoresize');
 require('selectize');
 
 // My scripts
 require('./form-ajax');
+require('./wysiwyg');
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

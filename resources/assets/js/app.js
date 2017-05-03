@@ -33,16 +33,6 @@ $('form').submit(function() {
 })();
 
 //--------------------------------
-// WYSIWYG editors
-//--------------------------------
-tinymce.init({
-	selector: 'textarea.tinymce',
-	plugins: [
-		'code image link autoresize'
-	],
-});
-
-//--------------------------------
 // Tags
 //--------------------------------
 $('input.tags').selectize({
