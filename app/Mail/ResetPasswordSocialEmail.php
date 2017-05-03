@@ -9,21 +9,21 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ResetPasswordSocialEmail extends Mailable implements ShouldQueue
 {
-    use Queueable, SerializesModels;
+	use Queueable, SerializesModels;
 
-    public function __construct()
-    {
-        //
-    }
+	public function __construct()
+	{
+		//
+	}
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
-    {
-        return $this->subject('Sign In Instructions')
+	/**
+	 * Build the message.
+	 *
+	 * @return $this
+	 */
+	public function build()
+	{
+		return $this->subject('Sign In Instructions')
 			->view('emails.password-reset-social');
-    }
+	}
 }
