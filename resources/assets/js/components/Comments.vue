@@ -38,8 +38,9 @@
 			};
 		},
 		mounted() {
+			let self = this;
 			axios.get('/comments/submission/' + this.hashid).then(function(response) {
-				console.log(response.data);
+				self.comments = response.data;
 			});
 //			this.$http.get('/comments/submission/' + window.data.submissionHash).then(response => {
 //				console.log(response);
