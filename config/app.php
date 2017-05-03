@@ -172,6 +172,7 @@ return [
 		Vinkla\Hashids\HashidsServiceProvider::class,
 		Fedeisas\LaravelMailCssInliner\LaravelMailCssInlinerServiceProvider::class,
 		Cartalyst\Tags\TagsServiceProvider::class,
+        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
 
 		/*
 		 * Application Service Providers...
@@ -235,6 +236,7 @@ return [
 		// Added:
 		'Debugbar' => Barryvdh\Debugbar\Facade::class,
 		'Hashids' => Vinkla\Hashids\Facades\Hashids::class,
+        'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
 		'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 	],
 
