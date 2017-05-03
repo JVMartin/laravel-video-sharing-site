@@ -107,10 +107,6 @@ class VideoManager
 			issue("Import video issue: status not Google_Service_YouTube_VideoStatus ($youtube_id)");
 			return null;
 		}
-		if ( ! $topicDetails instanceof Google_Service_YouTube_VideoTopicDetails) {
-			issue("Import video issue: topicDetails not Google_Service_YouTube_VideoTopicDetails ($youtube_id)");
-			return null;
-		}
 
 		$video = $this->videoRepository->create([
 			'youtube_id' => $youtube_id,
@@ -126,12 +122,17 @@ class VideoManager
 			$video->tag($snippet->tags);
 		}
 
-		// Add the topics that YouTube provides.
-		if (is_array($topicDetails->topicIds) && count($topicDetails->topicIds)) {
-			$this->topicManager->setTopics($video, $topicDetails->topicIds);
+		if ($topicDetails instanceof Google_Service_YouTube_VideoTopicDetails) {
+			// Add the topics that YouTube provides.
+			if (is_array($topicDetails->topicIds) && count($topicDetails->topicIds)) {
+				$this->topicManager->setTopics($video, $topicDetails->topicIds);
+			}
+			if (is_array($topicDetails->relevantTopicIds) && count($topicDetails->relevantTopicIds)) {
+				$this->topicManager->setTopics($video, $topicDetails->relevantTopicIds, 'relevantTopicId');
+			}
 		}
-		if (is_array($topicDetails->relevantTopicIds) && count($topicDetails->relevantTopicIds)) {
-			$this->topicManager->setTopics($video, $topicDetails->relevantTopicIds, 'relevantTopicId');
+		else {
+			issue("Import video issue: topicDetails not Google_Service_YouTube_VideoTopicDetails ($youtube_id)");
 		}
 
 		return $video;
