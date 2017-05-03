@@ -84,11 +84,7 @@ $('a').click(function(e) {
 //--------------------------------
 // Vue components
 //--------------------------------
-$(function() {
-	if (window.data.hasOwnProperty('submissionHash')) {
-		Vue.component('comments', require('./components/Comments.vue'));
-		const comments = new Vue({
-			el: 'comments'
-		});
-	}
+Vue.component('comments', require('./components/Comments.vue'));
+const comments = new Vue({
+	el: 'comments'
 });

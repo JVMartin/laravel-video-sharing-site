@@ -6,7 +6,7 @@
 		<div class="row column large-8">
 			<h4>Leave a comment</h4>
 			<div v-if="data.auth">
-				<textarea class="tinymce" name="comment"></textarea>
+				<textarea id="commentBox"></textarea>
 				<div class="row column text-right">
 					<p>
 						<button type="submit" class="button">
@@ -25,7 +25,14 @@
 <script>
 	const data = window.data;
 
+	function wysiwyg(selector) {
+		let config = require('../tinymce-config');
+		config.selector = selector;
+		tinymce.init(config);
+	}
+
 	export default {
+		props: ['hashid'],
 		data() {
 			return {
 				data: data,
@@ -33,12 +40,16 @@
 			};
 		},
 		mounted() {
-			this.$http.get('/comments/submission/' + window.data.submissionHash).then(response => {
+			axios.get('/comments/submission/' + this.hashid).then(function(response) {
 				console.log(response);
-				this.comments = response.body;
-			}, response => {
-
 			});
+//			this.$http.get('/comments/submission/' + window.data.submissionHash).then(response => {
+//				console.log(response);
+//				this.comments = response.body;
+//			}, response => {
+//
+//			});
+			wysiwyg('#commentBox');
 		}
 	};
 </script>

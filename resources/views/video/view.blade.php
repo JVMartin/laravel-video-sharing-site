@@ -58,6 +58,6 @@
 				</div>
 			</div>
 		</div>
-		<comments></comments>
+		<comments hashid="{{ $submission->hash }}"></comments>
 	</section>
 @endsection
