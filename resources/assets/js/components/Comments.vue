@@ -7,12 +7,10 @@
 			<h4>Leave a comment</h4>
 			<div v-if="data.auth">
 				<textarea id="commentBox"></textarea>
-				<div class="row column text-right">
-					<p>
-						<button type="submit" class="button">
-							Post comment
-						</button>
-					</p>
+				<div class="row column text-right postCommentWrap">
+					<button type="submit" class="button">
+						Post comment
+					</button>
 				</div>
 			</div>
 			<button v-else class="button" data-open="modalsSignIn">
@@ -54,5 +52,8 @@
 	};
 </script>
 
-<style lang="sass" rel="stylesheet/scss">
+<style lang="scss" rel="stylesheet/scss">
+	.postCommentWrap {
+		margin-top: 15px;
+	}
 </style>
