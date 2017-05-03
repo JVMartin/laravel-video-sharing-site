@@ -1,7 +1,9 @@
 <template>
 	<section id="comments">
 		<div class="row column" v-for="comment in comments">
-			<div v-html="comment.contents"></div>
+			<div class="comment">
+				<div v-html="comment.contents"></div>
+			</div>
 		</div>
 		<div class="row column large-8">
 			<h4>Leave a comment</h4>
@@ -68,5 +70,9 @@
 <style lang="scss" rel="stylesheet/scss">
 	.postCommentWrap {
 		margin-top: 15px;
+	}
+
+	.comment {
+		background: #FFFFFF;
 	}
 </style>
