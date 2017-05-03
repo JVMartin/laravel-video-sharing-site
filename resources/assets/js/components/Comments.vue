@@ -66,13 +66,3 @@
 		},
 	};
 </script>
-
-<style lang="scss" rel="stylesheet/scss">
-	.postCommentWrap {
-		margin-top: 15px;
-	}
-
-	.comment {
-		background: #FFFFFF;
-	}
-</style>
