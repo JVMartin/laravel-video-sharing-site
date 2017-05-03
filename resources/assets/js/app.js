@@ -84,7 +84,9 @@ $('a').click(function(e) {
 //--------------------------------
 // Vue components
 //--------------------------------
-Vue.component('comments', require('./components/Comments.vue'));
-const comments = new Vue({
-	el: 'comments'
-});
+if ($('comments').length) {
+	Vue.component('comments', require('./components/Comments.vue'));
+	const comments = new Vue({
+		el: 'comments'
+	});
+}
