@@ -52,7 +52,6 @@ class CommentManager
 			return 'The comment you are replying to has been deleted!';
 		}
 
-
 		$comment = $submission->comments()->create([
 			'user_id' => Auth::user()->id,
 			'parent_id' => $parent_id,

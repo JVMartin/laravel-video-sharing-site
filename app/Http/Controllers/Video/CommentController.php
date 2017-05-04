@@ -37,7 +37,7 @@ class CommentController extends Controller
 	 */
 	public function getCommentsForSubmission($hashid, $parent_hash = null)
 	{
-		$comments = $this->commentRepository->getBySubmissionId(decodeHash($hashid), $parent_hash);
+		$comments = $this->commentRepository->getBySubmissionId(decodeHash($hashid), decodeHash($parent_hash));
 		return new JsonResponse($comments);
 	}
 
