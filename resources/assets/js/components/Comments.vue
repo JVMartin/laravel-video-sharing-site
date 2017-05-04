@@ -55,6 +55,12 @@
 		methods: {
 			submitComment() {
 				let comment = tinymce.get('commentBox').getContent();
+
+				if ( ! comment.length) {
+					alert('You gotta say something first!');
+					return;
+				}
+
 				axios.post('/comments/submission/' + this.hashid, {
 					comment: comment,
 				});
