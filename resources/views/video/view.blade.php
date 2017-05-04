@@ -58,6 +58,6 @@
 				</div>
 			</div>
 		</div>
-		<comments submission_hash="{{ $submission->hash }}"></comments>
+		<comments submission_hash="{{ $submission->hash }}" parent_hash=""></comments>
 	</section>
 @endsection
