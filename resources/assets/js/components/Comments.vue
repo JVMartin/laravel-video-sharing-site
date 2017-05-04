@@ -3,6 +3,9 @@
 		<div class="row column" v-for="comment in comments">
 			<div class="comment">
 				<div v-html="comment.contents"></div>
+				<div class="timestamp">
+					On {{ comment.created_at }}
+				</div>
 			</div>
 		</div>
 		<div class="row column large-8" v-if=" ! commentSubmitted">
@@ -44,15 +47,11 @@
 		},
 		mounted() {
 			let self = this;
+
 			axios.get('/comments/submission/' + this.hashid).then(function(response) {
 				self.comments = response.data;
 			});
-//			this.$http.get('/comments/submission/' + window.data.submissionHash).then(response => {
-//				console.log(response);
-//				this.comments = response.body;
-//			}, response => {
-//
-//			});
+
 			wysiwyg('#commentBox');
 		},
 		methods: {

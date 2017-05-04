@@ -5,5 +5,13 @@
 
 	.comment {
 		background: #FFFFFF;
+		margin-bottom: 20px;
+		padding: 10px;
+		border-radius: 6px;
+
+		.timestamp {
+			font-style: italic;
+			font-size: 0.9em;
+		}
 	}
 }
