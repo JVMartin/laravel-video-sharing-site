@@ -135,6 +135,9 @@ class AccountController extends Controller
 
 		$user = Auth::user();
 
+		// Ensure the folder exists.
+		mkdir(public_path('img/u/' . $user->hash));
+
 		$source = $request->file('picture')->getRealPath();
 		$destination = $user->avatarPath();
 		$this->imageManager->cropImageTo($source, $destination);

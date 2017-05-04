@@ -13,7 +13,7 @@
 						<i class="fa fa-trash"></i>
 				</a>
 			@endif
-			<img src="{{ Auth::user()->avatar() }}" />
+			<img src="{{ Auth::user()->avatar }}" />
 		</div>
 		<p>
 			Upload a picture to be displayed alongside your username.
