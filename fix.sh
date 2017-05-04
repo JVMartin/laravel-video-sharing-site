@@ -22,7 +22,6 @@ find . -not -path './node_modules/*' -not -path './vendor/*' -type d -exec chmod
 
 allowWrite "storage"
 allowWrite "bootstrap/cache"
-allowWrite "public/img/u"
 
 chmod +x fix.sh
 chmod +x artisan

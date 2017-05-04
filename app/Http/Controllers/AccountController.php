@@ -115,19 +115,9 @@ class AccountController extends Controller
 	{
 		$user = Auth::user();
 
-		$file = $user->avatarPath();
-		$directory = dirname($file);
+		$this->imageManager->deleteAvatarIfExists($user);
 
-		if (file_exists($file)) {
-			unlink($file);
-		}
-
-		// Delete the directory if it's empty.
-		if (count(glob($directory . '/*')) === 0) {
-			unlink($directory);
-		}
-
-		$user->has_avatar = false;
+		$user->avatar = null;
 		$user->save();
 
 		return redirect()->route('account.picture');
@@ -141,17 +131,23 @@ class AccountController extends Controller
 
 		$user = Auth::user();
 
-		// Ensure the folder exists.
-		$directory = dirname($user->avatarPath());
-		if ( ! file_exists($directory)) {
-			mkdir($directory, 0755);
+		$this->imageManager->deleteAvatarIfExists($user);
+
+		// Ensure the user's storage path exists.
+		if ( ! file_exists($user->storagePath())) {
+			mkdir($user->storagePath(), 0755);
 		}
 
+		// Get the source and destination.
 		$source = $request->file('picture')->getRealPath();
-		$destination = $user->avatarPath();
+		$fileName = md5_file($source) . '.jpg';
+		$destination = $user->storagePath() . DIRECTORY_SEPARATOR . $fileName;
+
+		// Crop the image into place.
 		$this->imageManager->cropImageTo($source, $destination);
 
-		$user->has_avatar = true;
+		// Save the image.
+		$user->avatar = $fileName;
 		$user->save();
 
 		return redirect()->route('account.picture');

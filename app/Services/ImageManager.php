@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Imagick;
+use App\Models\User;
 
 class ImageManager
 {
@@ -15,5 +16,19 @@ class ImageManager
 		$image = new Imagick($source);
 		$image->cropThumbnailImage(200, 200);
 		$image->writeImage($destination);
+	}
+
+	/**
+	 * @param User $user
+	 */
+	public function deleteAvatarIfExists($user)
+	{
+		// If the user has an avater, delete it.
+		if (strlen($user->avatar)) {
+			$existingAvatar = $user->storagePath() . DIRECTORY_SEPARATOR . $user->avatar;
+			if (file_exists($existingAvatar)) {
+				unlink($existingAvatar);
+			}
+		}
 	}
 }
