@@ -2,10 +2,9 @@
 
 namespace App\Jobs;
 
-use App\Services\ImageManager;
-use Imagick;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
+use App\Services\ImageManager;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -25,12 +24,19 @@ class DownloadAvatar implements ShouldQueue
 	protected $url;
 
 	/**
+	 * @var ImageManager
+	 */
+	protected $imageManager;
+
+	/**
 	 * Create a new job instance.
 	 */
 	public function __construct(User $user, $url)
 	{
 		$this->user = $user;
 		$this->url  = $url;
+
+		$this->imagemanager = app(ImageManager::class);
 	}
 
 	/**
@@ -44,27 +50,23 @@ class DownloadAvatar implements ShouldQueue
 			return;
 		}
 
-		$userImgPath = public_path('img/u/' . $this->user->hash);
-
-		$origFile = $userImgPath . '/avatar-o.jpg';
-		$resized = $userImgPath . '/avatar.jpg';
-
-		// It's already been saved, no need to do so again.
-		if (file_exists($origFile)) {
+		if (strlen($this->user->avatar)) {
 			return;
 		}
 
-		if ( ! file_exists($userImgPath)) {
-			mkdir($userImgPath, 0775);
+		$origFileName = $this->user->storagePath() . '/avatar-o.jpg';
+
+		if (file_exists($origFileName)) {
+			return;
 		}
 
-		// Download the image.
-		copy($this->url, $origFile);
+		copy($this->url, $origFileName);
 
-		$imageManager = app(ImageManager::class);
-		$imageManager->cropImageTo($origFile, $resized);
+		$fileName = md5_file($origFileName) . '.jpg';
 
-		$this->user->has_avatar = true;
+		$this->imageManager->cropImageTo($origFileName, $fileName);
+
+		$this->user->avatar = $fileName;
 		$this->user->save();
 	}
 }

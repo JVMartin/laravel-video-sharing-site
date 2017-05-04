@@ -133,11 +133,6 @@ class AccountController extends Controller
 
 		$this->imageManager->deleteAvatarIfExists($user);
 
-		// Ensure the user's storage path exists.
-		if ( ! file_exists($user->storagePath())) {
-			mkdir($user->storagePath(), 0755);
-		}
-
 		// Get the source and destination.
 		$source = $request->file('picture')->getRealPath();
 		$fileName = md5_file($source) . '.jpg';

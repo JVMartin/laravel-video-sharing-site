@@ -68,7 +68,13 @@ class User extends Model implements
 
 	public function storagePath()
 	{
-		return storage_path('app/public/u/' . $this->hash);
+		$path = storage_path('app/public/u/' . $this->hash);
+
+		if ( ! file_exists($path)) {
+			mkdir($path, 0775);
+		}
+
+		return $path;
 	}
 
 	public function url()
