@@ -4,14 +4,32 @@
 	}
 
 	.comment {
+		position: relative;
 		background: #FFFFFF;
 		margin-bottom: 20px;
-		padding: 10px;
+		padding: 10px 10px 10px 100px;
 		border-radius: 6px;
+		min-height: 88px;
 
-		.timestamp {
-			font-style: italic;
-			font-size: 0.9em;
+		.avatar {
+			position: absolute;
+			left: 6px;
+			top: 6px;
+
+			img {
+				width: 75px;
+			}
+		}
+		.details {
+			line-height: 0.8em;
+
+			.username {
+				font-size: 0.8em;
+			}
+			.timestamp {
+				font-style: italic;
+				font-size: 0.7em;
+			}
 		}
 	}
 }

@@ -26,7 +26,7 @@ class User extends Model implements
 	 */
 	protected $hidden = [
 		'id', 'email', 'first_name', 'last_name', 'password', 'remember_token',
-		'last_sign_in', 'created_at', 'updated_at', 'has_avatar'
+		'last_sign_in', 'created_at', 'updated_at', 'avatar'
 	];
 
 	/**

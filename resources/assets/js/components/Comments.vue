@@ -3,11 +3,17 @@
 		<div class="row column" v-for="comment in comments">
 			<div class="comment">
 				<a class="avatar">
-					<img :src="comment.user.avatar" />
+					<img :src="comment.user.avatar_url" />
 				</a>
 				<div v-html="comment.contents"></div>
-				<div class="timestamp">
-					On {{ comment.created_at }}
+				<div class="details">
+					<span class="username">
+						{{ comment.user.username }}
+					</span>
+					<br />
+					<span class="timestamp">
+						{{ comment.created_at }}
+					</span>
 				</div>
 			</div>
 		</div>
