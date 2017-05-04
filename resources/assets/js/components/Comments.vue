@@ -86,10 +86,6 @@
 			let self = this;
 
 			axios.get('/comments/submission/' + this.submission_hash + '/' + this.parent_hash).then(function(response) {
-				let comments = response.data;
-				_.forEach(comments, function(comment) {
-					comment.comments = [];
-				});
 				self.comments = response.data;
 			});
 
