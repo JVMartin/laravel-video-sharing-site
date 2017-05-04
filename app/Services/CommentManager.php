@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Auth;
 use RuntimeException;
+use App\Models\Comment;
 use App\Repositories\CommentRepository;
 use App\Repositories\SubmissionRepository;
 
@@ -31,7 +32,7 @@ class CommentManager
 	/**
 	 * @param string $hashid The hashid of the submission.
 	 * @param string $contents The comment contents.
-	 * @return string|true
+	 * @return Comment
 	 */
 	public function postCommentOnSubmission($hashid, $contents)
 	{
@@ -40,7 +41,7 @@ class CommentManager
 			throw new RuntimeException('Comment posted on nonexistent submission ' . $submission);
 		}
 
-		$submission->comments()->create([
+		return $submission->comments()->create([
 			'user_id' => Auth::user()->id,
 			'parent_id' => null,
 			'contents' => $contents,

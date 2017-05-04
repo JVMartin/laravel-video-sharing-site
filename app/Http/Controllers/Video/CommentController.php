@@ -46,7 +46,8 @@ class CommentController extends Controller
 	 */
 	public function postCommentOnSubmission(Request $request, $hashid)
 	{
-		$this->commentManager->postCommentOnSubmission($hashid, $request->comment);
-		return new JsonResponse();
+		$comment = $this->commentManager->postCommentOnSubmission($hashid, $request->comment);
+
+		return new JsonResponse($comment);
 	}
 }
