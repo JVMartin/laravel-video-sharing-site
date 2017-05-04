@@ -31,7 +31,7 @@ abstract class ModelRepository extends BaseRepository
 
 	/**
 	 * @param mixed $keyValue
-	 * @return Model|null
+	 * @return Model|mixed|null
 	 */
 	public function getByKey($keyValue)
 	{

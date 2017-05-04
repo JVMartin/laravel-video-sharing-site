@@ -38,13 +38,16 @@ class CommentManager
 	{
 		$submission = $this->submissionRepository->getByHashId($hashid);
 		if ( ! $submission) {
-			throw new RuntimeException('Comment posted on nonexistent submission ' . $submission);
+			throw new RuntimeException('Comment posted on nonexistent submission ' . $hashid);
 		}
 
-		return $submission->comments()->create([
+		$comment = $submission->comments()->create([
 			'user_id' => Auth::user()->id,
 			'parent_id' => null,
 			'contents' => $contents,
 		]);
+
+		// Ensure the comment has all of its attributes by grabbing it fresh from the database.
+		return $this->commentRepository->getByKey($comment->id);
 	}
 }
