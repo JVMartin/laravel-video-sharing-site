@@ -5,7 +5,7 @@
 				<div v-html="comment.contents"></div>
 			</div>
 		</div>
-		<div class="row column large-8">
+		<div class="row column large-8" v-if=" ! commentSubmitted">
 			<h4>Leave a comment</h4>
 			<div v-if="data.auth">
 				<textarea id="commentBox"></textarea>
@@ -39,6 +39,7 @@
 			return {
 				data: data,
 				comments: [],
+				commentSubmitted: false,
 			};
 		},
 		mounted() {
@@ -62,6 +63,8 @@
 					alert('You gotta say something first!');
 					return;
 				}
+
+				this.commentSubmitted = true;
 
 				axios.post('/comments/submission/' + this.hashid, {
 					comment: comment,
