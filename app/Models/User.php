@@ -26,7 +26,7 @@ class User extends Model implements
 	 */
 	protected $hidden = [
 		'id', 'email', 'first_name', 'last_name', 'password', 'remember_token',
-		'last_sign_in', 'created_at', 'updated_at'
+		'last_sign_in', 'created_at', 'updated_at', 'has_avatar'
 	];
 
 	/**
@@ -34,7 +34,7 @@ class User extends Model implements
 	 *
 	 * @var array
 	 */
-	protected $appends = ['hash'];
+	protected $appends = ['hash', 'avatar'];
 
 	/**
 	 * Send the password reset notification.
@@ -62,7 +62,7 @@ class User extends Model implements
 		return route('user.profile', $this->username);
 	}
 
-	public function avatar()
+	public function getAvatarAttribute()
 	{
 		if ($this->has_avatar) {
 			return '/img/u/' . $this->hash . '/avatar.jpg';

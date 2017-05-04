@@ -3,8 +3,7 @@
 		<div class="row column" v-for="comment in comments">
 			<div class="comment">
 				<a class="avatar">
-					<img :src="'/img/u/' + user.hash + '/'" v-if="comment.user.has-avatar" />
-					<img src="/img/avatar-placeholder.png" v-if=" ! comment.user.has-avatar" />
+					<img :src="comment.user.avatar" />
 				</a>
 				<div v-html="comment.contents"></div>
 				<div class="timestamp">
