@@ -10,4 +10,5 @@ require('tinymce/plugins/paste');
 //--------------------------------
 // WYSIWYG editors
 //--------------------------------
-tinymce.init(require('./tinymce-config'));
+import tinymceConfig from './tinymce-config';
+tinymce.init(tinymceConfig());

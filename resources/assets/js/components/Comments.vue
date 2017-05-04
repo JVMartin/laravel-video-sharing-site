@@ -23,10 +23,12 @@
 </template>
 
 <script>
+	import tinymceConfig from '../tinymce-config';
+
 	const data = window.data;
 
 	function wysiwyg(selector) {
-		let config = require('../tinymce-config');
+		let config = tinymceConfig();
 		config.selector = selector;
 		tinymce.init(config);
 	}
