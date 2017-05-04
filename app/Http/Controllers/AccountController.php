@@ -116,9 +116,15 @@ class AccountController extends Controller
 		$user = Auth::user();
 
 		$file = $user->avatarPath();
+		$directory = dirname($file);
 
 		if (file_exists($file)) {
 			unlink($file);
+		}
+
+		// Delete the directory if it's empty.
+		if (count(glob($directory . '/*')) === 0) {
+			unlink($directory);
 		}
 
 		$user->has_avatar = false;
@@ -136,7 +142,7 @@ class AccountController extends Controller
 		$user = Auth::user();
 
 		// Ensure the folder exists.
-		mkdir(public_path('img/u/' . $user->hash));
+		mkdir(dirname($user->avatarPath()), 0755);
 
 		$source = $request->file('picture')->getRealPath();
 		$destination = $user->avatarPath();
