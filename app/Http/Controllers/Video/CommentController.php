@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Video;
 
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Services\CommentManager;
 use Illuminate\Http\JsonResponse;
@@ -31,22 +32,27 @@ class CommentController extends Controller
 
 	/**
 	 * @param string $hashid
+	 * @param string $parent_hash
 	 * @return JsonResponse
 	 */
-	public function getCommentsForSubmission($hashid)
+	public function getCommentsForSubmission($hashid, $parent_hash = null)
 	{
-		$comments = $this->commentRepository->getBySubmissionId(decodeHash($hashid));
+		$comments = $this->commentRepository->getBySubmissionId(decodeHash($hashid), $parent_hash);
 		return new JsonResponse($comments);
 	}
 
 	/**
 	 * @param Request $request
-	 * @param string $hashid
+	 * @param string $parent_hash
 	 * @return JsonResponse
 	 */
-	public function postCommentOnSubmission(Request $request, $hashid)
+	public function postCommentOnSubmission(Request $request, $hashid, $parent_hash = null)
 	{
-		$comment = $this->commentManager->postCommentOnSubmission($hashid, $request->comment);
+		$comment = $this->commentManager->postCommentOnSubmission($request->comment, $hashid, decodeHash($parent_hash));
+
+		if ( ! $comment instanceof Comment) {
+			return new JsonResponse($comment, 422);
+		}
 
 		return new JsonResponse($comment);
 	}

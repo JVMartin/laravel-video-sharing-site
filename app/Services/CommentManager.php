@@ -30,11 +30,12 @@ class CommentManager
 	}
 
 	/**
-	 * @param string $hashid The hashid of the submission.
 	 * @param string $contents The comment contents.
-	 * @return Comment
+	 * @param string $hashid The hashid of the submission.
+	 * @param string $parent_id The parent_id
+	 * @return Comment|string The successfully posted comment, or an error.
 	 */
-	public function postCommentOnSubmission($hashid, $contents)
+	public function postCommentOnSubmission($contents, $hashid, $parent_id = null)
 	{
 		$submission = $this->submissionRepository->getByHashId($hashid);
 		if ( ! $submission) {
@@ -45,9 +46,16 @@ class CommentManager
 		    throw new InvalidArgumentException('Empty comment posted on submission id ' . $submission->id);
         }
 
+        // This is not an exceptional occurence - can happen if replying to a user that deleted their
+		// comment.
+		if ( ! Comment::where('id', $parent_id)->count()) {
+			return 'The comment you are replying to has been deleted!';
+		}
+
+
 		$comment = $submission->comments()->create([
 			'user_id' => Auth::user()->id,
-			'parent_id' => null,
+			'parent_id' => $parent_id,
 			'contents' => $contents,
 		]);
 

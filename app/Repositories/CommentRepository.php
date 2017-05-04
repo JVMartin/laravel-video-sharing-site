@@ -12,11 +12,11 @@ class CommentRepository extends ModelRepository
 		parent::__construct($cache, new Comment);
 	}
 
-	public function getBySubmissionId($id)
+	public function getBySubmissionId($id, $parent_id = null)
 	{
 		return $this->model
 			->where('submission_id', $id)
-			->whereNull('parent_id')
+			->where('parent_id', $parent_id)
 			->orderBy('score', 'DESC')
 			->get();
 	}
