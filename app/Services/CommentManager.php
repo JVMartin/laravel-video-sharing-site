@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use Auth;
-use RuntimeException;
 use App\Models\Comment;
+use InvalidArgumentException;
 use App\Repositories\CommentRepository;
 use App\Repositories\SubmissionRepository;
 
@@ -38,8 +38,12 @@ class CommentManager
 	{
 		$submission = $this->submissionRepository->getByHashId($hashid);
 		if ( ! $submission) {
-			throw new RuntimeException('Comment posted on nonexistent submission ' . $hashid);
+			throw new InvalidArgumentException('Comment posted on nonexistent submission hash ' . $hashid);
 		}
+
+		if ( ! strlen($contents)) {
+		    throw new InvalidArgumentException('Empty comment posted on submission id ' . $submission->id);
+        }
 
 		$comment = $submission->comments()->create([
 			'user_id' => Auth::user()->id,
