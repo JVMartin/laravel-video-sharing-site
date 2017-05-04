@@ -8,6 +8,7 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="row column large-8" v-if=" ! commentSubmitted">
 			<h4>Leave a comment</h4>
 			<div v-if="data.auth">
@@ -37,7 +38,11 @@
 	}
 
 	export default {
+		/**
+		 * The hashid of the submission being watched.
+		 */
 		props: ['hashid'],
+
 		data() {
 			return {
 				data: data,
@@ -45,6 +50,7 @@
 				commentSubmitted: false,
 			};
 		},
+
 		mounted() {
 			let self = this;
 
@@ -54,7 +60,11 @@
 
 			wysiwyg('#commentBox');
 		},
+
 		methods: {
+			/**
+			 * Submitting a comment.
+			 */
 			submitComment() {
 				let comment = tinymce.get('commentBox').getContent();
 				let self = this;
