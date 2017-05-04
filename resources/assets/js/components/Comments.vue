@@ -20,7 +20,7 @@
 						</div>
 					</div>
 					<div class="column small-3 text-right">
-						<span class="fakelink" v-on:click="expand(comment)">
+						<span class="fakelink" v-on:click="expandToggle(comment)">
 							Replies (0)
 						</span>
 					</div>
@@ -115,8 +115,13 @@
 				});
 			},
 
-			expand(comment) {
-				this.expanding = comment.hash;
+			expandToggle(comment) {
+				if (this.expanding == comment.hash) {
+					this.expanding = null;
+				}
+				else {
+					this.expanding = comment.hash;
+				}
 			},
 		},
 	};
