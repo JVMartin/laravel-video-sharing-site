@@ -1,5 +1,6 @@
 <template>
-	<div>
+	<!-- Scootch over to the right if these are nested comments. -->
+	<div :style="(parent_hash) ? 'margin-left: 25px' : ''">
 		<div class="row column" v-for="comment in comments">
 			<div class="comment">
 				<a class="avatar">
