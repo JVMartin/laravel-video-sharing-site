@@ -58,6 +58,7 @@
 		methods: {
 			submitComment() {
 				let comment = tinymce.get('commentBox').getContent();
+				let self = this;
 
 				if ( ! comment.length) {
 					alert('You gotta say something first!');
@@ -68,10 +69,8 @@
 
 				axios.post('/comments/submission/' + this.hashid, {
 					comment: comment,
-				});
-
-				this.comments.push({
-					contents: comment,
+				}).then(function(response) {
+					self.comments.push(response.data);
 				});
 			},
 		},
