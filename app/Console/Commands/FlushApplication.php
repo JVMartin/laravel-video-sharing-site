@@ -28,6 +28,8 @@ class FlushApplication extends Command
 	 */
 	public function handle()
 	{
+		$this->call('storage:link');
+
 		// IDE helper
 		$this->call('clear-compiled');
 		$this->call('ide-helper:generate');
