@@ -26,21 +26,21 @@
 				</div>
 			</div>
 
-			<comments :hashid="hashid" :parent_hash="comment.hash" v-if="expanding == comment.hash"></comments>
+			<comments :submission_hash="submission_hash" :parent_hash="comment.hash" v-if="expanding == comment.hash"></comments>
 		</div>
 
-		<div class="row column large-8" v-if=" ! parent_id && ! commentSubmitted">
-			<h4>Leave a comment</h4>
+		<div class="row column large-8" v-if=" ! commentSubmitted">
+			<h4>Leave a {{ action }}</h4>
 			<div v-if="data.auth">
-				<textarea id="commentBox"></textarea>
+				<textarea class="tinymce"></textarea>
 				<div class="row column text-right postCommentWrap">
 					<button type="submit" class="button" v-on:click="submitComment">
-						Post comment
+						Post {{ action }}
 					</button>
 				</div>
 			</div>
 			<button v-else class="button" data-open="modalsSignIn">
-				Sign in to leave a comment
+				Sign in to leave a {{ action }}
 			</button>
 		</div>
 	</div>
@@ -50,12 +50,6 @@
 	import tinymceConfig from '../tinymce-config';
 
 	const data = window.data;
-
-	function wysiwyg(selector) {
-		let config = tinymceConfig();
-		config.selector = selector;
-		tinymce.init(config);
-	}
 
 	export default {
 		props: [
@@ -82,6 +76,12 @@
 			};
 		},
 
+		computed: {
+			action() {
+				return (this.parent_hash) ? 'reply': 'comment';
+			},
+		},
+
 		mounted() {
 			let self = this;
 
@@ -93,7 +93,7 @@
 				self.comments = response.data;
 			});
 
-			wysiwyg('#commentBox');
+			tinymce.init(tinymceConfig());
 		},
 
 		methods: {
@@ -101,8 +101,8 @@
 			 * Submitting a comment.
 			 */
 			submitComment() {
-				let comment = tinymce.get('commentBox').getContent();
 				let self = this;
+				let comment = tinymce.activeEditor.getContent();
 
 				if ( ! comment.length) {
 					alert('You gotta say something first!');
@@ -111,7 +111,7 @@
 
 				this.commentSubmitted = true;
 
-				axios.post('/comments/submission/' + this.hashid, {
+				axios.post('/comments/submission/' + this.submission_hash + '/' + this.parent_hash, {
 					comment: comment,
 				}).then(function(response) {
 					self.comments.push(response.data);
