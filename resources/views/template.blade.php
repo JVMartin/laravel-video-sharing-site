@@ -27,7 +27,7 @@
 	<script>
 		window.data = {
 			csrfToken: '{{ csrf_token() }}',
-			auth: {{ Auth::check() ? 'true' : 'false' }},
+			user: {!! (Auth::check()) ? json_encode(Auth::user()->toArray()) : 'null' !!},
 		};
 	</script>
 	@yield('js')

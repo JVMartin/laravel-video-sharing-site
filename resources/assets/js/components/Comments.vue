@@ -32,7 +32,7 @@
 
 		<div class="row column large-8" v-if=" ! commentSubmitted">
 			<h4>Leave a {{ action }}</h4>
-			<div v-if="data.auth">
+			<div v-if="data.user">
 				<textarea class="tinymce"></textarea>
 				<div class="row column text-right postCommentWrap">
 					<button type="submit" class="button" v-on:click="submitComment">
