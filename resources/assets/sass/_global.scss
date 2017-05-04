@@ -20,6 +20,11 @@ a.tag {
 	display:inline-block;
 }
 
+.fakelink {
+	color: $anchor-color;
+	cursor: pointer;
+}
+
 // Fix apparent bug where the responsive menu flashes on page loads.
 .title-bar {
 	@include breakpoint(medium) {

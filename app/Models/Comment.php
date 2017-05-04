@@ -2,12 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
 class Comment extends Model
 {
-	protected $guarded = ['id'];
-
 	protected $with = ['user'];
 
 	/**
@@ -18,6 +14,13 @@ class Comment extends Model
 	protected $hidden = [
 		'id', 'submission_id', 'user_id'
 	];
+
+	/**
+	 * The accessors to append to the model's array form.
+	 *
+	 * @var array
+	 */
+	protected $appends = ['hash'];
 
 	public function user()
 	{
