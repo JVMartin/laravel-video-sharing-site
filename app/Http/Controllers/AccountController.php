@@ -142,7 +142,10 @@ class AccountController extends Controller
 		$user = Auth::user();
 
 		// Ensure the folder exists.
-		mkdir(dirname($user->avatarPath()), 0755);
+		$directory = dirname($user->avatarPath());
+		if ( ! file_exists($directory)) {
+			mkdir($directory, 0755);
+		}
 
 		$source = $request->file('picture')->getRealPath();
 		$destination = $user->avatarPath();
