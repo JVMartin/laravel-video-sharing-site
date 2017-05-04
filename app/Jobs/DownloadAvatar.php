@@ -28,15 +28,12 @@ class DownloadAvatar implements ShouldQueue
 	 */
 	protected $imageManager;
 
-	/**
-	 * Create a new job instance.
-	 */
 	public function __construct(User $user, $url)
 	{
 		$this->user = $user;
-		$this->url  = $url;
+		$this->url = $url;
 
-		$this->imagemanager = app(ImageManager::class);
+		$this->imageManager = app(ImageManager::class);
 	}
 
 	/**
@@ -54,17 +51,18 @@ class DownloadAvatar implements ShouldQueue
 			return;
 		}
 
-		$origFileName = $this->user->storagePath() . '/avatar-o.jpg';
+		$origFilePath = $this->user->storagePath() . '/avatar-o.jpg';
 
-		if (file_exists($origFileName)) {
+		if (file_exists($origFilePath)) {
 			return;
 		}
 
-		copy($this->url, $origFileName);
+		copy($this->url, $origFilePath);
 
-		$fileName = md5_file($origFileName) . '.jpg';
+		$fileName = md5_file($origFilePath) . '.jpg';
+		$filePath = $this->user->storagePath() . '/' . $fileName;
 
-		$this->imageManager->cropImageTo($origFileName, $fileName);
+		$this->imageManager->cropImageTo($origFilePath, $filePath);
 
 		$this->user->avatar = $fileName;
 		$this->user->save();

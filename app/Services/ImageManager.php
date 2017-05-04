@@ -25,7 +25,7 @@ class ImageManager
 	{
 		// If the user has an avater, delete it.
 		if (strlen($user->avatar)) {
-			$existingAvatar = $user->storagePath() . DIRECTORY_SEPARATOR . $user->avatar;
+			$existingAvatar = $user->storagePath() . '/' . $user->avatar;
 			if (file_exists($existingAvatar)) {
 				unlink($existingAvatar);
 			}
