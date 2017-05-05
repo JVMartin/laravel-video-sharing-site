@@ -46,7 +46,7 @@
 			></comments>
 		</div>
 
-		<div class="row column large-8" v-if="commenting">
+		<div class="row column large-8" v-show="commenting">
 			<h4>Leave a {{ action }}</h4>
 			<div v-if="data.user">
 				<textarea class="tinymce"></textarea>
