@@ -144,6 +144,7 @@
 					return;
 				}
 
+				tinymce.get(this.wysiwygId).setContent('');
 				this.commenting = false;
 
 				axios.post(this.commentRoute, {
