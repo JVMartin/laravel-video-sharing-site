@@ -1,8 +1,8 @@
 <template>
 	<!-- Scootch over to the right if these are nested comments. -->
 	<div :style="(parent_hashid) ? 'margin-left: 25px' : ''">
-		<div class="row column" v-for="comment in comments">
-			<div class="comment" v-on:click="expandToggle(comment)">
+		<div class="row column" v-for="comment in comments" v-if=" ! parent_hashid || ! commenting">
+			<div class="comment" v-on:click="showChildren(comment)">
 				<a class="avatar">
 					<img :src="comment.user.avatar_url" />
 				</a>
@@ -38,12 +38,13 @@
 			<comments
 				:submission_hashid="submission_hashid"
 				:parent_hashid="comment.hash"
-				v-if="comment.expanded"
+				:commenting="comment.replying"
+				v-if="comment.expanded || comment.replying"
 			    v-on:newcomment="comment.num_replies++"
 			></comments>
 		</div>
 
-		<div class="row column large-8" v-if=" ! parent_hashid && ! commentSubmitted">
+		<div class="row column large-8" v-if="commenting">
 			<h4>Leave a {{ action }}</h4>
 			<div v-if="data.user">
 				<textarea class="tinymce"></textarea>
@@ -71,7 +72,9 @@
 			'submission_hashid',
 
 			// The hashed parent_id of the comment being replied to.
-			'parent_hashid'
+			'parent_hashid',
+
+			'commenting'
 		],
 
 		data() {
@@ -159,9 +162,9 @@
 			 *
 			 * @param comment
 			 */
-			expandToggle(comment) {
-				comment.expanded = ! comment.expanded;
-				console.log('expand');
+			showChildren(comment) {
+				comment.expanded = true;
+				comment.replying = false;
 			},
 
 			replyTo(comment) {
