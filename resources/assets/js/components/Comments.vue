@@ -21,6 +21,8 @@
 					</div>
 					<div class="column small-3 text-right">
 						<span class="fakelink" v-on:click="expandToggle(comment)">
+							<i class="fa fa-chevron-up" v-if=" ! comment.expanded"></i>
+							<i class="fa fa-chevron-down" v-if="comment.expanded"></i>
 							Replies ({{ comment.num_replies }})
 						</span>
 					</div>
@@ -30,7 +32,7 @@
 			<comments
 				:submission_hashid="submission_hashid"
 				:parent_hashid="comment.hash"
-				v-if="expanding == comment.hash"
+				v-if="comment.expanded"
 			    v-on:newcomment="comment.num_replies++"
 			></comments>
 		</div>
@@ -74,17 +76,14 @@
 				// The list of comments.
 				comments: [],
 
-				// Has a comment been submitted?
+				// Has a comment been submitted at this level?
 				commentSubmitted: false,
-
-				// The hashid of the comment being expanded.
-				expanding: null,
 			};
 		},
 
 		computed: {
 			action() {
-				return (this.parent_hashid) ? 'reply': 'comment';
+				return (this.parent_hashid) ? 'reply' : 'comment';
 			},
 
 			commentRoute() {
@@ -102,6 +101,13 @@
 			let self = this;
 
 			axios.get(this.commentRoute).then(function(response) {
+				let comments = response.data;
+
+				_.forEach(comments, function(comment) {
+					comment.expanded = false;
+					comment.replying = false;
+				});
+
 				self.comments = response.data;
 			});
 
@@ -132,12 +138,7 @@
 			},
 
 			expandToggle(comment) {
-				if (this.expanding == comment.hash) {
-					this.expanding = null;
-				}
-				else {
-					this.expanding = comment.hash;
-				}
+				comment.expanded = ! comment.expanded;
 			},
 		},
 	};
