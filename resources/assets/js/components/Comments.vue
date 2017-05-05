@@ -152,6 +152,11 @@
 				});
 			},
 
+			/**
+			 * Handle a new reply propagating up from the nested reply field.
+			 *
+			 * @param comment - The comment being replied to.
+			 */
 			handleNewReply(comment) {
 				comment.num_replies++;
 				comment.replying = false;
@@ -159,7 +164,7 @@
 			},
 
 			/**
-			 * Add extra data to the column for usage in the Vue component.
+			 * Add extra data to the comment just for usage in this Vue component.
 			 *
 			 * @param comment
 			 */
@@ -169,7 +174,7 @@
 			},
 
 			/**
-			 * Expand or unexpand the comment's replies.
+			 * Expand or unexpand a given comment's replies.
 			 *
 			 * @param comment
 			 */
@@ -185,6 +190,11 @@
 				}
 			},
 
+			/**
+			 * Reply to a given comment.
+			 *
+			 * @param comment
+			 */
 			replyTo(comment) {
 				comment.expanded = false;
 				comment.replying = true;
