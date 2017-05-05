@@ -86,9 +86,6 @@
 
 				// The list of comments.
 				comments: [],
-
-				// Has a comment been submitted at this level?
-				commentSubmitted: false,
 			};
 		},
 
@@ -143,7 +140,7 @@
 					return;
 				}
 
-				this.commentSubmitted = true;
+				this.commenting = false;
 
 				axios.post(this.commentRoute, {
 					comment: comment,
