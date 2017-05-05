@@ -21,9 +21,6 @@
 						</div>
 					</div>
 					<div class="column small-8 text-right">
-						<span class="fakelink reply" v-on:click="replyTo(comment)">
-							Reply
-						</span>
 						<span class="replies" v-if="comment.num_replies">
 							<i class="fa fa-chevron-up" v-if=" ! comment.expanded"></i>
 							<i class="fa fa-chevron-down" v-if="comment.expanded"></i>
@@ -33,7 +30,7 @@
 						</span>
 					</div>
 				</div>
-				<div class="reply" v-on:click="replyTo(comment)">
+				<div class="reply" v-on:click.stop="replyTo(comment)">
 					Reply
 				</div>
 			</div>
@@ -164,6 +161,7 @@
 			 */
 			expandToggle(comment) {
 				comment.expanded = ! comment.expanded;
+				console.log('expand');
 			},
 
 			replyTo(comment) {
