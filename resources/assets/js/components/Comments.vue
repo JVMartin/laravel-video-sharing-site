@@ -74,9 +74,7 @@
 			'submission_hashid',
 
 			// The comment being replied to, or null if this is the root (submission) comments.
-			'parent_comment',
-
-			'commenting'
+			'parent_comment'
 		],
 
 		data() {
@@ -129,6 +127,7 @@
 			let tConfig = tinymceConfig();
 			tConfig.selector = '#' + this.wysiwygId;
 			tinymce.init(tConfig);
+			tinymce.execCommand('mceFocus', false, this.wysiwygId);
 		},
 
 		methods: {
@@ -145,7 +144,6 @@
 				}
 
 				tinymce.get(this.wysiwygId).setContent('');
-				this.commenting = false;
 
 				axios.post(this.commentRoute, {
 					comment: comment,
