@@ -75,7 +75,7 @@
 			// The hashid of the submission being watched.
 			'submission_hashid',
 
-			// The hashed parent_id of the comment being replied to.
+			// The comment being replied to, or null if this is the root (submission) comments.
 			'parent_comment',
 
 			'commenting'
