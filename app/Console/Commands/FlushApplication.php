@@ -28,8 +28,6 @@ class FlushApplication extends Command
 	 */
 	public function handle()
 	{
-		$this->call('storage:link');
-
 		// IDE helper
 		$this->call('clear-compiled');
 		$this->call('ide-helper:generate');
@@ -49,6 +47,8 @@ class FlushApplication extends Command
 
 		passthru('sudo git clean -fxd ' . public_path());
 		passthru('sudo git clean -fxd ' . storage_path());
+
+		$this->call('storage:link');
 
 		passthru('npm run dev');
 	}
