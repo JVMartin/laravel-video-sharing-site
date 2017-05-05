@@ -105,7 +105,11 @@
 			},
 
 			wysiwygId() {
-				return 'wysiwyg' + this.parent_comment.hash;
+				let id = 'wysiwyg';
+				if (this.parent_comment) {
+					id += '-' + this.parent_comment.hash;
+				}
+				return id;
 			}
 		},
 
