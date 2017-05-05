@@ -10,6 +10,7 @@
 		padding: 10px 10px 10px 100px;
 		border-radius: 6px;
 		min-height: 88px;
+		cursor: pointer;
 
 		.avatar {
 			position: absolute;
@@ -29,6 +30,23 @@
 			.timestamp {
 				font-style: italic;
 				font-size: 0.7em;
+			}
+		}
+		.replies {
+			size: 0.8em;
+		}
+		.reply {
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 80px;
+			background: #ccc;
+			display: none;
+		}
+
+		&:hover {
+			.reply {
+				display: block;
 			}
 		}
 	}

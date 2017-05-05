@@ -2,13 +2,14 @@
 	<!-- Scootch over to the right if these are nested comments. -->
 	<div :style="(parent_hashid) ? 'margin-left: 25px' : ''">
 		<div class="row column" v-for="comment in comments">
-			<div class="comment">
+			<div class="comment" v-on:click="expandToggle(comment)">
 				<a class="avatar">
 					<img :src="comment.user.avatar_url" />
 				</a>
 				<div v-html="comment.contents"></div>
+
 				<div class="row">
-					<div class="column small-9">
+					<div class="column small-4">
 						<div class="details">
 							<span class="username">
 								{{ comment.user.username }}
@@ -19,13 +20,19 @@
 							</span>
 						</div>
 					</div>
-					<div class="column small-3 text-right">
-						<span class="fakelink" v-on:click="expandToggle(comment)">
+					<div class="column small-8 text-right">
+						<span class="fakelink reply" v-on:click="replyTo(comment)">
+							Reply
+						</span>
+						<span class="replies">
 							<i class="fa fa-chevron-up" v-if=" ! comment.expanded"></i>
 							<i class="fa fa-chevron-down" v-if="comment.expanded"></i>
-							Replies ({{ comment.num_replies }})
+							{{ comment.num_replies }} Replies
 						</span>
 					</div>
+				</div>
+				<div class="reply" v-on:click="replyTo(comment)">
+					Reply
 				</div>
 			</div>
 
@@ -37,7 +44,7 @@
 			></comments>
 		</div>
 
-		<div class="row column large-8" v-if=" ! commentSubmitted">
+		<div class="row column large-8" v-if=" ! parent_hashid && ! commentSubmitted">
 			<h4>Leave a {{ action }}</h4>
 			<div v-if="data.user">
 				<textarea class="tinymce"></textarea>
@@ -104,8 +111,7 @@
 				let comments = response.data;
 
 				_.forEach(comments, function(comment) {
-					comment.expanded = false;
-					comment.replying = false;
+					self.initComment(comment);
 				});
 
 				self.comments = response.data;
@@ -132,9 +138,21 @@
 				axios.post(this.commentRoute, {
 					comment: comment,
 				}).then(function(response) {
-					self.comments.push(response.data);
+					let comment = response.data;
+					self.initComment(comment);
+					self.comments.push(comment);
 					self.$emit('newcomment');
 				});
+			},
+
+			/**
+			 * Add extra data to the column for usage in the Vue component.
+			 *
+			 * @param comment
+			 */
+			initComment(comment) {
+				comment.expanded = false;
+				comment.replying = false;
 			},
 
 			expandToggle(comment) {
