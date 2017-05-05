@@ -24,10 +24,12 @@
 						<span class="fakelink reply" v-on:click="replyTo(comment)">
 							Reply
 						</span>
-						<span class="replies">
+						<span class="replies" v-if="comment.num_replies">
 							<i class="fa fa-chevron-up" v-if=" ! comment.expanded"></i>
 							<i class="fa fa-chevron-down" v-if="comment.expanded"></i>
-							{{ comment.num_replies }} Replies
+							<span v-if=" ! comment.expanded">
+								{{ comment.num_replies }} Replies
+							</span>
 						</span>
 					</div>
 				</div>

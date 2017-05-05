@@ -11,6 +11,7 @@
 		border-radius: 6px;
 		min-height: 88px;
 		cursor: pointer;
+		overflow: hidden;
 
 		.avatar {
 			position: absolute;
@@ -42,6 +43,10 @@
 			width: 80px;
 			background: #ccc;
 			display: none;
+			text-align:center;
+			background: $scheme-3;
+			color: $white;
+			border-radius: 0 0 0 6px;
 		}
 
 		&:hover {
