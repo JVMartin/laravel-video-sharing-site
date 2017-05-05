@@ -81,12 +81,22 @@
 			action() {
 				return (this.parent_hashid) ? 'reply': 'comment';
 			},
+
+			commentRoute() {
+				let route = '/comments/submission/' + this.submission_hashid;
+
+				if (this.parent_hashid) {
+					route += '/' + this.parent_hashid;
+				}
+
+				return route;
+			},
 		},
 
 		mounted() {
 			let self = this;
 
-			axios.get('/comments/submission/' + this.submission_hashid + '/' + this.parent_hashid).then(function(response) {
+			axios.get(this.commentRoute).then(function(response) {
 				self.comments = response.data;
 			});
 
@@ -108,7 +118,7 @@
 
 				this.commentSubmitted = true;
 
-				axios.post('/comments/submission/' + this.submission_hashid + '/' + this.parent_hashid, {
+				axios.post(this.commentRoute, {
 					comment: comment,
 				}).then(function(response) {
 					self.comments.push(response.data);
