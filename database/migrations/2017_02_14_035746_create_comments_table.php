@@ -19,6 +19,7 @@ class CreateCommentsTable extends Migration
 			$table->integer('parent_id')->unsigned()->nullable();
 			$table->integer('user_id')->unsigned()->nullable();
 			$table->integer('score')->default(1);
+			$table->integer('num_replies');
 			$table->boolean('deleted')->default(false);
 			$table->text('contents');
 			$table->timestamps();
