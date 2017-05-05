@@ -157,8 +157,18 @@
 				comment.replying = false;
 			},
 
+			/**
+			 * Expand or unexpand the comment's replies.
+			 *
+			 * @param comment
+			 */
 			expandToggle(comment) {
 				comment.expanded = ! comment.expanded;
+			},
+
+			replyTo(comment) {
+				comment.expanded = false;
+				comment.replying = true;
 			},
 		},
 	};
