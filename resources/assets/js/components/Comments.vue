@@ -3,7 +3,7 @@
 	<div :style="(parent_comment) ? 'margin-left: 25px' : ''">
 		<!-- Always show the comments if this is the submission itself. -->
 		<!-- Otherwise, only show the comments if they aren't commenting (replying). -->
-		<div class="row column" v-for="comment in comments" v-if=" ! parent_comment || parent_comment.expanded">
+		<div class="row column" v-for="comment in comments" v-show=" ! parent_comment || parent_comment.expanded">
 			<div class="comment" v-on:click="toggleReplies(comment)" :style="(comment.num_replies) ? 'cursor: pointer' : ''">
 				<a class="avatar">
 					<img :src="comment.user.avatar_url" />
