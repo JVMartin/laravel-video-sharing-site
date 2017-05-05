@@ -24,6 +24,7 @@ class CommentRepository extends ModelRepository
 			->where('submission_id', $submission_id)
 			->where('parent_id', $parent_id)
 			->orderBy('score', 'DESC')
+			->orderBy('num_replies', 'DESC')
 			->orderBy('created_at', 'ASC')
 			->get();
 	}

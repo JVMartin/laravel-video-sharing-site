@@ -27,7 +27,12 @@
 				</div>
 			</div>
 
-			<comments :submission_hashid="submission_hashid" :parent_hashid="comment.hash" v-if="expanding == comment.hash"></comments>
+			<comments
+				:submission_hashid="submission_hashid"
+				:parent_hashid="comment.hash"
+				v-if="expanding == comment.hash"
+			    v-on:newcomment="comment.num_replies++"
+			></comments>
 		</div>
 
 		<div class="row column large-8" v-if=" ! commentSubmitted">
@@ -122,6 +127,7 @@
 					comment: comment,
 				}).then(function(response) {
 					self.comments.push(response.data);
+					self.$emit('newcomment');
 				});
 			},
 
