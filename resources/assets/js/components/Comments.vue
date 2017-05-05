@@ -41,7 +41,8 @@
 				:submission_hashid="submission_hashid"
 				:parent_hashid="comment.hash"
 				:commenting="comment.replying"
-				v-if="comment.expanded || comment.replying"
+				v-if="comment.componentLoaded"
+				v-show="comment.replying || comment.expanded"
 			    v-on:newReply="handleNewReply(comment)"
 			></comments>
 		</div>
@@ -169,6 +170,7 @@
 			 * @param comment
 			 */
 			initComment(comment) {
+				comment.componentLoaded = false;
 				comment.expanded = false;
 				comment.replying = false;
 			},
@@ -179,6 +181,8 @@
 			 * @param comment
 			 */
 			toggleReplies(comment) {
+				comment.componentLoaded = true;
+
 				if (comment.expanded) {
 					comment.expanded = false;
 				}
@@ -196,6 +200,8 @@
 			 * @param comment
 			 */
 			replyTo(comment) {
+				comment.componentLoaded = true;
+
 				comment.expanded = false;
 				comment.replying = true;
 			},
