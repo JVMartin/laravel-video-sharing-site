@@ -1,6 +1,8 @@
 <template>
 	<!-- Scootch over to the right if these are nested comments. -->
 	<div :style="(parent_hashid) ? 'margin-left: 25px' : ''">
+		<!-- Always show the comments if this is the submission itself. -->
+		<!-- Otherwise, only show the comments if they aren't commenting (replying). -->
 		<div class="row column" v-for="comment in comments" v-if=" ! parent_hashid || ! commenting">
 			<div class="comment" v-on:click="showChildren(comment)">
 				<a class="avatar">
@@ -40,7 +42,7 @@
 				:parent_hashid="comment.hash"
 				:commenting="comment.replying"
 				v-if="comment.expanded || comment.replying"
-			    v-on:newcomment="comment.num_replies++"
+			    v-on:newReply="handleNewReply(comment)"
 			></comments>
 		</div>
 
@@ -143,8 +145,14 @@
 					let comment = response.data;
 					self.initComment(comment);
 					self.comments.push(comment);
-					self.$emit('newcomment');
+					self.$emit('newReply');
 				});
+			},
+
+			handleNewReply(comment) {
+				comment.num_replies++;
+				comment.replying = false;
+				comment.expanded = true;
 			},
 
 			/**
