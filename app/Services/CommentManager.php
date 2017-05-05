@@ -48,7 +48,7 @@ class CommentManager
 
         // This is not an exceptional occurence - can happen if replying to a user that deleted their
 		// comment.
-		if ( ! Comment::where('id', $parent_id)->count()) {
+		if ($parent_id && ! Comment::where('id', $parent_id)->count()) {
 			return 'The comment you are replying to has been deleted!';
 		}
 
