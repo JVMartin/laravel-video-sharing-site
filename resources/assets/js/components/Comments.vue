@@ -21,7 +21,7 @@
 					</div>
 					<div class="column small-3 text-right">
 						<span class="fakelink" v-on:click="expandToggle(comment)">
-							Replies (0)
+							Replies ({{ comment.num_replies }})
 						</span>
 					</div>
 				</div>

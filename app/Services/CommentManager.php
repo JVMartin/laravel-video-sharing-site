@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Auth;
+use RuntimeException;
 use App\Models\Comment;
 use InvalidArgumentException;
 use App\Repositories\CommentRepository;
@@ -57,6 +58,16 @@ class CommentManager
 			'parent_id' => $parent_id,
 			'contents' => $contents,
 		]);
+
+		if ($parent_id) {
+			$parentComment = $this->commentRepository->getByKey($parent_id);
+
+			if ( ! $parentComment) {
+				throw new RuntimeException('Comment id ' . $comment->id . ' missing parent id ' . $parent_id);
+			}
+
+			$this->commentRepository->updateReplyCount($parentComment);
+		}
 
 		// Ensure the comment has all of its attributes by grabbing it fresh from the database.
 		return $this->commentRepository->getByKey($comment->id);
