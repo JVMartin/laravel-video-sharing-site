@@ -1,9 +1,9 @@
 <template>
 	<!-- Scootch over to the right if these are nested comments. -->
-	<div :style="(parent_hashid) ? 'margin-left: 25px' : ''">
+	<div :style="(parent_comment) ? 'margin-left: 25px' : ''">
 		<!-- Always show the comments if this is the submission itself. -->
 		<!-- Otherwise, only show the comments if they aren't commenting (replying). -->
-		<div class="row column" v-for="comment in comments" v-if=" ! parent_hashid || ! commenting">
+		<div class="row column" v-for="comment in comments" v-if=" ! parent_comment || ! commenting">
 			<div class="comment" v-on:click="toggleReplies(comment)">
 				<a class="avatar">
 					<img :src="comment.user.avatar_url" />
@@ -39,7 +39,7 @@
 
 			<comments
 				:submission_hashid="submission_hashid"
-				:parent_hashid="comment.hash"
+				:parent_comment="comment"
 				:commenting="comment.replying"
 				v-if="comment.componentLoaded"
 				v-show="comment.replying || comment.expanded"
@@ -48,7 +48,8 @@
 		</div>
 
 		<div class="row column large-8" v-show="commenting">
-			<h4>Leave a {{ action }}</h4>
+			<h4 v-if="parent_comment">Reply to {{ parent_comment.user.username }}</h4>
+			<h4 v-else>Leave a comment</h4>
 			<div v-if="data.user">
 				<textarea :id="wysiwygId"></textarea>
 				<div class="row column text-right postCommentWrap">
@@ -75,7 +76,7 @@
 			'submission_hashid',
 
 			// The hashed parent_id of the comment being replied to.
-			'parent_hashid',
+			'parent_comment',
 
 			'commenting'
 		],
@@ -92,21 +93,21 @@
 
 		computed: {
 			action() {
-				return (this.parent_hashid) ? 'reply' : 'comment';
+				return (this.parent_comment) ? 'reply' : 'comment';
 			},
 
 			commentRoute() {
 				let route = '/comments/submission/' + this.submission_hashid;
 
-				if (this.parent_hashid) {
-					route += '/' + this.parent_hashid;
+				if (this.parent_comment) {
+					route += '/' + this.parent_comment.hash;
 				}
 
 				return route;
 			},
 
 			wysiwygId() {
-				return 'wysiwyg' + this.parent_hashid;
+				return 'wysiwyg' + this.parent_comment.hash;
 			}
 		},
 
