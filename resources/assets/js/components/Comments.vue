@@ -49,7 +49,7 @@
 		<div class="row column large-8" v-show="commenting">
 			<h4>Leave a {{ action }}</h4>
 			<div v-if="data.user">
-				<textarea class="tinymce"></textarea>
+				<textarea :id="wysiwygId"></textarea>
 				<div class="row column text-right postCommentWrap">
 					<button type="submit" class="button" v-on:click="submitComment">
 						Post {{ action }}
@@ -106,6 +106,10 @@
 
 				return route;
 			},
+
+			wysiwygId() {
+				return 'wysiwyg' + this.parent_hashid;
+			}
 		},
 
 		mounted() {
@@ -121,7 +125,9 @@
 				self.comments = response.data;
 			});
 
-			tinymce.init(tinymceConfig());
+			let tConfig = tinymceConfig();
+			tConfig.selector = '#' + this.wysiwygId;
+			tinymce.init(tConfig);
 		},
 
 		methods: {
@@ -130,7 +136,7 @@
 			 */
 			submitComment() {
 				let self = this;
-				let comment = tinymce.activeEditor.getContent();
+				let comment = tinymce.get(this.wysiwygId).getContent();
 
 				if ( ! comment.length) {
 					alert('You gotta say something first!');
