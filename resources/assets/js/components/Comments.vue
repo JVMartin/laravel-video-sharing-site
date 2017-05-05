@@ -3,7 +3,7 @@
 	<div :style="(parent_comment) ? 'margin-left: 25px' : ''">
 		<!-- Always show the comments if this is the submission itself. -->
 		<!-- Otherwise, only show the comments if they aren't commenting (replying). -->
-		<div class="row column" v-for="comment in comments" v-if=" ! parent_comment || ! commenting">
+		<div class="row column" v-for="comment in comments" v-if=" ! parent_comment || parent_comment.expanded">
 			<div class="comment" v-on:click="toggleReplies(comment)" :style="(comment.num_replies) ? 'cursor: pointer' : ''">
 				<a class="avatar">
 					<img :src="comment.user.avatar_url" />
@@ -40,14 +40,12 @@
 			<comments
 				:submission_hashid="submission_hashid"
 				:parent_comment="comment"
-				:commenting="comment.replying"
 				v-if="comment.componentLoaded"
-				v-show="comment.replying || comment.expanded"
 			    v-on:newReply="handleNewReply(comment)"
 			></comments>
 		</div>
 
-		<div class="row column large-8" v-show="commenting">
+		<div class="row column large-8" v-show=" ! parent_comment || parent_comment.replying">
 			<h4 v-if="parent_comment">Reply to {{ parent_comment.user.username }}</h4>
 			<h4 v-else>Leave a comment</h4>
 			<div v-if="data.user">
