@@ -32,23 +32,23 @@ class CommentController extends Controller
 
 	/**
 	 * @param string $hashid
-	 * @param string $parent_hash
+	 * @param string $parent_hashid
 	 * @return JsonResponse
 	 */
-	public function getCommentsForSubmission($hashid, $parent_hash = null)
+	public function getCommentsForSubmission($hashid, $parent_hashid = null)
 	{
-		$comments = $this->commentRepository->getBySubmissionId(decodeHash($hashid), decodeHash($parent_hash));
+		$comments = $this->commentRepository->getBySubmissionId(decodeHash($hashid), decodeHash($parent_hashid));
 		return new JsonResponse($comments);
 	}
 
 	/**
 	 * @param Request $request
-	 * @param string $parent_hash
+	 * @param string $parent_hashid
 	 * @return JsonResponse
 	 */
-	public function postCommentOnSubmission(Request $request, $hashid, $parent_hash = null)
+	public function postCommentOnSubmission(Request $request, $hashid, $parent_hashid = null)
 	{
-		$comment = $this->commentManager->postCommentOnSubmission($request->comment, $hashid, decodeHash($parent_hash));
+		$comment = $this->commentManager->postCommentOnSubmission($request->comment, $hashid, decodeHash($parent_hashid));
 
 		if ( ! $comment instanceof Comment) {
 			return new JsonResponse($comment, 422);

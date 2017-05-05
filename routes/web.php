@@ -23,11 +23,11 @@ Route::group(['prefix' => 'video'], function() {
 });
 
 Route::group(['prefix' => 'comments'], function() {
-	Route::get('submission/{hashid}/{parent_hash?}', [
+	Route::get('submission/{hashid}/{parent_hashid?}', [
 		'as' => 'comments.submission',
 		'uses' => 'Video\CommentController@getCommentsForSubmission'
 	]);
-	Route::post('submission/{hashid}/{parent_hash?}', [
+	Route::post('submission/{hashid}/{parent_hashid?}', [
 		'as' => 'comments.submission.post',
 		'uses' => 'Video\CommentController@postCommentOnSubmission'
 	]);

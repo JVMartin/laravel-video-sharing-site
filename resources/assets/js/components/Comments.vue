@@ -1,6 +1,6 @@
 <template>
 	<!-- Scootch over to the right if these are nested comments. -->
-	<div :style="(parent_hash) ? 'margin-left: 25px' : ''">
+	<div :style="(parent_hashid) ? 'margin-left: 25px' : ''">
 		<div class="row column" v-for="comment in comments">
 			<div class="comment">
 				<a class="avatar">
@@ -27,7 +27,7 @@
 				</div>
 			</div>
 
-			<comments :submission_hash="submission_hash" :parent_hash="comment.hash" v-if="expanding == comment.hash"></comments>
+			<comments :submission_hashid="submission_hashid" :parent_hashid="comment.hash" v-if="expanding == comment.hash"></comments>
 		</div>
 
 		<div class="row column large-8" v-if=" ! commentSubmitted">
@@ -55,10 +55,10 @@
 	export default {
 		props: [
 			// The hashid of the submission being watched.
-			'submission_hash',
+			'submission_hashid',
 
 			// The hashed parent_id of the comment being replied to.
-			'parent_hash'
+			'parent_hashid'
 		],
 
 		data() {
@@ -79,14 +79,14 @@
 
 		computed: {
 			action() {
-				return (this.parent_hash) ? 'reply': 'comment';
+				return (this.parent_hashid) ? 'reply': 'comment';
 			},
 		},
 
 		mounted() {
 			let self = this;
 
-			axios.get('/comments/submission/' + this.submission_hash + '/' + this.parent_hash).then(function(response) {
+			axios.get('/comments/submission/' + this.submission_hashid + '/' + this.parent_hashid).then(function(response) {
 				self.comments = response.data;
 			});
 
@@ -108,7 +108,7 @@
 
 				this.commentSubmitted = true;
 
-				axios.post('/comments/submission/' + this.submission_hash + '/' + this.parent_hash, {
+				axios.post('/comments/submission/' + this.submission_hashid + '/' + this.parent_hashid, {
 					comment: comment,
 				}).then(function(response) {
 					self.comments.push(response.data);
