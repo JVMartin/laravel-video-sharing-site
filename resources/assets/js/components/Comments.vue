@@ -4,7 +4,7 @@
 		<!-- Always show the comments if this is the submission itself. -->
 		<!-- Otherwise, only show the comments if they aren't commenting (replying). -->
 		<div class="row column" v-for="comment in comments" v-if=" ! parent_comment || ! commenting">
-			<div class="comment" v-on:click="toggleReplies(comment)">
+			<div class="comment" v-on:click="toggleReplies(comment)" :style="(comment.num_replies) ? 'cursor: pointer' : ''">
 				<a class="avatar">
 					<img :src="comment.user.avatar_url" />
 				</a>
