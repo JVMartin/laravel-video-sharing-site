@@ -9,12 +9,12 @@
 					<img :src="comment.user.avatar_url" />
 					<div class="vote">
 						<span class="voteButton">
-							<i class="fa fa-arrow-up"></i> 46
+							<i class="fa fa-arrow-up"></i> 0
 						</span>
 					</div>
 					<div class="vote">
 						<span class="voteButton">
-							<i class="fa fa-arrow-down"></i> 7
+							<i class="fa fa-arrow-down"></i> 0
 						</span>
 					</div>
 				</div>

@@ -21,12 +21,21 @@
 			}
 			.vote {
 				font-size: 0.9em;
-				margin-left: 20px;
+				margin: 5px 0 5px 20px;
 				cursor: pointer;
+
+				.voteButton {
+					cursor: pointer;
+					background: $scheme-3;
+					color: $white;
+					border-radius: 2px;
+					padding: 4px;
+				}
 			}
 		}
 		.rightPanel {
 			margin-left: 75px;
+			padding: 16px;
 
 			.reply {
 				position: absolute;
@@ -42,6 +51,8 @@
 				cursor: pointer;
 			}
 			.details {
+				position: absolute;
+				bottom: 10px;
 				line-height: 0.8em;
 
 				.username {
@@ -53,6 +64,9 @@
 				}
 			}
 			.replies {
+				position: absolute;
+				right: 15px;
+				bottom: 5px;
 				size: 0.8em;
 			}
 		}
