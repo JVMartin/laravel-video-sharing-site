@@ -6,6 +6,7 @@ use Auth;
 use RuntimeException;
 use App\Models\Comment;
 use App\Models\CommentVote;
+use App\Jobs\CompileComment;
 use InvalidArgumentException;
 use App\Repositories\CommentRepository;
 use App\Repositories\SubmissionRepository;
@@ -67,7 +68,8 @@ class CommentManager
 				throw new RuntimeException('Comment id ' . $comment->id . ' missing parent id ' . $parent_id);
 			}
 
-			$this->commentRepository->updateReplyCount($parentComment);
+			// Ensure the parent's reply count gets re-compiled.
+			dispatch(new CompileComment($parentComment));
 		}
 
 		// Ensure the comment has all of its attributes by grabbing it fresh from the database.
@@ -79,7 +81,7 @@ class CommentManager
 	 *
 	 * @param string $hashid The hashid of the comment being voted on.
 	 * @param int    $value
-	 * @return Comment|string
+	 * @return string|true
 	 */
 	public function vote($hashid, $value)
 	{
@@ -108,17 +110,13 @@ class CommentManager
 		// Update / insert it.
 		$commentVote->comment_id = $comment->id;
 		$commentVote->user_id = Auth::user()->id;
-		$commentVote->up = ($value == 1);
-		$commentVote->down = ($value == -1);
+		$commentVote->up = ($value == 1) ? 1 : 0;
+		$commentVote->down = ($value == -1) ? 1 : 0;
 		$commentVote->save();
 
-		if ($value == 1) {
-			$comment->setUserUp();
-		}
-		else {
-			$comment->setUserDown();
-		}
+		// Ensure the comment's vote numbers get recompiled.
+		dispatch(new CompileComment($comment));
 
-		return $comment;
+		return true;
 	}
 }

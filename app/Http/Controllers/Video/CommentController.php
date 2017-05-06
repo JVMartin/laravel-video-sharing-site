@@ -71,10 +71,10 @@ class CommentController extends Controller
 	{
 		$comment = $this->commentManager->vote($hashid, $request->value);
 
-		if ( ! $comment instanceof Comment) {
+		if ($comment !== true) {
 			return new JsonResponse($comment, 422);
 		}
 
-		return new JsonResponse($comment);
+		return new JsonResponse();
 	}
 }
