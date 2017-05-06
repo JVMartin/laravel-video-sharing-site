@@ -61,6 +61,13 @@ class CommentManager
 			'contents' => $contents,
 		]);
 
+		// Automatically updoot our own comment.
+		CommentVote::create([
+			'comment_id' => $comment->id,
+			'user_id' => Auth::user()->id,
+			'up' => 1,
+		]);
+
 		if ($parent_id) {
 			$parentComment = $this->commentRepository->getByKey($parent_id);
 
