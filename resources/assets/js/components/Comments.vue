@@ -1,6 +1,9 @@
 <template>
 	<!-- Scootch over to the right if these are nested comments. -->
 	<div :style="(parent_comment) ? 'margin-left: 25px' : ''">
+		<h4 v-if="loading">
+			Loading comments...
+		</h4>
 		<!-- Always show the comments if this is the submission itself. -->
 		<!-- Otherwise, only show the comments if they aren't commenting (replying). -->
 		<div class="row column" v-for="comment in comments" v-show=" ! parent_comment || parent_comment.expanded">
@@ -98,6 +101,8 @@
 
 				// The list of comments.
 				comments: [],
+
+				loading: true,
 			};
 		},
 
@@ -136,6 +141,7 @@
 				});
 
 				self.comments = response.data;
+				self.loading = false;
 			});
 
 			let tConfig = tinymceConfig();
