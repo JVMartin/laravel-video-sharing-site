@@ -30,6 +30,7 @@
 					color: $white;
 					border-radius: 2px;
 					padding: 4px;
+					user-select: none;
 
 					&.upvote.active {
 						color: $success-color;
@@ -70,11 +71,12 @@
 					font-size: 0.7em;
 				}
 			}
-			.replies {
+			.numReplies {
 				position: absolute;
 				right: 15px;
 				bottom: 5px;
 				size: 0.8em;
+				user-select: none;
 			}
 		}
 

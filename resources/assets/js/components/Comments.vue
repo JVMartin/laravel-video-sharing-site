@@ -35,7 +35,7 @@
 							</div>
 						</div>
 						<div class="column small-8 text-right">
-							<span class="replies" v-if="comment.num_replies">
+							<span class="numReplies" v-if="comment.num_replies">
 								<i class="fa fa-chevron-up" v-if=" ! comment.expanded"></i>
 								<i class="fa fa-chevron-down" v-if="comment.expanded"></i>
 								<span v-if=" ! comment.expanded">
@@ -176,6 +176,29 @@
 			 * @param value
 			 */
 			vote(comment, value) {
+				if (value == 1) {
+					// You already voted up, ya dingus.
+					if (comment.user_up) return;
+
+					if (comment.user_down) {
+						comment.user_down = false;
+						comment.num_down++;
+					}
+					comment.user_up = true;
+					comment.num_up++;
+				}
+				else {
+					// You already voted down, ya dingus.
+					if (comment.user_down) return;
+
+					if (comment.user_up) {
+						comment.user_up = false;
+						comment.num_up--;
+					}
+					comment.user_down = true;
+					comment.num_down--;
+				}
+
 				axios.post('/comments/vote/' + comment.hash, {
 					value: value,
 				}).then(function(response) {
