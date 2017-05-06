@@ -35,11 +35,11 @@ class CommentController extends Controller
 	}
 
 	/**
-	 * @param string $hashid
-	 * @param string $parent_hashid
+	 * @param string  $hashid        The hashid of the submission.
+	 * @param string  $parent_hashid The hashid of the comment being expanded.
 	 * @return JsonResponse
 	 */
-	public function getCommentsForSubmission($hashid, $parent_hashid = null)
+	public function getComments($hashid, $parent_hashid = null)
 	{
 		$comments = $this->commentRepository->getComments(decodeHash($hashid), decodeHash($parent_hashid));
 		return new JsonResponse($comments);
@@ -47,12 +47,13 @@ class CommentController extends Controller
 
 	/**
 	 * @param Request $request
-	 * @param string  $parent_hashid
+	 * @param string  $hashid        The hashid of the submission being commented on.
+	 * @param string  $parent_hashid The hashid of the comment being replied to.
 	 * @return JsonResponse
 	 */
-	public function postCommentOnSubmission(Request $request, $hashid, $parent_hashid = null)
+	public function postComment(Request $request, $hashid, $parent_hashid = null)
 	{
-		$comment = $this->commentManager->postCommentOnSubmission($request->comment, $hashid, decodeHash($parent_hashid));
+		$comment = $this->commentManager->postComment($request->comment, $hashid, decodeHash($parent_hashid));
 
 		if ( ! $comment instanceof Comment) {
 			return new JsonResponse($comment, 422);

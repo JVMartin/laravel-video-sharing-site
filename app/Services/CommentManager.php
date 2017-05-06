@@ -37,7 +37,7 @@ class CommentManager
 	 * @param string $parent_id The parent_id
 	 * @return Comment|string The successfully posted comment, or an error.
 	 */
-	public function postCommentOnSubmission($contents, $hashid, $parent_id = null)
+	public function postComment($contents, $hashid, $parent_id = null)
 	{
 		$submission = $this->submissionRepository->getByHashId($hashid);
 		if ( ! $submission) {
