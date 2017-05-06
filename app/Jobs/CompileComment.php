@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use DB;
+use Debugbar;
 use App\Models\Comment;
 use Illuminate\Bus\Queueable;
 use App\Repositories\CommentRepository;
@@ -19,16 +20,9 @@ class CompileComment implements ShouldQueue
 	 */
 	protected $comment;
 
-	/**
-	 * @var CommentRepository
-	 */
-	protected $commentRepository;
-
 	public function __construct(Comment $comment)
 	{
 		$this->comment = $comment;
-
-		$this->commentRepository = app(CommentRepository::class);
 	}
 
 	/**
@@ -38,6 +32,7 @@ class CompileComment implements ShouldQueue
 	 */
 	public function handle()
 	{
+		$commentRepository = app(CommentRepository::class);
 		$comment = $this->comment;
 
 		// First let's get the number of replies it has.
@@ -47,13 +42,17 @@ class CompileComment implements ShouldQueue
 			->count();
 
 		// Next, let's get the votes.
-		DB::table('comments_votes')
-			->select(DB::raw(''))
+		$votes = DB::table('comments_votes')
+			->select(DB::raw('SUM(up) AS num_up, SUM(down) AS num_down'))
+			->where('comment_id', $comment->id)
 			->groupBy('comment_id')
-			->where();
+			->first();
 
-		$this->commentRepository->update($comment, [
-			'num_replies' => $num_replies
+		$commentRepository->update($comment, [
+			'score' => $votes->num_up - $votes->num_down,
+			'num_up' => $votes->num_up,
+			'num_down' => $votes->num_down,
+			'num_replies' => $num_replies,
 		]);
 	}
 }

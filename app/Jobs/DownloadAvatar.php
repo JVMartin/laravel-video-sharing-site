@@ -23,17 +23,10 @@ class DownloadAvatar implements ShouldQueue
 	 */
 	protected $url;
 
-	/**
-	 * @var ImageManager
-	 */
-	protected $imageManager;
-
 	public function __construct(User $user, $url)
 	{
 		$this->user = $user;
 		$this->url = $url;
-
-		$this->imageManager = app(ImageManager::class);
 	}
 
 	/**
@@ -43,6 +36,8 @@ class DownloadAvatar implements ShouldQueue
 	 */
 	public function handle()
 	{
+		$imageManager = app(ImageManager::class);
+
 		if ( ! strlen($this->url)) {
 			return;
 		}
@@ -62,7 +57,7 @@ class DownloadAvatar implements ShouldQueue
 		$fileName = md5_file($origFilePath) . '.jpg';
 		$filePath = $this->user->storagePath() . '/' . $fileName;
 
-		$this->imageManager->cropImageTo($origFilePath, $filePath);
+		$imageManager->cropImageTo($origFilePath, $filePath);
 
 		$this->user->avatar = $fileName;
 		$this->user->save();

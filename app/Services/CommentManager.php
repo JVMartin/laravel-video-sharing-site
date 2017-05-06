@@ -33,6 +33,9 @@ class CommentManager
 	}
 
 	/**
+	 * Post a comment - whether it's in response to a submission, or in response to another
+	 * comment.
+	 *
 	 * @param string $contents  The comment contents.
 	 * @param string $hashid    The hashid of the submission.
 	 * @param string $parent_id The parent_id
@@ -80,7 +83,9 @@ class CommentManager
 		}
 
 		// Ensure the comment has all of its attributes by grabbing it fresh from the database.
-		return $this->commentRepository->getByKey($comment->id);
+		$comment = $this->commentRepository->getByKey($comment->id);
+		$comment->setUserUp();
+		return $comment;
 	}
 
 	/**
