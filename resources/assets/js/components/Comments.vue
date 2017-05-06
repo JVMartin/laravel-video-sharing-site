@@ -16,7 +16,7 @@
 					<div class="vote">
 						<span :class="'voteButton downvote' + ((comment.user_down) ? ' active' : '')" v-on:click.stop="vote(comment, -1)">
 							<i class="fa fa-arrow-down"></i>
-							{{ comment.num_down }}
+							{{ -1 * comment.num_down }}
 						</span>
 					</div>
 				</div>
@@ -182,7 +182,7 @@
 
 					if (comment.user_down) {
 						comment.user_down = false;
-						comment.num_down++;
+						comment.num_down--;
 					}
 					comment.user_up = true;
 					comment.num_up++;
@@ -196,7 +196,7 @@
 						comment.num_up--;
 					}
 					comment.user_down = true;
-					comment.num_down--;
+					comment.num_down++;
 				}
 
 				axios.post('/comments/vote/' + comment.hash, {
