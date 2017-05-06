@@ -4,13 +4,13 @@
 		<div class="title-bar-title">Menu</div>
 	</div>
 
-	<div class="top-bar" id="realEstateMenu">
+	<div class="top-bar">
 		<div class="row column">
 			<div class="top-bar-left">
 				<ul class="menu" data-responsive-menu="accordion">
 					<li>
-						<a href="{{ route('home') }}">
-							Videos
+						<a href="{{ route('home') }}" class="brand">
+							OneMore <span>Video</span>
 						</a>
 					</li>
 				</ul>
