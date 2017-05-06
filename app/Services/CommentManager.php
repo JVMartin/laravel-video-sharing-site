@@ -111,5 +111,14 @@ class CommentManager
 		$commentVote->up = ($value == 1);
 		$commentVote->down = ($value == -1);
 		$commentVote->save();
+
+		if ($value == 1) {
+			$comment->setUserUp();
+		}
+		else {
+			$comment->setUserDown();
+		}
+
+		return $comment;
 	}
 }
