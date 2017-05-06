@@ -31,6 +31,10 @@ Route::group(['prefix' => 'comments'], function() {
 		'as' => 'comments.submission.post',
 		'uses' => 'Video\CommentController@postCommentOnSubmission'
 	]);
+	Route::post('vote/{hashid}', [
+		'as' => 'comments.vote',
+		'uses' => 'Video\CommentController@postVote'
+	]);
 });
 
 Route::group(['prefix' => 'user'], function() {

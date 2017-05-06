@@ -5,6 +5,7 @@ namespace App\Services;
 use Auth;
 use RuntimeException;
 use App\Models\Comment;
+use App\Models\CommentVote;
 use InvalidArgumentException;
 use App\Repositories\CommentRepository;
 use App\Repositories\SubmissionRepository;
@@ -50,7 +51,7 @@ class CommentManager
         // This is not an exceptional occurence - can happen if replying to a user that deleted their
 		// comment.
 		if ($parent_id && ! Comment::where('id', $parent_id)->count()) {
-			return 'The comment you are replying to has been deleted!';
+			return 'The comment you are replying to has been deleted.';
 		}
 
 		$comment = $submission->comments()->create([
@@ -71,5 +72,53 @@ class CommentManager
 
 		// Ensure the comment has all of its attributes by grabbing it fresh from the database.
 		return $this->commentRepository->getByKey($comment->id);
+	}
+
+	/**
+	 * Vote on a comment.
+	 *
+	 * @param string $hashid The hashid of the comment being voted on.
+	 * @param int    $value
+	 * @return Comment|string
+	 */
+	public function vote($hashid, $value)
+	{
+		$value = (int) $value;
+
+		if ( ! in_array($value, [-1, 1])) {
+			throw new InvalidArgumentException('Comment vote not -1 or 1.');
+		}
+
+		// Get the comment being voted on.
+		$comment = $this->commentRepository->getByHashId($hashid);
+		if ( ! $comment) {
+			return 'The comment you are voting on has been deleted.';
+		}
+
+		// Get the vote if it exists.
+		$commentVote = CommentVote::where('comment_id', $comment->id)
+			->where('user_id', Auth::user()->id)
+			->first();
+
+		// If it exists...
+		if ($commentVote) {
+			if ($commentVote->value() == $value) {
+				// The value already matches.
+				return $comment;
+			}
+
+			$commentVote->up = ($value == 1);
+			$commentVote->down = ($value == -1);
+			$commentVote->save();
+		}
+		// If it doesn't exist...
+		else {
+			CommentVote::create([
+				'comment_id' => $comment->id,
+				'user_id' => Auth::user()->id,
+				'up' => ($value == 1),
+				'down' => ($value == -1),
+			]);
+		}
 	}
 }

@@ -8,13 +8,13 @@
 				<div class="leftPanel">
 					<img :src="comment.user.avatar_url" />
 					<div class="vote">
-						<span class="voteButton">
+						<span class="voteButton" v-on:click.stop="vote(comment, 1)">
 							<i class="fa fa-arrow-up"></i>
 							{{ comment.num_up }}
 						</span>
 					</div>
 					<div class="vote">
-						<span class="voteButton">
+						<span class="voteButton" v-on:click.stop="vote(comment, -1)">
 							<i class="fa fa-arrow-down"></i>
 							{{ comment.num_down }}
 						</span>
@@ -166,6 +166,20 @@
 					self.initComment(comment);
 					self.comments.push(comment);
 					self.$emit('newReply');
+				});
+			},
+
+			/**
+			 * Vote on a comment.
+			 *
+			 * @param comment
+			 * @param value
+			 */
+			vote(comment, value) {
+				axios.post('/comments/vote/' + comment.hash, {
+					value: value,
+				}).then(function(response) {
+					//
 				});
 			},
 

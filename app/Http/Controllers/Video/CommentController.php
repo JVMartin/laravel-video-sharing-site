@@ -28,6 +28,10 @@ class CommentController extends Controller
 	{
 		$this->commentRepository = $commentRepository;
 		$this->commentManager = $commentManager;
+
+		$this->middleware('auth', [
+			'only' => ['postCommentOnSubmission', 'postVote']
+		]);
 	}
 
 	/**
@@ -43,12 +47,28 @@ class CommentController extends Controller
 
 	/**
 	 * @param Request $request
-	 * @param string $parent_hashid
+	 * @param string  $parent_hashid
 	 * @return JsonResponse
 	 */
 	public function postCommentOnSubmission(Request $request, $hashid, $parent_hashid = null)
 	{
 		$comment = $this->commentManager->postCommentOnSubmission($request->comment, $hashid, decodeHash($parent_hashid));
+
+		if ( ! $comment instanceof Comment) {
+			return new JsonResponse($comment, 422);
+		}
+
+		return new JsonResponse($comment);
+	}
+
+	/**
+	 * @param Request $request
+	 * @param string  $hashid
+	 * @return JsonResponse
+	 */
+	public function postVote(Request $request, $hashid)
+	{
+		$comment = $this->commentManager->vote($hashid, $request->value);
 
 		if ( ! $comment instanceof Comment) {
 			return new JsonResponse($comment, 422);
