@@ -100,25 +100,16 @@ class CommentManager
 			->where('user_id', Auth::user()->id)
 			->first();
 
-		// If it exists...
-		if ($commentVote) {
-			if ($commentVote->value() == $value) {
-				// The value already matches.
-				return $comment;
-			}
+		// Create it otherwise.
+		if ( ! $commentVote) {
+			$commentVote = new CommentVote;
+		}
 
-			$commentVote->up = ($value == 1);
-			$commentVote->down = ($value == -1);
-			$commentVote->save();
-		}
-		// If it doesn't exist...
-		else {
-			CommentVote::create([
-				'comment_id' => $comment->id,
-				'user_id' => Auth::user()->id,
-				'up' => ($value == 1),
-				'down' => ($value == -1),
-			]);
-		}
+		// Update / insert it.
+		$commentVote->comment_id = $comment->id;
+		$commentVote->user_id = Auth::user()->id;
+		$commentVote->up = ($value == 1);
+		$commentVote->down = ($value == -1);
+		$commentVote->save();
 	}
 }
