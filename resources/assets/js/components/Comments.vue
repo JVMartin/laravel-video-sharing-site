@@ -5,7 +5,7 @@
 		<!-- Otherwise, only show the comments if they aren't commenting (replying). -->
 		<div class="row column" v-for="comment in comments" v-show=" ! parent_comment || parent_comment.expanded">
 			<div class="comment" v-on:click="toggleReplies(comment)" :style="(comment.num_replies) ? 'cursor: pointer' : ''">
-				<a class="avatar">
+				<a class="leftPanel">
 					<img :src="comment.user.avatar_url" />
 				</a>
 				<div v-html="comment.contents"></div>
