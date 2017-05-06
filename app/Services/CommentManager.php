@@ -32,10 +32,10 @@ class CommentManager
 	}
 
 	/**
-	 * @param string $contents The comment contents.
-	 * @param string $hashid The hashid of the submission.
+	 * @param string $contents  The comment contents.
+	 * @param string $hashid    The hashid of the submission.
 	 * @param string $parent_id The parent_id
-	 * @return Comment|string The successfully posted comment, or an error.
+	 * @return Comment|string   The successfully posted comment, or an error.
 	 */
 	public function postComment($contents, $hashid, $parent_id = null)
 	{
