@@ -7,46 +7,54 @@
 		position: relative;
 		background: #FFFFFF;
 		margin-bottom: 20px;
-		padding: 10px 10px 10px 100px;
+		padding: 6px;
 		border-radius: 6px;
 		min-height: 88px;
 		overflow: hidden;
 
 		.leftPanel {
-			position: absolute;
-			left: 6px;
-			top: 6px;
+			width: 75px;
+			float: left;
 
 			img {
-				width: 75px;
+				display: block;
+			}
+			.vote {
+				font-size: 0.9em;
+				margin-left: 20px;
+				cursor: pointer;
 			}
 		}
-		.details {
-			line-height: 0.8em;
+		.rightPanel {
+			margin-left: 75px;
 
-			.username {
-				font-size: 0.8em;
+			.reply {
+				position: absolute;
+				right: 0;
+				top: 0;
+				width: 80px;
+				background: #ccc;
+				display: none;
+				text-align:center;
+				background: $scheme-3;
+				color: $white;
+				border-radius: 0 0 0 6px;
+				cursor: pointer;
 			}
-			.timestamp {
-				font-style: italic;
-				font-size: 0.7em;
+			.details {
+				line-height: 0.8em;
+
+				.username {
+					font-size: 0.8em;
+				}
+				.timestamp {
+					font-style: italic;
+					font-size: 0.7em;
+				}
 			}
-		}
-		.replies {
-			size: 0.8em;
-		}
-		.reply {
-			position: absolute;
-			right: 0;
-			top: 0;
-			width: 80px;
-			background: #ccc;
-			display: none;
-			text-align:center;
-			background: $scheme-3;
-			color: $white;
-			border-radius: 0 0 0 6px;
-			cursor: pointer;
+			.replies {
+				size: 0.8em;
+			}
 		}
 
 		&:hover {

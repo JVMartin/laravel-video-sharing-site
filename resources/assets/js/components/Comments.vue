@@ -5,36 +5,48 @@
 		<!-- Otherwise, only show the comments if they aren't commenting (replying). -->
 		<div class="row column" v-for="comment in comments" v-show=" ! parent_comment || parent_comment.expanded">
 			<div class="comment" v-on:click="toggleReplies(comment)" :style="(comment.num_replies) ? 'cursor: pointer' : ''">
-				<a class="leftPanel">
+				<div class="leftPanel">
 					<img :src="comment.user.avatar_url" />
-				</a>
-				<div v-html="comment.contents"></div>
-
-				<div class="row">
-					<div class="column small-4">
-						<div class="details">
-							<span class="username">
-								{{ comment.user.username }}
-							</span>
-							<br />
-							<span class="timestamp">
-								{{ comment.created_at }}
-							</span>
-						</div>
+					<div class="vote">
+						<span class="voteButton">
+							<i class="fa fa-arrow-up"></i> 46
+						</span>
 					</div>
-					<div class="column small-8 text-right">
-						<span class="replies" v-if="comment.num_replies">
-							<i class="fa fa-chevron-up" v-if=" ! comment.expanded"></i>
-							<i class="fa fa-chevron-down" v-if="comment.expanded"></i>
-							<span v-if=" ! comment.expanded">
-								{{ comment.num_replies }} Replies
-							</span>
+					<div class="vote">
+						<span class="voteButton">
+							<i class="fa fa-arrow-down"></i> 7
 						</span>
 					</div>
 				</div>
-				<div class="reply" v-on:click.stop="replyTo(comment)">
-					Reply
+				<div class="rightPanel">
+					<div v-html="comment.contents"></div>
+					<div class="row">
+						<div class="column small-4">
+							<div class="details">
+								<span class="username">
+									{{ comment.user.username }}
+								</span>
+								<br />
+								<span class="timestamp">
+									{{ comment.created_at }}
+								</span>
+							</div>
+						</div>
+						<div class="column small-8 text-right">
+							<span class="replies" v-if="comment.num_replies">
+								<i class="fa fa-chevron-up" v-if=" ! comment.expanded"></i>
+								<i class="fa fa-chevron-down" v-if="comment.expanded"></i>
+								<span v-if=" ! comment.expanded">
+									{{ comment.num_replies }} Replies
+								</span>
+							</span>
+						</div>
+					</div>
+					<div class="reply" v-on:click.stop="replyTo(comment)">
+						Reply
+					</div>
 				</div>
+				<div class="clear"></div>
 			</div>
 
 			<comments
