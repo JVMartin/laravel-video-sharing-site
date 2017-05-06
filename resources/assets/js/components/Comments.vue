@@ -176,6 +176,12 @@
 			 * @param value
 			 */
 			vote(comment, value) {
+				// They must be signed in.
+				if ( ! this.data.user) {
+					$('#modalsSignIn').foundation('open');
+					return;
+				}
+
 				if (value == 1) {
 					// You already voted up, ya dingus.
 					if (comment.user_up) return;
@@ -253,6 +259,12 @@
 			 * @param comment
 			 */
 			replyTo(comment) {
+				// They must be signed in.
+				if ( ! this.data.user) {
+					$('#modalsSignIn').foundation('open');
+					return;
+				}
+
 				comment.componentLoaded = true;
 
 				comment.expanded = false;
