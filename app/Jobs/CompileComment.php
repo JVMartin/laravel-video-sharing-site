@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use DB;
-use Debugbar;
 use App\Models\Comment;
 use Illuminate\Bus\Queueable;
 use App\Repositories\CommentRepository;
