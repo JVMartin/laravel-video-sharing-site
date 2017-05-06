@@ -30,6 +30,13 @@
 					color: $white;
 					border-radius: 2px;
 					padding: 4px;
+
+					&.upvote.active {
+						color: $success-color;
+					}
+					&.downvote.active {
+						color: $alert-color;
+					}
 				}
 			}
 		}

@@ -8,13 +8,13 @@
 				<div class="leftPanel">
 					<img :src="comment.user.avatar_url" />
 					<div class="vote">
-						<span class="voteButton" v-on:click.stop="vote(comment, 1)">
+						<span :class="'voteButton upvote' + ((comment.user_up) ? ' active' : '')" v-on:click.stop="vote(comment, 1)">
 							<i class="fa fa-arrow-up"></i>
 							{{ comment.num_up }}
 						</span>
 					</div>
 					<div class="vote">
-						<span class="voteButton" v-on:click.stop="vote(comment, -1)">
+						<span :class="'voteButton downvote' + ((comment.user_down) ? ' active' : '')" v-on:click.stop="vote(comment, -1)">
 							<i class="fa fa-arrow-down"></i>
 							{{ comment.num_down }}
 						</span>
