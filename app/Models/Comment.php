@@ -10,11 +10,15 @@ class Comment extends Model
 	protected $with = ['user'];
 
 	/**
+	 * Whether the logged in user has upvoted this comment.
+	 *
 	 * @var bool
 	 */
 	protected $userUp = false;
 
 	/**
+	 * Whether the logged in user has downvoted this comment.
+	 *
 	 * @var bool
 	 */
 	protected $userDown = false;
