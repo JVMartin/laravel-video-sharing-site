@@ -4,6 +4,16 @@ namespace App\Models;
 
 class CommentVote extends Model
 {
+	/**
+	 * @var string
+	 */
+	protected $table = 'comments_votes';
+
+	/**
+	 * @var bool
+	 */
+	public $timestamps = false;
+
 	public function user()
 	{
 		return $this->belongsTo(User::class);
