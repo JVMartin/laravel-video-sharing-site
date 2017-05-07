@@ -2,14 +2,14 @@
 	<h1>
 		{{ $user->username }}
 	</h1>
-	<ul class="tabs" data-tabs id="example-tabs">
-		<li class="tabs-title {{ Request::route()->getName() == 'user.profile.submissions' ? 'is-active' : '' }}">
-			<a href="#panel1">
+	<ul class="menu">
+		<li class="{{ Request::route()->getName() == 'user.profile.submissions' ? 'active' : '' }}">
+			<a href="{{ route('user.profile.submissions', $user->username) }}">
 				Submissions
 			</a>
 		</li>
-		<li class="tabs-title">
-			<a href="#panel2">
+		<li class="{{ Request::route()->getName() == 'user.profile.comments' ? 'is-active' : '' }}">
+			<a href="{{ route('user.profile.comments', $user->username) }}">
 				Comments
 			</a>
 		</li>

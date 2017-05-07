@@ -41,6 +41,10 @@ Route::group(['prefix' => 'user'], function() {
 		'as' => 'user.profile.submissions',
 		'uses' => 'User\ProfileController@getSubmissions'
 	]);
+	Route::get('{username}/comments', [
+		'as' => 'user.profile.comments',
+		'uses' => 'User\ProfileController@getComments'
+	]);
 });
 
 Route::group(['prefix' => 'submit'], function() {
