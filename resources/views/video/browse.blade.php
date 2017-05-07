@@ -10,9 +10,10 @@
 					<a class="thumbnail video" href="{{ $submission->url() }}">
 						<h2 title="{{ $submission->title }}">{{ $submission->title }}</h2>
 						<img src="https://img.youtube.com/vi/{{ $submission->video->youtube_id }}/mqdefault.jpg" />
-						<p>
+						<div class="footer">
+							<i class="fa fa-comments"></i>
 							{{ $submission->commentsCount }}
-						</p>
+						</div>
 					</a>
 				</div>
 			@endforeach
