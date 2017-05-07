@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Services\BrowseManager;
 use App\Repositories\UserRepository;
 
 class ProfileController
@@ -11,9 +12,13 @@ class ProfileController
 	 */
 	protected $userRepository;
 
-	public function __construct(UserRepository $userRepository)
+	public function __construct(
+		UserRepository $userRepository,
+		BrowseManager $browseManager
+	)
 	{
 		$this->userRepository = $userRepository;
+		$this->browseManager = $browseManager;
 	}
 
 	protected function getUser($username)
@@ -34,6 +39,10 @@ class ProfileController
 
 	public function getSubmissions($username)
 	{
-		$this->getUser($username);
+		$user = $this->getUser($username);
+
+		return view('users.browse', [
+			'submissions' => $this->browseManager->user($user)
+		]);
 	}
 }

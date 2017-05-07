@@ -19,7 +19,7 @@
 		</div>
 		<div class="row">
 			<div class="column large-8">
-				@include('video.partials.embed', ['video' => $submission->video])
+				@include('video._embed', ['video' => $submission->video])
 				@if (strlen($submission->description))
 					<div class="row">
 						<div class="column small-12">

@@ -2,12 +2,15 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use App\Models\Submission;
 use App\Repositories\VideoRepository;
 use App\Repositories\SubmissionRepository;
 
 class BrowseManager
 {
+	const PER_PAGE = 16;
+
 	/**
 	 * @var VideoRepository
 	 */
@@ -27,18 +30,28 @@ class BrowseManager
 		$this->submissionRepository = $submissionRepository;
 	}
 
+	/**
+	 * @return \Illuminate\Database\Eloquent\Builder
+	 */
 	protected function browseQuery()
 	{
 		return Submission::with('commentsCount')->orderBy('created_at', 'DESC');
 	}
 
+	/**
+	 * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+	 */
 	public function home()
 	{
-		return $this->browseQuery()->paginate(16);
+		return $this->browseQuery()->paginate(static::PER_PAGE);
 	}
 
-	public function user($id)
+	/**
+	 * @param User $user
+	 * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+	 */
+	public function user($user)
 	{
-		return $this->browseQuery()->where('user_id', $id)->paginate(16);
+		return $this->browseQuery()->where('user_id', $user->id)->paginate(static::PER_PAGE);
 	}
 }
