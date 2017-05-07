@@ -30,6 +30,20 @@ class UserRepository extends ModelRepository
 	}
 
 	/**
+	 * @param string $username
+	 * @return User|null
+	 */
+	public function getByUsername($username)
+	{
+		$key = $this->resourceName . '.username.' . $username;
+		$query = $this->model->newQuery();
+
+		return $this->cache->remember($key, 10, function() use ($query, $username) {
+			return $query->where('username', $username)->first();
+		});
+	}
+
+	/**
 	 * @param array $attributes
 	 * @return Model|User
 	 */
@@ -99,6 +113,7 @@ class UserRepository extends ModelRepository
 	public function flush(Model $model)
 	{
 		$this->cache->forget($this->resourceName . '.email.' . $model->email);
+		$this->cache->forget($this->resourceName . '.username.' . $model->username);
 		parent::flush($model);
 	}
 }

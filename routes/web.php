@@ -5,11 +5,6 @@ Route::get('/', [
 	'uses' => 'Video\BrowseController@getHome'
 ]);
 
-Route::get('t', function() {
-	errorMessage(['test']);
-	return redirect()->route('home');
-});
-
 Route::get('browse/by-tag/{slug}', [
 	'as' => 'browse.by-tag',
 	'uses' => 'NoController@getView'
@@ -40,7 +35,11 @@ Route::group(['prefix' => 'comments'], function() {
 Route::group(['prefix' => 'user'], function() {
 	Route::get('{username}', [
 		'as' => 'user.profile',
-		'uses' => 'User\ProfileController@getProfile'
+		'uses' => 'User\ProfileController@getIndex'
+	]);
+	Route::get('{username}/submissions', [
+		'as' => 'user.profile.submissions',
+		'uses' => 'User\ProfileController@getSubmissions'
 	]);
 });
 

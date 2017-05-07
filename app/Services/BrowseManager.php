@@ -27,8 +27,18 @@ class BrowseManager
 		$this->submissionRepository = $submissionRepository;
 	}
 
+	protected function browseQuery()
+	{
+		return Submission::with('commentsCount')->orderBy('created_at', 'DESC');
+	}
+
 	public function home()
 	{
-		return Submission::with('commentsCount')->orderBy('created_at', 'DESC')->paginate(16);
+		return $this->browseQuery()->paginate(16);
+	}
+
+	public function user($id)
+	{
+		return $this->browseQuery()->where('user_id', $id)->paginate(16);
 	}
 }
