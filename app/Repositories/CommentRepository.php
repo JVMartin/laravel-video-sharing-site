@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use Auth;
+use App\Models\User;
 use App\Models\Comment;
 use App\Models\CommentVote;
 use Illuminate\Cache\Repository;
@@ -15,21 +16,8 @@ class CommentRepository extends ModelRepository
 		parent::__construct($cache, new Comment);
 	}
 
-	/**
-	 * @param int      $submission_id
-	 * @param int|null $parent_id
-	 * @return Collection
-	 */
-	public function getComments($submission_id, $parent_id = null)
+	protected function massageComments($comments)
 	{
-		$comments = $this->model->with('user')
-			->where('submission_id', $submission_id)
-			->where('parent_id', $parent_id)
-			->orderBy('score', 'DESC')
-			->orderBy('num_replies', 'DESC')
-			->orderBy('created_at', 'ASC')
-			->get();
-
 		$commentsById = collect($comments)->keyBy('id')->all();
 
 		// If the user is logged in, we need to set the flags that tell the Vue component to
@@ -50,5 +38,37 @@ class CommentRepository extends ModelRepository
 		}
 
 		return $comments;
+	}
+
+	/**
+	 * @param int      $submission_id
+	 * @param int|null $parent_id
+	 * @return Collection
+	 */
+	public function getComments($submission_id, $parent_id = null)
+	{
+		$comments = $this->model->with('user')
+			->where('submission_id', $submission_id)
+			->where('parent_id', $parent_id)
+			->orderBy('score', 'DESC')
+			->orderBy('num_replies', 'DESC')
+			->orderBy('created_at', 'ASC')
+			->get();
+
+		return $this->massageComments($comments);
+	}
+
+	/**
+	 * @param User $user
+	 * @return Collection
+	 */
+	public function getCommentsProfile($user)
+	{
+		$comments = $this->model->with('user')
+			->where('user_id', $user->id)
+			->orderBy('created_at', 'DESC')
+			->get();
+
+		return $this->massageComments($comments);
 	}
 }
