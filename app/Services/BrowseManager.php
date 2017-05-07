@@ -29,6 +29,6 @@ class BrowseManager
 
 	public function home()
 	{
-		return Submission::orderBy('created_at', 'DESC')->paginate(16);
+		return Submission::with('commentsCount')->orderBy('created_at', 'DESC')->paginate(16);
 	}
 }

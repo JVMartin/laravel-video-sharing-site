@@ -5,11 +5,6 @@ namespace App\Models;
 class Comment extends Model
 {
 	/**
-	 * @var array
-	 */
-	protected $with = ['user'];
-
-	/**
 	 * Whether the logged in user has upvoted this comment.
 	 *
 	 * @var bool

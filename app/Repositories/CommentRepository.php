@@ -22,7 +22,7 @@ class CommentRepository extends ModelRepository
 	 */
 	public function getComments($submission_id, $parent_id = null)
 	{
-		$comments = $this->model
+		$comments = $this->model->with('user')
 			->where('submission_id', $submission_id)
 			->where('parent_id', $parent_id)
 			->orderBy('score', 'DESC')

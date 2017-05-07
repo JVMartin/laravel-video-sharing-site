@@ -84,6 +84,7 @@ class CommentManager
 
 		// Ensure the comment has all of its attributes by grabbing it fresh from the database.
 		$comment = $this->commentRepository->getByKey($comment->id);
+		$comment->load('user');
 		$comment->setUserUp();
 		return $comment;
 	}

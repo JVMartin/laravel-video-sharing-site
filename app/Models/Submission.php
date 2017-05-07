@@ -9,6 +9,9 @@ class Submission extends Model implements TaggableInterface
 {
 	use TaggableTrait;
 
+	/**
+	 * @var array
+	 */
 	protected $with = ['video'];
 
 	public function video()
@@ -24,6 +27,24 @@ class Submission extends Model implements TaggableInterface
 	public function comments()
 	{
 		return $this->hasMany(Comment::class);
+	}
+
+	public function commentsCount()
+	{
+		return $this->comments()
+			->selectRaw('submission_id, count(*) AS aggregate')
+			->groupBy('submission_id');
+	}
+
+	public function getCommentsCountAttribute()
+	{
+		if ( ! array_key_exists('commentsCount', $this->relations)) {
+			$this->load('commentsCount');
+		}
+
+		$commentsCount = $this->getRelation('commentsCount');
+
+		return ($commentsCount->count()) ? $commentsCount->first()->aggregate : 0;
 	}
 
 	public function slugHashid()
