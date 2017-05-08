@@ -1,13 +1,13 @@
 <template>
 	<!-- Scootch over to the right if these are nested comments. -->
 	<div :style="(parent_comment) ? 'margin-left: 25px' : ''">
-		<h4 v-if="loading">
+		<h4 v-if=" ! on_profile && loading">
 			Loading comments...
 		</h4>
 		<!-- Always show the comments if this is the submission itself. -->
 		<!-- Otherwise, only show the comments if they aren't commenting (replying). -->
 		<div class="row column" v-for="comment in comments" v-show=" ! parent_comment || parent_comment.expanded">
-			<div class="comment" v-on:click="toggleReplies(comment)" :style="(comment.num_replies) ? 'cursor: pointer' : ''">
+			<div class="comment" v-on:click="toggleReplies(comment)" :style="(on_profile || comment.num_replies) ? 'cursor: pointer' : ''">
 				<div class="leftPanel">
 					<img :src="comment.user.avatar_url" />
 					<div class="vote">
@@ -47,7 +47,7 @@
 							</span>
 						</div>
 					</div>
-					<div class="reply" v-on:click.stop="replyTo(comment)">
+					<div class="reply" v-if=" ! on_profile" v-on:click.stop="replyTo(comment)">
 						Reply
 					</div>
 				</div>
@@ -57,12 +57,12 @@
 			<comments
 				:submission_hashid="submission_hashid"
 				:parent_comment="comment"
-				v-if="comment.componentLoaded"
+				v-if=" ! on_profile && comment.componentLoaded"
 			    v-on:newReply="handleNewReply(comment)"
 			></comments>
 		</div>
 
-		<div class="row column large-8" v-show=" ! parent_comment || parent_comment.replying">
+		<div class="row column large-8" v-if=" ! on_profile" v-show=" ! parent_comment || parent_comment.replying">
 			<h4 v-if="parent_comment">Reply to {{ parent_comment.user.username }}</h4>
 			<h4 v-else>Leave a comment</h4>
 			<div v-if="data.user">
@@ -84,6 +84,7 @@
 	import tinymceConfig from '../tinymce-config';
 
 	const data = window.data;
+	const user_comments = window.user_comments;
 
 	export default {
 		props: [
@@ -91,7 +92,7 @@
 			'submission_hashid',
 
 			// The comment being replied to, or null if this is the root (submission) comments.
-			'parent_comment'
+			'parent_comment',
 		],
 
 		data() {
@@ -103,6 +104,9 @@
 				comments: [],
 
 				loading: true,
+
+				// Are we on a user's profile instead of a submission?
+				on_profile: false,
 			};
 		},
 
@@ -133,21 +137,29 @@
 		mounted() {
 			let self = this;
 
-			axios.get(this.commentRoute).then(function(response) {
-				let comments = response.data;
+			// If we're on a user's profile page viewing their comments.
+			if (user_comments) {
+				this.on_profile = true;
+				this.comments = user_comments;
+			}
+			// If we're on a submission.
+			else {
+				axios.get(this.commentRoute).then(function(response) {
+					let comments = response.data;
 
-				_.forEach(comments, function(comment) {
-					self.initComment(comment);
+					_.forEach(comments, function(comment) {
+						self.initComment(comment);
+					});
+
+					self.comments = response.data;
+					self.loading = false;
 				});
 
-				self.comments = response.data;
-				self.loading = false;
-			});
-
-			let tConfig = tinymceConfig();
-			tConfig.selector = '#' + this.wysiwygId;
-			tinymce.init(tConfig);
-			tinymce.execCommand('mceFocus', false, this.wysiwygId);
+				let tConfig = tinymceConfig();
+				tConfig.selector = '#' + this.wysiwygId;
+				tinymce.init(tConfig);
+				tinymce.execCommand('mceFocus', false, this.wysiwygId);
+			}
 		},
 
 		methods: {

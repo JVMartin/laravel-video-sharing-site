@@ -8,7 +8,7 @@
 				Submissions
 			</a>
 		</li>
-		<li class="{{ Request::route()->getName() == 'user.profile.comments' ? 'is-active' : '' }}">
+		<li class="{{ Request::route()->getName() == 'user.profile.comments' ? 'active' : '' }}">
 			<a href="{{ route('user.profile.comments', $user->username) }}">
 				Comments
 			</a>

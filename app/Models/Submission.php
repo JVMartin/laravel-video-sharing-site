@@ -10,6 +10,15 @@ class Submission extends Model implements TaggableInterface
 	use TaggableTrait;
 
 	/**
+	 * The attributes that should be hidden for arrays.
+	 *
+	 * @var array
+	 */
+	protected $hidden = [
+		'id', 'video_id', 'user_id'
+	];
+
+	/**
 	 * @var array
 	 */
 	protected $with = ['video'];
