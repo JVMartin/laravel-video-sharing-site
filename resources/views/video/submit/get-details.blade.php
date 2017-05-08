@@ -17,7 +17,7 @@
 						<label>
 							Video
 						</label>
-						@include('video.partials.embed')
+						@include('video._embed')
 					</div>
 				</div>
 				<label>
