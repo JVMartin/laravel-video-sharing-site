@@ -5,6 +5,14 @@
 @section('content')
 	@include('users._header')
 
+	@if ( ! $comments->count())
+		<div class="row column">
+			<div class="callout secondary">
+				This user has made no comments.
+			</div>
+		</div>
+	@endif
+
 	<script>
 		window.user_comments = {!! json_encode($comments->all()) !!};
 	</script>
