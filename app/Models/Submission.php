@@ -23,6 +23,11 @@ class Submission extends Model implements TaggableInterface
 	 */
 	protected $with = ['video'];
 
+	/**
+	 * @var array
+	 */
+	protected $appends = ['hash', 'url'];
+
 	public function video()
 	{
 		return $this->belongsTo(Video::class);
@@ -64,5 +69,10 @@ class Submission extends Model implements TaggableInterface
 	public function url()
 	{
 		return route('video.view', $this->slugHashid());
+	}
+
+	public function getUrlAttribute()
+	{
+		return $this->url();
 	}
 }

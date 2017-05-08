@@ -39,10 +39,12 @@
 						</div>
 						<div class="column small-8 text-right">
 							<span class="numReplies" v-if="comment.num_replies">
-								<i class="fa fa-chevron-up" v-if=" ! comment.expanded"></i>
-								<i class="fa fa-chevron-down" v-if="comment.expanded"></i>
+								<span v-if=" ! on_profile">
+									<i class="fa fa-chevron-up" v-if=" ! comment.expanded"></i>
+									<i class="fa fa-chevron-down" v-if="comment.expanded"></i>
+								</span>
 								<span v-if=" ! comment.expanded">
-									{{ comment.num_replies }} Replies
+									{{ comment.num_replies }} {{ (comment.num_replies == 1) ? 'Reply' : 'Replies' }}
 								</span>
 							</span>
 						</div>
@@ -200,6 +202,12 @@
 					return;
 				}
 
+				// If we're on a user's profile, just send them to the submission.
+				if (this.on_profile) {
+					window.location = comment.submission.url;
+					return;
+				}
+
 				if (value == 1) {
 					// You already voted up, ya dingus.
 					if (comment.user_up) return;
@@ -258,6 +266,12 @@
 			 * @param comment
 			 */
 			toggleReplies(comment) {
+				// If we're on a user's profile, just send them to the submission.
+				if (this.on_profile) {
+					window.location = comment.submission.url;
+					return;
+				}
+
 				comment.componentLoaded = true;
 
 				if (comment.expanded) {
