@@ -34,7 +34,7 @@ class User extends Model implements
 	 *
 	 * @var array
 	 */
-	protected $appends = ['hash', 'avatar_url'];
+	protected $appends = ['hash', 'url', 'avatar_url'];
 
 	/**
 	 * Send the password reset notification.
@@ -80,5 +80,10 @@ class User extends Model implements
 	public function url()
 	{
 		return route('user.profile', $this->username);
+	}
+
+	public function getUrlAttribute()
+	{
+		return $this->url();
 	}
 }
