@@ -29,6 +29,11 @@
 						<a>Account</a>
 						<ul class="menu is-dropdown-submenu">
 							<li>
+								<a href="{{ route('user.profile', Auth::user()->username) }}">
+									Profile
+								</a>
+							</li>
+							<li>
 								<a href="{{ route('account.basics') }}">
 									Settings
 								</a>
