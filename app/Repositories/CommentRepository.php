@@ -18,7 +18,7 @@ class CommentRepository extends ModelRepository
 
 	protected function massageComments($comments)
 	{
-		$commentsById = collect($comments)->keyBy('id')->all();
+		$commentsById = $comments->keyBy('id')->all();
 
 		// If the user is logged in, we need to set the flags that tell the Vue component to
 		// highlight their up and downvotes.
@@ -59,15 +59,17 @@ class CommentRepository extends ModelRepository
 	}
 
 	/**
+	 * Get a paginated list of comments made by the given user.
+	 *
 	 * @param User $user
 	 * @return Collection
 	 */
 	public function getCommentsProfile($user)
 	{
-		$comments = $this->model->with('user')
+		$comments = $this->model->with('user', 'submission')
 			->where('user_id', $user->id)
 			->orderBy('created_at', 'DESC')
-			->get();
+			->paginate();
 
 		return $this->massageComments($comments);
 	}
