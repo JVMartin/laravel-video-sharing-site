@@ -46,11 +46,16 @@ class BrowseManager
 		return $this->browseQuery()->paginate(static::PER_PAGE);
 	}
 
+	public function byTag($tagSlug)
+	{
+
+	}
+
 	/**
 	 * @param User $user
 	 * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
 	 */
-	public function user($user)
+	public function byUser($user)
 	{
 		return $this->browseQuery()->where('user_id', $user->id)->paginate(static::PER_PAGE);
 	}

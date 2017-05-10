@@ -51,7 +51,7 @@ class ProfileController
 
 		return view('users.browse', [
 			'user' => $user,
-			'submissions' => $this->browseManager->user($user)
+			'submissions' => $this->browseManager->byUser($user)
 		]);
 	}
 

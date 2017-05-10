@@ -7,7 +7,7 @@ Route::get('/', [
 
 Route::get('browse/by-tag/{slug}', [
 	'as' => 'browse.by-tag',
-	'uses' => 'NoController@getView'
+	'uses' => 'Video\BrowseController@getByTag'
 ]);
 
 Route::group(['prefix' => 'video'], function() {

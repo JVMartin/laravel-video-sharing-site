@@ -26,4 +26,9 @@ class BrowseController extends Controller
 			'submissions' => $this->browseManager->home()
 		]);
 	}
+
+	public function getByTag($tagSlug)
+	{
+		dd($tagSlug);
+	}
 }
