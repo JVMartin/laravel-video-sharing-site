@@ -29,6 +29,24 @@ class CreateSubmissionsTable extends Migration
 				->references('id')->on('users')
 				->onDelete('cascade');
 		});
+
+		Schema::create('submissions_votes', function (Blueprint $table) {
+			$table->increments('id');
+			$table->integer('submission_id')->unsigned();
+			$table->integer('user_id')->unsigned();
+			$table->tinyInteger('up')->unsigned()->default(0);
+			$table->tinyInteger('down')->unsigned()->default(0);
+
+			$table->index('submission_id');
+			$table->index('user_id');
+
+			$table->foreign('submission_id')
+				->references('id')->on('submissions')
+				->onDelete('cascade');
+			$table->foreign('user_id')
+				->references('id')->on('users')
+				->onDelete('cascade');
+		});
     }
 
     /**
@@ -38,6 +56,7 @@ class CreateSubmissionsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('submissions_votes');
         Schema::dropIfExists('submissions');
     }
 }
