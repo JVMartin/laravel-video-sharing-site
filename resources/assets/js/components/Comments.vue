@@ -30,9 +30,9 @@
 					<div class="row">
 						<div class="column small-4">
 							<div class="details">
-								<span class="username">
+								<a class="username" :href="comment.user.url" v-on:click.stop>
 									{{ comment.user.username }}
-								</span>
+								</a>
 								<br />
 								<span class="timestamp">
 									{{ comment.created_at }}
