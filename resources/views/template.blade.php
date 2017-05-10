@@ -15,9 +15,9 @@
 	@yield('css')
 </head>
 <body>
-	@include('partials.header')
+	@include('_header')
 	<div id="master" class="row column">
-		@include('partials.messages')
+		@include('_messages')
 		@yield('content')
 	</div>
 	@if (Auth::guest())

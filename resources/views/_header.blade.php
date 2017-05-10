@@ -30,16 +30,19 @@
 						<ul class="menu is-dropdown-submenu">
 							<li>
 								<a href="{{ route('user.profile', Auth::user()->username) }}">
+									<i class="fa fa-user"></i>
 									Profile
 								</a>
 							</li>
 							<li>
 								<a href="{{ route('account.basics') }}">
+									<i class="fa fa-cog"></i>
 									Settings
 								</a>
 							</li>
 							<li>
 								<a href="{{ route('sign-out') }}">
+									<i class="fa fa-sign-out"></i>
 									Sign Out
 								</a>
 							</li>
