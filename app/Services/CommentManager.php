@@ -58,6 +58,9 @@ class CommentManager
 			return 'The comment you are replying to has been deleted.';
 		}
 
+		// Strip unsafe tags!
+		$contents = stripUnsafeTags($contents);
+
 		$comment = $submission->comments()->create([
 			'user_id' => Auth::user()->id,
 			'parent_id' => $parent_id,

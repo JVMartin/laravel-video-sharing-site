@@ -1,35 +1,50 @@
 <?php
 
 /**
- * Strip all except some safe tags.
+ * Strip all unsafe tags.
  *
  * @param string $string
  * @return int|array|null
  */
 function stripUnsafeTags($string)
 {
-	static $whitelist = '';
+	$config = HTMLPurifier_Config::createDefault();
 
-	if ( ! strlen($whitelist)) {
-		$whitelist = implode('', [
-			// Links
-			'<a>',
+	// Set the serializer's cache path.
+	$config->set('Cache.SerializerPath', storage_path('app/html-purifier'));
 
-			// Text
-			'<p>',
-			'<br>',
-			'<strong>',
-			'<b>',
-			'<em>',
-			'<i>',
+	// Allow YouTube and Vimeo
+	$config->set('HTML.SafeIframe', true);
+	$config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%');
 
-			// Images, videos
-			'<img>',
-		]);
-	}
-
-	return strip_tags($string, $whitelist);
+	$purifier = new HTMLPurifier($config);
+	return $purifier->purify($string);
 }
+
+//function stripUnsafeTags($string)
+//{
+//	static $whitelist = '';
+//
+//	if ( ! strlen($whitelist)) {
+//		$whitelist = implode('', [
+//			// Links
+//			'<a>',
+//
+//			// Text
+//			'<p>',
+//			'<br>',
+//			'<strong>',
+//			'<b>',
+//			'<em>',
+//			'<i>',
+//
+//			// Images, videos
+//			'<img>',
+//		]);
+//	}
+//
+//	return strip_tags($string, $whitelist);
+//}
 
 /**
  * Report an issue to the site administrators.
