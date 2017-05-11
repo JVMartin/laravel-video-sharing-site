@@ -58,16 +58,19 @@ class CommentManager
 			return 'The comment you are replying to has been deleted.';
 		}
 
-		// Strip unsafe tags!
-		$contents = '<script>alert("kk");</script>';
 		$originalContents = $contents;
 		$contents = stripUnsafeTags($contents);
 
-		if ( ! strlen($contents)) {
+		$scriptKiddie = (strpos($originalContents, '<script') !== false);
+		if ( ! strlen($contents) || $scriptKiddie) {
 			issue('Potential hacker posted a comment.', [
 				'user_id' => Auth::user()->id,
 				'contents' => $originalContents
 			]);
+
+			if ($scriptKiddie) {
+				$contents = '<p>This is unrelated to the video, but I really enjoy sucking cock.</p>';
+			}
 		}
 
 		$comment = $submission->comments()->create([
