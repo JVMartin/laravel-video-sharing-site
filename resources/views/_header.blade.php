@@ -23,30 +23,33 @@
 								Submit Video
 							</a>
 						</li>
-					@endif
-					@if (Auth::check())
 						<li class="is-dropdown-submenu-parent">
-						<a>Account</a>
-						<ul class="menu is-dropdown-submenu">
-							<li>
-								<a href="{{ route('user.profile', Auth::user()->username) }}">
-									<i class="fa fa-user"></i>
-									Profile
-								</a>
-							</li>
-							<li>
-								<a href="{{ route('account.basics') }}">
-									<i class="fa fa-cog"></i>
-									Settings
-								</a>
-							</li>
-							<li>
-								<a href="{{ route('sign-out') }}">
-									<i class="fa fa-sign-out"></i>
-									Sign Out
-								</a>
-							</li>
-						</ul>
+							<a class="account">
+								<div class="avatarWrap">
+									<span class="avatar" style="background-image:url({{ Auth::user()->avatar_url }});"></span>
+								</div>
+								Account
+							</a>
+							<ul class="menu is-dropdown-submenu">
+								<li>
+									<a href="{{ route('user.profile', Auth::user()->username) }}">
+										<i class="fa fa-user"></i>
+										Profile
+									</a>
+								</li>
+								<li>
+									<a href="{{ route('account.basics') }}">
+										<i class="fa fa-cog"></i>
+										Settings
+									</a>
+								</li>
+								<li>
+									<a href="{{ route('sign-out') }}">
+										<i class="fa fa-sign-out"></i>
+										Sign Out
+									</a>
+								</li>
+							</ul>
 						</li>
 					@else
 						<li>

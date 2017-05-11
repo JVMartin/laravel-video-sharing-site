@@ -1,11 +1,36 @@
 #partialsHeader {
-	.brand {
+	a {
 		color: $white;
+
+		&::after {
+			border-color: $white transparent transparent;
+		}
+	}
+	.brand {
 		font-weight: bold;
 		font-size:1.3em;
 
 		span {
 			font-size: 0.6em;
+		}
+	}
+	.account {
+		.avatarWrap {
+			display: inline-block;
+			position: relative;
+			width: 30px;
+			height: 0;
+		}
+		.avatar {
+			position: absolute;
+			left: 0;
+			top: -16px;
+			display: inline-block;
+			width: 25px;
+			height: 25px;
+			border-radius: 20px;
+			background-size: cover;
+			background-position: center;
 		}
 	}
 }
