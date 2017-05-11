@@ -48,7 +48,9 @@ class BrowseManager
 
 	public function byTag($tagSlug)
 	{
-		return $this->browseQuery()->whereTag($tagSlug)->paginate(static::PER_PAGE);
+		return $this->browseQuery()->whereTag($tagSlug)->orWhereHas('video', function($query) use ($tagSlug) {
+			$query->whereTag($tagSlug);
+		})->paginate(static::PER_PAGE);
 	}
 
 	/**
