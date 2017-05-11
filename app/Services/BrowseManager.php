@@ -48,7 +48,7 @@ class BrowseManager
 
 	public function byTag($tagSlug)
 	{
-
+		return $this->browseQuery()->whereTag($tagSlug)->paginate(static::PER_PAGE);
 	}
 
 	/**
