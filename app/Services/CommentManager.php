@@ -65,7 +65,7 @@ class CommentManager
 		if ( ! strlen($contents) || $scriptKiddie) {
 			issue('Potential hacker posted a comment.', [
 				'user_id' => Auth::user()->id,
-				'contents' => $originalContents
+				'contents' => $originalContents,
 			]);
 
 			if ($scriptKiddie) {
