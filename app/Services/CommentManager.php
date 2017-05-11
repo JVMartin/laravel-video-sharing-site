@@ -59,7 +59,16 @@ class CommentManager
 		}
 
 		// Strip unsafe tags!
+		$contents = '<script>alert("kk");</script>';
+		$originalContents = $contents;
 		$contents = stripUnsafeTags($contents);
+
+		if ( ! strlen($contents)) {
+			issue('Potential hacker posted a comment.', [
+				'user_id' => Auth::user()->id,
+				'contents' => $originalContents
+			]);
+		}
 
 		$comment = $submission->comments()->create([
 			'user_id' => Auth::user()->id,

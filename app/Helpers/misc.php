@@ -18,7 +18,7 @@ function stripUnsafeTags($string)
 	$config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%');
 
 	$purifier = new HTMLPurifier($config);
-	return $purifier->purify($string);
+	return trim($purifier->purify($string));
 }
 
 //function stripUnsafeTags($string)
@@ -49,7 +49,14 @@ function stripUnsafeTags($string)
 /**
  * Report an issue to the site administrators.
  */
-function issue($message)
+function issue($message, $extra = null)
 {
-	Sentry::captureMessage($message);
+	if (is_array($extra)) {
+		Sentry::captureMessage($message, [], [
+			'extra' => $extra
+		]);
+	}
+	else {
+		Sentry::captureMessage($message);
+	}
 }
