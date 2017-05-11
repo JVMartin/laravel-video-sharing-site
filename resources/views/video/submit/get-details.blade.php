@@ -7,22 +7,18 @@
 		<div class="row">
 			<div class="column small-12">
 				<h1>Submit Video</h1>
-				<p>Next, tell us more about the video.</p>
+				<p>Tell us more about the video.</p>
 			</div>
 		</div>
 		<div class="row">
 			<div class="columns large-5 large-push-7">
 				<div class="row">
 					<div class="columns medium-7 large-12">
-						<label>
-							Video
-						</label>
+						<h4>Video</h4>
 						@include('video._embed')
 					</div>
 				</div>
-				<label>
-					YouTube Description
-				</label>
+				<h4>Youtube Description</h4>
 				<div class="expander">
 					<div class="contents">
 						{!! nl2br($video->description) !!}
