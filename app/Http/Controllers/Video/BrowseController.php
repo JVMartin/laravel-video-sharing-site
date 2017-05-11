@@ -29,6 +29,8 @@ class BrowseController extends Controller
 
 	public function getByTag($tagSlug)
 	{
-		dd($tagSlug);
+		return view('video.browse', [
+			'submissions' => $this->browseManager->byTag($tagSlug)
+		]);
 	}
 }
