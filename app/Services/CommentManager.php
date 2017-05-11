@@ -49,10 +49,10 @@ class CommentManager
 		}
 
 		if ( ! strlen($contents)) {
-		    throw new InvalidArgumentException('Empty comment posted on submission id ' . $submission->id);
-        }
+			throw new InvalidArgumentException('Empty comment posted on submission id ' . $submission->id);
+		}
 
-        // This is not an exceptional occurence - can happen if replying to a user that deleted their
+		// This is not an exceptional occurence - can happen if replying to a user that deleted their
 		// comment.
 		if ($parent_id && ! Comment::where('id', $parent_id)->count()) {
 			return 'The comment you are replying to has been deleted.';
