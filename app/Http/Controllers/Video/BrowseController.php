@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Video;
 
 use App\Services\BrowseManager;
+use Cartalyst\Tags\IlluminateTag;
 use App\Http\Controllers\Controller;
 
 class BrowseController extends Controller
@@ -29,8 +30,15 @@ class BrowseController extends Controller
 
 	public function getByTag($tagSlug)
 	{
+		$tag = IlluminateTag::where('slug', $tagSlug)->first();
+
+		if ( ! $tag) {
+			abort(404);
+		}
+
 		return view('video.browse', [
-			'submissions' => $this->browseManager->byTag($tagSlug)
+			'submissions' => $this->browseManager->byTag($tagSlug),
+			'tag' => $tag,
 		]);
 	}
 }

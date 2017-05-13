@@ -9,7 +9,7 @@ use App\Repositories\SubmissionRepository;
 
 class BrowseManager
 {
-	const PER_PAGE = 16;
+	const PER_PAGE = 20;
 
 	/**
 	 * @var VideoRepository
@@ -39,6 +39,8 @@ class BrowseManager
 	}
 
 	/**
+	 * Get submissions, most recent first.
+	 *
 	 * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
 	 */
 	public function home()
@@ -46,6 +48,12 @@ class BrowseManager
 		return $this->browseQuery()->paginate(static::PER_PAGE);
 	}
 
+	/**
+	 * Get submissions with a given tag.
+	 *
+	 * @param $tagSlug
+	 * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+	 */
 	public function byTag($tagSlug)
 	{
 		return $this->browseQuery()->whereTag($tagSlug)->orWhereHas('video', function($query) use ($tagSlug) {
@@ -54,6 +62,8 @@ class BrowseManager
 	}
 
 	/**
+	 * Get submissions made by a given user.
+	 *
 	 * @param User $user
 	 * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
 	 */
