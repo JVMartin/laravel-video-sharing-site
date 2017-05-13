@@ -274,6 +274,11 @@
 					return;
 				}
 
+				// No need to do anything if there are no replies.
+				if (comment.num_replies == 0) {
+					return;
+				}
+
 				comment.componentLoaded = true;
 
 				if (comment.expanded) {

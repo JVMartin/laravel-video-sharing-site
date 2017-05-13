@@ -90,9 +90,9 @@ if ($('comments').length) {
 		el: 'comments'
 	});
 }
-if ($('rating').length) {
-	Vue.component('rating', require('./components/Rating.vue'));
-	new Vue({
-		el: 'rating'
-	});
-}
+// if ($('rating').length) {
+// 	Vue.component('rating', require('./components/Rating.vue'));
+// 	new Vue({
+// 		el: 'rating'
+// 	});
+// }
