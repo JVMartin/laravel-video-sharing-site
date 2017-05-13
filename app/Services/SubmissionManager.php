@@ -33,4 +33,12 @@ class SubmissionManager
 		$hashid = end($parts);
 		return $this->submissionRepository->getByHashId($hashid);
 	}
+
+	/**
+	 * @param Submission $submission
+	 */
+	public function markUserVote(Submission $submission)
+	{
+
+	}
 }

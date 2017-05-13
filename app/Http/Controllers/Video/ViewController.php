@@ -30,9 +30,12 @@ class ViewController extends Controller
 			abort(404);
 		}
 
+		// Redirect them to the correct URL if their slug doesn't match.
 		if ($slugHashid != $submission->slugHashid()) {
 			return redirect($submission->url());
 		}
+
+		$this->submissionManager->markUserVote($submission);
 
 		return view('video.view', [
 			'submission' => $submission

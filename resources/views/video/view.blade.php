@@ -30,6 +30,11 @@
 			</div>
 			<div class="column large-4">
 				<div class="row column">
+					<h4>Rating</h4>
+					<rating></rating>
+				</div>
+
+				<div class="row column">
 					<h4>Tags</h4>
 					<div class="expander">
 						<div class="contents">
@@ -47,6 +52,7 @@
 						<div class="expand">SHOW MORE</div>
 					</div>
 				</div>
+
 				<div class="row column">
 					<h4>Youtube Description</h4>
 					<div class="expander">

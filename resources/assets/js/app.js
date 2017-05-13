@@ -86,7 +86,13 @@ $('a').click(function(e) {
 //--------------------------------
 if ($('comments').length) {
 	Vue.component('comments', require('./components/Comments.vue'));
-	const comments = new Vue({
+	new Vue({
 		el: 'comments'
+	});
+}
+if ($('rating').length) {
+	Vue.component('rating', require('./components/Rating.vue'));
+	new Vue({
+		el: 'rating'
 	});
 }
