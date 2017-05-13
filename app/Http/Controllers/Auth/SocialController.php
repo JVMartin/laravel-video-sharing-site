@@ -41,12 +41,16 @@ class SocialController extends Controller
 	}
 
 	/**
-	 * @param Request $request
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
 	public function getCallbackFacebook()
 	{
 		$user = $this->authManager->callbackFacebook();
+		$this->guard()->login($user);
+
+		successMessage(trans('auth.sign-in.success'));
+		return redirect()
+			->intended(route('home'));
 	}
 
 	/**
