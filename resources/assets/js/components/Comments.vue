@@ -1,7 +1,7 @@
 <template>
 	<!-- Scootch over to the right if these are nested comments. -->
 	<div :style="(parent_comment) ? 'margin-left: 25px' : ''">
-		<h4 v-if=" ! on_profile && loading">
+		<h4 v-if=" ! on_profile && loading && ( ! parent_comment || parent_comment.expanded)">
 			Loading comments...
 		</h4>
 		<!-- Always show the comments if this is the submission itself. -->
