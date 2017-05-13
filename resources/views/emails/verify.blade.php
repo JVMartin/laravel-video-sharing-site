@@ -1,5 +1,7 @@
 @extends('emails.template')
 
+@section('preheader', 'Verify your email address')
+
 @section('content')
 	<p>
 		Please verify your email.

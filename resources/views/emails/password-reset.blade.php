@@ -1,5 +1,7 @@
 @extends('emails.template')
 
+@section('preheader', 'Password reset instructions')
+
 @section('content')
 	<p>
 		You are receiving this email because we received a password reset request for your account.
