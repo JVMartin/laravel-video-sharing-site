@@ -116,11 +116,53 @@ class AuthManager
 		return redirect($this->googleClient()->createAuthUrl());
 	}
 
+	/**
+	 * @return User
+	 * @throws Exception When Facebook doesn't give us an email.
+	 */
 	public function callbackFacebook()
 	{
-		$user = Socialite::driver('facebook')->user();
+		$fbUser = Socialite::driver('facebook')->user();
 
-		dd($user);
+		if ( ! strlen($fbUser->email)) {
+			throw new Exception('Facebook did not return an email.');
+		}
+
+		$user = $this->userRepository->getByEmail($fbUser->email);
+		if ( ! $user) {
+			$user = $this->userRepository->create([
+				'email' => $fbUser->email
+			]);
+			$this->fillFacebookUser($user, $fbUser);
+		}
+
+		return $user;
+	}
+
+	/**
+	 * @param User $user
+	 * @param \Laravel\Socialite\Two\User $fbUser
+	 */
+	private function fillFacebookUser(User $user, $fbUser)
+	{
+		$nameParts = explode(' ', $fbUser->name);
+
+		// Parse their first and last name.
+		$first_name = (count($nameParts)) ? $nameParts[0] : null;
+		if (count($nameParts) > 1) {
+			$lastParts = array_slice($nameParts, 1);
+			$last_name = implode(' ', $lastParts);
+		}
+		else {
+			$last_name = null;
+		}
+
+		if ( ! strlen($user->first_name)) $user->first_name = $first_name;
+		if ( ! strlen($user->last_name)) $user->last_name = $last_name;
+		$user->save();
+
+		// Save their avatar.
+		dispatch(new DownloadAvatar($user, $fbUser->avatar_original));
 	}
 
 	/**

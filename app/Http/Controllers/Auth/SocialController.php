@@ -44,9 +44,9 @@ class SocialController extends Controller
 	 * @param Request $request
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
-	public function getCallbackFacebook(Request $request)
+	public function getCallbackFacebook()
 	{
-		$this->authManager->callbackFacebook();
+		$user = $this->authManager->callbackFacebook();
 	}
 
 	/**
