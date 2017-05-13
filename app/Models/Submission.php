@@ -8,6 +8,7 @@ use Cartalyst\Tags\TaggableInterface;
 class Submission extends Model implements TaggableInterface
 {
 	use TaggableTrait;
+	use Votable;
 
 	/**
 	 * The attributes that should be hidden for arrays.
@@ -26,7 +27,7 @@ class Submission extends Model implements TaggableInterface
 	/**
 	 * @var array
 	 */
-	protected $appends = ['hash', 'url'];
+	protected $appends = ['hash', 'url', 'user_up', 'user_down'];
 
 	public function video()
 	{
