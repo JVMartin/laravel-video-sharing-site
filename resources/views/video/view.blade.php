@@ -23,12 +23,25 @@
 			<div class="column large-4">
 				<div class="row column">
 					<h4>Submitted By</h4>
-					<div class="expander">
-						<a href="{{ $submission->user->url() }}">
-							{{ $submission->user->username }}
-						</a>
-						on
-						{{ $submission->created_at->toDayDateTimeString() }}
+					<div class="expander submittedBy">
+						<div class="row">
+							<div class="column large-9">
+								<a href="{{ $submission->user->url() }}">
+									<div class="avatarWrap">
+										<img src="{{ $submission->user->avatar_url }}" class="avatar" />
+									</div>
+									<span>
+										{{ $submission->user->username }}
+									</span>
+								</a>
+								<div class="date">
+									on {{ $submission->created_at->toDayDateTimeString() }}
+								</div>
+							</div>
+							<div class="column large-3">
+								<follow-button></follow-button>
+							</div>
+						</div>
 					</div>
 				</div>
 

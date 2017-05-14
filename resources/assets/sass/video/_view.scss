@@ -1,2 +1,26 @@
 #videoView {
+	.submittedBy {
+		padding: 6px;
+
+		.avatarWrap {
+			display: inline-block;
+			position: relative;
+			width: 30px;
+			height: 0;
+		}
+		.avatar {
+			position: absolute;
+			left: 0;
+			top: -17px;
+			display: inline-block;
+			width: 25px;
+			height: 25px;
+			border-radius: 20px;
+			background-size: cover;
+			background-position: center;
+		}
+		.date {
+			font-size: 0.9em;
+		}
+	}
 }
