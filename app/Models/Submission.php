@@ -49,6 +49,13 @@ class Submission extends Model implements TaggableInterface
 		return $this->hasMany(SubmissionVote::class);
 	}
 
+	public function ratingPercent()
+	{
+		$totalVotes = $this->num_up + $this->num_down;
+		$ratio = $this->num_up / $totalVotes;
+		return $ratio * 100;
+	}
+
 	//------------------------------------------------------------------------------
 	// Very useful but we use a dedicated column now.
 	//------------------------------------------------------------------------------

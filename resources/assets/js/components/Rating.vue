@@ -21,7 +21,7 @@
 							{{ submission.num_up }}
 						</div>
 						<div class="down">
-							{{ submission.num_down }}
+							{{ -1 * submission.num_down }}
 						</div>
 					</div>
 				</div>

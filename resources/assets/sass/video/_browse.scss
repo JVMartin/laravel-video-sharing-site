@@ -17,8 +17,23 @@
 			}
 		}
 		.footer {
-			padding: 4px;
 			color: $body-font-color;
+			padding: 2px;
+
+			.commentCountWrap {
+				margin-top: 3px;
+			}
+			.ratingWrap {
+				margin-top: 3px;
+
+				.rating {
+					font-size: 0.8em;
+
+					.up, .down {
+						top: 4px;
+					}
+				}
+			}
 		}
 	}
 }
