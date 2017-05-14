@@ -38,13 +38,17 @@ class SubmissionManager
 	}
 
 	/**
-	 * Mark a submission with the sign-in user's vote.
+	 * Mark a submission with the signed-in user's vote (if the user is signed-in).
 	 *
 	 * @param Submission $submission
 	 * @return void
 	 */
 	public function markUserVote(Submission $submission)
 	{
+		if ( ! Auth::check()) {
+			return;
+		}
+
 		$submissionVote = $submission->votes()->where('user_id', Auth::user()->id)->first();
 
 		if ( ! $submissionVote) {
