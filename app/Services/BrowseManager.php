@@ -35,7 +35,7 @@ class BrowseManager
 	 */
 	protected function browseQuery()
 	{
-		return Submission::with('commentsCount')->orderBy('created_at', 'DESC');
+		return Submission::orderBy('created_at', 'DESC');
 	}
 
 	/**

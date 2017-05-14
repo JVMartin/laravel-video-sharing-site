@@ -8,6 +8,7 @@ use App\Models\Comment;
 use App\Models\CommentVote;
 use App\Jobs\CompileComment;
 use InvalidArgumentException;
+use App\Jobs\CompileSubmission;
 use App\Repositories\CommentRepository;
 use App\Repositories\SubmissionRepository;
 
@@ -96,6 +97,9 @@ class CommentManager
 			// Ensure the parent's reply count gets re-compiled.
 			dispatch(new CompileComment($parentComment));
 		}
+
+		// Ensure the submission's comment count gets re-compiled.
+		dispatch(new CompileSubmission($comment->submission));
 
 		// Ensure the comment has all of its attributes by grabbing it fresh from the database.
 		$comment = $this->commentRepository->getByKey($comment->id);

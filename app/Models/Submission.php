@@ -7,8 +7,8 @@ use Cartalyst\Tags\TaggableInterface;
 
 class Submission extends Model implements TaggableInterface
 {
-	use TaggableTrait;
 	use Votable;
+	use TaggableTrait;
 
 	/**
 	 * The attributes that should be hidden for arrays.
@@ -49,23 +49,25 @@ class Submission extends Model implements TaggableInterface
 		return $this->hasMany(SubmissionVote::class);
 	}
 
-	public function commentsCount()
-	{
-		return $this->comments()
-			->selectRaw('submission_id, count(*) AS aggregate')
-			->groupBy('submission_id');
-	}
-
-	public function getCommentsCountAttribute()
-	{
-		if ( ! array_key_exists('commentsCount', $this->relations)) {
-			$this->load('commentsCount');
-		}
-
-		$commentsCount = $this->getRelation('commentsCount');
-
-		return ($commentsCount->count()) ? $commentsCount->first()->aggregate : 0;
-	}
+	//------------------------------------------------------------------------------
+	// Very useful but we use a dedicated column now.
+	//------------------------------------------------------------------------------
+//	public function commentsCount()
+//	{
+//		return $this->comments()
+//			->selectRaw('submission_id, count(*) AS aggregate')
+//			->groupBy('submission_id');
+//	}
+//	public function getCommentsCountAttribute()
+//	{
+//		if ( ! array_key_exists('commentsCount', $this->relations)) {
+//			$this->load('commentsCount');
+//		}
+//
+//		$commentsCount = $this->getRelation('commentsCount');
+//
+//		return ($commentsCount->count()) ? $commentsCount->first()->aggregate : 0;
+//	}
 
 	public function slugHashid()
 	{
