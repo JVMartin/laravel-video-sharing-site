@@ -1,0 +1,5 @@
+.followButton {
+	&.disabledFake {
+		opacity: $button-opacity-disabled;
+	}
+}

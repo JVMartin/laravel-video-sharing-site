@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<button class="button" :disabled="followingBoolean" v-text="followingText">
+		<button :class="'button followButton ' + (followingBoolean ? 'disabledFake' : '')" v-text="followingText" v-on:click="follow">
 		</button>
 	</div>
 </template>
@@ -16,6 +16,8 @@
 			return {
 				// The signed-in user.
 				user: window.data.user,
+
+				// Whether the user is following.
 				followingBoolean: false,
 			};
 		},
@@ -31,7 +33,9 @@
 		},
 
 		methods: {
-
+			follow() {
+				this.followingBoolean = ! this.followingBoolean;
+			},
 		},
 	};
 </script>
