@@ -19,6 +19,12 @@ class SignInController extends Controller
 		$this->middleware('throttle:10,10', [
 			'only' => ['postSignIn']
 		]);
+		$this->middleware('guest', [
+			'only' => ['postSignIn']
+		]);
+		$this->middleware('auth', [
+			'only' => ['getSignOut']
+		]);
 
 		$this->authManager = $authManager;
 	}

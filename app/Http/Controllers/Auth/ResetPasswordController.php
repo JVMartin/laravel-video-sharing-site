@@ -34,6 +34,8 @@ class ResetPasswordController extends Controller
 		AuthManager $authManager
 	)
 	{
+		$this->middleware('guest');
+
 		$this->db = $db;
 		$this->userRepository = $userRepository;
 		$this->authManager = $authManager;

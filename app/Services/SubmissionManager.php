@@ -20,6 +20,8 @@ class SubmissionManager
 	}
 
 	/**
+	 * Resolve a slug-hashid into a submission.
+	 *
 	 * @param string $slugHashid
 	 * @return Submission|Model|null
 	 */
@@ -36,6 +38,8 @@ class SubmissionManager
 	}
 
 	/**
+	 * Mark a submission with the sign-in user's vote.
+	 *
 	 * @param Submission $submission
 	 * @return void
 	 */
