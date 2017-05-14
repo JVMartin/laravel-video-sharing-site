@@ -31,6 +31,9 @@
 			<div class="column large-4">
 				<div class="row column">
 					<h4>Rating</h4>
+					<script>
+						var submission = {!! json_encode($submission) !!};
+					</script>
 					<rating></rating>
 				</div>
 

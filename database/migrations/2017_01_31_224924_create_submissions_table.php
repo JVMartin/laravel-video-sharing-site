@@ -20,6 +20,10 @@ class CreateSubmissionsTable extends Migration
 			$table->string('title');
 			$table->string('slug');
 			$table->text('description')->nullable();
+			$table->integer('score')->default(1);
+			$table->integer('num_up')->unsigned()->default(1);
+			$table->integer('num_down')->unsigned()->default(0);
+			$table->integer('num_comments')->unsigned()->default(0);
 			$table->timestamps();
 
 			$table->foreign('video_id')
