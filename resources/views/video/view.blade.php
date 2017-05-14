@@ -40,7 +40,10 @@
 							</div>
 							<div class="column large-4">
 								<div class="followButtonWrap">
-									<follow-button></follow-button>
+									<follow-button
+										leader_hash="{{ $submission->user->hash }}"
+										following="{{ $submission->user->followed() ? 'true' : 'false' }}"
+									></follow-button>
 								</div>
 							</div>
 						</div>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Auth;
 use Mail;
 use App\Mail\ResetPasswordLinkEmail;
 use Illuminate\Auth\Authenticatable;
@@ -36,14 +37,26 @@ class User extends Model implements
 	 */
 	protected $appends = ['hash', 'url', 'avatar_url'];
 
+	/**
+	 * Is this user followed by the signed-in user?
+	 *
+	 * @return bool
+	 */
+	public function followed()
+	{
+		if ( ! Auth::check()) return false;
+
+		return ($this->followers()->where('follower_id', Auth::user()->id)->count()) ? true : false;
+	}
+
 	public function followers()
 	{
-		return $this->belongsToMany(User::class, 'followers', 'leader_id', 'follower_id');
+		return $this->belongsToMany(User::class, 'follows', 'leader_id', 'follower_id');
 	}
 
 	public function leaders()
 	{
-		return $this->belongsToMany(User::class, 'followers', 'follower_id', 'leader_id');
+		return $this->belongsToMany(User::class, 'follows', 'follower_id', 'leader_id');
 	}
 
 	/**
