@@ -98,14 +98,14 @@ class SubmissionManager
 		}
 
 		// Update / insert it.
-		$submissionVote->comment_id = $submissionVote->id;
+		$submissionVote->submission_id = $submission->id;
 		$submissionVote->user_id = Auth::user()->id;
 		$submissionVote->up = ($value == 1) ? 1 : 0;
 		$submissionVote->down = ($value == -1) ? 1 : 0;
 		$submissionVote->save();
 
 		// Ensure the comment's vote numbers get recompiled.
-		dispatch(new CompileSubmission($submissionVote));
+		dispatch(new CompileSubmission($submission));
 
 		return true;
 	}

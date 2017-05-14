@@ -20,6 +20,9 @@
 		data() {
 			return {
 				// Data passed in from Laravel.
+				data: window.data,
+
+				// The submission.
 				submission: window.submission,
 			};
 		},
