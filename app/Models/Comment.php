@@ -31,4 +31,9 @@ class Comment extends Model
 	{
 		return $this->belongsTo(Submission::class);
 	}
+
+	public function votes()
+	{
+		return $this->hasMany(CommentVote::class);
+	}
 }

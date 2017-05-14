@@ -81,8 +81,7 @@ class CommentManager
 		]);
 
 		// Automatically updoot our own comment.
-		CommentVote::create([
-			'comment_id' => $comment->id,
+		$comment->votes()->create([
 			'user_id' => Auth::user()->id,
 			'up' => 1,
 		]);

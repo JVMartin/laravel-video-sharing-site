@@ -129,6 +129,12 @@ class SubmitController extends Controller
 			'description' => $request->description
 		]);
 
+		// Automatically updoot our own submission.
+		$submission->votes()->create([
+			'user_id' => Auth::user()->id,
+			'up' => 1,
+		]);
+
 		successMessage('Nice - your submission is now live!');
 		return redirect($submission->url());
 	}
