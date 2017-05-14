@@ -7,14 +7,6 @@
 		<div class="row">
 			<div class="column small-12">
 				<h1>{{ $submission->title }}</h1>
-				<p>
-					Submitted by
-					<a href="{{ $submission->user->url() }}">
-						{{ $submission->user->username }}
-					</a>
-					on
-					{{ $submission->created_at->toDayDateTimeString() }}
-				</p>
 			</div>
 		</div>
 		<div class="row">
@@ -29,6 +21,17 @@
 				@endif
 			</div>
 			<div class="column large-4">
+				<div class="row column">
+					<h4>Submitted By</h4>
+					<div class="expander">
+						<a href="{{ $submission->user->url() }}">
+							{{ $submission->user->username }}
+						</a>
+						on
+						{{ $submission->created_at->toDayDateTimeString() }}
+					</div>
+				</div>
+
 				<div class="row column">
 					<h4>Rating</h4>
 					<script>
