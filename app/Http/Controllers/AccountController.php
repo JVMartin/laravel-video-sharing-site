@@ -87,7 +87,7 @@ class AccountController extends Controller
 		$user = Auth::user();
 
 		$rules = [
-			'username' => 'required|alpha_dash|min:3|max:40|unique:users,username,' . $user->id,
+			'username' => 'required|alpha_dash|min:3|max:32|unique:users,username,' . $user->id,
 			'first_name' => 'max:255',
 			'last_name' => 'max:255'
 		];
