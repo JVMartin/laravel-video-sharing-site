@@ -34,6 +34,12 @@
 
 		methods: {
 			follow() {
+				// They must be signed in.
+				if ( ! this.user) {
+					$('#modalsSignIn').foundation('open');
+					return;
+				}
+
 				this.followingBoolean = ! this.followingBoolean;
 			},
 		},
