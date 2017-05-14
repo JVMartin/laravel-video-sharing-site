@@ -5,6 +5,11 @@ Route::get('/', [
 	'uses' => 'Video\BrowseController@getHome'
 ]);
 
+Route::get('feed', [
+	'as' => 'feed',
+	'uses' => 'Video\BrowseController@getMyFeed'
+]);
+
 Route::get('browse/by-tag/{slug}', [
 	'as' => 'browse.by-tag',
 	'uses' => 'Video\BrowseController@getByTag'

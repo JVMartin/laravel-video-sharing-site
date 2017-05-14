@@ -8,6 +8,19 @@
 			<div class="row column">
 				<h4>Showing videos tagged "{{ $tag->name }}"...</h4>
 			</div>
+		@else
+			<ul class="menu topMenu">
+				<li class="{{ Request::route()->getName() == 'home' ? 'active' : '' }}">
+					<a href="{{ route('home') }}">
+						The Unwashed Masses
+					</a>
+				</li>
+				<li class="{{ Request::route()->getName() == 'my-feed' ? 'active' : '' }}">
+					<a href="{{ route('feed') }}">
+						My Feed
+					</a>
+				</li>
+			</ul>
 		@endif
 		<div class="row small-up-2 medium-up-3 large-up-4">
 			@foreach ($submissions as $submission)
