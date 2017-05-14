@@ -36,12 +36,18 @@ class SubmissionSeeder extends Seeder
 		$user_id = 1;
 		foreach (Video::all() as $video) {
 			$user_id = ($user_id == 1) ? 2 : 1;
-			$this->submissionRepository->create([
+			$submission = $this->submissionRepository->create([
 				'video_id' => $video->id,
 				'user_id' => $user_id,
 				'title' => $this->generator->sentence,
 				'tags' => $this->tags(),
 				'description' => $this->generator->paragraphs(2, true)
+			]);
+
+			// Automatically updoot our own submission.
+			$submission->votes()->create([
+				'user_id' => $user_id,
+				'up' => 1,
 			]);
 		}
 	}
