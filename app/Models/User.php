@@ -36,6 +36,16 @@ class User extends Model implements
 	 */
 	protected $appends = ['hash', 'url', 'avatar_url'];
 
+	public function followers()
+	{
+		return $this->belongsToMany(User::class, 'followers', 'leader_id', 'follower_id');
+	}
+
+	public function leaders()
+	{
+		return $this->belongsToMany(User::class, 'followers', 'follower_id', 'leader_id');
+	}
+
 	/**
 	 * Send the password reset notification.
 	 *
