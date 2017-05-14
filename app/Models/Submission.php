@@ -52,7 +52,7 @@ class Submission extends Model implements TaggableInterface
 	public function ratingPercent()
 	{
 		$totalVotes = $this->num_up + $this->num_down;
-		if ( ! $totalVotes) {
+		if ($totalVotes == 0) {
 			issue('Submission id ' . $this->id . ' has no votes.');
 			return 100;
 		}
