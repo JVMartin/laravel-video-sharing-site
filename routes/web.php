@@ -17,6 +17,13 @@ Route::group(['prefix' => 'video'], function() {
 	]);
 });
 
+Route::group(['prefix' => 'submissions'], function() {
+	Route::get('vote/{hashid}', [
+		'as' => 'submissions.vote',
+		'uses' => 'Video\ViewController@postVote'
+	]);
+});
+
 Route::group(['prefix' => 'comments'], function() {
 	Route::get('submission/{hashid}/{parent_hashid?}', [
 		'as' => 'comments.submission',

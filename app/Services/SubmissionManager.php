@@ -4,6 +4,9 @@ namespace App\Services;
 
 use Auth;
 use App\Models\Submission;
+use InvalidArgumentException;
+use App\Models\SubmissionVote;
+use App\Jobs\CompileSubmission;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositories\SubmissionRepository;
 
@@ -61,5 +64,49 @@ class SubmissionManager
 		else {
 			$submission->setUserDown();
 		}
+	}
+
+	/**
+	 * Vote on a submission.
+	 *
+	 * @param string $hashid The hashid of the comment being voted on.
+	 * @param int    $value
+	 * @return string|true
+	 */
+	public function vote($hashid, $value)
+	{
+		$value = (int) $value;
+
+		if ( ! in_array($value, [-1, 1])) {
+			throw new InvalidArgumentException('Comment vote not -1 or 1.');
+		}
+
+		// Get the comment being voted on.
+		$submission = $this->submissionRepository->getByHashId($hashid);
+		if ( ! $submission) {
+			return 'The submission you are voting on has been deleted.';
+		}
+
+		// Get the vote if it exists.
+		$submissionVote = SubmissionVote::where('submission_id', $submission->id)
+			->where('user_id', Auth::user()->id)
+			->first();
+
+		// Create it otherwise.
+		if ( ! $submissionVote) {
+			$submissionVote = new SubmissionVote();
+		}
+
+		// Update / insert it.
+		$submissionVote->comment_id = $submissionVote->id;
+		$submissionVote->user_id = Auth::user()->id;
+		$submissionVote->up = ($value == 1) ? 1 : 0;
+		$submissionVote->down = ($value == -1) ? 1 : 0;
+		$submissionVote->save();
+
+		// Ensure the comment's vote numbers get recompiled.
+		dispatch(new CompileSubmission($submissionVote));
+
+		return true;
 	}
 }
