@@ -1,27 +1,2 @@
 #videoView {
 }
-
-#rating {
-	.vote {
-		display: inline-block;
-		font-size: 1.2em;
-		margin: 5px 0 5px 20px;
-		cursor: pointer;
-
-		.voteButton {
-			cursor: pointer;
-			background: $scheme-3;
-			color: $white;
-			border-radius: 2px;
-			padding: 4px;
-			user-select: none;
-
-			&.upvote.active {
-				color: $success-color;
-			}
-			&.downvote.active {
-				color: $alert-color;
-			}
-		}
-	}
-}

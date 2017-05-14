@@ -1,0 +1,60 @@
+#rating {
+	.vote {
+		display: inline-block;
+		font-size: 1.2em;
+		margin: 5px 0 5px 20px;
+		cursor: pointer;
+
+		.voteButton {
+			cursor: pointer;
+			background: $scheme-3;
+			color: $white;
+			border-radius: 2px;
+			padding: 4px;
+			user-select: none;
+
+			&.upvote.active {
+				color: $success-color;
+			}
+			&.downvote.active {
+				color: $alert-color;
+			}
+		}
+	}
+
+	.ratingWrap {
+		padding: 8px;
+	}
+}
+
+.rating {
+	position: relative;
+	height: 20px;
+	background: $alert-color;
+
+	.bar {
+		height: 20px;
+		position: absolute;
+		left: 0;
+		top: 0;
+		background: $success-color;
+	}
+	.labels {
+		height: 20px;
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+
+		.up {
+			position: absolute;
+			left: 10px;
+			top: 0;
+		}
+		.down {
+			position: absolute;
+			right: 10px;
+			top: 0;
+		}
+	}
+}

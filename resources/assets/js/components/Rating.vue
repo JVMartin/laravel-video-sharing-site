@@ -1,16 +1,31 @@
 <template>
-	<div>
-		<div class="vote">
-			<span :class="'voteButton upvote' + ((submission.user_up) ? ' active' : '')" v-on:click.stop="vote(1)">
-				<i class="fa fa-arrow-up"></i>
-				{{ submission.num_up }}
-			</span>
+	<div class="row">
+		<div class="column small-4">
+			<div class="vote">
+				<span :class="'voteButton upvote' + ((submission.user_up) ? ' active' : '')" v-on:click.stop="vote(1)">
+					<i class="fa fa-arrow-up"></i>
+				</span>
+			</div>
+			<div class="vote">
+				<span :class="'voteButton downvote' + ((submission.user_down) ? ' active' : '')" v-on:click.stop="vote(-1)">
+					<i class="fa fa-arrow-down"></i>
+				</span>
+			</div>
 		</div>
-		<div class="vote">
-			<span :class="'voteButton downvote' + ((submission.user_down) ? ' active' : '')" v-on:click.stop="vote(-1)">
-				<i class="fa fa-arrow-down"></i>
-				{{ -1 * submission.num_down }}
-			</span>
+		<div class="column small-8">
+			<div class="ratingWrap">
+				<div class="rating">
+					<div class="bar" :style="'width: ' + ratingPercent + '%'"></div>
+					<div class="labels">
+						<div class="up">
+							{{ submission.num_up }}
+						</div>
+						<div class="down">
+							{{ submission.num_down }}
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -28,6 +43,11 @@
 		},
 
 		computed: {
+			ratingPercent() {
+				let totalVotes = this.submission.num_up + this.submission.num_down;
+				let ratio = this.submission.num_up / totalVotes;
+				return ratio * 100;
+			},
 		},
 
 		mounted() {
