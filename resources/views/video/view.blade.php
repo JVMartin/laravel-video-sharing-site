@@ -34,7 +34,9 @@
 					<script>
 						var submission = {!! json_encode($submission) !!};
 					</script>
-					<rating></rating>
+					<div class="expander">
+						<rating></rating>
+					</div>
 				</div>
 
 				<div class="row column">
