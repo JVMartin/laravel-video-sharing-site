@@ -1,6 +1,6 @@
 <template>
 	<div class="row">
-		<div class="column small-4">
+		<div class="column small-5">
 			<div class="vote">
 				<span :class="'voteButton upvote' + ((submission.user_up) ? ' active' : '')" v-on:click.stop="vote(1)">
 					<i class="fa fa-arrow-up"></i>
@@ -12,7 +12,7 @@
 				</span>
 			</div>
 		</div>
-		<div class="column small-8">
+		<div class="column small-7">
 			<div class="ratingWrap">
 				<div class="rating">
 					<div class="bar" :style="'width: ' + ratingPercent + '%'"></div>
