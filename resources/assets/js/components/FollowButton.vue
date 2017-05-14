@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<button class="button">
-
+			Follow
 		</button>
 	</div>
 </template>

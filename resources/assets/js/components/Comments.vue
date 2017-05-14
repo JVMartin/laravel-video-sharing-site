@@ -69,7 +69,7 @@
 		<div class="row column large-8" v-if=" ! on_profile" v-show=" ! parent_comment || parent_comment.replying">
 			<h4 v-if="parent_comment">Reply to {{ parent_comment.user.username }}</h4>
 			<h4 v-else>Leave a comment</h4>
-			<div v-if="data.user">
+			<div v-if="user">
 				<textarea :id="wysiwygId"></textarea>
 				<div class="row column text-right postCommentWrap">
 					<button type="submit" class="button" v-on:click="submitComment">

@@ -96,3 +96,9 @@ if ($('rating').length) {
 		el: 'rating'
 	});
 }
+if ($('follow-button').length) {
+	Vue.component('follow-button', require('./components/FollowButton.vue'));
+	new Vue({
+		el: 'follow-button'
+	});
+}
