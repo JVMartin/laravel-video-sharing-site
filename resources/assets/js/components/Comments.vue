@@ -87,7 +87,6 @@
 <script>
 	import tinymceConfig from '../tinymce-config';
 
-	const data = window.data;
 	const user_comments = window.user_comments;
 
 	export default {
@@ -101,8 +100,8 @@
 
 		data() {
 			return {
-				// Data passed in from Laravel.
-				data: data,
+				// The signed-in user.
+				user: window.data.user,
 
 				// The list of comments.
 				comments: [],
@@ -199,7 +198,7 @@
 			 */
 			vote(comment, value) {
 				// They must be signed in.
-				if ( ! this.data.user) {
+				if ( ! this.user) {
 					$('#modalsSignIn').foundation('open');
 					return;
 				}
@@ -299,7 +298,7 @@
 			 */
 			replyTo(comment) {
 				// They must be signed in.
-				if ( ! this.data.user) {
+				if ( ! this.user) {
 					$('#modalsSignIn').foundation('open');
 					return;
 				}

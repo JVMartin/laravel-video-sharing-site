@@ -34,11 +34,11 @@
 	export default {
 		data() {
 			return {
-				// Data passed in from Laravel.
-				data: window.data,
+				// The signed-in user.
+				user: window.data.user,
 
 				// The submission.
-				submission: window.submission,
+				submission: window.submission
 			};
 		},
 
@@ -61,7 +61,7 @@
 			 */
 			vote(value) {
 				// They must be signed in.
-				if ( ! this.data.user) {
+				if ( ! this.user) {
 					$('#modalsSignIn').foundation('open');
 					return;
 				}
