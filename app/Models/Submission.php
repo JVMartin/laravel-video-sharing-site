@@ -44,6 +44,11 @@ class Submission extends Model implements TaggableInterface
 		return $this->hasMany(Comment::class);
 	}
 
+	public function votes()
+	{
+		return $this->hasMany(SubmissionVote::class);
+	}
+
 	public function commentsCount()
 	{
 		return $this->comments()
