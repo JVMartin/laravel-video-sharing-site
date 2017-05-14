@@ -14,7 +14,7 @@
 	@endif
 
 	<script>
-		window.user_comments = {!! json_encode($comments->all()) !!};
+		var user_comments = {!! json_encode($comments->all()) !!};
 	</script>
 
 	<section id="comments">
