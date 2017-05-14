@@ -36,7 +36,7 @@ class CompileSubmission implements ShouldQueue
 		$submission = $this->submission;
 
 		// First let's get the number of comments it has.
-		$num_comments = Comment::where('submission_id', $submission->submission_id)
+		$num_comments = Comment::where('submission_id', $submission->id)
 			->count();
 
 		// Next, let's get the votes.
@@ -46,10 +46,13 @@ class CompileSubmission implements ShouldQueue
 			->groupBy('submission_id')
 			->first();
 
+		$num_up = ($votes) ? $votes->num_up : 0;
+		$num_down = ($votes) ? $votes->num_down : 0;
+
 		$submissionRepository->update($submission, [
-			'score' => $votes->num_up - $votes->num_down,
-			'num_up' => $votes->num_up,
-			'num_down' => $votes->num_down,
+			'score' => $num_up - $num_down,
+			'num_up' => $num_up,
+			'num_down' => $num_down,
 			'num_comments' => $num_comments,
 		]);
 	}

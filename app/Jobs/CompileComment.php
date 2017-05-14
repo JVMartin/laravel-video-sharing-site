@@ -47,10 +47,13 @@ class CompileComment implements ShouldQueue
 			->groupBy('comment_id')
 			->first();
 
+		$num_up = ($votes) ? $votes->num_up : 0;
+		$num_down = ($votes) ? $votes->num_down : 0;
+
 		$commentRepository->update($comment, [
-			'score' => $votes->num_up - $votes->num_down,
-			'num_up' => $votes->num_up,
-			'num_down' => $votes->num_down,
+			'score' => $num_up - $num_down,
+			'num_up' => $num_up,
+			'num_down' => $num_down,
 			'num_replies' => $num_replies,
 		]);
 	}
