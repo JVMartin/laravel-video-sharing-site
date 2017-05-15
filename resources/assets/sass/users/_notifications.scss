@@ -1,0 +1,14 @@
+#usersNotifications {
+	.notification {
+		display: block;
+		padding: 10px;
+		border-radius: 6px;
+		background-color: $white;
+		margin-bottom: 20px;
+		@include thumbnail-link;
+
+		&:hover {
+
+		}
+	}
+}
