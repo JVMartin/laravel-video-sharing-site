@@ -7,10 +7,20 @@ use App\Jobs\Notifications\Follow;
 
 class FollowManager
 {
+	/**
+	 * Have a user start or stop following another user.
+	 *
+	 * @param User $leader
+	 * @param User $follower
+	 * @param bool $follow
+	 * @return void
+	 */
 	public function follow(User $leader, User $follower, $follow = true)
 	{
 		if ($follow) {
 			$leader->followers()->attach($follower->id);
+
+			// Notify the leader of their new follower.
 			dispatch(new Follow($leader, $follower));
 		}
 		else {
