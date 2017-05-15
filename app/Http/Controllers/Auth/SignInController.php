@@ -63,6 +63,6 @@ class SignInController extends Controller
 		$this->authManager->signOut();
 
 		successMessage(trans('auth.sign-out'));
-		return redirect(route('home'));
+		return redirect()->back();
 	}
 }

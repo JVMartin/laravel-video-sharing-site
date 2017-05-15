@@ -8,7 +8,7 @@
 			<div class="row column">
 				<h4>Showing videos tagged "{{ $tag->name }}"...</h4>
 			</div>
-		@else
+		@elseif (Auth::check())
 			<ul class="menu topMenu">
 				<li class="{{ Request::route()->getName() == 'home' ? 'active' : '' }}">
 					<a href="{{ route('home') }}">
