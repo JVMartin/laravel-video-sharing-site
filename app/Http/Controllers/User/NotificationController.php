@@ -18,9 +18,11 @@ class NotificationController extends Controller
 	 */
 	public function getNotifications()
 	{
-		$notifications = Notification::where('user_id', Auth::user()->id)->paginate();
+		$notifications = Notification::where('user_id', Auth::user()->id)
+			->orderBy('updated_at', 'DESC')
+			->paginate();
 
-		return view('', [
+		return view('users.notifications', [
 			'notifications' => $notifications,
 		]);
 	}
