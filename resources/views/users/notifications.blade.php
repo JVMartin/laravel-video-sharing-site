@@ -32,7 +32,7 @@
 									<i class="fa fa-circle"></i>
 								@endif
 								@if ($notification->type == 'comments')
-									Your submission "{{ $notifiable->title }}" has {{ $notification->count }} comment{{ $notification->count > 1 ? 's' : '' }}.
+									Your submission has {{ $notification->count }} comment{{ $notification->count > 1 ? 's' : '' }}.
 								@endif
 							</div>
 						</div>
