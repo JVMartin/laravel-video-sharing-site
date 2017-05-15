@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use DB;
+use Auth;
 use App\Models\User;
 use App\Models\Submission;
 use App\Repositories\VideoRepository;
@@ -46,6 +48,23 @@ class BrowseManager
 	public function home()
 	{
 		return $this->browseQuery()->paginate(static::PER_PAGE);
+	}
+
+	/**
+	 * Get submissions by users the signed-in user follows.
+	 *
+	 * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+	 */
+	public function feed()
+	{
+		$leader_ids = DB::table('follows')
+			->select('leader_id')
+			->where('follower_id', Auth::user()->id)
+			->get()
+			->pluck('leader_id')
+			->all();
+
+		return $this->browseQuery()->whereIn('user_id', $leader_ids)->paginate();
 	}
 
 	/**

@@ -15,12 +15,29 @@
 						The Unwashed Masses
 					</a>
 				</li>
-				<li class="{{ Request::route()->getName() == 'my-feed' ? 'active' : '' }}">
+				<li class="{{ Request::route()->getName() == 'feed' ? 'active' : '' }}">
 					<a href="{{ route('feed') }}">
-						My Feed
+						My Personal Feed
 					</a>
 				</li>
 			</ul>
+		@endif
+		@if ( ! $submissions->count())
+			@if (Request::route()->getName() == 'feed')
+				@if (Auth::user()->leaders()->count())
+					<div class="row column">
+						<div class="callout default">
+							Nobody you are following has made any submissions.
+						</div>
+					</div>
+				@else
+					<div class="row column">
+						<div class="callout default">
+							You aren't following anybody yet.
+						</div>
+					</div>
+				@endif
+			@endif
 		@endif
 		<div class="row small-up-2 medium-up-3 large-up-4">
 			@foreach ($submissions as $submission)

@@ -15,6 +15,10 @@ class BrowseController extends Controller
 
 	public function __construct(BrowseManager $browseManager)
 	{
+		$this->middleware('auth', [
+			'only' => ['getMyFeed']
+		]);
+
 		$this->browseManager = $browseManager;
 	}
 
@@ -28,6 +32,20 @@ class BrowseController extends Controller
 		]);
 	}
 
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
+	public function getMyFeed()
+	{
+		return view('video.browse', [
+			'submissions' => $this->browseManager->feed()
+		]);
+	}
+
+	/**
+	 * @param string $tagSlug
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function getByTag($tagSlug)
 	{
 		$tag = IlluminateTag::where('slug', $tagSlug)->first();
