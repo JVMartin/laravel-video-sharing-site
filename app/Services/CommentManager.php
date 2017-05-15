@@ -11,6 +11,7 @@ use InvalidArgumentException;
 use App\Jobs\CompileSubmission;
 use App\Repositories\CommentRepository;
 use App\Repositories\SubmissionRepository;
+use App\Jobs\Notifications\CommentOnSubmission;
 
 class CommentManager
 {
@@ -96,9 +97,12 @@ class CommentManager
 			// Ensure the parent's reply count gets re-compiled.
 			dispatch(new CompileComment($parentComment));
 		}
+		else {
+			dispatch(new CommentOnSubmission($submission));
+		}
 
 		// Ensure the submission's comment count gets re-compiled.
-		dispatch(new CompileSubmission($comment->submission));
+		dispatch(new CompileSubmission($submission));
 
 		// Ensure the comment has all of its attributes by grabbing it fresh from the database.
 		$comment = $this->commentRepository->getByKey($comment->id);
