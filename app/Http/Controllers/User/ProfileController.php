@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\User;
 
 use App\Services\BrowseManager;
+use App\Http\Controllers\Controller;
 use App\Repositories\UserRepository;
 use App\Repositories\CommentRepository;
 
-class ProfileController
+class ProfileController extends Controller
 {
 	/**
 	 * @var UserRepository

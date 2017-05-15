@@ -6,9 +6,10 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Services\FollowManager;
 use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
 use App\Repositories\UserRepository;
 
-class FollowController
+class FollowController extends Controller
 {
 	/**
 	 * @var UserRepository
