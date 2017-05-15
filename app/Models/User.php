@@ -63,6 +63,11 @@ class User extends Model implements
 		return $this->hasMany(Notification::class);
 	}
 
+	public function unreadNotifications()
+	{
+		return $this->notifications()->whereNull('read_at');
+	}
+
 	/**
 	 * Send the password reset notification.
 	 *

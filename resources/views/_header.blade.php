@@ -23,6 +23,11 @@
 								Submit Video
 							</a>
 						</li>
+						<li>
+							<a href="{{ route('notifications') }}">
+								Notifications ({{ Auth::user()->unreadNotifications()->count() }})
+							</a>
+						</li>
 						<li class="is-dropdown-submenu-parent">
 							<a class="account">
 								<div class="avatarWrap">

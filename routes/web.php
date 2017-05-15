@@ -22,6 +22,13 @@ Route::group(['prefix' => 'video'], function() {
 	]);
 });
 
+Route::group(['prefix' => 'notifications'], function() {
+	Route::get('/', [
+		'as' => 'notifications',
+		'uses' => 'User\NotificationController@getNotifications',
+	]);
+});
+
 Route::group(['prefix' => 'submissions'], function() {
 	Route::post('vote/{hashid}', [
 		'as' => 'submissions.vote',
