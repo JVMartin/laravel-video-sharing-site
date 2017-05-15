@@ -37,4 +37,21 @@ class SendNotification implements ShouldQueue
 
 		return $notification;
 	}
+
+	/**
+	 * @param User $user
+	 * @param $notifiable
+	 * @param string $type
+	 * @return bool
+	 */
+	protected function alreadyNotified($user, $notifiable, $type)
+	{
+		$count = $notification = $user->notifications()
+			->where('notifiable_id', $notifiable->id)
+			->where('notifiable_type', get_class($notifiable))
+			->where('type', $type)
+			->first();
+
+		return ($count) ? true : false;
+	}
 }

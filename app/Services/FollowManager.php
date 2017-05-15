@@ -10,6 +10,7 @@ class FollowManager
 	{
 		if ($follow) {
 			$leader->followers()->attach($follower->id);
+			dispatch();
 		}
 		else {
 			$leader->followers()->detach($follower->id);
