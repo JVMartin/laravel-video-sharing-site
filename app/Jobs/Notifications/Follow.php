@@ -32,6 +32,10 @@ class Follow extends SendNotification
 		$leader = $this->leader;
 		$follower = $this->follower;
 
+		if ($leader->id == $follower->id) {
+			return;
+		}
+
 		// Has this follower already followed this leader in the past?
 		if ($this->alreadyNotified($leader, $follower, 'follow')) {
 

@@ -40,6 +40,10 @@ class FollowController extends Controller
 			return new JsonResponse('That user no longer exists.', 422);
 		}
 
+		if ($leader->id == Auth::user()->id) {
+			return new JsonResponse('What the heck are you doin?', 422);
+		}
+
 		$this->followManager->follow($leader, Auth::user(), $request->follow);
 		return new JsonResponse();
 	}

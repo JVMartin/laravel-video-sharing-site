@@ -1,6 +1,11 @@
 <template>
 	<div>
-		<button :class="'button followButton ' + (followingBoolean ? 'disabledFake' : '')" v-text="followingText" v-on:click="follow">
+		<button
+			:class="'button followButton ' + (followingBoolean ? 'disabledFake' : '')"
+			v-text="followingText"
+			v-on:click="follow"
+		    v-if="leader_hash != user.hash"
+		>
 		</button>
 	</div>
 </template>
