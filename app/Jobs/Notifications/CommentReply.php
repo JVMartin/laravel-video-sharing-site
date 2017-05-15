@@ -4,7 +4,7 @@ namespace App\Jobs\Notifications;
 
 use App\Models\Comment;
 
-class CommentOnComment extends SendNotification
+class CommentReply extends SendNotification
 {
 	/**
 	 * @var Comment

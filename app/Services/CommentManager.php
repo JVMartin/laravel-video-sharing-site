@@ -10,6 +10,7 @@ use App\Jobs\CompileComment;
 use InvalidArgumentException;
 use App\Jobs\CompileSubmission;
 use App\Repositories\CommentRepository;
+use App\Jobs\Notifications\CommentReply;
 use App\Repositories\SubmissionRepository;
 use App\Jobs\Notifications\CommentOnSubmission;
 
@@ -96,6 +97,9 @@ class CommentManager
 
 			// Ensure the parent's reply count gets re-compiled.
 			dispatch(new CompileComment($parentComment));
+
+			// Notify the parent's user of this reply.
+			dispatch(new CommentReply($parentComment));
 		}
 		else {
 			dispatch(new CommentOnSubmission($submission));
