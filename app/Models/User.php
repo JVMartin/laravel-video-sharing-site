@@ -6,7 +6,6 @@ use Auth;
 use Mail;
 use App\Mail\ResetPasswordLinkEmail;
 use Illuminate\Auth\Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -18,7 +17,7 @@ class User extends Model implements
 	AuthorizableContract,
 	CanResetPasswordContract
 {
-	use Authenticatable, Authorizable, CanResetPassword, Notifiable;
+	use Authenticatable, Authorizable, CanResetPassword;
 
 	/**
 	 * The attributes that should be hidden for arrays.
@@ -57,6 +56,11 @@ class User extends Model implements
 	public function leaders()
 	{
 		return $this->belongsToMany(User::class, 'follows', 'follower_id', 'leader_id');
+	}
+
+	public function notifications()
+	{
+		return $this->hasMany(Notification::class);
 	}
 
 	/**

@@ -20,7 +20,7 @@ class CreateNotificationsTable extends Migration
 			$table->string('notifiable_type');
 			$table->string('type');
 			$table->integer('count')->unsigned();
-			$table->boolean('read');
+			$table->timestamp('read_at')->nullable();
 			$table->timestamps();
 
 			$table->foreign('user_id')
