@@ -1,6 +1,6 @@
 @extends('template')
 
-@section('title', 'Site')
+@section('title', $user->username . ' Comments')
 
 @section('content')
 	@include('users._header')
