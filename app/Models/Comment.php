@@ -41,4 +41,12 @@ class Comment extends Model
 	{
 		return $this->hasMany(Comment::class, 'parent_id');
 	}
+
+	/**
+	 * TODO: Eventually this should lead straight to the comment.
+	 */
+	public function url()
+	{
+		return $this->submission->url();
+	}
 }
