@@ -41,6 +41,12 @@
 				}
 
 				this.followingBoolean = ! this.followingBoolean;
+
+				axios.post('/user/vote/' + submission.hash, {
+					value: value,
+				}).then(function(response) {
+					//
+				});
 			},
 		},
 	};
