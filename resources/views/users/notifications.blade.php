@@ -20,7 +20,7 @@
 		@foreach ($notifications as $notification)
 			@php($notifiable = $notification->notifiable)
 				@if ($notifiable instanceof App\Models\Submission)
-					<a class="notification" href="{{ $notifiable->url() }}" target="_blank">
+					<a class="notification" href="{{ $notifiable->url() }}" target="_blank" data-hashid="{{ $notification->hash }}">
 						<div class="row">
 							<div class="column small-2">
 								<img src="https://img.youtube.com/vi/{{ $notifiable->video->youtube_id }}/default.jpg" />

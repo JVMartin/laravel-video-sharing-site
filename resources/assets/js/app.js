@@ -102,3 +102,6 @@ if ($('follow-button').length) {
 		el: 'follow-button'
 	});
 }
+if ($('#usersNotifications').length) {
+	require('./notifications');
+}

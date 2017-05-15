@@ -27,6 +27,10 @@ Route::group(['prefix' => 'notifications'], function() {
 		'as' => 'notifications',
 		'uses' => 'User\NotificationController@getNotifications',
 	]);
+	Route::post('read/{hashid}', [
+		'as' => 'notifications.read',
+		'uses' => 'User\NotificationController@postReadNotification',
+	]);
 });
 
 Route::group(['prefix' => 'submissions'], function() {
