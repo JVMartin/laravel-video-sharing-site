@@ -19,7 +19,7 @@ class CreateNotificationsTable extends Migration
 			$table->integer('notifiable_id')->unsigned();
 			$table->string('notifiable_type');
 			$table->string('type');
-			$table->integer('count')->unsigned();
+			$table->integer('count')->unsigned()->nullable();
 			$table->timestamp('read_at')->nullable();
 			$table->timestamps();
 
