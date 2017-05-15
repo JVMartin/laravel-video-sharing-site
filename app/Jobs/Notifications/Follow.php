@@ -35,7 +35,7 @@ class Follow extends SendNotification
 		// Has this follower already followed this leader in the past?
 		if ($this->alreadyNotified($leader, $follower, 'follow')) {
 
-			// Well let's not keep notifying them
+			// Well, let's not keep notifying them.
 			return;
 		}
 
