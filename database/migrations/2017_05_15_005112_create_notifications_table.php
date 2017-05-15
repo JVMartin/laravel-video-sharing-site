@@ -16,6 +16,10 @@ class CreateNotificationsTable extends Migration
 		Schema::create('notifications', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
+			$table->integer('notifiable_id')->unsigned();
+			$table->string('notifiable_type');
+			$table->string('type');
+			$table->integer('count')->unsigned();
 			$table->boolean('read');
 
 			$table->foreign('user_id')
@@ -31,6 +35,6 @@ class CreateNotificationsTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('follows');
+		Schema::dropIfExists('notifications');
 	}
 }
