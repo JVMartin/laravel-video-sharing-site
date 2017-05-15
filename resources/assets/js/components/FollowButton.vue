@@ -43,7 +43,7 @@
 				this.followingBoolean = ! this.followingBoolean;
 
 				axios.post('/user/vote/' + submission.hash, {
-					value: value,
+					follow: this.followingBoolean,
 				}).then(function(response) {
 					//
 				});
