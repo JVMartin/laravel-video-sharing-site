@@ -31,6 +31,10 @@ Route::group(['prefix' => 'notifications'], function() {
 		'as' => 'notifications.read',
 		'uses' => 'User\NotificationController@postReadNotification',
 	]);
+	Route::get('read-all', [
+		'as' => 'notifications.read-all',
+		'uses' => 'User\NotificationController@getReadAllNotifications',
+	]);
 });
 
 Route::group(['prefix' => 'submissions'], function() {

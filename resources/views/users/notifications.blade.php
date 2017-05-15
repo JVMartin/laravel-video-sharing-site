@@ -6,7 +6,7 @@
 	<section id="usersNotifications">
 		@if ($notifications->count())
 			@if (Auth::user()->unreadNotifications()->count())
-				<a class="button">
+				<a class="button" href="{{ route('notifications.read-all') }}">
 					Mark all as read
 				</a>
 			@endif

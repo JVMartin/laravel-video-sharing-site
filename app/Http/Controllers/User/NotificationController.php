@@ -51,4 +51,16 @@ class NotificationController extends Controller
 
 		return new JsonResponse();
 	}
+
+	/**
+	 * Mark all notifications as read.
+	 */
+	public function getReadAllNotifications()
+	{
+		Auth::user()->unreadNotifications()->update([
+			'read_at' => Carbon::now(),
+		]);
+
+		return redirect()->route('notifications');
+	}
 }
