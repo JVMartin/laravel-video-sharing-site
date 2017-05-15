@@ -25,7 +25,7 @@
 					<h4>Submitted By</h4>
 					<div class="expander submittedBy">
 						<div class="row">
-							<div class="column large-8">
+							<div class="column small-8">
 								<a href="{{ $submission->user->url() }}">
 									<div class="avatarWrap">
 										<img src="{{ $submission->user->avatar_url }}" class="avatar" />
@@ -38,7 +38,7 @@
 									on {{ $submission->created_at->toDayDateTimeString() }}
 								</div>
 							</div>
-							<div class="column large-4">
+							<div class="column small-4">
 								<div class="followButtonWrap">
 									<follow-button
 										leader_hash="{{ $submission->user->hash }}"

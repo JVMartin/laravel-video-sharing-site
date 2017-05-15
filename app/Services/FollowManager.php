@@ -17,6 +17,11 @@ class FollowManager
 	 */
 	public function follow(User $leader, User $follower, $follow = true)
 	{
+		if ($leader->id == $follower->id) {
+			// What is this fuckery?
+			return;
+		}
+
 		if ($follow) {
 			$leader->followers()->attach($follower->id);
 
