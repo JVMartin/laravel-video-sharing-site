@@ -63,9 +63,9 @@
 
 @task('optimizations')
 	cd {{ $releasesPath }}/{{ $release }};
-	php artisan optimize
-	php artisan config:cache
-	php artisan route:cache
+	php artisan optimize;
+	php artisan config:cache;
+	php artisan route:cache;
 @endtask
 
 @task('switch')
