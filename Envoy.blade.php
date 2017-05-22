@@ -46,12 +46,12 @@
 	fi
 
 	rm -rf {{ $releasesPath }}/{{ $release }}/storage
-	ln -sfv {{ $storagePath }} {{ $releasesPath }}/{{ $release }}
-	ln -sfv {{ $envPath }} {{ $releasesPath }}/{{ $release }}
+	ln -sfvT {{ $storagePath }} {{ $releasesPath }}/{{ $release }}/storage
+	ln -sfvT {{ $envPath }} {{ $releasesPath }}/{{ $release }}/.env
 	cd {{ $releasesPath }}/{{ $release }}
 	php artisan storage:link
 @endtask
 
 @task('switch')
-	ln -sfv {{ $releasesPath }}/{{ $release }} {{ $currentLink }}
+	ln -sfvT {{ $releasesPath }}/{{ $release }} {{ $currentLink }}
 @endtask
