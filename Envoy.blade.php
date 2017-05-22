@@ -4,6 +4,7 @@
 	$dir = dirname(__DIR__);
 	$releasesPath = $dir . '/releases';
 	$storagePath = $dir . '/storage';
+	$appPath = $dir . '/app';
 	$release = date('YmdHis');
 @endsetup
 
@@ -34,11 +35,15 @@
 
 @task('links')
 	{{-- Copy the storage folder if it doesn't exist yet. --}}
-	if [ -d {{ $storagePath }} ]; then
+	if [ ! -d {{ $storagePath }} ]; then
 		cp -r {{ $releasesPath }}/{{ $release }}/storage {{ $storagePath }}
 	fi
 
 	ln -sf {{ $storagePath }} {{ $releasesPath }}/{{ $release }}/storage
 	cd {{ $releasesPath }}/{{ $release }}
 	php artisan storage:link
+@endtask
+
+@task('switch')
+	ln -sf {{ $appPath }} {{ $releasesPath }}/{{ $release }}
 @endtask
