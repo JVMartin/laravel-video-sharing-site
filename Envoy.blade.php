@@ -51,6 +51,7 @@
 	cd {{ $releasesPath }}/{{ $release }};
 	php artisan storage:link;
 	php artisan migrate --force;
+	php artisan queue:restart;
 @endtask
 
 @task('switch')
