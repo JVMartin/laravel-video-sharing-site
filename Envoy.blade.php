@@ -4,6 +4,7 @@
 	$dir = dirname(__DIR__);
 	$releasesPath = $dir . '/releases';
 	$storagePath = $dir . '/storage';
+	$envPath = $dir . '/.env';
 	$currentLink = $dir . '/current';
 	$release = date('YmdHis');
 @endsetup
@@ -39,8 +40,14 @@
 		cp -r {{ $releasesPath }}/{{ $release }}/storage {{ $storagePath }}
 	fi
 
+	{{-- Copy the .env file if it doesn't exist .yet. --}}
+	if [ ! -f {{ $envPath }} ]; then
+		cp -r {{ $releasesPath }}/{{ $release }}/.env.example {{ $envPath }}
+	fi
+
 	rm -rf {{ $releasesPath }}/{{ $release }}/storage
 	ln -sfv {{ $storagePath }} {{ $releasesPath }}/{{ $release }}
+	ln -sfv {{ $envPath }} {{ $releasesPath }}/{{ $release }}
 	cd {{ $releasesPath }}/{{ $release }}
 	php artisan storage:link
 @endtask
