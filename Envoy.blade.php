@@ -14,6 +14,7 @@
 	composer
 	yarn
 	links
+	flushes
 	switch
 @endstory
 
@@ -50,7 +51,11 @@
 	ln -sfvT {{ $envPath }} {{ $releasesPath }}/{{ $release }}/.env;
 	cd {{ $releasesPath }}/{{ $release }};
 	php artisan storage:link;
+@endtask
+
+@task('flushes')
 	php artisan migrate --force;
+	php artisan cache:clear;
 	php artisan queue:restart;
 @endtask
 
