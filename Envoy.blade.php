@@ -46,5 +46,5 @@
 @endtask
 
 @task('switch')
-	ln -sfv {{ $appPath }} {{ $releasesPath }}/{{ $release }}
+	ln -sfv {{ $releasesPath }}/{{ $release }} {{ $appPath }}
 @endtask
