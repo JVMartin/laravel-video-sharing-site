@@ -15,6 +15,7 @@
 	yarn
 	links
 	flushes
+	optimizations
 	switch
 @endstory
 
@@ -58,6 +59,13 @@
 	php artisan migrate --force;
 	php artisan cache:clear;
 	php artisan queue:restart;
+@endtask
+
+@task('optimizations')
+	cd {{ $releasesPath }}/{{ $release }};
+	php artisan optimize
+	php artisan config:cache
+	php artisan route:cache
 @endtask
 
 @task('switch')
