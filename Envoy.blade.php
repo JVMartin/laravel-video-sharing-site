@@ -54,6 +54,7 @@
 @endtask
 
 @task('flushes')
+	cd {{ $releasesPath }}/{{ $release }};
 	php artisan migrate --force;
 	php artisan cache:clear;
 	php artisan queue:restart;
