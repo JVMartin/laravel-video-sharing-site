@@ -39,7 +39,8 @@
 		cp -r {{ $releasesPath }}/{{ $release }}/storage {{ $storagePath }}
 	fi
 
-	ln -sfv {{ $storagePath }} {{ $releasesPath }}/{{ $release }}/storage
+	rm -rf {{ $releasesPath }}/{{ $release }}/storage
+	ln -sfv {{ $storagePath }} {{ $releasesPath }}/{{ $release }}
 	cd {{ $releasesPath }}/{{ $release }}
 	php artisan storage:link
 @endtask
