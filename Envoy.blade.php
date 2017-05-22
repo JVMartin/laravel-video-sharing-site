@@ -24,34 +24,34 @@
 @endtask
 
 @task('composer')
-	cd {{ $releasesPath }}/{{ $release }}
+	cd {{ $releasesPath }}/{{ $release }};
 	composer install;
 @endtask
 
 @task('yarn')
-	cd {{ $releasesPath }}/{{ $release }}
-	yarn
-	yarn run prod
+	cd {{ $releasesPath }}/{{ $release }};
+	yarn;
+	yarn run prod;
 @endtask
 
 @task('links')
 	{{-- Copy the storage folder if it doesn't exist yet. --}}
 	if [ ! -d {{ $storagePath }} ]; then
-		cp -r {{ $releasesPath }}/{{ $release }}/storage {{ $storagePath }}
+		cp -r {{ $releasesPath }}/{{ $release }}/storage {{ $storagePath }};
 	fi
 
 	{{-- Copy the .env file if it doesn't exist .yet. --}}
 	if [ ! -f {{ $envPath }} ]; then
-		cp -r {{ $releasesPath }}/{{ $release }}/.env.example {{ $envPath }}
+		cp -r {{ $releasesPath }}/{{ $release }}/.env.example {{ $envPath }};
 	fi
 
-	rm -rf {{ $releasesPath }}/{{ $release }}/storage
-	ln -sfvT {{ $storagePath }} {{ $releasesPath }}/{{ $release }}/storage
-	ln -sfvT {{ $envPath }} {{ $releasesPath }}/{{ $release }}/.env
-	cd {{ $releasesPath }}/{{ $release }}
-	php artisan storage:link
+	rm -rf {{ $releasesPath }}/{{ $release }}/storage;
+	ln -sfvT {{ $storagePath }} {{ $releasesPath }}/{{ $release }}/storage;
+	ln -sfvT {{ $envPath }} {{ $releasesPath }}/{{ $release }}/.env;
+	cd {{ $releasesPath }}/{{ $release }};
+	php artisan storage:link;
 @endtask
 
 @task('switch')
-	ln -sfvT {{ $releasesPath }}/{{ $release }} {{ $currentLink }}
+	ln -sfvT {{ $releasesPath }}/{{ $release }} {{ $currentLink }};
 @endtask
