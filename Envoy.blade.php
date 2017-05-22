@@ -4,7 +4,7 @@
 	$dir = dirname(__DIR__);
 	$releasesPath = $dir . '/releases';
 	$storagePath = $dir . '/storage';
-	$appPath = $dir . '/app';
+	$currentLink = $dir . '/current';
 	$release = date('YmdHis');
 @endsetup
 
@@ -46,5 +46,5 @@
 @endtask
 
 @task('switch')
-	ln -sfv {{ $releasesPath }}/{{ $release }} {{ $appPath }}
+	ln -sfv {{ $releasesPath }}/{{ $release }} {{ $currentLink }}
 @endtask
