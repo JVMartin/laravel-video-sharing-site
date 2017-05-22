@@ -39,11 +39,11 @@
 		cp -r {{ $releasesPath }}/{{ $release }}/storage {{ $storagePath }}
 	fi
 
-	ln -sf {{ $storagePath }} {{ $releasesPath }}/{{ $release }}/storage
+	ln -sfv {{ $storagePath }} {{ $releasesPath }}/{{ $release }}/storage
 	cd {{ $releasesPath }}/{{ $release }}
 	php artisan storage:link
 @endtask
 
 @task('switch')
-	ln -sf {{ $appPath }} {{ $releasesPath }}/{{ $release }}
+	ln -sfv {{ $appPath }} {{ $releasesPath }}/{{ $release }}
 @endtask
