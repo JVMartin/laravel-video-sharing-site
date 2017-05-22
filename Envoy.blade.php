@@ -43,7 +43,7 @@
 
 	{{-- Copy the .env file if it doesn't exist .yet. --}}
 	if [ ! -f {{ $envPath }} ]; then
-		cp -r {{ $releasesPath }}/{{ $release }}/.env.example {{ $envPath }};
+		cp {{ $releasesPath }}/{{ $release }}/.env.example {{ $envPath }};
 	fi
 
 	rm -rf {{ $releasesPath }}/{{ $release }}/storage;
