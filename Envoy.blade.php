@@ -50,6 +50,7 @@
 	ln -sfvT {{ $envPath }} {{ $releasesPath }}/{{ $release }}/.env;
 	cd {{ $releasesPath }}/{{ $release }};
 	php artisan storage:link;
+	php artisan migrate --force;
 @endtask
 
 @task('switch')
