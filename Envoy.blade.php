@@ -3,6 +3,7 @@
 @setup
 	$dir = dirname(__DIR__);
 	$releasesPath = $dir . '/releases';
+	$storagePath = $dir . '/storage';
 	$release = date('YmdHis');
 @endsetup
 
@@ -27,10 +28,17 @@
 
 @task('yarn')
 	cd {{ $releasesPath }}/{{ $release }}
+	yarn
 	yarn run prod
 @endtask
 
 @task('links')
+	{{-- Copy the storage folder if it doesn't exist yet. --}}
+	if [ -d {{ $storagePath }} ]; then
+		cp -r {{ $releasesPath }}/{{ $release }}/storage {{ $storagePath }}
+	fi
+
+	ln -sf {{ $storagePath }} {{ $releasesPath }}/{{ $release }}/storage
 	cd {{ $releasesPath }}/{{ $release }}
 	php artisan storage:link
 @endtask
