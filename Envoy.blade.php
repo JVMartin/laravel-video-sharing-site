@@ -62,4 +62,5 @@
 
 @task('switch')
 	ln -sfvT {{ $releasesPath }}/{{ $release }} {{ $currentLink }};
+	sudo systemctl reload php7.0-fpm.service
 @endtask
