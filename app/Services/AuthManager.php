@@ -172,7 +172,7 @@ class AuthManager
 	 */
 	public function callbackGoogle($code)
 	{
-		$this->googleClient()->authenticate($code);
+		$this->googleClient()->fetchAccessTokenWithAuthCode($code);
 		$googleAuth = new Google_Service_Oauth2($this->googleClient());
 		$googleUser = $googleAuth->userinfo->get();
 
