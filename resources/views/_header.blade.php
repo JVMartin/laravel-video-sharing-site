@@ -30,14 +30,14 @@
 								Notifications ({{ Auth::user()->unreadNotifications()->count() }})
 							</a>
 						</li>
-						<li class="is-dropdown-submenu-parent">
+						<li>
 							<a class="account">
 								<div class="avatarWrap">
 									<span class="avatar" style="background-image:url({{ Auth::user()->avatar_url }});"></span>
 								</div>
 								Account
 							</a>
-							<ul class="menu vertical is-dropdown-submenu">
+							<ul class="menu vertical">
 								<li>
 									<a href="{{ route('user.profile', Auth::user()->username) }}">
 										<i class="fa fa-user"></i>
