@@ -18,7 +18,7 @@
 				</ul>
 			</div>
 			<div class="top-bar-right">
-				<ul class="menu dropdown vertical medium-horizontal" data-dropdown-menu>
+				<ul class="menu drilldown vertical medium-horizontal" data-responsive-menu="drilldown medium-dropdown">
 					@if (Auth::check())
 						<li>
 							<a href="{{ route('video.submit.url') }}">
@@ -37,7 +37,7 @@
 								</div>
 								Account
 							</a>
-							<ul class="menu is-dropdown-submenu">
+							<ul class="menu vertical is-dropdown-submenu">
 								<li>
 									<a href="{{ route('user.profile', Auth::user()->username) }}">
 										<i class="fa fa-user"></i>
