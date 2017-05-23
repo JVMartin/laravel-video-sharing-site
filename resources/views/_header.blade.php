@@ -1,12 +1,14 @@
 <section id="partialsHeader">
 	<div class="title-bar" data-responsive-toggle="headerMenu" data-hide-for="medium">
 		<button class="menu-icon" type="button" data-toggle></button>
-		<div class="title-bar-title">Menu</div>
+		<a href="{{ route('home') }}" class="brand">
+			OneMore <span>Video</span>
+		</a>
 	</div>
 
 	<div class="top-bar" id="headerMenu">
 		<div class="row column">
-			<div class="top-bar-left">
+			<div class="top-bar-left hide-for-small-only">
 				<ul class="menu" data-responsive-menu="accordion">
 					<li>
 						<a href="{{ route('home') }}" class="brand">
