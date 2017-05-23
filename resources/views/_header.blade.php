@@ -16,7 +16,7 @@
 				</ul>
 			</div>
 			<div class="top-bar-right">
-				<ul class="dropdown menu" data-dropdown-menu>
+				<ul class="dropdown vertical medium-horizontal menu" data-dropdown-menu>
 					@if (Auth::check())
 						<li>
 							<a href="{{ route('video.submit.url') }}">
