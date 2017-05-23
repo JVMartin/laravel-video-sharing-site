@@ -71,6 +71,7 @@
 @endtask
 
 @task('switch')
+	cd {{ $releasesPath }}/{{ $release }};
 	ln -sfvT {{ $releasesPath }}/{{ $release }} {{ $currentLink }};
 	sudo systemctl reload php7.0-fpm.service;
 	php artisan queue:restart;
