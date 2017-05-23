@@ -58,7 +58,6 @@
 	cd {{ $releasesPath }}/{{ $release }};
 	php artisan migrate --force;
 	php artisan cache:clear;
-	php artisan queue:restart;
 @endtask
 
 @task('optimizations')
@@ -74,4 +73,5 @@
 @task('switch')
 	ln -sfvT {{ $releasesPath }}/{{ $release }} {{ $currentLink }};
 	sudo systemctl reload php7.0-fpm.service;
+	php artisan queue:restart;
 @endtask
