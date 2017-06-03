@@ -1,6 +1,6 @@
 @extends('template')
 
-@section('title', 'Site')
+@section('title', 'Browse')
 
 @section('content')
 	<section id="videoBrowse">
