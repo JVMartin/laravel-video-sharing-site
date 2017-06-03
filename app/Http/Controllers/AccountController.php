@@ -117,8 +117,9 @@ class AccountController extends Controller
 
 		$this->imageManager->deleteAvatarIfExists($user);
 
-		$user->avatar = null;
-		$user->save();
+		$this->userRepository->update($user, [
+			'avatar' => null,
+		]);
 
 		return redirect()->route('account.picture');
 	}
@@ -141,9 +142,9 @@ class AccountController extends Controller
 		// Crop the image into place.
 		$this->imageManager->cropImageTo($source, $destination);
 
-		// Save the image.
-		$user->avatar = $fileName;
-		$user->save();
+		$this->userRepository->update($user, [
+			'avatar' => $fileName,
+		]);
 
 		return redirect()->route('account.picture');
 	}
