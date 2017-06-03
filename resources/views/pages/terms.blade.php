@@ -7,7 +7,7 @@
 		<div class="row column">
 			<h2>One More Video Terms of Service and Privacy Policy</h2>
 
-			<h3>1. Terms</h3>
+			<h3>1. Agreement</h3>
 
 			<p>By accessing the website at <a href="https://www.onemorevideo.com">https://www.onemorevideo.com</a>, you are agreeing to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this website are protected by applicable copyright and trademark law.</p>
 
@@ -34,9 +34,33 @@
 
 			<p>One More Video may revise these terms of service for its website at any time without notice. By using this website you are agreeing to be bound by the then current version of these terms of service.</p>
 
-			<h3>7. Governing Law</h3>
+			<h3>7. Governing law</h3>
 
 			<p>These terms and conditions are governed by and construed in accordance with the laws of Oregon, USA and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.</p>
+
+			<h3>8. Content</h3>
+
+			<p>
+				By submitting content to One More Video (videos, text, images, etc.), you are expressly granting One More Video permission to use said content for public viewing.
+			</p>
+
+			<p>
+				You are expressly prohibited from submitting any content that is threatening, obscene, pornographic, or in ANY WAY unlawful (including laws involving copyrighted content).
+			</p>
+
+			<h3>9. Content removal and site restriction</h3>
+
+			<p>
+				One More Video reserves the right, at its sole discretion, to remove any user submitted content from its site for any reason.
+			</p>
+
+			<p>
+				One More Video reserves the right, at its sole discretion, to limit access to the site by any users for any reason.
+			</p>
+
+			<p>
+				One More Video disclaims any and all liability with respect to the misuse of its website.
+			</p>
 
 			<h2>Privacy Policy</h2>
 
