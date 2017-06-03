@@ -17,6 +17,7 @@
 	flushes
 	optimizations
 	switch
+	purge
 @endstory
 
 @task('git')
@@ -75,4 +76,10 @@
 	ln -sfvT {{ $releasesPath }}/{{ $release }} {{ $currentLink }};
 	sudo systemctl reload php7.0-fpm.service;
 	php artisan queue:restart;
+@endtask
+
+{{-- Delete all but the latest 3 releases --}}
+@task('purge')
+	cd {{ $releasesPath }}
+	ls -t | tail -n +4 | xargs rm -vrf
 @endtask
