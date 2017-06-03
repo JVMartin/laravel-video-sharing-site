@@ -80,6 +80,7 @@
 
 {{-- Delete all but the latest 3 releases --}}
 @task('purge')
-	cd {{ $releasesPath }}
-	ls -t | tail -n +4 | xargs rm -vrf
+	echo "Purging old releases...";
+	cd {{ $releasesPath }};
+	ls -t | tail -n +4 | xargs rm -vrf;
 @endtask
