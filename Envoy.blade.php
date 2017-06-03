@@ -82,5 +82,5 @@
 @task('purge')
 	echo "Purging old releases...";
 	cd {{ $releasesPath }};
-	ls -t | tail -n +4 | xargs rm -vrf;
+	ls -t | tail -n +4 | xargs rm -rf;
 @endtask
