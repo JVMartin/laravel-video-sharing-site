@@ -157,9 +157,12 @@ class AuthManager
 			$last_name = null;
 		}
 
-		if ( ! strlen($user->first_name)) $user->first_name = $first_name;
-		if ( ! strlen($user->last_name)) $user->last_name = $last_name;
-		$user->save();
+		$updates = [];
+
+		if ( ! strlen($user->first_name)) $updates['first_name'] = $first_name;
+		if ( ! strlen($user->last_name)) $updates['last_name'] = $last_name;
+
+		$this->userRepository->update($user, $updates);
 
 		// Save their avatar.
 		dispatch(new DownloadAvatar($user, $fbUser->avatar_original));
@@ -197,9 +200,12 @@ class AuthManager
 	 */
 	private function fillGoogleUser(User $user, Google_Service_Oauth2_Userinfoplus $googleUser)
 	{
-		if ( ! strlen($user->first_name)) $user->first_name = $googleUser->givenName;
-		if ( ! strlen($user->last_name)) $user->last_name   = $googleUser->familyName;
-		$user->save();
+		$updates = [];
+
+		if ( ! strlen($user->first_name)) $updates['first_name'] = $googleUser->givenName;
+		if ( ! strlen($user->last_name)) $updates['last_name'] = $googleUser->familyName;
+
+		$this->userRepository->update($user, $updates);
 
 		// Save their avatar.
 		dispatch(new DownloadAvatar($user, $googleUser->picture));

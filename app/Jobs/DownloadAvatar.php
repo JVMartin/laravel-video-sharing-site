@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use App\Services\ImageManager;
+use App\Repositories\UserRepository;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -37,6 +38,7 @@ class DownloadAvatar implements ShouldQueue
 	public function handle()
 	{
 		$imageManager = app(ImageManager::class);
+		$userRepository = app(UserRepository::class);
 
 		if ( ! strlen($this->url)) {
 			return;
@@ -59,7 +61,8 @@ class DownloadAvatar implements ShouldQueue
 
 		$imageManager->cropImageTo($origFilePath, $filePath);
 
-		$this->user->avatar = $fileName;
-		$this->user->save();
+		$userRepository->update($this->user, [
+			'avatar' => $fileName,
+		]);
 	}
 }
