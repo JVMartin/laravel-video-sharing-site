@@ -32,6 +32,12 @@
 	<div id="master" class="row column">
 		@include('_messages')
 		@yield('content')
+		<div class="row column text-right">
+			&copy; {{ date('Y') }} OneMoreVideo |
+			<a href="{{ route('terms') }}">
+				Terms of Service
+			</a>
+		</div>
 	</div>
 	@if (Auth::guest())
 		@include('modals.sign-in')
