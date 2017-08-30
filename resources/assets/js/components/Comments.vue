@@ -72,6 +72,9 @@
 			<div v-if="user">
 				<textarea :id="wysiwygId"></textarea>
 				<div class="row column text-right postCommentWrap">
+					<button type="button" class="button hollow" v-if="parent_comment && parent_comment.replying" v-on:click="parent_comment.replying = false;">
+						Cancel
+					</button>
 					<button type="submit" class="button" v-on:click="submitComment">
 						Post {{ action }}
 					</button>
