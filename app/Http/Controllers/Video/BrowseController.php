@@ -28,7 +28,7 @@ class BrowseController extends Controller
 	public function getHome()
 	{
 		return view('video.browse', [
-			'submissions' => $this->browseManager->home()
+			'submissions' => $this->browseManager->home(),
 		]);
 	}
 
@@ -38,7 +38,7 @@ class BrowseController extends Controller
 	public function getMyFeed()
 	{
 		return view('video.browse', [
-			'submissions' => $this->browseManager->feed()
+			'submissions' => $this->browseManager->feed(),
 		]);
 	}
 
