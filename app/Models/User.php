@@ -118,4 +118,9 @@ class User extends Model implements
 	{
 		return $this->url();
 	}
+
+	public function isAdmin()
+	{
+		return ($this->role == 'admin');
+	}
 }
