@@ -1,4 +1,4 @@
-<section id="partialsHeader">
+<section id="header">
 	<div class="title-bar" data-responsive-toggle="headerMenu" data-hide-for="medium">
 		<button class="menu-icon" type="button" data-toggle></button>
 		<a href="{{ route('home') }}" class="brand">
@@ -61,7 +61,7 @@
 					@else
 						<li>
 							<a class="button" data-open="modalsSignIn">
-								Sign In
+								Sign In or Register
 							</a>
 						</li>
 					@endif

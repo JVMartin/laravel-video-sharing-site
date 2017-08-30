@@ -4,6 +4,16 @@
 
 @section('content')
 	<section id="videoBrowse">
+		@if ( ! Auth::check() && Request::is('/') && ! Request::fullUrlIs('*?*'))
+			<div class="text-center">
+				<h2>Welcome to One More Video!</h2>
+				<p>This is a video sharing community where we share and talk about our favorite videos.</p>
+				<p>
+					<a data-open="modalsSignIn">Sign in or register</a>
+					to post some videos, or feel free to browse user submissions below!
+				</p>
+			</div>
+		@endif
 		@if (isset($tag))
 			<div class="row column">
 				<h4>Showing videos tagged "{{ $tag->name }}"...</h4>
