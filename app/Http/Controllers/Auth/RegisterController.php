@@ -25,9 +25,9 @@ class RegisterController extends Controller
 	{
 		$this->validate($request, [
 			'email' => 'required|max:255|unique:users',
-			'password' => 'required|min:6'
+			'password' => 'required|min:6',
 		], [
-			'email.unique' => 'There is already an account associated with that email.'
+			'email.unique' => 'There is already an account associated with that email.',
 		]);
 
 		$this->authManager->register($request->only('email', 'password'));

@@ -98,7 +98,7 @@ class SubmitController extends Controller
 		}
 
 		return view('video.submit.get-details', [
-			'video' => $video
+			'video' => $video,
 		]);
 	}
 
@@ -126,7 +126,7 @@ class SubmitController extends Controller
 			'user_id' => Auth::user()->id,
 			'title' => $request->title,
 			'tags' => $request->tags,
-			'description' => $request->description
+			'description' => $request->description,
 		]);
 
 		// Automatically updoot our own submission.

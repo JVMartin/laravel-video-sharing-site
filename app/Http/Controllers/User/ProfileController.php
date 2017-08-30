@@ -15,6 +15,11 @@ class ProfileController extends Controller
 	protected $userRepository;
 
 	/**
+	 * @var BrowseManager
+	 */
+	protected $browseManager;
+
+	/**
 	 * @var CommentRepository
 	 */
 	protected $commentRepository;
@@ -52,7 +57,7 @@ class ProfileController extends Controller
 
 		return view('users.browse', [
 			'user' => $user,
-			'submissions' => $this->browseManager->byUser($user)
+			'submissions' => $this->browseManager->byUser($user),
 		]);
 	}
 
@@ -62,7 +67,7 @@ class ProfileController extends Controller
 
 		return view('users.comments', [
 			'user' => $user,
-			'comments' => $this->commentRepository->getCommentsProfile($user)
+			'comments' => $this->commentRepository->getCommentsProfile($user),
 		]);
 	}
 }

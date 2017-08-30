@@ -17,13 +17,13 @@ class SignInController extends Controller
 	public function __construct(AuthManager $authManager)
 	{
 		$this->middleware('throttle:10,10', [
-			'only' => ['postSignIn']
+			'only' => ['postSignIn'],
 		]);
 		$this->middleware('guest', [
-			'only' => ['postSignIn']
+			'only' => ['postSignIn'],
 		]);
 		$this->middleware('auth', [
-			'only' => ['getSignOut']
+			'only' => ['getSignOut'],
 		]);
 
 		$this->authManager = $authManager;
@@ -37,12 +37,12 @@ class SignInController extends Controller
 	{
 		$this->validate($request, [
 			'email' => 'required',
-			'password' => 'required'
+			'password' => 'required',
 		]);
 
 		$success = $this->authManager->signIn($request->only([
 			'email',
-			'password'
+			'password',
 		]), $request->has('remember'));
 
 		if ( ! $success) {

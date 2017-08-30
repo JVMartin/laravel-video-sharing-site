@@ -38,7 +38,7 @@ class ViewController extends Controller
 		$this->submissionManager->markUserVote($submission);
 
 		return view('video.view', [
-			'submission' => $submission
+			'submission' => $submission,
 		]);
 	}
 }

@@ -30,7 +30,7 @@ class CommentController extends Controller
 		$this->commentManager = $commentManager;
 
 		$this->middleware('auth', [
-			'only' => ['postCommentOnSubmission', 'postVote']
+			'only' => ['postCommentOnSubmission', 'postVote'],
 		]);
 	}
 

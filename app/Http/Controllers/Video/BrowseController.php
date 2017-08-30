@@ -16,7 +16,7 @@ class BrowseController extends Controller
 	public function __construct(BrowseManager $browseManager)
 	{
 		$this->middleware('auth', [
-			'only' => ['getMyFeed']
+			'only' => ['getMyFeed'],
 		]);
 
 		$this->browseManager = $browseManager;
