@@ -4,7 +4,7 @@
 			:class="'button followButton ' + (followingBoolean ? 'disabledFake' : '')"
 			v-text="followingText"
 			v-on:click="follow"
-		    v-if="leader_hash != user.hash"
+		    v-if=" ! user || leader_hash != user.hash"
 		>
 		</button>
 	</div>
