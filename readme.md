@@ -1,4 +1,11 @@
-# Installation
+# Laravel Video Sharing Site
+
+This is a video sharing website with a democratic (Reddit-like / Imgur-like)
+voting system.
+
+I'm making this website open-source for the time being.
+
+## Dusk tests on headless server
 To prepare to run tests on a headless server:
 ```
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
